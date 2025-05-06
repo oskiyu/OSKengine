@@ -3,6 +3,8 @@ var class_o_s_k_1_1_e_c_s_1_1_collision_system =
     [ "_SetDependencies", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a2239551fafeab2592dc35cddc17305d3", null ],
     [ "_SetSignature", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a4fdd39a45a60a3921398d8fe68884a99", null ],
     [ "Activate", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#ad45cabb31dc788fbc37feaed82fd99d8", null ],
+    [ "AddBroadCollisionDetector", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a3861cf47aed23ce2a74908f4d5a2ff44", null ],
+    [ "AddDetailedCollisionDetector", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a1c7f35ec1c56c8eb561b54810e0b5f19", null ],
     [ "CastRay", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a225ca90a347828ab549f11ea34453db0", null ],
     [ "Deactivate", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a2d6aa3dc12aa77cc9109b920ddca4225", null ],
     [ "Execute", "class_o_s_k_1_1_e_c_s_1_1_collision_system.html#a8d1360e5cec5e27b5433fae1c34ab49e", null ],

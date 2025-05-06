@@ -1,13 +1,12 @@
 var class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider =
 [
-    [ "AddBottomLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a844f9fee54d9e35ec57eb4eca7e02625", null ],
+    [ "AddBottomLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#ae5efc8c415951b6e69b8d142bb793ee7", null ],
     [ "CopyFrom", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#afc5934c2a5d91206509381167da7a231", null ],
-    [ "GetBottomLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#afd1963385bf148460ad71d2d8b2f4a6e", null ],
-    [ "GetBottomLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#aa45cd0660c95903f94d63ffd99294afb", null ],
+    [ "GetBottomLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#af2b6e0b578ae4a35dc6f0983dd42cad8", null ],
+    [ "GetBottomLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a72ed635d8a9b1ed313f47d18b23dda45", null ],
     [ "GetBottomLevelCollidersCount", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#ad2a8812b48aafca6938f1f72ff29db5d", null ],
-    [ "GetCollisionInfo", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a39f1e39a1c696272a0ed20cb7b26faca", null ],
-    [ "GetTopLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#ab1e73144461cd3c7dbaee795d69bf1b2", null ],
-    [ "GetTopLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a5a1b4838806e5f6572d9e5b041d66826", null ],
+    [ "GetTopLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#aa336c29f6962c3ca962a577734918323", null ],
+    [ "GetTopLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a3db7220df93674f8b43e11321b56f971", null ],
     [ "OSK_SERIALIZABLE", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a4184dba7e64064ee48bfc6bc5f6686f4", null ],
-    [ "SetTopLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a8ba8b35b6b6f68a72ef93782d4fcced2", null ]
+    [ "SetTopLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_collider.html#a786d4d9991eaf62901485d4eb8def932", null ]
 ];

@@ -51,7 +51,7 @@ var searchData=
   ['viewmatrix_48',['viewMatrix',['../struct_o_s_k_1_1_e_c_s_1_1_deferred_render_system_1_1_camera_info.html#aa1ce207bc70a280830f32bf745544a6a',1,'OSK::ECS::DeferredRenderSystem::CameraInfo::viewMatrix'],['../struct_o_s_k_1_1_e_c_s_1_1_deferred_render_system_1_1_previous_camera_info.html#a345b927dbd4a5179ef87a5c33aa14a81',1,'OSK::ECS::DeferredRenderSystem::PreviousCameraInfo::viewMatrix']]],
   ['viewport_49',['Viewport',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_viewport.html',1,'OSK::GRAPHICS']]],
   ['viewusage_50',['ViewUsage',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#ade40ecf1619c14b53344301c1eca1bca',1,'OSK::GRAPHICS']]],
-  ['volume_51',['Volume',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_minkowski_hull.html#a6ba4f9d0cc677b0971fd3d823e29a4f1',1,'OSK::COLLISION::MinkowskiHull']]],
+  ['volume_51',['Volume',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull.html#a845e6fcfd9447a3ad178d7acfe0804f3',1,'OSK::COLLISION::FullMinkowskiHull']]],
   ['volumen_20de_20colisión_203d_52',['Archivo de descripción de volumen de colisión 3D.',['../_pre_built_collider3_d_file.html',1,'jsonfiles']]],
   ['vsync_5foff_53',['VSYNC_OFF',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28aba61f5be3d7713d75f23e81b12d369f7b2',1,'OSK::GRAPHICS']]],
   ['vsync_5fon_54',['VSYNC_ON',['../namespace_o_s_k_1_1_g_r_a_p_h_i_c_s.html#a47a7b3817b8aca438c20b7674fad28abaa92c385ce9a5a1037c3843fd17500094',1,'OSK::GRAPHICS']]],

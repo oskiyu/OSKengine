@@ -74,7 +74,7 @@ var searchData=
   ['freecontainer_71',['FreeContainer',['../class_o_s_k_1_1_u_i_1_1_free_container.html',1,'OSK::UI::FreeContainer'],['../class_o_s_k_1_1_u_i_1_1_free_container.html#af56dc48e27f9026798f580c50722b577',1,'OSK::UI::FreeContainer::FreeContainer()']]],
   ['freestagingmemory_72',['FreeStagingMemory',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_allocator.html#af41e891d6c39de6dd5fc95e7b9fe8eba',1,'OSK::GRAPHICS::IGpuMemoryAllocator']]],
   ['frictioncoefficient_73',['frictionCoefficient',['../class_o_s_k_1_1_e_c_s_1_1_physics_component.html#aca400926c4aac6f1f181a8675fde8e01',1,'OSK::ECS::PhysicsComponent']]],
-  ['from_74',['From',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_buffer_content2_d.html#a8fa147e05d945ecdd291e5f0c5051e43',1,'OSK::GRAPHICS::SdfBindlessBufferContent2D']]],
+  ['from_74',['From',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_epa_minkowski_hull.html#a485dad84d616d3fa54bcef6defef4257',1,'OSK::COLLISION::EpaMinkowskiHull::From()'],['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_buffer_content2_d.html#a8fa147e05d945ecdd291e5f0c5051e43',1,'OSK::GRAPHICS::SdfBindlessBufferContent2D::From()']]],
   ['frombytes_75',['FromBytes',['../class_o_s_k_1_1_color.html#a701abb7cdee003efa0a3f753aaa5d7db',1,'OSK::Color::FromBytes(TByte r, TByte g, TByte b)'],['../class_o_s_k_1_1_color.html#a9db25606119b2d814f48895d9bd54334',1,'OSK::Color::FromBytes(TByte r, TByte g, TByte b, TByte a)']]],
   ['fromdata_76',['FromData',['../class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html#abbaaf1d36d5e56c60e2907f4a9367b11',1,'OSK::PERSISTENCE::BinaryBlock']]],
   ['fromglm_77',['FromGlm',['../class_o_s_k_1_1_quaternion.html#a0cbf0edcbfd33647de6fa20d641d2216',1,'OSK::Quaternion']]],
@@ -84,7 +84,8 @@ var searchData=
   ['frontfacetype_81',['frontFaceType',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pipeline_create_info.html#a735bb08e92ec77c4f39f8a80ebf1c149',1,'OSK::GRAPHICS::PipelineCreateInfo']]],
   ['fuente_20de_20texto_82',['Archivo de descripción de una fuente de texto.',['../_font_file.html',1,'jsonfiles']]],
   ['full_83',['full',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_buffer_range.html#a541f8842caa7fbdcdc7eafacc4fd4bfd',1,'OSK::GRAPHICS::GpuBufferRange']]],
-  ['fully_5fcentered_84',['FULLY_CENTERED',['../namespace_o_s_k_1_1_u_i.html#a11a2d616034d52a2903a58d5de6739f9a08ea88e761ae4c8913e5efa6d8ff9112',1,'OSK::UI']]],
-  ['fullyload_85',['FullyLoad',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#aaa7cca8f691333ae0d86b1ea430f2540',1,'OSK::ASSETS::IAssetLoader']]],
-  ['fxaapass_86',['FxaaPass',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_fxaa_pass.html',1,'OSK::GRAPHICS']]]
+  ['fullminkowskihull_84',['FullMinkowskiHull',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull.html',1,'OSK::COLLISION']]],
+  ['fully_5fcentered_85',['FULLY_CENTERED',['../namespace_o_s_k_1_1_u_i.html#a11a2d616034d52a2903a58d5de6739f9a08ea88e761ae4c8913e5efa6d8ff9112',1,'OSK::UI']]],
+  ['fullyload_86',['FullyLoad',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_i_asset_loader.html#aaa7cca8f691333ae0d86b1ea430f2540',1,'OSK::ASSETS::IAssetLoader']]],
+  ['fxaapass_87',['FxaaPass',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_fxaa_pass.html',1,'OSK::GRAPHICS']]]
 ];

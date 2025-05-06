@@ -1,22 +1,6 @@
 var searchData=
 [
-  ['rawassetfilenotfoundexception_0',['RawAssetFileNotFoundException',['../class_o_s_k_1_1_a_s_s_e_t_s_1_1_raw_asset_file_not_found_exception.html',1,'OSK::ASSETS']]],
-  ['ray_1',['Ray',['../struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html',1,'OSK::COLLISION']]],
-  ['raycastresult_2',['RayCastResult',['../class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html',1,'OSK::COLLISION']]],
-  ['raytracingnotsupportedexception_3',['RayTracingNotSupportedException',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_ray_tracing_not_supported_exception.html',1,'OSK::GRAPHICS']]],
-  ['renderboundsrenderer_4',['RenderBoundsRenderer',['../class_o_s_k_1_1_e_c_s_1_1_render_bounds_renderer.html',1,'OSK::ECS']]],
-  ['renderboundsrendersystemcontroller_5',['RenderBoundsRenderSystemController',['../class_o_s_k_1_1_editor_1_1_controllers_1_1_render_bounds_render_system_controller.html',1,'OSK::Editor::Controllers']]],
-  ['renderboundsrendersystemview_6',['RenderBoundsRenderSystemView',['../class_o_s_k_1_1_editor_1_1_views_1_1_render_bounds_render_system_view.html',1,'OSK::Editor::Views']]],
-  ['renderednotcreatedexception_7',['RenderedNotCreatedException',['../class_o_s_k_1_1_rendered_not_created_exception.html',1,'OSK']]],
-  ['renderercreationexception_8',['RendererCreationException',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_renderer_creation_exception.html',1,'OSK::GRAPHICS']]],
-  ['renderpassimageinfo_9',['RenderPassImageInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_pass_image_info.html',1,'OSK::GRAPHICS']]],
-  ['rendersystem2d_10',['RenderSystem2D',['../class_o_s_k_1_1_e_c_s_1_1_render_system2_d.html',1,'OSK::ECS']]],
-  ['rendertarget_11',['RenderTarget',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target.html',1,'OSK::GRAPHICS']]],
-  ['rendertargetattachment_12',['RenderTargetAttachment',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment.html',1,'OSK::GRAPHICS']]],
-  ['rendertargetattachmentinfo_13',['RenderTargetAttachmentInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_render_target_attachment_info.html',1,'OSK::GRAPHICS']]],
-  ['resolutionchangedevent_14',['ResolutionChangedEvent',['../struct_o_s_k_1_1_i_o_1_1_i_display_1_1_resolution_changed_event.html',1,'OSK::IO::IDisplay']]],
-  ['resourcequeuetransferinfo_15',['ResourceQueueTransferInfo',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_resource_queue_transfer_info.html',1,'OSK::GRAPHICS']]],
-  ['reusablememorysubblock_16',['ReusableMemorySubblock',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_memory_block_1_1_reusable_memory_subblock.html',1,'OSK::GRAPHICS::IGpuMemoryBlock']]],
-  ['rtrendertarget_17',['RtRenderTarget',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_render_target.html',1,'OSK::GRAPHICS']]],
-  ['rtshaderbindingtablecreationexception_18',['RtShaderBindingTableCreationException',['../class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_rt_shader_binding_table_creation_exception.html',1,'OSK::GRAPHICS']]]
+  ['quaternion_0',['Quaternion',['../class_o_s_k_1_1_quaternion.html',1,'OSK']]],
+  ['queuefamiles_1',['QueueFamiles',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_familes.html',1,'OSK::GRAPHICS']]],
+  ['queuefamily_2',['QueueFamily',['../struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_queue_family.html',1,'OSK::GRAPHICS']]]
 ];

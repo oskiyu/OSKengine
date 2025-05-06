@@ -6,7 +6,7 @@ var class_o_s_k_1_1_unique_ptr =
     [ "UniquePtr", "class_o_s_k_1_1_unique_ptr.html#a8c0ae0dfdd42a443d8cd79bb9784daf1", null ],
     [ "UniquePtr", "class_o_s_k_1_1_unique_ptr.html#a0d8d3c1bde6797cf0d046cd7ae1192d5", null ],
     [ "Delete", "class_o_s_k_1_1_unique_ptr.html#ad4cd6d4d8678d202c3219a357a781f49", null ],
-    [ "Delete", "class_o_s_k_1_1_unique_ptr.html#adf7fad82162dcb8841762d4d3f46e2f9", null ],
+    [ "Delete", "class_o_s_k_1_1_unique_ptr.html#a81c9dd351b1e554dcf7a81ad53e6f53f", null ],
     [ "explicit", "class_o_s_k_1_1_unique_ptr.html#a909ead3f94eb43a07d8975655cdb531b", null ],
     [ "GetDeleter", "class_o_s_k_1_1_unique_ptr.html#a3f4410cc3ff9ee181a0557baa48eb23b", null ],
     [ "GetPointer", "class_o_s_k_1_1_unique_ptr.html#a495b7d8cddb6f32a5bc81a2968a53f1a", null ],

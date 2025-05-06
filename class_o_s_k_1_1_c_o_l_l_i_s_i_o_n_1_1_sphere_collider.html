@@ -100,7 +100,7 @@ $(function(){initNavTree('class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Métodos públicos</a> &#124;
-<a href="#pro-static-methods">Métodos protegidos estáticos</a> &#124;
+<a href="#pro-methods">Métodos protegidos</a> &#124;
 <a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider-members.html">Lista de todos los miembros</a>  </div>
   <div class="headertitle"><div class="title">Referencia de la clase OSK::COLLISION::SphereCollider</div></div>
 </div><!--header-->
@@ -116,43 +116,55 @@ Métodos públicos</h2></td></tr>
 <tr class="separator:a0ae2da17551ab0b26801c6ba3f09cfec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ebbd6ce128bedbb2ed6fc2d8cd36f3c" id="r_a4ebbd6ce128bedbb2ed6fc2d8cd36f3c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ebbd6ce128bedbb2ed6fc2d8cd36f3c">SphereCollider</a> (float radius)</td></tr>
 <tr class="separator:a4ebbd6ce128bedbb2ed6fc2d8cd36f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acec7f2c0acc353667c12d9cd38b291ff" id="r_acec7f2c0acc353667c12d9cd38b291ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html">ITopLevelCollider</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acec7f2c0acc353667c12d9cd38b291ff">CreateCopy</a> () const override</td></tr>
-<tr class="separator:acec7f2c0acc353667c12d9cd38b291ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a361680e8d9617448e8f9867fe8d84022" id="r_a361680e8d9617448e8f9867fe8d84022"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_broad_collider.html">IBroadCollider</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a361680e8d9617448e8f9867fe8d84022">CreateBroadCopy</a> () const override</td></tr>
+<tr class="separator:a361680e8d9617448e8f9867fe8d84022"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef3a6d0c0c96deb237cf4f2f1a1778cb" id="r_aef3a6d0c0c96deb237cf4f2f1a1778cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_narrow_collider.html">INarrowCollider</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef3a6d0c0c96deb237cf4f2f1a1778cb">CreateNarrowCopy</a> () const override</td></tr>
+<tr class="separator:aef3a6d0c0c96deb237cf4f2f1a1778cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1fc994c3b9caa0953597288a516b43a" id="r_ac1fc994c3b9caa0953597288a516b43a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac1fc994c3b9caa0953597288a516b43a">SetRadius</a> (float radius)</td></tr>
 <tr class="separator:ac1fc994c3b9caa0953597288a516b43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9887f7bc7f2da48dcd96192ac1ba5f38" id="r_a9887f7bc7f2da48dcd96192ac1ba5f38"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9887f7bc7f2da48dcd96192ac1ba5f38">GetRadius</a> () const</td></tr>
 <tr class="separator:a9887f7bc7f2da48dcd96192ac1ba5f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01c61c0fa78502cf797328fe8f7f02f9" id="r_a01c61c0fa78502cf797328fe8f7f02f9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a01c61c0fa78502cf797328fe8f7f02f9">ContainsPoint</a> (const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;point) const override</td></tr>
-<tr class="separator:a01c61c0fa78502cf797328fe8f7f02f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66215f6e59ce147677f1389840a3bd7b" id="r_a66215f6e59ce147677f1389840a3bd7b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66215f6e59ce147677f1389840a3bd7b">IsBehindPlane</a> (<a class="el" href="struct_o_s_k_1_1_plane.html">Plane</a> plane) const override</td></tr>
-<tr class="separator:a66215f6e59ce147677f1389840a3bd7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b846414c3ea6c7cdb38b237d70ca31c" id="r_a3b846414c3ea6c7cdb38b237d70ca31c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray_cast_result.html">RayCastResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b846414c3ea6c7cdb38b237d70ca31c">CastRay</a> (const <a class="el" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_ray.html">Ray</a> &amp;ray) const override</td></tr>
 <tr class="separator:a3b846414c3ea6c7cdb38b237d70ca31c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68283d0ccbcb4f54cd848f3be2fcc130" id="r_a68283d0ccbcb4f54cd848f3be2fcc130"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68283d0ccbcb4f54cd848f3be2fcc130">IsColliding</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html">ITopLevelCollider</a> &amp;other) const override</td></tr>
-<tr class="separator:a68283d0ccbcb4f54cd848f3be2fcc130"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00e8239b01b8eeff8cbdcff1b4b0a3e2" id="r_a00e8239b01b8eeff8cbdcff1b4b0a3e2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a00e8239b01b8eeff8cbdcff1b4b0a3e2">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html">ITopLevelCollider</a>)</td></tr>
-<tr class="separator:a00e8239b01b8eeff8cbdcff1b4b0a3e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e091a94aa54d26d77726117bec626d3" id="r_a9e091a94aa54d26d77726117bec626d3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a9e091a94aa54d26d77726117bec626d3">IsInsideFrustum</a> (const <a class="el" href="namespace_o_s_k.html#aea2ae74d72c40655808c8e6c73d810a3">AnyFrustum</a> &amp;frustum) const</td></tr>
-<tr class="separator:a9e091a94aa54d26d77726117bec626d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae277a42277fb593dfa5dff4248f4cde4" id="r_ae277a42277fb593dfa5dff4248f4cde4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae277a42277fb593dfa5dff4248f4cde4">SetPosition</a> (const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;position)</td></tr>
-<tr class="separator:ae277a42277fb593dfa5dff4248f4cde4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1be71ba2c65e3972b15ab6f6af075aa" id="r_ae1be71ba2c65e3972b15ab6f6af075aa"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ae1be71ba2c65e3972b15ab6f6af075aa">GetPosition</a> () const</td></tr>
-<tr class="separator:ae1be71ba2c65e3972b15ab6f6af075aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81675d5fe607abace40e997368c47fe8" id="r_a81675d5fe607abace40e997368c47fe8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_gjk_support.html">GjkSupport</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81675d5fe607abace40e997368c47fe8">GetSupport</a> (const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;direction) const override</td></tr>
+<tr class="separator:a81675d5fe607abace40e997368c47fe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac50518f6574c4262defe4b535dde37c8" id="r_ac50518f6574c4262defe4b535dde37c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_broad_collider.html#ac50518f6574c4262defe4b535dde37c8">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_broad_collider.html">IBroadCollider</a>)</td></tr>
+<tr class="separator:ac50518f6574c4262defe4b535dde37c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c730c2ce6cf3e2dc7f205067075becb" id="r_a0c730c2ce6cf3e2dc7f205067075becb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_broad_collider.html#a0c730c2ce6cf3e2dc7f205067075becb">_SetBroadOwner</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_broad_collider_holder.html">BroadColliderHolder</a> *owner)</td></tr>
+<tr class="separator:a0c730c2ce6cf3e2dc7f205067075becb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24f9964fb50bfbac36c335a096239486" id="r_a24f9964fb50bfbac36c335a096239486"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_gjk_collider.html#a24f9964fb50bfbac36c335a096239486">ContainsPoint</a> (const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;point) const</td></tr>
+<tr class="separator:a24f9964fb50bfbac36c335a096239486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fbec8faa65f464438b307f231a540f1" id="r_a6fbec8faa65f464438b307f231a540f1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_gjk_collider.html#a6fbec8faa65f464438b307f231a540f1">IsBehindPlane</a> (<a class="el" href="struct_o_s_k_1_1_plane.html">Plane</a> plane) const</td></tr>
+<tr class="separator:a6fbec8faa65f464438b307f231a540f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02c47053df332f6ec975ce26239a9948" id="r_a02c47053df332f6ec975ce26239a9948"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_gjk_collider.html#a02c47053df332f6ec975ce26239a9948">IsFullyBehindPlane</a> (<a class="el" href="struct_o_s_k_1_1_plane.html">Plane</a> plane) const</td></tr>
+<tr class="separator:a02c47053df332f6ec975ce26239a9948"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64c599fc78bd0160a9d6e5a8f1a20f74" id="r_a64c599fc78bd0160a9d6e5a8f1a20f74"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_gjk_collider.html#a64c599fc78bd0160a9d6e5a8f1a20f74">IsInsideFrustum</a> (const <a class="el" href="namespace_o_s_k.html#aea2ae74d72c40655808c8e6c73d810a3">AnyFrustum</a> &amp;frustum) const</td></tr>
+<tr class="separator:a64c599fc78bd0160a9d6e5a8f1a20f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb6d11616a686bcba139815baf2a5ef1" id="r_adb6d11616a686bcba139815baf2a5ef1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_narrow_collider.html#adb6d11616a686bcba139815baf2a5ef1">OSK_DEFINE_AS</a> (<a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_narrow_collider.html">INarrowCollider</a>)</td></tr>
+<tr class="separator:adb6d11616a686bcba139815baf2a5ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3029ccb30b0b24d161a94b1a623dd00" id="r_af3029ccb30b0b24d161a94b1a623dd00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_narrow_collider.html#af3029ccb30b0b24d161a94b1a623dd00">_SetNarrowOwner</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder.html">NarrowColliderHolder</a> *owner)</td></tr>
+<tr class="separator:af3029ccb30b0b24d161a94b1a623dd00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab54bdee6159b9abd62a9568333d3c4a0" id="r_ab54bdee6159b9abd62a9568333d3c4a0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_narrow_collider.html#ab54bdee6159b9abd62a9568333d3c4a0">OnTransform</a> ()</td></tr>
+<tr class="separator:ab54bdee6159b9abd62a9568333d3c4a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fbec8faa65f464438b307f231a540f1" id="r_a6fbec8faa65f464438b307f231a540f1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_gjk_collider.html#a6fbec8faa65f464438b307f231a540f1">IsBehindPlane</a> (<a class="el" href="struct_o_s_k_1_1_plane.html">Plane</a> plane) const</td></tr>
+<tr class="separator:a6fbec8faa65f464438b307f231a540f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02c47053df332f6ec975ce26239a9948" id="r_a02c47053df332f6ec975ce26239a9948"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_gjk_collider.html#a02c47053df332f6ec975ce26239a9948">IsFullyBehindPlane</a> (<a class="el" href="struct_o_s_k_1_1_plane.html">Plane</a> plane) const</td></tr>
+<tr class="separator:a02c47053df332f6ec975ce26239a9948"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64c599fc78bd0160a9d6e5a8f1a20f74" id="r_a64c599fc78bd0160a9d6e5a8f1a20f74"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_gjk_collider.html#a64c599fc78bd0160a9d6e5a8f1a20f74">IsInsideFrustum</a> (const <a class="el" href="namespace_o_s_k.html#aea2ae74d72c40655808c8e6c73d810a3">AnyFrustum</a> &amp;frustum) const</td></tr>
+<tr class="separator:a64c599fc78bd0160a9d6e5a8f1a20f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
-Métodos protegidos estáticos</h2></td></tr>
-<tr class="memitem:a934b9aca49dcb9df9c740dcf8d4e8112" id="r_a934b9aca49dcb9df9c740dcf8d4e8112"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a934b9aca49dcb9df9c740dcf8d4e8112">AabbAabbCollision</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a> &amp;first, const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a> &amp;other)</td></tr>
-<tr class="separator:a934b9aca49dcb9df9c740dcf8d4e8112"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a000a8139b279ada1cfbf2fccc8438e84" id="r_a000a8139b279ada1cfbf2fccc8438e84"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a000a8139b279ada1cfbf2fccc8438e84">AabbSphereCollision</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a> &amp;first, const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;other)</td></tr>
-<tr class="separator:a000a8139b279ada1cfbf2fccc8438e84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8afea2142685014cad8502daf80cc10" id="r_ab8afea2142685014cad8502daf80cc10"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ab8afea2142685014cad8502daf80cc10">SphereSphereCollision</a> (const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;first, const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;other)</td></tr>
-<tr class="separator:ab8afea2142685014cad8502daf80cc10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Métodos protegidos</h2></td></tr>
+<tr class="memitem:a10e744caaf5715765af5715f2770c41b" id="r_a10e744caaf5715765af5715f2770c41b"><td class="memItemLeft" align="right" valign="top">std::optional&lt; const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_broad_collider_holder.html">BroadColliderHolder</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_broad_collider.html#a10e744caaf5715765af5715f2770c41b">GetBroadOwner</a> () const</td></tr>
+<tr class="separator:a10e744caaf5715765af5715f2770c41b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace3adabc48252d8e923f75eb5a250734" id="r_ace3adabc48252d8e923f75eb5a250734"><td class="memItemLeft" align="right" valign="top">std::optional&lt; const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder.html">NarrowColliderHolder</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_narrow_collider.html#ace3adabc48252d8e923f75eb5a250734">GetNarrowOwner</a> () const</td></tr>
+<tr class="separator:ace3adabc48252d8e923f75eb5a250734"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
 <div class="textblock"><p>Un área de colisión de alto nivel representado por una esfera. </p>
 <p>Por defecto, tiene radio 1. </p>
 
-<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8h_source.html#l00016">16</a> del archivo <a class="el" href="_sphere_collider_8h_source.html">SphereCollider.h</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8h_source.html#l00017">17</a> del archivo <a class="el" href="_sphere_collider_8h_source.html">SphereCollider.h</a>.</p>
 </div><h2 class="groupheader">Documentación de constructores y destructores</h2>
 <a id="a0ae2da17551ab0b26801c6ba3f09cfec" name="a0ae2da17551ab0b26801c6ba3f09cfec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ae2da17551ab0b26801c6ba3f09cfec">&#9670;&#160;</a></span>SphereCollider() <span class="overload">[1/2]</span></h2>
@@ -172,7 +184,7 @@ Métodos protegidos estáticos</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel default">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel explicit">explicit</span><span class="mlabel default">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -186,6 +198,9 @@ Métodos protegidos estáticos</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">SphereCollider::SphereCollider </td>
@@ -194,15 +209,20 @@ Métodos protegidos estáticos</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Documentación de funciones miembro</h2>
-<a id="a934b9aca49dcb9df9c740dcf8d4e8112" name="a934b9aca49dcb9df9c740dcf8d4e8112"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a934b9aca49dcb9df9c740dcf8d4e8112">&#9670;&#160;</a></span>AabbAabbCollision()</h2>
+<a id="a0c730c2ce6cf3e2dc7f205067075becb" name="a0c730c2ce6cf3e2dc7f205067075becb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c730c2ce6cf3e2dc7f205067075becb">&#9670;&#160;</a></span>_SetBroadOwner()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,29 +231,34 @@ Métodos protegidos estáticos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool ITopLevelCollider::AabbAabbCollision </td>
+          <td class="memname">void OSK::COLLISION::IBroadCollider::_SetBroadOwner </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>first</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_broad_collider_holder.html">BroadColliderHolder</a> *</td>          <td class="paramname"><span class="paramname"><em>owner</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel protected">protected</span><span class="mlabel inherited">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_top_level_collider_8cpp_source.html#l00011">11</a> del archivo <a class="el" href="_i_top_level_collider_8cpp_source.html">ITopLevelCollider.cpp</a>.</p>
+<p>Establece el holder que contiene a este collider. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">owner</td><td>Holder.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Nota</dt><dd>Función interna. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_broad_collider_8cpp_source.html#l00004">4</a> del archivo <a class="el" href="_i_broad_collider_8cpp_source.html">IBroadCollider.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a000a8139b279ada1cfbf2fccc8438e84" name="a000a8139b279ada1cfbf2fccc8438e84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a000a8139b279ada1cfbf2fccc8438e84">&#9670;&#160;</a></span>AabbSphereCollision()</h2>
+<a id="af3029ccb30b0b24d161a94b1a623dd00" name="af3029ccb30b0b24d161a94b1a623dd00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3029ccb30b0b24d161a94b1a623dd00">&#9670;&#160;</a></span>_SetNarrowOwner()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -242,24 +267,29 @@ Métodos protegidos estáticos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool ITopLevelCollider::AabbSphereCollision </td>
+          <td class="memname">void OSK::COLLISION::INarrowCollider::_SetNarrowOwner </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html">AxisAlignedBoundingBox</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>first</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder.html">NarrowColliderHolder</a> *</td>          <td class="paramname"><span class="paramname"><em>owner</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel protected">protected</span><span class="mlabel inherited">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_i_top_level_collider_8cpp_source.html#l00024">24</a> del archivo <a class="el" href="_i_top_level_collider_8cpp_source.html">ITopLevelCollider.cpp</a>.</p>
+<p>Establece el holder que contiene a este collider. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">owner</td><td>Holder.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Nota</dt><dd>Función interna. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_narrow_collider_8cpp_source.html#l00003">3</a> del archivo <a class="el" href="_i_narrow_collider_8cpp_source.html">INarrowCollider.cpp</a>.</p>
 
 </div>
 </div>
@@ -286,24 +316,23 @@ Métodos protegidos estáticos</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Calcula la intersección entre un rayo y el collider. </p>
+<p>Calcula la intersección entre un rayo y el collider. @paramm ray Rayo. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ray</td><td>Rayo. </td></tr>
     <tr><td class="paramname">position</td><td>Posición de este collider. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Resultado de la intersección. </dd></dl>
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#aea01db2a53a813edb855bd8f6b755dfa">OSK::COLLISION::ITopLevelCollider</a>.</p>
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_ray_collider.html#a78ad23fe3e49348e0cee661c23f9a0a4">OSK::COLLISION::IRayCollider</a>.</p>
 
-<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00060">60</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00063">63</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a01c61c0fa78502cf797328fe8f7f02f9" name="a01c61c0fa78502cf797328fe8f7f02f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01c61c0fa78502cf797328fe8f7f02f9">&#9670;&#160;</a></span>ContainsPoint()</h2>
+<a id="a24f9964fb50bfbac36c335a096239486" name="a24f9964fb50bfbac36c335a096239486"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24f9964fb50bfbac36c335a096239486">&#9670;&#160;</a></span>ContainsPoint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,7 +341,7 @@ Métodos protegidos estáticos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool SphereCollider::ContainsPoint </td>
+          <td class="memname">bool OSK::COLLISION::IGjkCollider::ContainsPoint </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>point</em></span></td><td>)</td>
           <td> const</td>
@@ -320,19 +349,28 @@ Métodos protegidos estáticos</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel virtual">virtual</span><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a6eef187c240ba30a215d8776d4c1a770">OSK::COLLISION::ITopLevelCollider</a>.</p>
+<p>Comrpueba si un punto está dentro del collider. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point</td><td>Punto a comprobar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si el punto está dentro del collider. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00047">47</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a0367c0e40c455bd81fc6fc54243f3051">OSK::COLLISION::ConvexVolume</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_gjk_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="_gjk_8cpp_source.html">Gjk.cpp</a>.</p>
 
 </div>
 </div>
-<a id="acec7f2c0acc353667c12d9cd38b291ff" name="acec7f2c0acc353667c12d9cd38b291ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acec7f2c0acc353667c12d9cd38b291ff">&#9670;&#160;</a></span>CreateCopy()</h2>
+<a id="a361680e8d9617448e8f9867fe8d84022" name="a361680e8d9617448e8f9867fe8d84022"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a361680e8d9617448e8f9867fe8d84022">&#9670;&#160;</a></span>CreateBroadCopy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -341,7 +379,7 @@ Métodos protegidos estáticos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html">ITopLevelCollider</a> &gt; SphereCollider::CreateCopy </td>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_broad_collider.html">IBroadCollider</a> &gt; SphereCollider::CreateBroadCopy </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -353,15 +391,16 @@ Métodos protegidos estáticos</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Copia del collider. </dd></dl>
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a882e8d6b7f4e1e12be4c6f9d8112c3ef">OSK::COLLISION::ITopLevelCollider</a>.</p>
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_broad_collider.html#acdc2eb2800b3fe165fcc44bbe9c32158">OSK::COLLISION::IBroadCollider</a>.</p>
 
 <p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00031">31</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae1be71ba2c65e3972b15ab6f6af075aa" name="ae1be71ba2c65e3972b15ab6f6af075aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1be71ba2c65e3972b15ab6f6af075aa">&#9670;&#160;</a></span>GetPosition()</h2>
+<a id="aef3a6d0c0c96deb237cf4f2f1a1778cb" name="aef3a6d0c0c96deb237cf4f2f1a1778cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef3a6d0c0c96deb237cf4f2f1a1778cb">&#9670;&#160;</a></span>CreateNarrowCopy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -370,7 +409,7 @@ Métodos protegidos estáticos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp; ITopLevelCollider::GetPosition </td>
+          <td class="memname"><a class="el" href="class_o_s_k_1_1_unique_ptr.html">UniquePtr</a>&lt; <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_narrow_collider.html">INarrowCollider</a> &gt; SphereCollider::CreateNarrowCopy </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -378,12 +417,71 @@ Métodos protegidos estáticos</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Copia del collider. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_top_level_collider_8cpp_source.html#l00065">65</a> del archivo <a class="el" href="_i_top_level_collider_8cpp_source.html">ITopLevelCollider.cpp</a>.</p>
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_narrow_collider.html#a9c6842217af011118cfd72835c183c43">OSK::COLLISION::INarrowCollider</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00035">35</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a10e744caaf5715765af5715f2770c41b" name="a10e744caaf5715765af5715f2770c41b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10e744caaf5715765af5715f2770c41b">&#9670;&#160;</a></span>GetBroadOwner()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_broad_collider_holder.html">OSK::COLLISION::BroadColliderHolder</a> * &gt; OSK::COLLISION::IBroadCollider::GetBroadOwner </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Holder de alto nivel que contiene a este collider. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_broad_collider_8cpp_source.html#l00008">8</a> del archivo <a class="el" href="_i_broad_collider_8cpp_source.html">IBroadCollider.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ace3adabc48252d8e923f75eb5a250734" name="ace3adabc48252d8e923f75eb5a250734"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace3adabc48252d8e923f75eb5a250734">&#9670;&#160;</a></span>GetNarrowOwner()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder.html">OSK::COLLISION::NarrowColliderHolder</a> * &gt; OSK::COLLISION::INarrowCollider::GetNarrowOwner </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>Holder de alto nivel que contiene a este collider. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_narrow_collider_8cpp_source.html#l00007">7</a> del archivo <a class="el" href="_i_narrow_collider_8cpp_source.html">INarrowCollider.cpp</a>.</p>
 
 </div>
 </div>
@@ -402,12 +500,12 @@ Métodos protegidos estáticos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00043">43</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00047">47</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a66215f6e59ce147677f1389840a3bd7b" name="a66215f6e59ce147677f1389840a3bd7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66215f6e59ce147677f1389840a3bd7b">&#9670;&#160;</a></span>IsBehindPlane()</h2>
+<a id="a81675d5fe607abace40e997368c47fe8" name="a81675d5fe607abace40e997368c47fe8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81675d5fe607abace40e997368c47fe8">&#9670;&#160;</a></span>GetSupport()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -416,7 +514,43 @@ Métodos protegidos estáticos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool SphereCollider::IsBehindPlane </td>
+          <td class="memname"><a class="el" href="struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_gjk_support.html">GjkSupport</a> SphereCollider::GetSupport </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>direction</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">direction</td><td>Dirección en la que se busca el soporte. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Soporte (punto más alejado en la dirección <code class="param">direction</code>). </dd></dl>
+
+<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_gjk_collider.html#a0db85d332a6ecdcc58f148c7041162b2">OSK::COLLISION::IGjkCollider</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6fbec8faa65f464438b307f231a540f1" name="a6fbec8faa65f464438b307f231a540f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fbec8faa65f464438b307f231a540f1">&#9670;&#160;</a></span>IsBehindPlane() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OSK::COLLISION::IGjkCollider::IsBehindPlane </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_o_s_k_1_1_plane.html">Plane</a></td>          <td class="paramname"><span class="paramname"><em>plane</em></span></td><td>)</td>
           <td> const</td>
@@ -424,7 +558,79 @@ Métodos protegidos estáticos</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comprueba si parte del collider está por detrás del plano. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">plane</td><td>Plano a comprobar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si está completamente por detrás. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_gjk_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="_gjk_8cpp_source.html">Gjk.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6fbec8faa65f464438b307f231a540f1" name="a6fbec8faa65f464438b307f231a540f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fbec8faa65f464438b307f231a540f1">&#9670;&#160;</a></span>IsBehindPlane() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OSK::COLLISION::IGjkCollider::IsBehindPlane </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_o_s_k_1_1_plane.html">Plane</a></td>          <td class="paramname"><span class="paramname"><em>plane</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comprueba si parte del collider está por detrás del plano. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">plane</td><td>Plano a comprobar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si está completamente por detrás. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_gjk_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="_gjk_8cpp_source.html">Gjk.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a02c47053df332f6ec975ce26239a9948" name="a02c47053df332f6ec975ce26239a9948"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02c47053df332f6ec975ce26239a9948">&#9670;&#160;</a></span>IsFullyBehindPlane() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool OSK::COLLISION::IGjkCollider::IsFullyBehindPlane </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_o_s_k_1_1_plane.html">Plane</a></td>          <td class="paramname"><span class="paramname"><em>plane</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -438,14 +644,12 @@ Métodos protegidos estáticos</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>True si está completamente por detrás. </dd></dl>
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#a75929d19d0e63a15ddf823df51fe5a7e">OSK::COLLISION::ITopLevelCollider</a>.</p>
-
-<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00051">51</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gjk_8cpp_source.html#l00049">49</a> del archivo <a class="el" href="_gjk_8cpp_source.html">Gjk.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a68283d0ccbcb4f54cd848f3be2fcc130" name="a68283d0ccbcb4f54cd848f3be2fcc130"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68283d0ccbcb4f54cd848f3be2fcc130">&#9670;&#160;</a></span>IsColliding()</h2>
+<a id="a02c47053df332f6ec975ce26239a9948" name="a02c47053df332f6ec975ce26239a9948"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02c47053df332f6ec975ce26239a9948">&#9670;&#160;</a></span>IsFullyBehindPlane() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -454,37 +658,34 @@ Métodos protegidos estáticos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool SphereCollider::IsColliding </td>
+          <td class="memname">bool OSK::COLLISION::IGjkCollider::IsFullyBehindPlane </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html">ITopLevelCollider</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="struct_o_s_k_1_1_plane.html">Plane</a></td>          <td class="paramname"><span class="paramname"><em>plane</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Comprueba si este área de colisión está en contacto con otra. </p>
+<p>Comprueba si el collider está COMPLETMENTE por detrás del plano. </p>
 <dl class="params"><dt>Parámetros</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>Otra área de colisión de nivel alto. </td></tr>
-    <tr><td class="paramname">thisOffset</td><td>Posición de este collider. </td></tr>
-    <tr><td class="paramname">otherOffset</td><td>Posición del segundo collider. </td></tr>
+    <tr><td class="paramname">plane</td><td>Plano a comprobar. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si está completamente por detrás. </dd></dl>
 
-<p>Implementa <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html#ac95801baa6b15557dba8204f7d39b7b0">OSK::COLLISION::ITopLevelCollider</a>.</p>
-
-<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00084">84</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gjk_8cpp_source.html#l00049">49</a> del archivo <a class="el" href="_gjk_8cpp_source.html">Gjk.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a9e091a94aa54d26d77726117bec626d3" name="a9e091a94aa54d26d77726117bec626d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e091a94aa54d26d77726117bec626d3">&#9670;&#160;</a></span>IsInsideFrustum()</h2>
+<a id="a64c599fc78bd0160a9d6e5a8f1a20f74" name="a64c599fc78bd0160a9d6e5a8f1a20f74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64c599fc78bd0160a9d6e5a8f1a20f74">&#9670;&#160;</a></span>IsInsideFrustum() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -493,7 +694,7 @@ Métodos protegidos estáticos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool ITopLevelCollider::IsInsideFrustum </td>
+          <td class="memname">bool OSK::COLLISION::IGjkCollider::IsInsideFrustum </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#aea2ae74d72c40655808c8e6c73d810a3">AnyFrustum</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frustum</em></span></td><td>)</td>
           <td> const</td>
@@ -507,12 +708,12 @@ Métodos protegidos estáticos</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Devuelve</dt><dd>True si el collider está dentro del frustum indicado. </dd></dl>
 
-<p class="definition">Definición en la línea <a class="el" href="_i_top_level_collider_8cpp_source.html#l00053">53</a> del archivo <a class="el" href="_i_top_level_collider_8cpp_source.html">ITopLevelCollider.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_gjk_8cpp_source.html#l00062">62</a> del archivo <a class="el" href="_gjk_8cpp_source.html">Gjk.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a00e8239b01b8eeff8cbdcff1b4b0a3e2" name="a00e8239b01b8eeff8cbdcff1b4b0a3e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00e8239b01b8eeff8cbdcff1b4b0a3e2">&#9670;&#160;</a></span>OSK_DEFINE_AS()</h2>
+<a id="a64c599fc78bd0160a9d6e5a8f1a20f74" name="a64c599fc78bd0160a9d6e5a8f1a20f74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64c599fc78bd0160a9d6e5a8f1a20f74">&#9670;&#160;</a></span>IsInsideFrustum() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -521,9 +722,93 @@ Métodos protegidos estáticos</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">OSK::COLLISION::ITopLevelCollider::OSK_DEFINE_AS </td>
+          <td class="memname">bool OSK::COLLISION::IGjkCollider::IsInsideFrustum </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html">ITopLevelCollider</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#aea2ae74d72c40655808c8e6c73d810a3">AnyFrustum</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>frustum</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Devuelve</dt><dd>True si el collider está dentro del frustum indicado. </dd></dl>
+
+<p class="definition">Definición en la línea <a class="el" href="_gjk_8cpp_source.html#l00062">62</a> del archivo <a class="el" href="_gjk_8cpp_source.html">Gjk.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab54bdee6159b9abd62a9568333d3c4a0" name="ab54bdee6159b9abd62a9568333d3c4a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab54bdee6159b9abd62a9568333d3c4a0">&#9670;&#160;</a></span>OnTransform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void OSK::COLLISION::INarrowCollider::OnTransform </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel virtual">virtual</span><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Función que se ejecuta cada vez que se transforma el collider. </p>
+
+<p>Reimplementado en <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a9596b617aa7187d8bb3a55d9e60061d1">OSK::COLLISION::ConvexVolume</a>.</p>
+
+<p class="definition">Definición en la línea <a class="el" href="_i_narrow_collider_8h_source.html#l00037">37</a> del archivo <a class="el" href="_i_narrow_collider_8h_source.html">INarrowCollider.h</a>.</p>
+
+</div>
+</div>
+<a id="ac50518f6574c4262defe4b535dde37c8" name="ac50518f6574c4262defe4b535dde37c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac50518f6574c4262defe4b535dde37c8">&#9670;&#160;</a></span>OSK_DEFINE_AS() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::COLLISION::IBroadCollider::OSK_DEFINE_AS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_broad_collider.html">IBroadCollider</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adb6d11616a686bcba139815baf2a5ef1" name="adb6d11616a686bcba139815baf2a5ef1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb6d11616a686bcba139815baf2a5ef1">&#9670;&#160;</a></span>OSK_DEFINE_AS() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">OSK::COLLISION::INarrowCollider::OSK_DEFINE_AS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_narrow_collider.html">INarrowCollider</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -553,33 +838,6 @@ Métodos protegidos estáticos</h2></td></tr>
 
 </div>
 </div>
-<a id="ae277a42277fb593dfa5dff4248f4cde4" name="ae277a42277fb593dfa5dff4248f4cde4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae277a42277fb593dfa5dff4248f4cde4">&#9670;&#160;</a></span>SetPosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ITopLevelCollider::SetPosition </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>position</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_i_top_level_collider_8cpp_source.html#l00061">61</a> del archivo <a class="el" href="_i_top_level_collider_8cpp_source.html">ITopLevelCollider.cpp</a>.</p>
-
-</div>
-</div>
 <a id="ac1fc994c3b9caa0953597288a516b43a" name="ac1fc994c3b9caa0953597288a516b43a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac1fc994c3b9caa0953597288a516b43a">&#9670;&#160;</a></span>SetRadius()</h2>
 
@@ -595,38 +853,7 @@ Métodos protegidos estáticos</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00039">39</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab8afea2142685014cad8502daf80cc10" name="ab8afea2142685014cad8502daf80cc10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8afea2142685014cad8502daf80cc10">&#9670;&#160;</a></span>SphereSphereCollision()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool ITopLevelCollider::SphereSphereCollision </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>first</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel protected">protected</span><span class="mlabel inherited">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definición en la línea <a class="el" href="_i_top_level_collider_8cpp_source.html#l00036">36</a> del archivo <a class="el" href="_i_top_level_collider_8cpp_source.html">ITopLevelCollider.cpp</a>.</p>
+<p class="definition">Definición en la línea <a class="el" href="_sphere_collider_8cpp_source.html#l00043">43</a> del archivo <a class="el" href="_sphere_collider_8cpp_source.html">SphereCollider.cpp</a>.</p>
 
 </div>
 </div>
@@ -636,7 +863,7 @@ Métodos protegidos estáticos</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_o_s_k.html">OSK</a></li><li class="navelem"><a class="el" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html">COLLISION</a></li><li class="navelem"><a class="el" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html">SphereCollider</a></li>
-    <li class="footer">Generado el Miércoles, 16 de abril de 2025 17:13:06 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+    <li class="footer">Generado el Martes, 6 de mayo de 2025 16:37:39 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>
 </body>

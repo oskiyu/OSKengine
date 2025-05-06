@@ -17,6 +17,8 @@ var hierarchy =
     [ "OSK::PERSISTENCE::BinaryBlock", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block.html", null ],
     [ "OSK::PERSISTENCE::BinaryBlockReader", "class_o_s_k_1_1_p_e_r_s_i_s_t_e_n_c_e_1_1_binary_block_reader.html", null ],
     [ "OSK::BitSet", "class_o_s_k_1_1_bit_set.html", null ],
+    [ "OSK::COLLISION::BroadColliderHolder", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_broad_collider_holder.html", null ],
+    [ "OSK::COLLISION::BroadCollisionDetectorDispatcher", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_broad_collision_detector_dispatcher.html", null ],
     [ "OSK::AUDIO::Buffer", "class_o_s_k_1_1_a_u_d_i_o_1_1_buffer.html", null ],
     [ "OSK::MEMORY::Buffer", "class_o_s_k_1_1_m_e_m_o_r_y_1_1_buffer.html", null ],
     [ "OSK::ECS::CameraComponent2D", "class_o_s_k_1_1_e_c_s_1_1_camera_component2_d.html", null ],
@@ -36,6 +38,7 @@ var hierarchy =
     [ "OSK::CpuModel3D", "class_o_s_k_1_1_cpu_model3_d.html", null ],
     [ "OSK::CpuVertex3D", "struct_o_s_k_1_1_cpu_vertex3_d.html", null ],
     [ "OSK::GRAPHICS::DeferredPushConstants", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_deferred_push_constants.html", null ],
+    [ "OSK::COLLISION::DetailedCollisionDetectorDispatcher", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_detector_dispatcher.html", null ],
     [ "OSK::COLLISION::DetailedCollisionInfo", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html", null ],
     [ "OSK::GRAPHICS::DirectionalLight", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_directional_light.html", null ],
     [ "OSK::DynamicArray< T >", "class_o_s_k_1_1_dynamic_array.html", null ],
@@ -44,6 +47,7 @@ var hierarchy =
     [ "OSK::ECS::EntityComponentSystem", "class_o_s_k_1_1_e_c_s_1_1_entity_component_system.html", null ],
     [ "OSK::GRAPHICS::GpuMemoryUsageInfo::Entry", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_gpu_memory_usage_info_1_1_entry.html", null ],
     [ "OSK::GRAPHICS::VertexInfo::Entry", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_vertex_info_1_1_entry.html", null ],
+    [ "OSK::COLLISION::EpaMinkowskiHull", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_epa_minkowski_hull.html", null ],
     [ "OSK::ECS::EventManager", "class_o_s_k_1_1_e_c_s_1_1_event_manager.html", null ],
     [ "OSK::ECS::EventQueueSpan", "struct_o_s_k_1_1_e_c_s_1_1_event_queue_span.html", null ],
     [ "OSK::COLLISION::SatInfo::Face", "struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sat_info_1_1_face.html", null ],
@@ -52,6 +56,7 @@ var hierarchy =
     [ "OSK::ASSETS::FontCharacter", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_character.html", null ],
     [ "OSK::ASSETS::FontInstance", "struct_o_s_k_1_1_a_s_s_e_t_s_1_1_font_instance.html", null ],
     [ "OSK::GRAPHICS::FrameCombiner", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_frame_combiner.html", null ],
+    [ "OSK::COLLISION::FullMinkowskiHull", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull.html", null ],
     [ "OSK::ECS::GameObjectManager", "class_o_s_k_1_1_e_c_s_1_1_game_object_manager.html", null ],
     [ "OSK::NET::GameObjectTranslator", "class_o_s_k_1_1_n_e_t_1_1_game_object_translator.html", null ],
     [ "OSK::IO::GamepadState", "class_o_s_k_1_1_i_o_1_1_gamepad_state.html", null ],
@@ -108,6 +113,12 @@ var hierarchy =
       [ "OSK::AUDIO::AudioSourceAl", "class_o_s_k_1_1_a_u_d_i_o_1_1_audio_source_al.html", null ]
     ] ],
     [ "OSK::GRAPHICS::IBottomLevelAccelerationStructure", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_bottom_level_acceleration_structure.html", null ],
+    [ "OSK::COLLISION::IBroadCollisionDetector", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_broad_collision_detector.html", [
+      [ "OSK::COLLISION::AabbAabbCollisionDetector", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_aabb_aabb_collision_detector.html", null ],
+      [ "OSK::COLLISION::BroadGjkCollisionDetector", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_broad_gjk_collision_detector.html", null ],
+      [ "OSK::COLLISION::SphereAabbCollisionDetector", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_aabb_collision_detector.html", null ],
+      [ "OSK::COLLISION::SphereSphereBroadCollisionDetector", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_sphere_broad_collision_detector.html", null ]
+    ] ],
     [ "OSK::GRAPHICS::ICommandPool", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_pool.html", null ],
     [ "OSK::GRAPHICS::ICommandQueue", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_command_queue.html", null ],
     [ "OSK::ECS::IComponentContainer", "class_o_s_k_1_1_e_c_s_1_1_i_component_container.html", [
@@ -134,6 +145,11 @@ var hierarchy =
       [ "OSK::EditorShowCommand", "class_o_s_k_1_1_editor_show_command.html", null ],
       [ "OSK::ExitCommand", "class_o_s_k_1_1_exit_command.html", null ],
       [ "OSK::GpuStatsCommand", "class_o_s_k_1_1_gpu_stats_command.html", null ]
+    ] ],
+    [ "OSK::COLLISION::IDetailedCollisionDetector", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_detailed_collision_detector.html", [
+      [ "OSK::COLLISION::DetailedSphereSphereDetector", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_sphere_sphere_detector.html", null ],
+      [ "OSK::COLLISION::GjkClippingDetector", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_gjk_clipping_detector.html", null ],
+      [ "OSK::COLLISION::GjkEpaDetector", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_gjk_epa_detector.html", null ]
     ] ],
     [ "OSK::UI::IElement", "class_o_s_k_1_1_u_i_1_1_i_element.html", [
       [ "OSK::UI::Button", "class_o_s_k_1_1_u_i_1_1_button.html", null ],
@@ -191,9 +207,16 @@ var hierarchy =
       [ "OSK::IO::PcUserInput", "class_o_s_k_1_1_i_o_1_1_pc_user_input.html", null ]
     ] ],
     [ "OSK::COLLISION::IGjkCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_gjk_collider.html", [
-      [ "OSK::COLLISION::IBottomLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html", [
-        [ "OSK::COLLISION::ConvexVolume", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html", null ]
-      ] ]
+      [ "OSK::COLLISION::IBroadCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_broad_collider.html", [
+        [ "OSK::COLLISION::AxisAlignedBoundingBox", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html", null ],
+        [ "OSK::COLLISION::SphereCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html", null ]
+      ] ],
+      [ "OSK::COLLISION::INarrowCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_narrow_collider.html", [
+        [ "OSK::COLLISION::AxisAlignedBoundingBox", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html", null ],
+        [ "OSK::COLLISION::ConvexVolume", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html", null ],
+        [ "OSK::COLLISION::SphereCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html", null ]
+      ] ],
+      [ "_GjkPointCollider", "class___gjk_point_collider.html", null ]
     ] ],
     [ "OSK::GRAPHICS::IGpu", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu.html", null ],
     [ "OSK::GRAPHICS::IGpuImageSampler", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_gpu_image_sampler.html", null ],
@@ -247,11 +270,8 @@ var hierarchy =
       ] ]
     ] ],
     [ "OSK::COLLISION::IRayCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_ray_collider.html", [
-      [ "OSK::COLLISION::IBottomLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html", null ],
-      [ "OSK::COLLISION::ITopLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_top_level_collider.html", [
-        [ "OSK::COLLISION::AxisAlignedBoundingBox", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_axis_aligned_bounding_box.html", null ],
-        [ "OSK::COLLISION::SphereCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_sphere_collider.html", null ]
-      ] ]
+      [ "OSK::COLLISION::IBroadCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_broad_collider.html", null ],
+      [ "OSK::COLLISION::INarrowCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_narrow_collider.html", null ]
     ] ],
     [ "OSK::GRAPHICS::IRaytracingPipeline", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_raytracing_pipeline.html", null ],
     [ "OSK::GRAPHICS::IRenderer", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_renderer.html", null ],
@@ -261,7 +281,7 @@ var hierarchy =
       [ "OSK::Concepts::AreSameTemplate_t< T1, T2 >", "struct_o_s_k_1_1_concepts_1_1_are_same_template__t.html", null ]
     ] ],
     [ "OSK::COLLISION::ISatCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_sat_collider.html", [
-      [ "OSK::COLLISION::IBottomLevelCollider", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_i_bottom_level_collider.html", null ]
+      [ "OSK::COLLISION::ConvexVolume", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html", null ]
     ] ],
     [ "OSK::GRAPHICS::ISdfRenderer2D", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_i_sdf_renderer2_d.html", [
       [ "OSK::GRAPHICS::SdfBindlessRenderer2D", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_sdf_bindless_renderer2_d.html", null ]
@@ -350,11 +370,11 @@ var hierarchy =
     [ "OSK::GRAPHICS::MaterialLayoutPushConstant", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_push_constant.html", null ],
     [ "OSK::GRAPHICS::MaterialLayoutSlot", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_layout_slot.html", null ],
     [ "OSK::GRAPHICS::MaterialSystem", "class_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_material_system.html", null ],
-    [ "OSK::COLLISION::MinkowskiHull", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_minkowski_hull.html", null ],
     [ "OSK::COLLISION::MinkowskiSupport", "struct_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_minkowski_support.html", null ],
     [ "OSK::ECS::ModelComponent3D", "class_o_s_k_1_1_e_c_s_1_1_model_component3_d.html", null ],
     [ "OSK::IO::MouseState", "class_o_s_k_1_1_i_o_1_1_mouse_state.html", null ],
     [ "OSK::MutexHolder", "struct_o_s_k_1_1_mutex_holder.html", null ],
+    [ "OSK::COLLISION::NarrowColliderHolder", "class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder.html", null ],
     [ "OSK::Pair< T1, T2 >", "struct_o_s_k_1_1_pair.html", null ],
     [ "OSK::GRAPHICS::PbrIblConfig", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_ibl_config.html", null ],
     [ "OSK::GRAPHICS::PbrMaterialInfo", "struct_o_s_k_1_1_g_r_a_p_h_i_c_s_1_1_pbr_material_info.html", null ],

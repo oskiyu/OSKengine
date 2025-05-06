@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>OSKengine: Archivo de código fuente Source/GjkClippingDetector.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">OSKengine<span id="projectnumber">&#160;Indev</span>
+   </div>
+   <div id="projectbrief">Motor de videojuegos.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('_gjk_clipping_detector_8cpp_source.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">GjkClippingDetector.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;GjkClippingDetector.h&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;Gjk.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;Simplex.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;FullMinkowskiHull.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;NarrowColliderHolder.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;ConvexVolume.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;Clipping.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_gjk_clipping_detector.html#ae19969d08786f32ac7258f1ad635de7d">   10</a></span>std::optional&lt;OSK::COLLISION::DetailedCollisionInfo&gt; <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_gjk_clipping_detector.html#ae19969d08786f32ac7258f1ad635de7d">OSK::COLLISION::GjkClippingDetector::GetCollision</a>(</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder.html">NarrowColliderHolder</a>&amp; first,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder.html">NarrowColliderHolder</a>&amp; second)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">if</span> (!(first.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder.html#a59173377690b23e3f91c8cb35c0b85ec">GetCollider</a>()-&gt;Is&lt;<a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a>&gt;() &amp;&amp; second.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder.html#a59173377690b23e3f91c8cb35c0b85ec">GetCollider</a>()-&gt;Is&lt;<a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a>&gt;())) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordflow">return</span> {};</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    }</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; castedFirst  = *first.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder.html#a59173377690b23e3f91c8cb35c0b85ec">GetCollider</a>()-&gt;As&lt;<a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a>&gt;();</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; castedSecond = *second.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder.html#a59173377690b23e3f91c8cb35c0b85ec">GetCollider</a>()-&gt;As&lt;<a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">ConvexVolume</a>&gt;();</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html">Simplex</a> simplex = <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html#aff081cf06df58391facbd06ee7fa03d7">Simplex::GenerateFrom</a>(castedFirst, castedSecond);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">if</span> (!simplex.ContainsOrigin()) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html#a5040fbf8d807f3d0a708a923dcbe5e8c">DetailedCollisionInfo::False</a>();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">const</span> <span class="keyword">auto</span> minkowskiHull = <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull.html#a0a9afbe80c42136b182a02e0966f27af">FullMinkowskiHull::BuildFromVolumes</a>(castedFirst, castedSecond);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (!minkowskiHull.SurpasesMinDepth()) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html#a5040fbf8d807f3d0a708a923dcbe5e8c">DetailedCollisionInfo::False</a>();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> mtv = minkowskiHull.GetMtv();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#ac0ea6d3df0641acb0fd4620c6f5ef68a">UIndex64</a> firstFaceId  = castedFirst.GetFaceWithVertexIndices(minkowskiHull.GetFirstFaceVerticesIds(), minkowskiHull.GetMtv());</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#ac0ea6d3df0641acb0fd4620c6f5ef68a">UIndex64</a> secondFaceId = castedSecond.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#ad760a4d471a3c17b2a55d1e51345bf01">GetFaceWithVertexIndices</a>(minkowskiHull.GetSecondFaceVerticesIds(), -minkowskiHull.GetMtv());</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a2f99e2f9743d5185adaca37474366960">ConvexVolume::FaceIndices</a>&amp; faceA = castedFirst .GetFaceIndices()[firstFaceId];</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a2f99e2f9743d5185adaca37474366960">ConvexVolume::FaceIndices</a>&amp; faceB = castedSecond.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#ab9128e1569ee6c285731a00a4a815f97">GetFaceIndices</a>()[secondFaceId];</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;Vector3f&gt;</a> verticesA = <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a8b2e77286edd94db886e46f204f45c42">DynamicArray&lt;Vector3f&gt;::CreateReserved</a>(faceA.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>());</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> index : faceA) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        verticesA.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(castedFirst.GetVertices()[index]);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;Vector3f&gt;</a> verticesB = <a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a8b2e77286edd94db886e46f204f45c42">DynamicArray&lt;Vector3f&gt;::CreateReserved</a>(faceB.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">GetSize</a>());</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> index : faceB) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        verticesB.<a class="code hl_function" href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">Insert</a>(castedSecond.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a9eb963d3e9eb20e7c857dc3e6347ee9c">GetVertices</a>()[index]);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="comment">// Get most incident face:</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_enumeration" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull.html#a845e6fcfd9447a3ad178d7acfe0804f3">FullMinkowskiHull::Volume</a> incident = <a class="code hl_enumvalue" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull.html#a845e6fcfd9447a3ad178d7acfe0804f3a7fc56270e7a70fa81a5935b72eacbe29">FullMinkowskiHull::Volume::A</a>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">const</span> <span class="keywordtype">float</span> firstDot  = castedFirst .GetAxes()[firstFaceId] .Dot(-mtv);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keyword">const</span> <span class="keywordtype">float</span> secondDot = castedSecond.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#aead85c67542a4ff4eda67f7900455567">GetAxes</a>()[secondFaceId].Dot(mtv);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        incident = firstDot &lt; secondDot ? <a class="code hl_enumvalue" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull.html#a845e6fcfd9447a3ad178d7acfe0804f3a7fc56270e7a70fa81a5935b72eacbe29">FullMinkowskiHull::Volume::A</a> : <a class="code hl_enumvalue" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull.html#a845e6fcfd9447a3ad178d7acfe0804f3a9d5ed678fe57bcca610140957afab571">FullMinkowskiHull::Volume::B</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> normal      = minkowskiHull.GetNormalizedMtv();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">Vector3f</a> otherNormal = castedSecond.<a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#ac70afb1f04343f09f5640daadcdc828b">GetWorldSpaceAxis</a>(secondFaceId);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">const</span> <a class="code hl_class" href="class_o_s_k_1_1_dynamic_array.html">DynamicArray&lt;Vector3f&gt;</a> finalContactPoints = incident == <a class="code hl_enumvalue" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull.html#a845e6fcfd9447a3ad178d7acfe0804f3a7fc56270e7a70fa81a5935b72eacbe29">FullMinkowskiHull::Volume::A</a></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        ? <a class="code hl_function" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html#ab804c9bf0dacdd2fda35f70a4126a4ce">ClipFaces</a>(verticesA, verticesB, normal, otherNormal)</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        : <a class="code hl_function" href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html#ab804c9bf0dacdd2fda35f70a4126a4ce">ClipFaces</a>(verticesB, verticesA, otherNormal, normal);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html#a5587d98b2f5abcf2335c52c3b4e1e56f">DetailedCollisionInfo::True</a>(</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        mtv,</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        finalContactPoints,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        minkowskiHull.GetNormalizedMtv(),</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        otherNormal,</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_enumvalue" href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html#abb79a8ddfba2462b681869d7fb1edc5aa4085235c0f2e43fad5889ba843db8426">DetailedCollisionInfo::MtvDirection::A_TO_B</a>);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}</div>
+</div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html">OSK::COLLISION::ConvexVolume</a></div><div class="ttdoc">Clase que representa un volúmen convexo para la detección de colisiones detallada.</div><div class="ttdef"><b>Definition</b> <a href="_convex_volume_8h_source.html#l00022">ConvexVolume.h:22</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume_html_a2f99e2f9743d5185adaca37474366960"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a2f99e2f9743d5185adaca37474366960">OSK::COLLISION::ConvexVolume::FaceIndices</a></div><div class="ttdeci">DynamicArray&lt; UIndex32 &gt; FaceIndices</div><div class="ttdoc">Una lista que contiene los índices de los vértices de una cara.</div><div class="ttdef"><b>Definition</b> <a href="_convex_volume_8h_source.html#l00035">ConvexVolume.h:35</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume_html_a9eb963d3e9eb20e7c857dc3e6347ee9c"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#a9eb963d3e9eb20e7c857dc3e6347ee9c">OSK::COLLISION::ConvexVolume::GetVertices</a></div><div class="ttdeci">const DynamicArray&lt; Vector3f &gt; &amp; GetVertices() const override</div><div class="ttdef"><b>Definition</b> <a href="_convex_volume_8cpp_source.html#l00552">ConvexVolume.cpp:552</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume_html_ab9128e1569ee6c285731a00a4a815f97"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#ab9128e1569ee6c285731a00a4a815f97">OSK::COLLISION::ConvexVolume::GetFaceIndices</a></div><div class="ttdeci">const DynamicArray&lt; FaceIndices &gt; &amp; GetFaceIndices() const</div><div class="ttdoc">Devuelve una lista que contiene una lista de índices por cada cara del collider.</div><div class="ttdef"><b>Definition</b> <a href="_convex_volume_8cpp_source.html#l00560">ConvexVolume.cpp:560</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume_html_ac70afb1f04343f09f5640daadcdc828b"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#ac70afb1f04343f09f5640daadcdc828b">OSK::COLLISION::ConvexVolume::GetWorldSpaceAxis</a></div><div class="ttdeci">Axis GetWorldSpaceAxis(UIndex32 faceId) const</div><div class="ttdoc">Obtiene un eje transformado definido por los puntos de la cara indicada. Se usa para la comprobación ...</div><div class="ttdef"><b>Definition</b> <a href="_convex_volume_8cpp_source.html#l00427">ConvexVolume.cpp:427</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume_html_ad760a4d471a3c17b2a55d1e51345bf01"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#ad760a4d471a3c17b2a55d1e51345bf01">OSK::COLLISION::ConvexVolume::GetFaceWithVertexIndices</a></div><div class="ttdeci">UIndex64 GetFaceWithVertexIndices(std::span&lt; const UIndex64, 3 &gt; indices, const Vector3f &amp;refNormal) const</div><div class="ttdef"><b>Definition</b> <a href="_convex_volume_8cpp_source.html#l00564">ConvexVolume.cpp:564</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume_html_aead85c67542a4ff4eda67f7900455567"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_convex_volume.html#aead85c67542a4ff4eda67f7900455567">OSK::COLLISION::ConvexVolume::GetAxes</a></div><div class="ttdeci">const DynamicArray&lt; Vector3f &gt; &amp; GetAxes() const override</div><div class="ttdef"><b>Definition</b> <a href="_convex_volume_8cpp_source.html#l00548">ConvexVolume.cpp:548</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info_html_a5040fbf8d807f3d0a708a923dcbe5e8c"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html#a5040fbf8d807f3d0a708a923dcbe5e8c">OSK::COLLISION::DetailedCollisionInfo::False</a></div><div class="ttdeci">static DetailedCollisionInfo False()</div><div class="ttdoc">Crea una estructura vacía en el caso de que NO exista colisión.</div><div class="ttdef"><b>Definition</b> <a href="_detailed_collision_info_8cpp_source.html#l00044">DetailedCollisionInfo.cpp:44</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info_html_a5587d98b2f5abcf2335c52c3b4e1e56f"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html#a5587d98b2f5abcf2335c52c3b4e1e56f">OSK::COLLISION::DetailedCollisionInfo::True</a></div><div class="ttdeci">static DetailedCollisionInfo True(Vector3f minimumTranslationVector, const DynamicArray&lt; Vector3f &gt; &amp;points, Vector3f firstFaceNormal, Vector3f secondFaceNormal, MtvDirection mtvDirection)</div><div class="ttdoc">Crea la estructura en el caso de que exista colisión.</div><div class="ttdef"><b>Definition</b> <a href="_detailed_collision_info_8cpp_source.html#l00007">DetailedCollisionInfo.cpp:7</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info_html_abb79a8ddfba2462b681869d7fb1edc5aa4085235c0f2e43fad5889ba843db8426"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_detailed_collision_info.html#abb79a8ddfba2462b681869d7fb1edc5aa4085235c0f2e43fad5889ba843db8426">OSK::COLLISION::DetailedCollisionInfo::MtvDirection::A_TO_B</a></div><div class="ttdeci">@ A_TO_B</div><div class="ttdef"><b>Definition</b> <a href="_detailed_collision_info_8h_source.html#l00017">DetailedCollisionInfo.h:17</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull_html_a0a9afbe80c42136b182a02e0966f27af"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull.html#a0a9afbe80c42136b182a02e0966f27af">OSK::COLLISION::FullMinkowskiHull::BuildFromVolumes</a></div><div class="ttdeci">static FullMinkowskiHull BuildFromVolumes(const ConvexVolume &amp;first, const ConvexVolume &amp;second)</div><div class="ttdoc">Construye el hull completo de la diferencia de Minkowksi, obteniendo el MTV.</div><div class="ttdef"><b>Definition</b> <a href="_full_minkowski_hull_8cpp_source.html#l00016">FullMinkowskiHull.cpp:16</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull_html_a845e6fcfd9447a3ad178d7acfe0804f3"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull.html#a845e6fcfd9447a3ad178d7acfe0804f3">OSK::COLLISION::FullMinkowskiHull::Volume</a></div><div class="ttdeci">Volume</div><div class="ttdef"><b>Definition</b> <a href="_full_minkowski_hull_8h_source.html#l00021">FullMinkowskiHull.h:21</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull_html_a845e6fcfd9447a3ad178d7acfe0804f3a7fc56270e7a70fa81a5935b72eacbe29"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull.html#a845e6fcfd9447a3ad178d7acfe0804f3a7fc56270e7a70fa81a5935b72eacbe29">OSK::COLLISION::FullMinkowskiHull::Volume::A</a></div><div class="ttdeci">@ A</div><div class="ttdef"><b>Definition</b> <a href="_full_minkowski_hull_8h_source.html#l00021">FullMinkowskiHull.h:21</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull_html_a845e6fcfd9447a3ad178d7acfe0804f3a9d5ed678fe57bcca610140957afab571"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_full_minkowski_hull.html#a845e6fcfd9447a3ad178d7acfe0804f3a9d5ed678fe57bcca610140957afab571">OSK::COLLISION::FullMinkowskiHull::Volume::B</a></div><div class="ttdeci">@ B</div><div class="ttdef"><b>Definition</b> <a href="_full_minkowski_hull_8h_source.html#l00021">FullMinkowskiHull.h:21</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_gjk_clipping_detector_html_ae19969d08786f32ac7258f1ad635de7d"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_gjk_clipping_detector.html#ae19969d08786f32ac7258f1ad635de7d">OSK::COLLISION::GjkClippingDetector::GetCollision</a></div><div class="ttdeci">std::optional&lt; DetailedCollisionInfo &gt; GetCollision(const NarrowColliderHolder &amp;first, const NarrowColliderHolder &amp;second) const override</div><div class="ttdef"><b>Definition</b> <a href="#l00010">GjkClippingDetector.cpp:10</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder.html">OSK::COLLISION::NarrowColliderHolder</a></div><div class="ttdoc">Contiene un collider de alto nivel.</div><div class="ttdef"><b>Definition</b> <a href="_narrow_collider_holder_8h_source.html#l00014">NarrowColliderHolder.h:14</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder_html_a59173377690b23e3f91c8cb35c0b85ec"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_narrow_collider_holder.html#a59173377690b23e3f91c8cb35c0b85ec">OSK::COLLISION::NarrowColliderHolder::GetCollider</a></div><div class="ttdeci">INarrowCollider * GetCollider()</div><div class="ttdef"><b>Definition</b> <a href="_narrow_collider_holder_8cpp_source.html#l00015">NarrowColliderHolder.cpp:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex_html"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html">OSK::COLLISION::Simplex</a></div><div class="ttdoc">Grupo de vértices que trata de encerrar el origen de coordenadas (0, 0, 0).</div><div class="ttdef"><b>Definition</b> <a href="_simplex_8h_source.html#l00015">Simplex.h:15</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex_html_aff081cf06df58391facbd06ee7fa03d7"><div class="ttname"><a href="class_o_s_k_1_1_c_o_l_l_i_s_i_o_n_1_1_simplex.html#aff081cf06df58391facbd06ee7fa03d7">OSK::COLLISION::Simplex::GenerateFrom</a></div><div class="ttdeci">static Simplex GenerateFrom(const IGjkCollider &amp;first, const IGjkCollider &amp;second)</div><div class="ttdoc">Genera el simplex final a partir de los volúmenes first y second.</div><div class="ttdef"><b>Definition</b> <a href="_simplex_8cpp_source.html#l00018">Simplex.cpp:18</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html">OSK::DynamicArray</a></div><div class="ttdoc">Dynamic array: array que puede cambiar de tamaño.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00066">DynamicArray.hpp:66</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a4433c76207ce2ecad5e306b12575f1b3"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a4433c76207ce2ecad5e306b12575f1b3">OSK::DynamicArray::Insert</a></div><div class="ttdeci">void Insert(const T &amp;element)</div><div class="ttdoc">Inserta un elemento al final del array.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00360">DynamicArray.hpp:360</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_a8b2e77286edd94db886e46f204f45c42"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#a8b2e77286edd94db886e46f204f45c42">OSK::DynamicArray::CreateReserved</a></div><div class="ttdeci">static DynamicArray CreateReserved(USize64 reservedSize)</div><div class="ttdoc">Crea un DynamicArray con espacio reservado para el número de elementos dado.</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00287">DynamicArray.hpp:287</a></div></div>
+<div class="ttc" id="aclass_o_s_k_1_1_dynamic_array_html_af09578371bd52d5a934bc74c8dad5f0d"><div class="ttname"><a href="class_o_s_k_1_1_dynamic_array.html#af09578371bd52d5a934bc74c8dad5f0d">OSK::DynamicArray::GetSize</a></div><div class="ttdeci">USize64 GetSize() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="_dynamic_array_8hpp_source.html#l00663">DynamicArray.hpp:663</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n_html_ab804c9bf0dacdd2fda35f70a4126a4ce"><div class="ttname"><a href="namespace_o_s_k_1_1_c_o_l_l_i_s_i_o_n.html#ab804c9bf0dacdd2fda35f70a4126a4ce">OSK::COLLISION::ClipFaces</a></div><div class="ttdeci">DynamicArray&lt; Vector3f &gt; ClipFaces(const DynamicArray&lt; Vector3f &gt; &amp;referenceFace, const DynamicArray&lt; Vector3f &gt; &amp;secondaryFace, const Vector3f &amp;firstFaceNormal, const Vector3f &amp;secondFaceNormal)</div><div class="ttdef"><b>Definition</b> <a href="_clipping_8cpp_source.html#l00003">Clipping.cpp:3</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_a72b3268907c9cd41f0daf0a42e1c9dca"><div class="ttname"><a href="namespace_o_s_k.html#a72b3268907c9cd41f0daf0a42e1c9dca">OSK::Vector3f</a></div><div class="ttdeci">Vector3_t&lt; float_t &gt; Vector3f</div><div class="ttdoc">Precisión = float.</div><div class="ttdef"><b>Definition</b> <a href="_vector3_8hpp_source.html#l00293">Vector3.hpp:293</a></div></div>
+<div class="ttc" id="anamespace_o_s_k_html_ac0ea6d3df0641acb0fd4620c6f5ef68a"><div class="ttname"><a href="namespace_o_s_k.html#ac0ea6d3df0641acb0fd4620c6f5ef68a">OSK::UIndex64</a></div><div class="ttdeci">uint64_t UIndex64</div><div class="ttdoc">Índice de un elemento, almacenado en un unsigned int de 64 bits.</div><div class="ttdef"><b>Definition</b> <a href="_numeric_types_8h_source.html#l00021">NumericTypes.h:21</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><b>GjkClippingDetector.cpp</b></li>
+    <li class="footer">Generado el Martes, 6 de mayo de 2025 16:37:37 para OSKengine por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>
