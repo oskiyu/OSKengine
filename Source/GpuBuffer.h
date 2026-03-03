@@ -76,17 +76,6 @@ namespace OSK::GRAPHICS {
 		/// @pre No debe haber ninguna región de memoria del buffer previamente mapeada.
 		void MapMemory();
 
-		/// @brief Mapea la región de memoria dada,para poder escribirla
-		/// desde la CPU
-		/// 
-		/// @param size Tamaño de la región, en bytes.
-		/// @param offset Offset desde el inicio del buffer, en bytes.
-		/// 
-		/// @pre Debe haber sido creado con GpuSharedMemoryType::GPU_AND_CPU.
-		/// @pre No debe haber ninguna región de memoria del buffer previamente mapeada.
-		/// @pre @p size + @p offset < GetSize().
-		void MapMemory(USize64 size, USize64 offset);
-
 		/// @brief Escribe la información en el buffer, a partir de la posición actual
 		/// del cursor. También hace avanzar el cursor.
 		/// 
@@ -148,7 +137,8 @@ namespace OSK::GRAPHICS {
 
 		IGpuMemorySubblock* GetMemorySubblock();
 		const IGpuMemorySubblock* GetMemorySubblock() const;
-		IGpuMemoryBlock* GetMemoryBlock() const;
+		IGpuMemoryBlock* GetMemoryBlock();
+		const IGpuMemoryBlock* GetMemoryBlock() const;
 
 #pragma region Barriers
 

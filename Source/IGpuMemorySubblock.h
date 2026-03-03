@@ -32,12 +32,16 @@ namespace OSK::GRAPHICS {
 		
 		
 		/// @brief Mapea toda la memoria del subbloque, para poder escribirse.
+		/// 
 		/// @pre El tipo de memoria debe ser GPU_AND_CPU.
 		/// @pre No debe haber ninguna región de memoria mapeada.
+		/// 
 		/// @post Se podrá escribir en la zona mapeada.
-		virtual void MapMemory() = 0;
+		/// @post El cursor tendrá el valor 0.
+		void MapMemory();
 		
 		/// @brief Mapea la zona dada.
+		/// 
 		/// @param size Tamaño de la zona, en bytes.
 		/// @param offset Offset respecto al inicio del subbloque, en bytes.
 		/// 
@@ -46,7 +50,8 @@ namespace OSK::GRAPHICS {
 		/// @pre No debe haber ninguna región de memoria mapeada.
 		/// 
 		/// @post Se podrá escribir en la zona mapeada.
-		virtual void MapMemory(USize64 size, USize64 offset) = 0;
+		/// @post El cursor tendrá el valor @p offset.
+		void MapMemory(USize64 size, USize64 offset);
 
 
 		/// @brief Escribe información en la región de memoria.
@@ -61,10 +66,11 @@ namespace OSK::GRAPHICS {
 		/// completamente mapeada.
 		/// 
 		/// @throws GpuMemoryNotMappedException Si la memoria no está mapeada.
-		virtual void Write(const void* data, USize64 size) = 0;
+		void Write(const void* data, USize64 size);
 		
 		/// @brief Escribe información en la región de memoria.
-		/// No usa el cursor interno
+		/// No usa el cursor interno.
+		/// 
 		/// @param data Datos a escribir.
 		/// @param size Tamaño de los datos, en bytes.
 		/// @param offset Offset a partir del que se comienza a escribir.
@@ -75,7 +81,7 @@ namespace OSK::GRAPHICS {
 		/// completamente mapeada.
 		/// 
 		/// @throws GpuMemoryNotMappedException Si la memoria no está mapeada.
-		virtual void WriteOffset(const void* data, USize64 size, USize64 offset) = 0;
+		void WriteOffset(const void* data, USize64 size, USize64 offset);
 
 
 		/// @brief Desmapea el subbloque.
@@ -83,7 +89,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @pre Debe haber alguna región de memoria mapeada.
 		/// @post Ya no se podrá escribir en la memoria al no ser que se vuelva a mapear.
-		virtual void Unmap() = 0;
+		void Unmap();
 
 
 		/// @brief Establece el cursor interno en la posición dada.
@@ -96,24 +102,21 @@ namespace OSK::GRAPHICS {
 		/// @return Posición actual del cursor.
 		UIndex64 GetCursor() const;
 
- 
-		IGpuMemoryBlock* GetOwnerBlock() const;
+
+		IGpuMemoryBlock* GetOwnerBlock();
+		const IGpuMemoryBlock* GetOwnerBlock() const;
 
 		USize64 GetAllocatedSize() const;
 		USize64 GetOffsetFromBlock() const;
 
-		/// @pre La memoria debe haber sido previamente mapeada mediante MapMemory().
-		/// @return Puntero al inicio de la región de memoria mapeada.
-		const TByte* GetMappedData() const { return static_cast<const TByte*>(mappedData); }
+		TByte* GetMappedData();
+		const TByte* GetMappedData() const;
 
 	protected:
 
 		IGpuMemorySubblock(IGpuMemoryBlock* owner, USize64 size, USize64 offset);
 
 		IGpuMemoryBlock* ownerBlock = nullptr;
-
-		bool isMapped = false;
-		void* mappedData = nullptr;
 
 		USize64 reservedSize = 0;
 		USize64 totalOffsetFromBlock = 0;

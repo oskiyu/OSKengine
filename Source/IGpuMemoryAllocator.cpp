@@ -334,6 +334,10 @@ IGpuMemoryBlock* IGpuMemoryAllocator::GetNextBufferMemoryBlock(USize64 size, Gpu
 	bufferMemoryBlocks.Insert({  });
 	bufferMemoryBlocks.Peek().Insert(std::move(newBlock));
 
+	if (sharedType == GpuSharedMemoryType::GPU_AND_CPU) {
+		output->MapAll();
+	}
+
 	return output;
 }
 

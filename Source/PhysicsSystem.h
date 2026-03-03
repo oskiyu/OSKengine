@@ -3,6 +3,9 @@
 #include "IIteratorSystem.h"
 
 #include "Vector3.hpp"
+#include "DynamicArray.hpp"
+#include "UniquePtr.hpp"
+#include "IConstraint.h"
 
 
 namespace OSK::ECS {
@@ -25,7 +28,11 @@ namespace OSK::ECS {
 
 		const Vector3f& GetGravity() const;
 
+		DynamicArray<UniquePtr<PHYSICS::IConstraint>> m_constraints;
+
 	private:
+
+		void SolveConstraings(TDeltaTime deltaTime);
 
 		Vector3f m_gravity = { 0.0f, -2.7f, 0.0f };
 

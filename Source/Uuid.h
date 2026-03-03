@@ -24,10 +24,14 @@ namespace OSK {
 
 		/// @brief Crea un UUID con un valor.
 		/// @param value Valor del UUID.
-		explicit BaseUuid(UIndex64 value) : m_value(value) {}
+		explicit BaseUuid(TUnderlyingType value) : m_value(value) {}
 
 
 		auto operator<=>(const BaseUuid&) const = default;
+
+		explicit operator bool() const {
+			return !IsEmpty();
+		}
 
 
 		/// @return Crea un UUID vacío.
@@ -43,21 +47,21 @@ namespace OSK {
 
 		/// @brief Establece el valor del UUID.
 		/// @param value Nuevo valor.
-		inline void SetValue(UIndex64 value) noexcept {
+		inline void SetValue(TUnderlyingType value) noexcept {
 			m_value = value;
 		}
 
 		/// @return Valor del UUID.
 		/// @pre IsEmpty debe devolver false.
-		inline UIndex64 Get() const noexcept {
+		inline TUnderlyingType Get() const noexcept {
 			return m_value;
 		}
 
 	private:
 
-		constexpr static UIndex64 EmptyUnderlyingType = static_cast<TUnderlyingType>(0);
+		constexpr static TUnderlyingType EmptyUnderlyingType = static_cast<TUnderlyingType>(0);
 
-		UIndex64 m_value = EmptyUnderlyingType;
+		TUnderlyingType m_value = EmptyUnderlyingType;
 
 	};
 
@@ -77,6 +81,21 @@ namespace OSK {
 	private:
 
 		std::atomic<UIndex64> m_nextIndex = 1;
+
+	};
+
+	class StaticUuidProvider {
+
+	public:
+
+		/// @brief Genera un nuevo identificador único.
+		/// @return Nuevo identificador único.
+		/// @threadsafe
+		template <typename T>
+		static T New() {
+			static UIndex64 nextIndex = 1;
+			return T(nextIndex++);
+		}
 
 	};
 

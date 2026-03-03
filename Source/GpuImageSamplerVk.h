@@ -4,20 +4,22 @@
 #ifdef OSK_USE_VULKAN_BACKEND
 
 #include "IGpuImageSampler.h"
+#include "VulkanTarget.h"
 
 #include <vulkan/vulkan.h>
 
 namespace OSK::GRAPHICS {
 
-	class GpuVk;
+	template <OSK::GRAPHICS::VulkanTarget> class GpuVk;
 
+	template <VulkanTarget Target>
 	class GpuImageSamplerVk final : public IGpuImageSampler {
 
 	public:
 
 		explicit GpuImageSamplerVk(
 			const GpuImageSamplerDesc& info,
-			const GpuVk* gpu);
+			const GpuVk<Target>* gpu);
 		~GpuImageSamplerVk() override;
 
 		VkSampler GetSamplerVk() const;
@@ -29,13 +31,16 @@ namespace OSK::GRAPHICS {
 		static VkSamplerAddressMode GetAddressModeVk(GpuImageAddressMode mode);
 		static VkSampler CreateSamplerVk(
 			const GpuImageSamplerDesc& info,
-			const GpuVk* gpu);
+			const GpuVk<Target>* gpu);
 
 		VkSampler m_sampler = VK_NULL_HANDLE;
 
-		const GpuVk* m_gpu = nullptr;
+		const GpuVk<Target>* m_gpu = nullptr;
 
 	};
+
+	template class GpuImageSamplerVk<VulkanTarget::VK_1_0>;
+	template class GpuImageSamplerVk<VulkanTarget::VK_LATEST>;
 
 }
 

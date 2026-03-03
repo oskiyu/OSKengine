@@ -9,6 +9,7 @@
 
 #include <array>
 #include "ResourcesInFlight.h"
+#include "VulkanTarget.h"
 
 OSK_VULKAN_TYPEDEF(VkCommandBuffer);
 OSK_VULKAN_TYPEDEF(VkDevice);
@@ -16,18 +17,19 @@ OSK_VULKAN_TYPEDEF(VkDevice);
 namespace OSK::GRAPHICS {
 
 	class GpuBuffer;
-	class GraphicsPipelineVk;
-	class GpuVk;
-	class CommandPoolVk;
 
+	template <VulkanTarget> class GpuVk;
+	template <VulkanTarget> class CommandPoolVk;
+	template <VulkanTarget> class GraphicsPipelineVk;
 
+	template <VulkanTarget Target>
 	class OSKAPI_CALL CommandListVk final : public ICommandList {
 
 	public:
 
 		CommandListVk(
-			const GpuVk& gpu,
-			CommandPoolVk* commandPool);
+			const GpuVk<Target>& gpu,
+			CommandPoolVk<Target>* commandPool);
 
 		std::span<const VkCommandBuffer> GetCommandBuffers() const;
 
@@ -93,6 +95,9 @@ namespace OSK::GRAPHICS {
 		VkDevice m_logicalDevice = nullptr;
 
 	};
+
+	template class CommandListVk<VulkanTarget::VK_1_0>;
+	template class CommandListVk<VulkanTarget::VK_LATEST>;
 
 }
 

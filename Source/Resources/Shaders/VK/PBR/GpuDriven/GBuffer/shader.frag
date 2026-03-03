@@ -14,25 +14,16 @@ layout (set = 0, binding = 0) uniform Camera {
 
 
 // Tables
-
-layout (set = 1, binding = 0) uniform MeshInfo {
-    uint positionOffset;
-    uint attributesOffset;
-    uint animationAttributesOffset;
-
-    uint materialOffset;
-
-    mat4 matrix;
-    mat4 previousMatrix;
-} meshInfos[];
-
-layout (set = 1, binding = 1) uniform MaterialInfo {
+struct MaterialInfo {
     vec2 metallicRoughness;
     vec4 emissiveColor;
 
-    uint albedoOffset;
-    uint normalOffset;
-} materialInfos[];
+    uint albedoImageIdx;
+    uint normalImageIdx;
+};
+layout (set = 3, binding = 1) readonly buffer MaterialInfos {
+    MaterialInfo materialInfos[];
+} materialInfos;
 
 
 // Images
@@ -66,10 +57,11 @@ layout (location = 4) out vec4 outEmissive;
 
 
 void main() {
-    outColor = inColor * texture(images[materialInfos[meshInfos[gdrIndex].materialOffset].albedoOffset], inTexCoords).rgba;
+    outColor = inColor * texture(images[materialInfos.materialInfos[gdrIndex].albedoImageIdx], inTexCoords).rgba;
     
-    if (outColor.a < 0.75)
+    if (outColor.a < 0.75) {
         discard;
+    }
 
     const vec2 cameraSpacePreviousPosition = (inPreviousCameraPosition.xy / inPreviousCameraPosition.w) * 0.5 + 0.5;
     const vec2 cameraSpaceCurrentPosition = (inUnjitteredCurrentCameraPosition.xy / inUnjitteredCurrentCameraPosition.w) * 0.5 + 0.5;
@@ -79,7 +71,7 @@ void main() {
 
     outVelocity = diff;
 
-    vec3 normal = texture(images[materialInfos[meshInfos[gdrIndex].materialOffset].normalOffset], inTexCoords).xyz;
+    vec3 normal = texture(images[materialInfos.materialInfos[gdrIndex].normalImageIdx], inTexCoords).xyz;
     normal = normal * 2.0 - 1.0;
 
     normal = normalize(inTangentMatrix * normal);
@@ -88,6 +80,6 @@ void main() {
     outNormal = vec4(normal * 0.5 + 0.5, 1.0);
 
     outMetallicRoughness = vec2(
-        materialInfos[meshInfos[gdrIndex].materialOffset].metallicRoughness.y, 
-        materialInfos[meshInfos[gdrIndex].materialOffset].metallicRoughness.x);
+        materialInfos.materialInfos[gdrIndex].metallicRoughness.y, 
+        materialInfos.materialInfos[gdrIndex].metallicRoughness.x);
 }

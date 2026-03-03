@@ -3,6 +3,7 @@
 #include "EngineException.h"
 #include <string>
 #include <AL/al.h>
+#include <AL/alc.h>
 
 namespace OSK {
 

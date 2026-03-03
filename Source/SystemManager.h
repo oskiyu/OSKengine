@@ -165,7 +165,7 @@ namespace OSK::ECS {
 		static void AddObject(SystemEntry* entry, GameObjectIndex obj);
 		static void RemoveObject(SystemEntry* entry, GameObjectIndex obj);
 
-		std::unordered_map<std::string, SystemEntry, StringHasher, std::equal_to<>> m_systems;
+		StringHashMap<SystemEntry> m_systems;
 		SystemExecutionGraph m_executionGraph{};
 
 	};

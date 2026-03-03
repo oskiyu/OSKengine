@@ -10,7 +10,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuImageViewVk::GpuImageViewVk(
+template <OSK::GRAPHICS::VulkanTarget Target>
+GpuImageViewVk<Target>::GpuImageViewVk(
 	VkImageView view,
 	const GpuImage& image,
 	const GpuImageViewConfig& config)
@@ -18,8 +19,9 @@ GpuImageViewVk::GpuImageViewVk(
 
 }
 
-GpuImageViewVk::~GpuImageViewVk() {
-	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
+template <OSK::GRAPHICS::VulkanTarget Target>
+GpuImageViewVk<Target>::~GpuImageViewVk() {
+	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 
 	if (view != VK_NULL_HANDLE) {
 		vkDestroyImageView(logicalDevice, view, nullptr);
@@ -27,7 +29,8 @@ GpuImageViewVk::~GpuImageViewVk() {
 	}
 }
 
-VkImageView GpuImageViewVk::GetVkView() const {
+template <OSK::GRAPHICS::VulkanTarget Target>
+VkImageView GpuImageViewVk<Target>::GetVkView() const {
 	return view;
 }
 

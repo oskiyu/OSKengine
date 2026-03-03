@@ -16,7 +16,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-DescriptorLayoutVk::DescriptorLayoutVk(const MaterialLayoutSlot* slotLayout, USize32 maxSets)
+template <VulkanTarget Target>
+DescriptorLayoutVk<Target>::DescriptorLayoutVk(const MaterialLayoutSlot* slotLayout)
 	: m_slotLayout(slotLayout)  {
 
 	const bool isBindless = Engine::GetRenderer()->GetGpu()->SupportsBindlessResources();
@@ -28,17 +29,22 @@ DescriptorLayoutVk::DescriptorLayoutVk(const MaterialLayoutSlot* slotLayout, USi
 		VkDescriptorSetLayoutBinding layoutBinding{};
 		layoutBinding.binding = binding.glslIndex;
 		layoutBinding.descriptorType = GetDescriptorTypeVk(binding.type);
-		layoutBinding.descriptorCount = binding.numArrayLayers == 0
+		layoutBinding.descriptorCount = binding.isUnsizedArray
 			? MAX_BINDLESS_RESOURCES
 			: binding.numArrayLayers;
 		layoutBinding.stageFlags = GetShaderStageVk(slotLayout->stage);
 		layoutBinding.pImmutableSamplers = nullptr;
 
 		bindings.Insert(layoutBinding);
-		flags.Insert(
-			VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT | 
-			VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT | 
-			VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT);
+		flags.Insert(VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT);
+
+		if (isBindless) {
+			flags.Insert(
+				VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT |
+				VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT);
+		}
+
+		m_numDescriptors = glm::max(m_numDescriptors, layoutBinding.descriptorCount);
 	}
 
 	VkDescriptorSetLayoutBindingFlagsCreateInfo flagsCreateInfo{};
@@ -58,20 +64,28 @@ DescriptorLayoutVk::DescriptorLayoutVk(const MaterialLayoutSlot* slotLayout, USi
 		layoutInfo.pNext = &flagsCreateInfo;
 	}
 
-	VkResult result = vkCreateDescriptorSetLayout(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), 
+	VkResult result = vkCreateDescriptorSetLayout(Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(),
 		&layoutInfo, nullptr, &m_layoutVk);
 	OSK_ASSERT(result == VK_SUCCESS, DescriptorLayoutCreationException(result));
 }
 
-DescriptorLayoutVk::~DescriptorLayoutVk() {
-	vkDestroyDescriptorSetLayout(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
+template <VulkanTarget Target>
+DescriptorLayoutVk<Target>::~DescriptorLayoutVk() {
+	vkDestroyDescriptorSetLayout(Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(),
 		m_layoutVk, nullptr);
 }
 
-VkDescriptorSetLayout DescriptorLayoutVk::GetLayout() const {
+template <VulkanTarget Target>
+VkDescriptorSetLayout DescriptorLayoutVk<Target>::GetLayout() const {
 	return m_layoutVk;
 }
 
-const MaterialLayoutSlot* DescriptorLayoutVk::GetMaterialSlotLayout() const {
+template <VulkanTarget Target>
+const MaterialLayoutSlot* DescriptorLayoutVk<Target>::GetMaterialSlotLayout() const {
 	return m_slotLayout;
+}
+
+template <VulkanTarget Target>
+USize32 DescriptorLayoutVk<Target>::GetNumDescriptors() const {
+	return m_numDescriptors;
 }

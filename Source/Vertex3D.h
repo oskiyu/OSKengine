@@ -49,4 +49,8 @@ namespace OSK::GRAPHICS {
 		Vector3f position = Vector3f::Zero;
 	};
 
+	struct EmptyVertex {
+		OSK_VERTEX_TYPE_REG("OSK::EmptyVertex");
+	};
+
 }

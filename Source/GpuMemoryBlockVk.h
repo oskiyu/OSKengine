@@ -5,15 +5,18 @@
 
 #include "IGpuMemoryBlock.h"
 #include <vulkan/vulkan.h>
+#include "VulkanTarget.h"
 
 namespace OSK::GRAPHICS {
 
 	enum class Format;
 	enum class GpuBufferUsage;
 	enum class GpuImageUsage;
-	class GpuImage;
-	class GpuVk;
 
+	class GpuImage;
+	template <VulkanTarget> class GpuVk;
+
+	template <VulkanTarget Target>
 	class OSKAPI_CALL GpuMemoryBlockVk final : public IGpuMemoryBlock {
 
 	public:
@@ -82,7 +85,10 @@ namespace OSK::GRAPHICS {
 		static VkMemoryAllocateFlags GetMemoryAllocateFlags(GpuBufferUsage usage);
 
 		/// @throws NoCompatibleGpuMemoryException Si no se encontró memoria compatible.
-		static uint32_t GetMemoryType(uint32_t memoryTypeFilter, GpuVk* device, GpuSharedMemoryType type);
+		static uint32_t GetMemoryType(uint32_t memoryTypeFilter, GpuVk<Target>* device, GpuSharedMemoryType type);
+
+		TByte* MapRange_Impl(USize64 offset, USize64 size) override;
+		void UnmapAll_Impl() override;
 
 		
 		/// @brief Memoria del bloque.
@@ -92,6 +98,9 @@ namespace OSK::GRAPHICS {
 		VkBuffer buffer = VK_NULL_HANDLE;
 
 	};
+
+	template class GpuMemoryBlockVk<VulkanTarget::VK_1_0>;
+	template class GpuMemoryBlockVk<VulkanTarget::VK_LATEST>;
 
 }
 

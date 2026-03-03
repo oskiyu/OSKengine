@@ -125,3 +125,13 @@ void CpuModel3D::SetInitialTransform(const glm::mat4& initialTransform) {
 const glm::mat4& CpuModel3D::GetInitialTransform() const {
 	return m_initialTransform;
 }
+
+USize64 CpuModel3D::GetTotalVertexCount() const {
+	USize64 output = 0;
+
+	for (const auto& mesh : m_meshes) {
+		output += mesh.GetVertices().GetSize();
+	}
+
+	return output;
+}

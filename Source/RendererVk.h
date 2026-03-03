@@ -8,11 +8,13 @@
 
 #include <vulkan/vulkan.h>
 #include "ResourcesInFlight.h"
+#include "VulkanTarget.h"
 
 namespace OSK::GRAPHICS {
 
 	class IRenderpass;
 
+	template <VulkanTarget Target>
 	class OSKAPI_CALL RendererVk final : public IRenderer {
 
 	public:
@@ -20,9 +22,9 @@ namespace OSK::GRAPHICS {
 		explicit RendererVk(bool requestRayTracing);
 
 		void Initialize(
-			const std::string& appName, 
-			const Version& version, 
-			IO::IDisplay& display, 
+			const std::string& appName,
+			const Version& version,
+			IO::IDisplay& display,
 			PresentMode mode) override;
 		void Close() override;
 		void HandleResize(const Vector2ui& resolution) override;
@@ -38,14 +40,14 @@ namespace OSK::GRAPHICS {
 			const PipelineCreateInfo& pipelineInfo,
 			const MaterialLayout& layout) override;
 		UniquePtr<IRaytracingPipeline> _CreateRaytracingPipeline(
-			const PipelineCreateInfo& pipelineInfo, 
-			const MaterialLayout& layout, 
+			const PipelineCreateInfo& pipelineInfo,
+			const MaterialLayout& layout,
 			const VertexInfo& vertexInfo) override;
 		UniquePtr<IComputePipeline> _CreateComputePipeline(
-			const PipelineCreateInfo& pipelineInfo, 
+			const PipelineCreateInfo& pipelineInfo,
 			const MaterialLayout& layout) override;
 		UniquePtr<IMaterialSlot> _CreateMaterialSlot(
-			const std::string& name, 
+			const std::string& name,
 			const MaterialLayout& layout) const override;
 
 		UniquePtr<ICommandPool> CreateCommandPool(const ICommandQueue* targetQueueType) override;
@@ -137,6 +139,9 @@ namespace OSK::GRAPHICS {
 		USize32 vulkanVersion = VK_API_VERSION_1_3;
 
 	};
+
+	template class RendererVk<VulkanTarget::VK_1_0>;
+	template class RendererVk<VulkanTarget::VK_LATEST>;
 
 }
 

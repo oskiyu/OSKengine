@@ -26,7 +26,8 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 
-VkImageAspectFlags GpuImageVk::GetAspectFlags(SampledChannel channel) {
+template <VulkanTarget Target>
+VkImageAspectFlags GpuImageVk<Target>::GetAspectFlags(SampledChannel channel) {
 	VkImageAspectFlags aspectMask = 0;
 
 	if (EFTraits::HasFlag(channel, SampledChannel::COLOR))
@@ -40,12 +41,14 @@ VkImageAspectFlags GpuImageVk::GetAspectFlags(SampledChannel channel) {
 }
 
 
-GpuImageVk::GpuImageVk(const GpuImageCreateInfo& info, const ICommandQueue* ownerQueue) : GpuImage(info, ownerQueue) {
+template <VulkanTarget Target>
+GpuImageVk<Target>::GpuImageVk(const GpuImageCreateInfo& info, const ICommandQueue* ownerQueue) : GpuImage(info, ownerQueue) {
 
 }
 
-GpuImageVk::~GpuImageVk() {
-	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
+template <VulkanTarget Target>
+GpuImageVk<Target>::~GpuImageVk() {
+	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 
 	if (m_image != VK_NULL_HANDLE)
 		vkDestroyImage(logicalDevice, m_image, nullptr);
@@ -54,7 +57,8 @@ GpuImageVk::~GpuImageVk() {
 
 /* VULKAN SPECIFICS */
 
-void GpuImageVk::CreateVkImage() {
+template <VulkanTarget Target>
+void GpuImageVk<Target>::CreateVkImage() {
 	VkImageCreateInfo imageInfo{};
 	
 	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -78,25 +82,25 @@ void GpuImageVk::CreateVkImage() {
 	const auto* renderer = Engine::GetRenderer();
 
 	if (GetOwnerQueue()->GetQueueType() == GpuQueueType::ASYNC_TRANSFER && renderer->HasTransferOnlyQueue()) {
-		queueIndices.insert(renderer->GetTransferOnlyQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
+		queueIndices.insert(renderer->GetTransferOnlyQueue()->As<CommandQueueVk<Target>>()->GetFamily().familyIndex);
 	}
 	else {
 		if (GetOwnerQueue()->GetQueueType() == GpuQueueType::PRESENTATION) {
 			if (renderer->UseUnifiedCommandQueue()) {
-				queueIndices.insert(renderer->GetUnifiedQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
+				queueIndices.insert(renderer->GetUnifiedQueue()->As<CommandQueueVk<Target>>()->GetFamily().familyIndex);
 			}
 			else {
-				queueIndices.insert(renderer->GetGraphicsComputeQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
-				queueIndices.insert(renderer->GetPresentationQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
+				queueIndices.insert(renderer->GetGraphicsComputeQueue()->As<CommandQueueVk<Target>>()->GetFamily().familyIndex);
+				queueIndices.insert(renderer->GetPresentationQueue()->As<CommandQueueVk<Target>>()->GetFamily().familyIndex);
 			}
 		}
 
 		if (GetOwnerQueue()->GetQueueType() == GpuQueueType::MAIN) {
 			if (renderer->UseUnifiedCommandQueue()) {
-				queueIndices.insert(renderer->GetUnifiedQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
+				queueIndices.insert(renderer->GetUnifiedQueue()->As<CommandQueueVk<Target>>()->GetFamily().familyIndex);
 			}
 			else {
-				queueIndices.insert(renderer->GetGraphicsComputeQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
+				queueIndices.insert(renderer->GetGraphicsComputeQueue()->As<CommandQueueVk<Target>>()->GetFamily().familyIndex);
 			}
 		}
 	}
@@ -115,29 +119,34 @@ void GpuImageVk::CreateVkImage() {
 	// Si la imagen se usará como cubemap, debemos especificarlo.
 	imageInfo.flags = EFTraits::HasFlag(GetUsage(), GpuImageUsage::CUBEMAP) ? VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT : 0;
 	
-	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
+	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 	const VkResult result = vkCreateImage(device,	&imageInfo, nullptr, &m_image);
 
 	OSK_ASSERT(result == VK_SUCCESS, ImageCreationException(result));
 }
 
-VkImage GpuImageVk::GetVkImage() const {
+template <VulkanTarget Target>
+VkImage GpuImageVk<Target>::GetVkImage() const {
 	return m_image;
 }
 
-void GpuImageVk::_SetVkImage(VkImage img) {
+template <VulkanTarget Target>
+void GpuImageVk<Target>::_SetVkImage(VkImage img) {
 	m_image = img;
 }
 
-void GpuImageVk::SetSwapchainView(VkImageView view) {
+template <VulkanTarget Target>
+void GpuImageVk<Target>::SetSwapchainView(VkImageView view) {
 	m_swapchainView = view;
 }
 
-VkImageView GpuImageVk::GetSwapchainView() const {
+template <VulkanTarget Target>
+VkImageView GpuImageVk<Target>::GetSwapchainView() const {
 	return m_swapchainView;
 }
 
-UniquePtr<IGpuImageView> GpuImageVk::CreateView(const GpuImageViewConfig& viewConfig) const {
+template <VulkanTarget Target>
+UniquePtr<IGpuImageView> GpuImageVk<Target>::CreateView(const GpuImageViewConfig& viewConfig) const {
 	VkImageView view = VK_NULL_HANDLE;
 	
 	VkImageViewCreateInfo viewInfo{};
@@ -169,33 +178,35 @@ UniquePtr<IGpuImageView> GpuImageVk::CreateView(const GpuImageViewConfig& viewCo
 	viewInfo.subresourceRange.baseArrayLayer = viewConfig.baseArrayLevel;
 	viewInfo.subresourceRange.layerCount = viewConfig.arrayLevelCount;
 
-	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
+	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 	const VkResult result = vkCreateImageView(device, &viewInfo, nullptr, &view);
 
 	OSK_ASSERT(result == VK_SUCCESS, ImageViewCreationException(result));
 
-	return MakeUnique<GpuImageViewVk>(view, *this, viewConfig);
+	return MakeUnique<GpuImageViewVk<Target>>(view, *this, viewConfig);
 }
 
-void GpuImageVk::SetDebugName(const std::string& name) {
+template <VulkanTarget Target>
+void GpuImageVk<Target>::SetDebugName(const std::string& name) {
 	VkDebugUtilsObjectNameInfoEXT nameInfo{};
 	nameInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
 	nameInfo.objectType = VK_OBJECT_TYPE_IMAGE;
 	nameInfo.pNext = nullptr;
 
-	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
+	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 
 	nameInfo.pObjectName = name.c_str();
 	nameInfo.objectHandle = (uint64_t)m_image;
 
-	if (RendererVk::pvkSetDebugUtilsObjectNameEXT != nullptr)
-		RendererVk::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
+	if (RendererVk<Target>::pvkSetDebugUtilsObjectNameEXT != nullptr)
+		RendererVk<Target>::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
 
 	m_name = name;
 }
 
 
-VkImageType GpuImageVk::GetVkImageType() const {
+template <VulkanTarget Target>
+VkImageType GpuImageVk<Target>::GetVkImageType() const {
 	switch (GetDimension()) {
 	case GpuImageDimension::d1D:
 		return VK_IMAGE_TYPE_1D;
@@ -208,7 +219,8 @@ VkImageType GpuImageVk::GetVkImageType() const {
 	OSK_ASSERT(false, UnreachableException("GpuImageDimension no reconocido."));
 }
 
-VkImageViewType GpuImageVk::GetVkImageViewType() const {
+template <VulkanTarget Target>
+VkImageViewType GpuImageVk<Target>::GetVkImageViewType() const {
 	// Es cubo
 	if (EFTraits::HasFlag(GetUsage(), GpuImageUsage::CUBEMAP))
 		return VK_IMAGE_VIEW_TYPE_CUBE;
@@ -225,7 +237,8 @@ VkImageViewType GpuImageVk::GetVkImageViewType() const {
 	OSK_ASSERT(false, UnreachableException("GpuImageDimension no reconocido."));
 }
 
-VkImageViewType GpuImageVk::GetVkImageArrayViewType() const {
+template <VulkanTarget Target>
+VkImageViewType GpuImageVk<Target>::GetVkImageArrayViewType() const {
 	switch (GetDimension()) {
 	case GpuImageDimension::d1D:
 		return VK_IMAGE_VIEW_TYPE_1D_ARRAY;

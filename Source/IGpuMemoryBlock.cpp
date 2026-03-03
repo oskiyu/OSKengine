@@ -40,6 +40,46 @@ GpuMemoryUsage IGpuMemoryBlock::GetUsageType() const {
 	return usage;
 }
 
+void IGpuMemoryBlock::MapAll() {
+	MapRange(0, totalSize);
+}
+
+void IGpuMemoryBlock::UnmapAll() {
+	std::lock_guard lock(m_mapMutex.mutex);
+
+	if (m_mappedData) {
+		UnmapAll_Impl();
+		m_mappedData = nullptr;
+
+		m_mappedRange.offset = 0;
+		m_mappedRange.size = 0;
+	}
+}
+
+void IGpuMemoryBlock::MapRange(USize64 offset, USize64 size) {
+	if (m_mappedData) {
+		UnmapAll();
+	}
+
+	std::lock_guard lock(m_mapMutex.mutex);
+
+	m_mappedData = MapRange_Impl(offset, size);
+	m_mappedRange.offset = offset;
+	m_mappedRange.size = size;
+}
+
+TByte* IGpuMemoryBlock::GetMappedData() {
+	return m_mappedData;
+}
+
+const TByte* IGpuMemoryBlock::GetMappedData() const {
+	return m_mappedData;
+}
+
+GpuMemoryMappedRange IGpuMemoryBlock::GetMappedRange() const {
+	return m_mappedRange;
+}
+
 UniquePtr<IGpuMemorySubblock> IGpuMemoryBlock::GetNextMemorySubblock(USize64 size, USize64 alignment) {
 	std::lock_guard lock(m_subblockSearchMutex.mutex);
 

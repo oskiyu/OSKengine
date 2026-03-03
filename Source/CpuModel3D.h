@@ -200,6 +200,10 @@ namespace OSK {
 		/// @return Transform aplicado al cargarse.
 		const glm::mat4& GetInitialTransform() const;
 
+		/// @return Número de vértices totales
+		/// de todos los meshes del modelo.
+		USize64 GetTotalVertexCount() const;
+
 	private:
 
 		DynamicArray<CpuMesh3D> m_meshes;

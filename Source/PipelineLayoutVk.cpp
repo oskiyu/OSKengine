@@ -20,14 +20,15 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-PipelineLayoutVk::PipelineLayoutVk(const MaterialLayout* materialLayout)
+template <VulkanTarget Target>
+PipelineLayoutVk<Target>::PipelineLayoutVk(const MaterialLayout* materialLayout)
 	: IPipelineLayout(materialLayout) {
 
 	DynamicArray<VkDescriptorSetLayoutBinding> params;
-	DynamicArray<UniquePtr<DescriptorLayoutVk>> descLayouts;
+	DynamicArray<UniquePtr<DescriptorLayoutVk<Target>>> descLayouts;
 	DynamicArray<VkDescriptorSetLayout> nativeDescLayouts;
 	DynamicArray<VkPushConstantRange> pushConstantRanges;
-	VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
+	VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 
 	DynamicArray<MaterialLayoutSlot> orderedSlots{};
 	for (auto const& [name, slot] : materialLayout->GetAllSlots())
@@ -49,7 +50,7 @@ PipelineLayoutVk::PipelineLayoutVk(const MaterialLayout* materialLayout)
 	}
 
 	for (auto& slot : orderedSlots) {
-		auto descLayout = MakeUnique<DescriptorLayoutVk>(&slot, 0);
+		auto descLayout = MakeUnique<DescriptorLayoutVk<Target>>(&slot);
 		nativeDescLayouts.Insert(descLayout->GetLayout());
 		descLayouts.Insert(std::move(descLayout));
 	}
@@ -76,13 +77,15 @@ PipelineLayoutVk::PipelineLayoutVk(const MaterialLayout* materialLayout)
 	OSK_ASSERT(result == VK_SUCCESS, PipelineLayoutCreationException(result));
 }
 
-PipelineLayoutVk::~PipelineLayoutVk() {
-	VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
+template <VulkanTarget Target>
+PipelineLayoutVk<Target>::~PipelineLayoutVk() {
+	VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 
 	vkDestroyPipelineLayout(device, layout, nullptr);
 }
 
-VkPipelineLayout PipelineLayoutVk::GetLayout() const {
+template <VulkanTarget Target>
+VkPipelineLayout PipelineLayoutVk<Target>::GetLayout() const {
 	return layout;
 }
 

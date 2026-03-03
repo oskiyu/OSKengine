@@ -206,7 +206,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	if (fileVersion == 0)
 		LoadMaterialV0(layout.GetPointer(), materialInfo, &info);
 	else if (fileVersion == 1)
-		layout = LoadMaterialLayoutV1(materialInfo, &info, type);
+		layout = LoadMaterialLayoutV1(GetMaterialInfoV1(materialInfo), &info, type);
 	else
 		OSK_ASSERT(false, ASSETS::InvalidDescriptionFileException("La versión del archivo de material no está soportada.", path))
 

@@ -32,21 +32,26 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-GpuMemoryAllocatorVk::GpuMemoryAllocatorVk(IGpu* device)
+
+template <VulkanTarget Target>
+GpuMemoryAllocatorVk<Target>::GpuMemoryAllocatorVk(IGpu* device)
 	: IGpuMemoryAllocator(device) {
 
 	LoadDefaultNormalTexture();
 }
 
-UniquePtr<IGpuMemoryBlock> GpuMemoryAllocatorVk::CreateNewBufferBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
-	return GpuMemoryBlockVk::CreateNewBufferBlock(size, device, sharedType, usage);
+template <VulkanTarget Target>
+UniquePtr<IGpuMemoryBlock> GpuMemoryAllocatorVk<Target>::CreateNewBufferBlock(USize64 size, GpuBufferUsage usage, GpuSharedMemoryType sharedType) {
+	return GpuMemoryBlockVk<Target>::CreateNewBufferBlock(size, device, sharedType, usage);
 }
 
-UniquePtr<IGpuMemoryBlock> GpuMemoryAllocatorVk::CreateNewImageBlock(GpuImage* image, GpuImageUsage usage, GpuSharedMemoryType sharedType) {
-	return GpuMemoryBlockVk::CreateNewImageBlock(image, device, sharedType, usage);
+template <VulkanTarget Target>
+UniquePtr<IGpuMemoryBlock> GpuMemoryAllocatorVk<Target>::CreateNewImageBlock(GpuImage* image, GpuImageUsage usage, GpuSharedMemoryType sharedType) {
+	return GpuMemoryBlockVk<Target>::CreateNewImageBlock(image, device, sharedType, usage);
 }
 
-UniquePtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& info) {
+template <VulkanTarget Target>
+UniquePtr<GpuImage> GpuMemoryAllocatorVk<Target>::CreateImage(const GpuImageCreateInfo& info) {
 	USize64 numBytes = GetFormatNumberOfBytes(info.format);
 
 	switch (info.dimension) {
@@ -67,10 +72,10 @@ UniquePtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& 
 	if (finalImageSize.y == 0)
 		finalImageSize.y = 1;
 
-	UniquePtr<GpuImageVk> output = MakeUnique<GpuImageVk>(info, Engine::GetRenderer()->GetOptimalQueue(info.queueType));
+	UniquePtr<GpuImageVk<Target>> output = MakeUnique<GpuImageVk<Target>>(info, Engine::GetRenderer()->GetOptimalQueue(info.queueType));
 
 	output->CreateVkImage();
-	auto block = GpuMemoryBlockVk::CreateNewImageBlock(output.GetPointer(), device, info.memoryType, info.usage);
+	auto block = GpuMemoryBlockVk<Target>::CreateNewImageBlock(output.GetPointer(), device, info.memoryType, info.usage);
 
 	imageMemoryBlocks.Insert(block.GetPointer());
 
@@ -80,11 +85,13 @@ UniquePtr<GpuImage> GpuMemoryAllocatorVk::CreateImage(const GpuImageCreateInfo& 
 }
 
 
-UniquePtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorVk::_CreateBottomAccelerationStructure() {
+template <VulkanTarget Target>
+UniquePtr<IBottomLevelAccelerationStructure> GpuMemoryAllocatorVk<Target>::_CreateBottomAccelerationStructure() {
 	return MakeUnique<BottomLevelAccelerationStructureVk>();
 }
 
-UniquePtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorVk::_CreateTopAccelerationStructure() {
+template <VulkanTarget Target>
+UniquePtr<ITopLevelAccelerationStructure> GpuMemoryAllocatorVk<Target>::_CreateTopAccelerationStructure() {
 	return MakeUnique<TopLevelAccelerationStructureVk>();
 }
 

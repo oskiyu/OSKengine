@@ -12,7 +12,7 @@ namespace OSK::GRAPHICS {
 
 	class MaterialLayout;
 
-	class OSKAPI_CALL RaytracingPipelineVk final : public IRaytracingPipeline, public IPipelineVk {
+	class OSKAPI_CALL RaytracingPipelineVk final : public IRaytracingPipeline, public IPipelineVk<VulkanTarget::VK_LATEST> {
 
 	public:
 

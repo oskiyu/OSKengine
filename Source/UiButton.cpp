@@ -146,7 +146,7 @@ const DynamicArray<GRAPHICS::SdfDrawCall2D>& Button::GetDrawCalls(State state) c
 	default:
 		OSK_ASSERT(false, UnreachableException("Valor de Button::State sin contemblar."));
 
-		return {};
+		return DynamicArray<GRAPHICS::SdfDrawCall2D>{};
 
 		break;
 	}

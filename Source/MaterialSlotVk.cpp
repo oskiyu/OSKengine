@@ -19,21 +19,25 @@
 #include "MaterialExceptions.h"
 #include "GpuImageSamplerVk.h"
 
+#include "Exceptions.h"
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
+template <VulkanTarget Target>
 inline static VkDevice GetDevice() {
-	return Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
+	return Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 }
 
-MaterialSlotVk::MaterialSlotVk(const std::string& name, const MaterialLayout* layout)
+template <VulkanTarget Target>
+MaterialSlotVk<Target>::MaterialSlotVk(const std::string& name, const MaterialLayout* layout)
 	: IMaterialSlot(layout, name),
-	m_descLayout(new DescriptorLayoutVk(&layout->GetSlot(name), 0))
+	m_descLayout(new DescriptorLayoutVk<Target>(&layout->GetSlot(name)))
 {
-	m_pool = MakeUnique<DescriptorPoolVk>(m_descLayout.GetValue(), 1);
+	m_pool = MakeUnique<DescriptorPoolVk<Target>>(m_descLayout.GetValue(), m_descLayout->GetNumDescriptors());
 
 	std::array<USize32, MAX_RESOURCES_IN_FLIGHT> maxCount{};
-	maxCount.fill(1);
+	maxCount.fill(m_descLayout->GetNumDescriptors());
 
 	std::array<VkDescriptorSetLayout, MAX_RESOURCES_IN_FLIGHT> descriptorLayout{};
 	descriptorLayout.fill(m_descLayout->GetLayout());
@@ -56,26 +60,36 @@ MaterialSlotVk::MaterialSlotVk(const std::string& name, const MaterialLayout* la
 
 	allocInfo.pSetLayouts = layouts.data();
 
-	VkResult result = vkAllocateDescriptorSets(GetDevice(), &allocInfo, &m_descriptorSet);
+	VkResult result = vkAllocateDescriptorSets(GetDevice<Target>(), &allocInfo, &m_descriptorSet);
 	OSK_ASSERT(result == VK_SUCCESS, MaterialSlotCreationException(result));
 
 	SetDebugName(name);
 }
 
-MaterialSlotVk::~MaterialSlotVk() {
+template <VulkanTarget Target>
+MaterialSlotVk<Target>::~MaterialSlotVk() {
 	m_pool.Delete();
 	m_descLayout.Delete();
 }
 
-void MaterialSlotVk::SetUniformBuffer(
+template <VulkanTarget Target>
+void MaterialSlotVk<Target>::SetUniformBuffer(
 	std::string_view binding, 
 	const GpuBuffer& buffer, 
 	const GpuBufferRange& range,
 	UIndex32 arrayIndex)
 {
-	const UIndex32 bindingIndexInShader = GetLayout()->GetSlot(GetName()).bindings.find(binding)->second.glslIndex;
+	const auto& slot = GetLayout()->GetSlot(GetName());
+	const auto& it = slot.bindings.find(binding);
 
-	UniquePtr<VkDescriptorBufferInfo> bufferInfo = GetDescriptorBufferInfo(*buffer.GetMemorySubblock()->As<GpuMemorySubblockVk>(), range);
+	OSK_ASSERT_2(
+		it != slot.bindings.end(),
+		InvalidArgumentException(std::format("No existe el uniform buffer con el binding {} (en {})", binding, GetName())),
+		Engine::GetLogger());
+
+	const UIndex32 bindingIndexInShader = it->second.glslIndex;
+
+	UniquePtr<VkDescriptorBufferInfo> bufferInfo = GetDescriptorBufferInfo(*buffer.GetMemorySubblock()->As<GpuMemorySubblockVk<Target>>(), range);
 
 	VkWriteDescriptorSet descriptorWrite{};
 	descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -93,15 +107,24 @@ void MaterialSlotVk::SetUniformBuffer(
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
-void MaterialSlotVk::SetStorageBuffer(
+template <VulkanTarget Target>
+void MaterialSlotVk<Target>::SetStorageBuffer(
 	std::string_view binding,
 	const GpuBuffer& buffer,
 	const GpuBufferRange& range,
 	UIndex32 arrayIndex)
 {
-	const UIndex32 bindingIndexInShader = GetLayout()->GetSlot(GetName()).bindings.find(binding)->second.glslIndex;
+	const auto& slot = GetLayout()->GetSlot(GetName());
+	const auto& it = slot.bindings.find(binding);
 
-	UniquePtr<VkDescriptorBufferInfo> bufferInfo = GetDescriptorBufferInfo(*buffer.GetMemorySubblock()->As<GpuMemorySubblockVk>(), range);
+	OSK_ASSERT_2(
+		it != slot.bindings.end(),
+		InvalidArgumentException(std::format("No existe el storage buffer con el binding {} (en {})", binding, GetName())),
+		Engine::GetLogger());
+
+	const UIndex32 bindingIndexInShader = it->second.glslIndex;
+
+	UniquePtr<VkDescriptorBufferInfo> bufferInfo = GetDescriptorBufferInfo(*buffer.GetMemorySubblock()->As<GpuMemorySubblockVk<Target>>(), range);
 
 	VkWriteDescriptorSet descriptorWrite{};
 	descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -119,13 +142,22 @@ void MaterialSlotVk::SetStorageBuffer(
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
-void MaterialSlotVk::SetGpuImage(
+template <VulkanTarget Target>
+void MaterialSlotVk<Target>::SetGpuImage(
 	std::string_view binding,
 	const IGpuImageView& image,
 	const IGpuImageSampler& sampler,
 	UIndex32 arrayIndex)
 {
-	const UIndex32 bindingIndexInShader = GetLayout()->GetSlot(GetName()).bindings.find(binding)->second.glslIndex;
+	const auto& slot = GetLayout()->GetSlot(GetName());
+	const auto& it = slot.bindings.find(binding);
+
+	OSK_ASSERT_2(
+		it != slot.bindings.end(),
+		InvalidArgumentException(std::format("No existe la imagen con el binding {} (en {})", binding, GetName())),
+		Engine::GetLogger());
+
+	const UIndex32 bindingIndexInShader = it->second.glslIndex;
 
 	UniquePtr<VkDescriptorImageInfo> imageInfo = GetDescriptorImageInfo(image, sampler, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
 
@@ -145,12 +177,21 @@ void MaterialSlotVk::SetGpuImage(
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
-void MaterialSlotVk::SetStorageImage(
+template <VulkanTarget Target>
+void MaterialSlotVk<Target>::SetStorageImage(
 	std::string_view binding,
 	const IGpuImageView& image,
 	UIndex32 arrayIndex)
 {
-	const UIndex32 bindingIndexInShader = GetLayout()->GetSlot(GetName()).bindings.find(binding)->second.glslIndex;
+	const auto& slot = GetLayout()->GetSlot(GetName());
+	const auto& it = slot.bindings.find(binding);
+
+	OSK_ASSERT_2(
+		it != slot.bindings.end(),
+		InvalidArgumentException(std::format("No existe la storage image con el binding {} (en {})", binding, GetName())),
+		Engine::GetLogger());
+
+	const UIndex32 bindingIndexInShader = it->second.glslIndex;
 
 	UniquePtr<VkDescriptorImageInfo> imageInfo = GetDescriptorImageInfo(image, VK_IMAGE_LAYOUT_GENERAL);
 
@@ -170,12 +211,21 @@ void MaterialSlotVk::SetStorageImage(
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
-void MaterialSlotVk::SetAccelerationStructure(
+template <VulkanTarget Target>
+void MaterialSlotVk<Target>::SetAccelerationStructure(
 	std::string_view binding,
 	const ITopLevelAccelerationStructure& accelerationStructure,
 	UIndex32 arrayIndex)
 {
-	const UIndex32 bindingIndexInShader = GetLayout()->GetSlot(GetName()).bindings.find(binding)->second.glslIndex;
+	const auto& slot = GetLayout()->GetSlot(GetName());
+	const auto& it = slot.bindings.find(binding);
+
+	OSK_ASSERT_2(
+		it != slot.bindings.end(),
+		InvalidArgumentException(std::format("No existe la estructura de aceleración con el binding {} (en {})", binding, GetName())),
+		Engine::GetLogger());
+
+	const UIndex32 bindingIndexInShader = it->second.glslIndex;
 
 	m_accelerationStructures.Insert(accelerationStructure.As<TopLevelAccelerationStructureVk>()->GetAccelerationStructure());
 
@@ -197,8 +247,9 @@ void MaterialSlotVk::SetAccelerationStructure(
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
-void MaterialSlotVk::FlushUpdate() {
-	VkDevice device = GetDevice();
+template <VulkanTarget Target>
+void MaterialSlotVk<Target>::FlushUpdate() {
+	VkDevice device = GetDevice<Target>();
 
 	m_descriptorWrites.Empty();
 
@@ -215,16 +266,22 @@ void MaterialSlotVk::FlushUpdate() {
 		bindingData.dirtyDescriptorWrites.clear();
 	}
 
-	vkUpdateDescriptorSets(device, static_cast<uint32_t>(m_descriptorWrites.GetSize()), m_descriptorWrites.GetData(), 0, nullptr);
+	vkUpdateDescriptorSets(
+		device, 
+		static_cast<uint32_t>(m_descriptorWrites.GetSize()), 
+		m_descriptorWrites.GetData(), 
+		0, 
+		nullptr);
 }
 
-void MaterialSlotVk::SetDebugName(const std::string& name) {
+template <VulkanTarget Target>
+void MaterialSlotVk<Target>::SetDebugName(const std::string& name) {
 	VkDebugUtilsObjectNameInfoEXT nameInfo{};
 	nameInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
 	nameInfo.objectType = VK_OBJECT_TYPE_DESCRIPTOR_SET;
 	nameInfo.pNext = nullptr;
 
-	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
+	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 
 	std::string finalName = std::format("{} {}", name, GetName());
 
@@ -232,20 +289,22 @@ void MaterialSlotVk::SetDebugName(const std::string& name) {
 
 	nameInfo.objectHandle = (uint64_t)(m_descriptorSet);
 
-	if (RendererVk::pvkSetDebugUtilsObjectNameEXT != nullptr) {
-		RendererVk::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
+	if (RendererVk<Target>::pvkSetDebugUtilsObjectNameEXT != nullptr) {
+		RendererVk<Target>::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
 	}
 
 }
 
-VkDescriptorSet MaterialSlotVk::GetDescriptorSet() const {
+template <VulkanTarget Target>
+VkDescriptorSet MaterialSlotVk<Target>::GetDescriptorSet() const {
 	return m_descriptorSet;
 }
 
-UniquePtr<VkDescriptorBufferInfo> MaterialSlotVk::GetDescriptorBufferInfo(const GpuMemorySubblockVk& subblock, const GpuBufferRange& range) {
+template <VulkanTarget Target>
+UniquePtr<VkDescriptorBufferInfo> MaterialSlotVk<Target>::GetDescriptorBufferInfo(const GpuMemorySubblockVk<Target>& subblock, const GpuBufferRange& range) {
 	UniquePtr<VkDescriptorBufferInfo> bufferInfo = MakeUnique<VkDescriptorBufferInfo>();
 
-	bufferInfo->buffer = subblock.GetOwnerBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer();
+	bufferInfo->buffer = subblock.GetOwnerBlock()->As<GpuMemoryBlockVk<Target>>()->GetVulkanBuffer();
 
 	if (range.full) {
 		bufferInfo->offset = subblock.GetOffsetFromBlock();
@@ -259,20 +318,22 @@ UniquePtr<VkDescriptorBufferInfo> MaterialSlotVk::GetDescriptorBufferInfo(const 
 	return bufferInfo;
 }
 
-UniquePtr<VkDescriptorImageInfo> MaterialSlotVk::GetDescriptorImageInfo(const IGpuImageView& view, const IGpuImageSampler& sampler, VkImageLayout layout) {
+template <VulkanTarget Target>
+UniquePtr<VkDescriptorImageInfo> MaterialSlotVk<Target>::GetDescriptorImageInfo(const IGpuImageView& view, const IGpuImageSampler& sampler, VkImageLayout layout) {
 	UniquePtr<VkDescriptorImageInfo> imageInfo = GetDescriptorImageInfo(view, layout);
 
-	imageInfo->sampler = sampler.As<GpuImageSamplerVk>()->GetSamplerVk();
+	imageInfo->sampler = sampler.As<GpuImageSamplerVk<Target>>()->GetSamplerVk();
 
 	return imageInfo;
 }
 
-UniquePtr<VkDescriptorImageInfo> MaterialSlotVk::GetDescriptorImageInfo(const IGpuImageView& view, VkImageLayout layout) {
+template <VulkanTarget Target>
+UniquePtr<VkDescriptorImageInfo> MaterialSlotVk<Target>::GetDescriptorImageInfo(const IGpuImageView& view, VkImageLayout layout) {
 	UniquePtr<VkDescriptorImageInfo> imageInfo = MakeUnique<VkDescriptorImageInfo>();
 
 	imageInfo->imageLayout = layout;
 	imageInfo->sampler = VK_NULL_HANDLE;
-	imageInfo->imageView = view.As<GpuImageViewVk>()->GetVkView();
+	imageInfo->imageView = view.As<GpuImageViewVk<Target>>()->GetVkView();
 
 	return imageInfo;
 }

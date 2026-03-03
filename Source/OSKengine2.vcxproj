@@ -99,6 +99,7 @@
     <ClCompile Include="DetailedCollisionDetectorDispatcher.cpp" />
     <ClCompile Include="DetailedCollisionInfo.cpp" />
     <ClCompile Include="DetailedSphereSphereDetector.cpp" />
+    <ClCompile Include="DistanceConstraint.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="EditorBottomBar.cpp" />
     <ClCompile Include="EditorCommands.cpp" />
@@ -109,19 +110,26 @@
     <ClCompile Include="EditorSystemPropertiesPanel.cpp" />
     <ClCompile Include="EditorUi.cpp" />
     <ClCompile Include="ConsoleCommand.cpp" />
+    <ClCompile Include="ExampleComputePass.cpp" />
     <ClCompile Include="ExitCommand.cpp" />
     <ClCompile Include="FaceProjection.cpp" />
     <ClCompile Include="FrameCombiner.cpp" />
     <ClCompile Include="GameObjectTranslator.cpp" />
+    <ClCompile Include="GdrDeferredPass.cpp" />
     <ClCompile Include="GdrDeferredRenderSystem.cpp" />
+    <ClCompile Include="GdrPipeline.cpp" />
     <ClCompile Include="Gjk.cpp" />
     <ClCompile Include="GjkClippingDetector.cpp" />
     <ClCompile Include="GjkEpaDetector.cpp" />
+    <ClCompile Include="GlobalIndexBuffer.cpp" />
+    <ClCompile Include="GlobalVertexBuffer.cpp" />
+    <ClCompile Include="GpuGeometryDesc.cpp" />
     <ClCompile Include="GpuImageCreateInfo.cpp" />
     <ClCompile Include="GpuImageSampler.cpp" />
     <ClCompile Include="GpuImageSamplerDesc.cpp" />
     <ClCompile Include="GpuImageSamplerDx12.cpp" />
     <ClCompile Include="GpuImageSamplerVk.cpp" />
+    <ClCompile Include="GpuInfoVkAny.cpp" />
     <ClCompile Include="GpuMesh3D.cpp" />
     <ClCompile Include="GpuModel3D.cpp" />
     <ClCompile Include="GpuStatsCommand.cpp" />
@@ -178,7 +186,16 @@
     <ClCompile Include="RenderBoundsRenderer.cpp" />
     <ClCompile Include="RenderBoundsRenderSystemController.cpp" />
     <ClCompile Include="RenderBoundsRenderSystemView.cpp" />
+    <ClCompile Include="RenderGraph.cpp" />
+    <ClCompile Include="RenderGraphArgs.cpp" />
+    <ClCompile Include="RenderPass.cpp" />
+    <ClCompile Include="RenderpassAttachmentVk.cpp" />
+    <ClCompile Include="RenderpassVk.cpp" />
+    <ClCompile Include="RenderSubpassVk.cpp" />
     <ClCompile Include="ResourceQueueTransfer.cpp" />
+    <ClCompile Include="RgBufferManager.cpp" />
+    <ClCompile Include="RgGeometryManager.cpp" />
+    <ClCompile Include="RgImageManager.cpp" />
     <ClCompile Include="Sat.cpp" />
     <ClCompile Include="SavedGameObjectTranslator.cpp" />
     <ClCompile Include="SdfBindlessBufferContent2D.cpp" />
@@ -453,23 +470,42 @@
     <ClInclude Include="DescriptorHeapDx12.h" />
     <ClInclude Include="DetailedCollisionDetectorDispatcher.h" />
     <ClInclude Include="DetailedSphereSphereDetector.h" />
+    <ClInclude Include="DistanceConstraint.h" />
     <ClInclude Include="Editor.h" />
     <ClInclude Include="EditorSystemPropertiesPanel.h" />
+    <ClInclude Include="ExampleComputePass.h" />
+    <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="GdrDeferredPass.h" />
+    <ClInclude Include="GdrGeometryComponent.h" />
+    <ClInclude Include="GdrMaterialComponent.h" />
+    <ClInclude Include="GdrPipeline.h" />
+    <ClInclude Include="GdrTexturedComponent.h" />
     <ClInclude Include="GjkClippingDetector.h" />
     <ClInclude Include="GjkEpaDetector.h" />
+    <ClInclude Include="GlobalIndexBuffer.h" />
+    <ClInclude Include="GlobalVertexBuffer.h" />
+    <ClInclude Include="GpuGeometryDesc.h" />
     <ClInclude Include="GpuImageSamplerDx12.h" />
     <ClInclude Include="GpuImageSamplerVk.h" />
+    <ClInclude Include="GpuImageViewVk.h" />
+    <ClInclude Include="GpuImageVk.h" />
+    <ClInclude Include="GpuInfoVkAny.h" />
     <ClInclude Include="GpuMemoryAlignments.h" />
+    <ClInclude Include="GpuMemoryAllocatorVk0.h" />
+    <ClInclude Include="GpuVk.h" />
     <ClInclude Include="GrassRenderPass.h" />
     <ClInclude Include="IBroadCollisionDetector.h" />
     <ClInclude Include="IComponentController.h" />
     <ClInclude Include="IComponentView.h" />
+    <ClInclude Include="IConstraint.h" />
     <ClInclude Include="IDetailedCollisionDetector.h" />
     <ClInclude Include="IGpuImageSampler.h" />
+    <ClInclude Include="ImageUuid.h" />
     <ClInclude Include="IMeshPipeline.h" />
     <ClInclude Include="ISdfRenderer2D.h" />
     <ClInclude Include="ISystemController.h" />
     <ClInclude Include="ISystemView.h" />
+    <ClInclude Include="LoadedMaterialInfo.h" />
     <ClInclude Include="MaterialLayoutBuilder.h" />
     <ClInclude Include="MaterialLoaderV1.h" />
     <ClInclude Include="MeshPipelineVk.h" />
@@ -486,6 +522,22 @@
     <ClInclude Include="PostProcessExceptions.h" />
     <ClInclude Include="RenderBoundsRenderSystemController.h" />
     <ClInclude Include="RenderBoundsRenderSystemView.h" />
+    <ClInclude Include="RendererVk.h" />
+    <ClInclude Include="RenderGraph.h" />
+    <ClInclude Include="RenderGraphArgs.h" />
+    <ClInclude Include="RenderPass.h" />
+    <ClInclude Include="RenderpassAttachmentVk.h" />
+    <ClInclude Include="RenderPassDependencies.h" />
+    <ClInclude Include="RenderpassVk.h" />
+    <ClInclude Include="RenderSubpassVk.h" />
+    <ClInclude Include="RgBufferDependency.h" />
+    <ClInclude Include="RgBufferManager.h" />
+    <ClInclude Include="RgDependencyShaderBinding.h" />
+    <ClInclude Include="RgDependencyType.h" />
+    <ClInclude Include="RgEntry.h" />
+    <ClInclude Include="RgGeometryManager.h" />
+    <ClInclude Include="RgImageDependency.h" />
+    <ClInclude Include="RgImageManager.h" />
     <ClInclude Include="SdfBindlessBatch2D.h" />
     <ClInclude Include="SdfBindlessBufferContent2D.h" />
     <ClInclude Include="SdfDrawCall2D.h" />
@@ -563,7 +615,6 @@
     <ClInclude Include="GpuBarrierInfo.h" />
     <ClInclude Include="GpuImageViewConfig.h" />
     <ClInclude Include="GpuImageViewDx12.h" />
-    <ClInclude Include="GpuImageViewVk.h" />
     <ClInclude Include="GpuMemoryUsageInfo.h" />
     <ClInclude Include="GpuHeapMemoryUsageInfo.h" />
     <ClInclude Include="HybridRenderSystem.h" />
@@ -630,7 +681,6 @@
     <ClInclude Include="GpuImageDimensions.h" />
     <ClInclude Include="GpuImageSamplerDesc.h" />
     <ClInclude Include="GpuImageUsage.h" />
-    <ClInclude Include="GpuImageVk.h" />
     <ClInclude Include="GpuMemoryAllocatorDx12.h" />
     <ClInclude Include="GpuMemoryAllocatorVk.h" />
     <ClInclude Include="GpuMemoryBlockDx12.h" />
@@ -641,7 +691,6 @@
     <ClInclude Include="GpuMemoryTypesDx12.h" />
     <ClInclude Include="GpuMemoryTypeVk.h" />
     <ClInclude Include="GpuVertexDescriptionVk.h" />
-    <ClInclude Include="GpuVk.h" />
     <ClInclude Include="GraphicsPipelineDx12.h" />
     <ClInclude Include="HlslRuntimeCompiler.h" />
     <ClInclude Include="IAsset.h" />
@@ -697,6 +746,7 @@
     <ClInclude Include="StaticGBufferPass.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="StringOperations.h" />
+    <ClInclude Include="SwapchainVk.h" />
     <ClInclude Include="SystemAlreadyRegisteredException.h" />
     <ClInclude Include="SystemExecutionGraph.h" />
     <ClInclude Include="TaaProvider.h" />
@@ -736,7 +786,6 @@
     <ClInclude Include="RaytracingPipelineVk.h" />
     <ClInclude Include="RenderApiType.h" />
     <ClInclude Include="RendererDx12.h" />
-    <ClInclude Include="RendererVk.h" />
     <ClInclude Include="RenderpassType.h" />
     <ClInclude Include="RenderSystem2D.h" />
     <ClInclude Include="RenderTarget.h" />
@@ -763,7 +812,6 @@
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StaticMeshLoader.h" />
     <ClInclude Include="SwapchainDx12.h" />
-    <ClInclude Include="SwapchainVk.h" />
     <ClInclude Include="ISystem.h" />
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="Texture.h" />
@@ -808,6 +856,7 @@
     <ClInclude Include="VertexBufferView.h" />
     <ClInclude Include="VertexInfo.h" />
     <ClInclude Include="Viewport.h" />
+    <ClInclude Include="VulkanTarget.h" />
     <ClInclude Include="VulkanTypedefs.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
@@ -846,61 +895,61 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <EnableASAN>false</EnableASAN>
@@ -909,21 +958,21 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -1198,13 +1247,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level1</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>OSK_DEBUG;_DEBUG;_CONSOLE;OSK_DEVELOPMENT;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -1222,7 +1272,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level1</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -1253,7 +1303,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|x64'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level1</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -1264,6 +1314,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -1284,7 +1335,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL Lib|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level1</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -1293,6 +1344,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -1314,7 +1366,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseValidationLayers|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level1</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -1325,6 +1377,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
       <WholeProgramOptimization>false</WholeProgramOptimization>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -1346,7 +1399,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DLL RVL|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level1</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -1357,6 +1410,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

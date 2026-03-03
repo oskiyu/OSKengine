@@ -751,6 +751,45 @@
     <Filter Include="Archivos de origen\Core\Collision\Colliders">
       <UniqueIdentifier>{f8c323b7-4d9a-4538-8aea-bc1756b112b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Core\Physics">
+      <UniqueIdentifier>{eb88a4ba-799f-4a0c-afb6-c7549ed95864}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Physics\Constraints">
+      <UniqueIdentifier>{f6b5ba9c-6976-4181-a4df-57778158971c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Physics">
+      <UniqueIdentifier>{dd00ebb6-2545-49ca-9e97-85ed268d5803}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Physics\Constraints">
+      <UniqueIdentifier>{4651a3eb-1943-4e6c-b56d-352358c2aa7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Renderpass">
+      <UniqueIdentifier>{3028e311-9f16-4df1-93d8-21456d880e55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph">
+      <UniqueIdentifier>{2eca8daa-c419-4897-8ee2-43b60d8d7cf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\Core\Graphics\HighLevel\RenderGraph">
+      <UniqueIdentifier>{2c748f78-c45c-4298-b3b0-db75b84ffe7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\BuiltIn\ECS\Components\Gdr">
+      <UniqueIdentifier>{e3e81206-a4a9-4428-b824-3146ff8753b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph\Resources">
+      <UniqueIdentifier>{4ee557e8-14cb-4c36-9250-52c1d6f420e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph\Resources\Dependencies">
+      <UniqueIdentifier>{fd18a330-4e90-4ff4-bd3f-0492c0ff5385}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph\Resources\Managers">
+      <UniqueIdentifier>{3b7f456c-d7d6-4920-b68a-39b6b6f5788e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\BuiltIn\GRAPHICS\RenderGraph">
+      <UniqueIdentifier>{82df982e-722c-467b-aed3-5ddf6afa75c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\BuiltIn\GRAPHICS\RenderGraph">
+      <UniqueIdentifier>{63405647-d873-4e6f-9607-3c3a6c6018b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -1695,6 +1734,57 @@
     <ClCompile Include="NarrowColliderHolder.cpp">
       <Filter>Archivos de origen\Core\Collision\Base</Filter>
     </ClCompile>
+    <ClCompile Include="DistanceConstraint.cpp">
+      <Filter>Archivos de origen\Core\Physics\Constraints</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuInfoVkAny.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Gpu</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderpassAttachmentVk.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Renderpass</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSubpassVk.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Renderpass</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderpassVk.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Renderpass</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderGraph.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPass.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuGeometryDesc.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderGraphArgs.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalIndexBuffer.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalVertexBuffer.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="RgBufferManager.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="RgImageManager.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="ExampleComputePass.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="GdrDeferredPass.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="RgGeometryManager.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="GdrPipeline.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS\RenderGraph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -1742,14 +1832,8 @@
     <ClInclude Include="RendererDx12.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="GpuVk.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Gpu</Filter>
-    </ClInclude>
     <ClInclude Include="CommandQueueVk.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Queue</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererVk.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="QueueFamilyIndices.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Queue</Filter>
@@ -1776,9 +1860,6 @@
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Swapchain</Filter>
     </ClInclude>
     <ClInclude Include="SwapchainDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Swapchain</Filter>
-    </ClInclude>
-    <ClInclude Include="SwapchainVk.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Swapchain</Filter>
     </ClInclude>
     <ClInclude Include="DynamicArray.hpp">
@@ -1858,9 +1939,6 @@
     </ClInclude>
     <ClInclude Include="Color.hpp">
       <Filter>Archivos de encabezado\Core\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="GpuImageVk.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Image</Filter>
     </ClInclude>
     <ClInclude Include="RenderApiType.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel</Filter>
@@ -2112,9 +2190,6 @@
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources</Filter>
     </ClInclude>
     <ClInclude Include="IGpuImageView.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\View</Filter>
-    </ClInclude>
-    <ClInclude Include="GpuImageViewVk.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\View</Filter>
     </ClInclude>
     <ClInclude Include="GpuImageViewDx12.h">
@@ -2912,9 +2987,6 @@
     <ClInclude Include="IGpuImageSampler.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Sampler</Filter>
     </ClInclude>
-    <ClInclude Include="GpuImageSamplerVk.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Sampler</Filter>
-    </ClInclude>
     <ClInclude Include="SdfBindlessBatch2D.h">
       <Filter>Archivos de encabezado\Core\Graphics\HighLevel\2D\SDF\Bindless</Filter>
     </ClInclude>
@@ -3025,6 +3097,120 @@
     </ClInclude>
     <ClInclude Include="FaceProjection.h">
       <Filter>Archivos de encabezado\Core\Collision\Detection</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceConstraint.h">
+      <Filter>Archivos de encabezado\Core\Physics\Constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="IConstraint.h">
+      <Filter>Archivos de encabezado\Core\Physics\Constraints</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuMemoryAllocatorVk0.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuInfoVkAny.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Gpu</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuVk.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Gpu</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanTarget.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapchainVk.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Swapchain</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageVk.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageSamplerVk.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuImageViewVk.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\View</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererVk.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSubpassVk.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderpass</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderpassAttachmentVk.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderpass</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderpassVk.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderpass</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderGraph.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPass.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPassDependencies.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadedMaterialInfo.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="GpuGeometryDesc.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderGraphArgs.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="GdrGeometryComponent.h">
+      <Filter>Archivos de encabezado\BuiltIn\ECS\Components\Gdr</Filter>
+    </ClInclude>
+    <ClInclude Include="GdrTexturedComponent.h">
+      <Filter>Archivos de encabezado\BuiltIn\ECS\Components\Gdr</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageUuid.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="RgEntry.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="RgImageDependency.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph\Resources\Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalIndexBuffer.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph\Resources\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalVertexBuffer.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph\Resources\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="RgBufferManager.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph\Resources\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="RgImageManager.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph\Resources\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="RgDependencyType.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph\Resources\Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="RgBufferDependency.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph\Resources\Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="RgDependencyShaderBinding.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph\Resources\Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="ExampleComputePass.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="GdrDeferredPass.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="RgGeometryManager.h">
+      <Filter>Archivos de encabezado\Core\Graphics\HighLevel\RenderGraph\Resources\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions.h">
+      <Filter>Archivos de encabezado\Core\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="GdrMaterialComponent.h">
+      <Filter>Archivos de encabezado\BuiltIn\ECS\Components\Gdr</Filter>
+    </ClInclude>
+    <ClInclude Include="GdrPipeline.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\RenderGraph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -438,6 +438,8 @@ void EntityComponentSystem::DestroyObject(GameObjectIndex* obj) {
 	m_systemManager->GameObjectDestroyed(*obj);
 	m_componentManager->GameObjectDestroyed(*obj);
 	m_gameObjectManager->DestroyGameObject(obj);
+
+	RemoveExternalObject(*obj);
 }
 
 std::span<const GameObjectIndex> EntityComponentSystem::GetLivingObjects() const {
@@ -467,4 +469,44 @@ void EntityComponentSystem::EndFrame() {
 
 const DynamicArray<IRenderSystem*>& EntityComponentSystem::GetRenderSystems() const {
 	return m_renderSystems;
+}
+
+
+// -- LISTAS EXTERNAS -- //
+
+std::string EntityComponentSystem::ExternalUuidToStr(ExternalEcsListUuid uuid) {
+	return std::format("external_{}", uuid.Get());
+}
+
+ExternalEcsListUuid EntityComponentSystem::RegisterExternalList(const Signature& signature) {
+	const auto uuid = StaticUuidProvider::New<ExternalEcsListUuid>();
+	const auto uuid_str = ExternalUuidToStr(uuid);
+
+	m_externalSignatures[uuid_str] = signature;
+	m_externalCompatibleObjsLists[uuid_str] = {};
+
+	return uuid;
+}
+
+std::unordered_set<GameObjectIndex> EntityComponentSystem::GetCompatibleObjects(ExternalEcsListUuid uuid) {
+	return m_externalCompatibleObjsLists[ExternalUuidToStr(uuid)];
+}
+
+void EntityComponentSystem::UpdateExternalObjectList(GameObjectIndex obj) {
+	const auto& objetctSignature = m_gameObjectManager->GetSignature(obj);
+
+	for (const auto& [name, signature] : m_externalSignatures) {
+		if (signature.IsCompatible(objetctSignature)) {
+			m_externalCompatibleObjsLists[name].insert(obj);
+		}
+		else {
+			m_externalCompatibleObjsLists[name].erase(obj);
+		}
+	}
+}
+
+void EntityComponentSystem::RemoveExternalObject(GameObjectIndex obj) {
+	for (auto& [_name, list] : m_externalCompatibleObjsLists) {
+		list.erase(obj);
+	}
 }

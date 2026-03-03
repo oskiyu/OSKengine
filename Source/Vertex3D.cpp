@@ -107,3 +107,7 @@ VertexInfo PositionOnlyVertex3D::GetVertexInfo() {
 
 	return info;
 }
+
+VertexInfo EmptyVertex::GetVertexInfo() {
+	return VertexInfo{};
+}

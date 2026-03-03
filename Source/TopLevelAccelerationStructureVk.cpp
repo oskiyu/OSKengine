@@ -19,14 +19,14 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 TopLevelAccelerationStructureVk::~TopLevelAccelerationStructureVk() {
-	RendererVk::pvkDestroyAccelerationStructureKHR(
-		Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
+	RendererVk<VulkanTarget::VK_LATEST>::pvkDestroyAccelerationStructureKHR(
+		Engine::GetRenderer()->GetGpu()->As<GpuVk<VulkanTarget::VK_LATEST>>()->GetLogicalDevice(),
 		tlasHandle,
 		VK_NULL_HANDLE);
 }
 
 void TopLevelAccelerationStructureVk::Setup() {
-	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
+	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk<VulkanTarget::VK_LATEST>>()->GetLogicalDevice();
 	IGpuMemoryAllocator* memoryAllocator = Engine::GetRenderer()->GetAllocator();
 
 	const VkTransformMatrixKHR transform {
@@ -60,7 +60,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 	}
 
 	const VkDeviceOrHostAddressConstKHR instancesAddress {
-		.deviceAddress = GetBufferDeviceAddress(instanceBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), logicalDevice)
+		.deviceAddress = GetBufferDeviceAddress(instanceBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk<VulkanTarget::VK_LATEST>>()->GetVulkanBuffer(), logicalDevice)
 			+ instanceBuffer->GetMemorySubblock()->GetOffsetFromBlock()
 	};
 
@@ -83,7 +83,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 	const UIndex32 one = 1;
 	VkAccelerationStructureBuildSizesInfoKHR tlasSizeInfo{};
 	tlasSizeInfo.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR;
-	RendererVk::pvkGetAccelerationStructureBuildSizesKHR(
+	RendererVk<VulkanTarget::VK_LATEST>::pvkGetAccelerationStructureBuildSizesKHR(
 		logicalDevice,
 		VK_ACCELERATION_STRUCTURE_BUILD_TYPE_DEVICE_KHR,
 		&accelerationStructureBuildGeometryInfo,
@@ -100,11 +100,11 @@ void TopLevelAccelerationStructureVk::Setup() {
 	// Creación
 	VkAccelerationStructureCreateInfoKHR asCreateInfo{};
 	asCreateInfo.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_CREATE_INFO_KHR;
-	asCreateInfo.buffer = accelerationStructureBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer();
+	asCreateInfo.buffer = accelerationStructureBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk<VulkanTarget::VK_LATEST>>()->GetVulkanBuffer();
 	asCreateInfo.size = tlasSizeInfo.accelerationStructureSize;
 	asCreateInfo.offset = accelerationStructureBuffer->GetMemorySubblock()->GetOffsetFromBlock();
 	asCreateInfo.type = VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR;
-	VkResult result = RendererVk::pvkCreateAccelerationStructureKHR(logicalDevice, &asCreateInfo, nullptr, &tlasHandle);
+	VkResult result = RendererVk<VulkanTarget::VK_LATEST>::pvkCreateAccelerationStructureKHR(logicalDevice, &asCreateInfo, nullptr, &tlasHandle);
 	OSK_ASSERT(result == VK_SUCCESS, AccelerationStructureCreationException(result));
 
 	// Address
@@ -121,7 +121,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 		GpuQueueType::MAIN);
 
 	const VkDeviceOrHostAddressConstKHR tlasBuildAddress {
-		.deviceAddress = GetBufferDeviceAddress(buildBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), logicalDevice)
+		.deviceAddress = GetBufferDeviceAddress(buildBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk<VulkanTarget::VK_LATEST>>()->GetVulkanBuffer(), logicalDevice)
 			+ buildBuffer->GetMemorySubblock()->GetOffsetFromBlock()
 	};
 
@@ -147,7 +147,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 
 	auto tlasCommandList = Engine::GetRenderer()->CreateSingleUseCommandList(GpuQueueType::MAIN);
 	tlasCommandList->Start();
-	RendererVk::pvkCmdBuildAccelerationStructuresKHR(tlasCommandList->As<CommandListVk>()->GetCommandBuffers()[tlasCommandList->_GetCommandListIndex()], 1, &tlasBuildGeometryInfo, tlasRanges.GetData());
+	RendererVk<VulkanTarget::VK_LATEST>::pvkCmdBuildAccelerationStructuresKHR(tlasCommandList->As<CommandListVk<VulkanTarget::VK_LATEST>>()->GetCommandBuffers()[tlasCommandList->_GetCommandListIndex()], 1, &tlasBuildGeometryInfo, tlasRanges.GetData());
 	tlasCommandList->Close();
 	Engine::GetRenderer()->SubmitSingleUseCommandList(std::move(tlasCommandList));
 
@@ -155,7 +155,7 @@ void TopLevelAccelerationStructureVk::Setup() {
 }
 
 void TopLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
-	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
+	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk<VulkanTarget::VK_LATEST>>()->GetLogicalDevice();
 	auto mode = VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR;
 
 	if (needsRebuild) {
@@ -187,7 +187,7 @@ void TopLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 		instanceBuffer->Unmap();
 
 		const VkDeviceOrHostAddressConstKHR instancesAddress{
-			.deviceAddress = GetBufferDeviceAddress(instanceBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), logicalDevice)
+			.deviceAddress = GetBufferDeviceAddress(instanceBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk<VulkanTarget::VK_LATEST>>()->GetVulkanBuffer(), logicalDevice)
 				+ instanceBuffer->GetMemorySubblock()->GetOffsetFromBlock()
 		};
 
@@ -213,7 +213,7 @@ void TopLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 	tlasBuildGeometryInfo.dstAccelerationStructure = tlasHandle;
 	tlasBuildGeometryInfo.geometryCount = 1;
 	tlasBuildGeometryInfo.pGeometries = &geometryInfo;
-	tlasBuildGeometryInfo.scratchData.deviceAddress = GetBufferDeviceAddress(buildBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), logicalDevice) + buildBuffer->GetMemorySubblock()->GetOffsetFromBlock();
+	tlasBuildGeometryInfo.scratchData.deviceAddress = GetBufferDeviceAddress(buildBuffer->GetMemoryBlock()->As<GpuMemoryBlockVk<VulkanTarget::VK_LATEST>>()->GetVulkanBuffer(), logicalDevice) + buildBuffer->GetMemorySubblock()->GetOffsetFromBlock();
 
 	VkAccelerationStructureBuildRangeInfoKHR tlasBuildRangeInfo{};
 	tlasBuildRangeInfo.primitiveCount = static_cast<uint32_t>(blass.GetSize());
@@ -225,8 +225,8 @@ void TopLevelAccelerationStructureVk::Update(ICommandList* cmdList) {
 		&tlasBuildRangeInfo
 	};
 
-	const VkCommandBuffer vkCmdList = cmdList->As<CommandListVk>()->GetCommandBuffers()[cmdList->_GetCommandListIndex()];
-	RendererVk::pvkCmdBuildAccelerationStructuresKHR(vkCmdList, 1, &tlasBuildGeometryInfo, tlasRanges.GetData());
+	const VkCommandBuffer vkCmdList = cmdList->As<CommandListVk<VulkanTarget::VK_LATEST>>()->GetCommandBuffers()[cmdList->_GetCommandListIndex()];
+	RendererVk<VulkanTarget::VK_LATEST>::pvkCmdBuildAccelerationStructuresKHR(vkCmdList, 1, &tlasBuildGeometryInfo, tlasRanges.GetData());
 
 	// Sincronización para que no se pueda usar el blas hasta que haya sido reconstruido correctamente.
 	VkMemoryBarrier barrier{};
@@ -254,7 +254,7 @@ VkDeviceAddress TopLevelAccelerationStructureVk::GetBufferDeviceAddress(const Vk
 	bufferAddressInfo.sType = VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_INFO;
 	bufferAddressInfo.buffer = buffer;
 
-	return RendererVk::pvkGetBufferDeviceAddressKHR(logicalDevice, &bufferAddressInfo);
+	return RendererVk<VulkanTarget::VK_LATEST>::pvkGetBufferDeviceAddressKHR(logicalDevice, &bufferAddressInfo);
 }
 
 VkDeviceAddress TopLevelAccelerationStructureVk::GetTlasDeviceAddress(const VkAccelerationStructureKHR tlas, const VkDevice logicalDevice) {
@@ -262,7 +262,7 @@ VkDeviceAddress TopLevelAccelerationStructureVk::GetTlasDeviceAddress(const VkAc
 	finalTlasGpuAddressInfo.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_DEVICE_ADDRESS_INFO_KHR;
 	finalTlasGpuAddressInfo.accelerationStructure = tlas;
 
-	return RendererVk::pvkGetAccelerationStructureDeviceAddressKHR(logicalDevice, &finalTlasGpuAddressInfo);
+	return RendererVk<VulkanTarget::VK_LATEST>::pvkGetAccelerationStructureDeviceAddressKHR(logicalDevice, &finalTlasGpuAddressInfo);
 }
 
 #endif

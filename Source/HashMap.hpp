@@ -8,6 +8,10 @@
 #include "DynamicArray.hpp"
 #include "Pair.hpp"
 #include "ConstexprBitSet.hpp"
+
+#include <unordered_map>
+#include <string>
+
 /*
 namespace OSK {
 
@@ -471,6 +475,10 @@ namespace OSK {
 			return ::std::hash<::std::string>{}(txt);
 		}
 	};
+
+	template <typename T>
+	using StringHashMap = std::unordered_map<std::string, T, StringHasher, std::equal_to<>>;
+
 	/*
 	/// <summary>
 	/// Un HashMap representa una colleción que enlaza un valor a otro.

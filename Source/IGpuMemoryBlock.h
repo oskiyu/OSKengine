@@ -19,6 +19,16 @@ namespace OSK::GRAPHICS {
 	enum class GpuImageUsage;
 	class GpuImage;
 
+	struct GpuMemoryMappedRange {
+		USize64 size = 0;
+		USize64 offset = 0;
+
+		bool IsEmpty() const {
+			return size == 0;
+		}
+
+	};
+
 
 	/// @brief  Un bloque de memoria representa una región de memoria que
 	/// ha sido reservada.
@@ -85,6 +95,37 @@ namespace OSK::GRAPHICS {
 		/// @return True si no hay ningún subbloque de este bloque en uso.
 		inline bool IsUnused() const { return subblocks.IsEmpty(); }
 
+
+		/// @brief Mapea toda la memoria.
+		/// @pre Este buffer debe haber sido creado
+		/// con GpuSharedMemoryType::CPU_AND_GPU.
+		void MapAll();
+
+		/// @brief Mapea toda la memoria.
+		/// @pre Este buffer debe haber sido creado
+		/// con GpuSharedMemoryType::CPU_AND_GPU.
+		/// @threadsafe
+		void UnmapAll();
+
+		/// @brief Mapea un rango de la memoria.
+		/// @pre Este buffer debe haber sido creado
+		/// con GpuSharedMemoryType::CPU_AND_GPU.
+		/// @pre @p offset < tamaño del buffer.
+		/// @pre @p size < tamaño del buffer.
+		/// @pre @p offset + @p size < tamaño del buffer.
+		/// @threadsafe
+		void MapRange(USize64 offset, USize64 size);
+
+		/// @return Memoria mapeada.
+		/// Desde el inicio del rango mapeado
+		/// (no desde el inicio del bloque).
+		/// @return Null si no hay memoria mapeada.
+		TByte* GetMappedData();
+		const TByte* GetMappedData() const;
+
+		/// @return Rango de memoria mapeada.
+		GpuMemoryMappedRange GetMappedRange() const;
+
 	protected:
 
 		/// @brief Reserva un bloque de memoria con el tamaño dado.
@@ -93,6 +134,9 @@ namespace OSK::GRAPHICS {
 		/// @param type Tipo de memoria.
 		/// @param usage Uso (BUFFER o IMAGEN).
 		IGpuMemoryBlock(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuMemoryUsage usage);
+
+		virtual TByte* MapRange_Impl(USize64 offset, USize64 size) = 0;
+		virtual void UnmapAll_Impl() = 0;
 
 		/// @brief Crea un nuevo subbloque a partir de la memoria de este bloque.
 		/// @param size Tamaño del subbloque, en bytes.
@@ -138,6 +182,21 @@ namespace OSK::GRAPHICS {
 		/// @brief Mutex para la búsqueda y alojamiento de
 		/// subbloques.
 		mutable MutexHolder m_subblockSearchMutex;
+
+
+		// --- MAPEO DE MEMORIA --- //
+
+		/// @brief Mutex para el mapeo y/o
+		/// desmapeo de memoria.
+		MutexHolder m_mapMutex;
+
+		/// @brief Memoria mapeada.
+		/// Si no está mapeada, será
+		/// nullptr.
+		TByte* m_mappedData = nullptr;
+
+		/// @brief Región de memoria mapeada.
+		GpuMemoryMappedRange m_mappedRange{};
 
 	};
 

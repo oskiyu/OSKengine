@@ -19,8 +19,9 @@ Simplex Simplex::GenerateFrom(const IGjkCollider& first, const IGjkCollider& sec
 	Simplex simplex = {};
 
 	// Iteración inicial.
-	simplex.AddAndUpdate(GetMinkowskiSupport(first, second, Vector3f(1.0f, 0.0f, 0.0f)));
-	Vector3f direction = -Vector3f(1.0f, 0.0f, 0.0f);
+	const auto firstSupport = GetMinkowskiSupport(first, second, Vector3f(1.0f, 0.0f, 0.0f));
+	simplex.AddAndUpdate(firstSupport);
+	Vector3f direction = -Vector3f(0.0f, 1.0f, 0.0f);
 
 	// Límite de 20 iteraciones.
 	constexpr static USize64 IterationLimit = 20;
@@ -39,6 +40,11 @@ Simplex Simplex::GenerateFrom(const IGjkCollider& first, const IGjkCollider& sec
 		}
 
 		direction = simplex.GetSearchDirection();
+
+		if (direction.IsNaN()) {
+			// Puede darse si dos puntos son iguales.
+			return simplex;
+		}
 	}
 
 	OSK_ASSERT(false, UnreachableException("XD"));
@@ -110,9 +116,9 @@ void Simplex::UpdateLine() {
 void Simplex::UpdateTriangle() {
 	m_containsOrigin = false;
 
-	const MinkowskiSupport& a = m_vertices[0];
-	const MinkowskiSupport& b = m_vertices[1];
-	const MinkowskiSupport& c = m_vertices[2];
+	const MinkowskiSupport a = m_vertices[0];
+	const MinkowskiSupport b = m_vertices[1];
+	const MinkowskiSupport c = m_vertices[2];
 
 	const Vector3f ab =  b.point.ToVector3f() - a.point.ToVector3f();
 	const Vector3f ac =  c.point.ToVector3f() - a.point.ToVector3f();

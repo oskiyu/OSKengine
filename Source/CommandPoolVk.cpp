@@ -17,7 +17,8 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 
-CommandPoolVk::CommandPoolVk(const GpuVk& device, const QueueFamily& queueType, GpuQueueType type) : ICommandPool(queueType.support, type), m_logicalDevice(device.GetLogicalDevice()) {
+template <VulkanTarget Target>
+CommandPoolVk<Target>::CommandPoolVk(const GpuVk<Target>& device, const QueueFamily& queueType, GpuQueueType type) : ICommandPool(queueType.support, type), m_logicalDevice(device.GetLogicalDevice()) {
 	VkCommandPoolCreateInfo poolInfo{};
 	poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
 	poolInfo.queueFamilyIndex = queueType.familyIndex;
@@ -32,31 +33,36 @@ CommandPoolVk::CommandPoolVk(const GpuVk& device, const QueueFamily& queueType, 
 	OSK_ASSERT(result == VK_SUCCESS, CommandPoolCreationException(result));
 }
 
-CommandPoolVk::~CommandPoolVk() {
+template <VulkanTarget Target>
+CommandPoolVk<Target>::~CommandPoolVk() {
 	vkDestroyCommandPool(
 		m_logicalDevice,
 		m_commandPool, 
 		nullptr);
 }
 
-UniquePtr<ICommandList> CommandPoolVk::CreateCommandList(const IGpu& device) {
+template <VulkanTarget Target>
+UniquePtr<ICommandList> CommandPoolVk<Target>::CreateCommandList(const IGpu& device) {
 	return CreateList(device, MAX_RESOURCES_IN_FLIGHT);
 }
 
-UniquePtr<ICommandList> CommandPoolVk::CreateSingleTimeCommandList(const IGpu& device) {
+template <VulkanTarget Target>
+UniquePtr<ICommandList> CommandPoolVk<Target>::CreateSingleTimeCommandList(const IGpu& device) {
 	UniquePtr<ICommandList> list = CreateList(device, 1);
 	list->_SetSingleTimeUse();
 
 	return list;
 }
 
-UniquePtr<ICommandList> CommandPoolVk::CreateList(const IGpu& device, USize32 numNativeLists) {
-	return MakeUnique<CommandListVk>(
-		*device.As<GpuVk>(),
+template <VulkanTarget Target>
+UniquePtr<ICommandList> CommandPoolVk<Target>::CreateList(const IGpu& device, USize32 numNativeLists) {
+	return MakeUnique<CommandListVk<Target>>(
+		*device.As<GpuVk<Target>>(),
 		this);
 }
 
-VkCommandPool CommandPoolVk::GetCommandPool() const {
+template <VulkanTarget Target>
+VkCommandPool CommandPoolVk<Target>::GetCommandPool() const {
 	return m_commandPool;
 }
 

@@ -151,6 +151,16 @@ const IGpuImageView* GpuModel3D::TextureTable::GetImageView(UIndex64 imageIndex)
 		InvalidArgumentException(std::format("No existe el image view en el índice {}.", imageIndex)));
 }
 
+GpuImage* GpuModel3D::TextureTable::GetImage(UIndex64 imageIndex) {
+	if (m_textures.contains(imageIndex)) {
+		return m_textures.at(imageIndex)->GetGpuImage();
+	}
+
+	OSK_ASSERT(
+		false,
+		InvalidArgumentException(std::format("No existe el image view en el índice {}.", imageIndex)));
+}
+
 void GpuModel3D::TextureTable::SetTexture(UIndex64 index, ASSETS::AssetRef<ASSETS::Texture> texture) {
 	m_textures[index] = texture;
 }

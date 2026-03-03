@@ -45,6 +45,11 @@
 #include "PhysicsComponent.h"
 #include "PhysicsResolver.h"
 
+// GDR
+#include "GdrGeometryComponent.h"
+#include "GdrTexturedComponent.h"
+#include "GdrMaterialComponent.h"
+
 // Shader passes
 #include "ShadowsStaticPass.h"
 #include "PbrResolvePass.h"
@@ -107,7 +112,8 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 	switch (type) {
 
 	case OSK::GRAPHICS::RenderApiType::VULKAN:
-		renderer = MakeUnique<GRAPHICS::RendererVk>(requestRayTracing);
+		// @todo: ver target
+		renderer = MakeUnique<GRAPHICS::RendererVk<GRAPHICS::VulkanTarget::VK_LATEST>>(requestRayTracing);
 
 		break;
 
@@ -166,6 +172,11 @@ void Engine::RegisterBuiltinComponents(GAME::DefaultContentProfile profile) {
 		entityComponentSystem->RegisterComponent<ECS::CameraComponent3D>();
 		entityComponentSystem->RegisterComponent<ECS::CollisionComponent>();
 		entityComponentSystem->RegisterComponent<ECS::PhysicsComponent>();
+
+		// GDR
+		entityComponentSystem->RegisterComponent<ECS::GdrGeometryComponent>();
+		entityComponentSystem->RegisterComponent<ECS::GdrTexturedComponent>();
+		entityComponentSystem->RegisterComponent<ECS::GdrMaterialComponent>();
 	}
 
 	if (profile == GAME::DefaultContentProfile::ALL || profile == GAME::DefaultContentProfile::_2D_ONLY) {
@@ -218,6 +229,7 @@ void Engine::RegisterBuiltinVertices() {
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::VertexAnim3D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::VertexCollisionDebug3D>();
 	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::GdrVertex3D>();
+	renderer->GetMaterialSystem()->RegisterVertexType<GRAPHICS::EmptyVertex>();
 }
 
 void Engine::RegisterBuiltinJobs() {

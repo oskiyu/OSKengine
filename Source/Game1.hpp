@@ -124,7 +124,20 @@
 #include "SdfBindlessRenderer2D.h"
 #include "SdfStringInfo.h"
 
+#include "DistanceConstraint.h"
+
 #include <thread>
+#include "PhysicsSystem.h"
+
+#include "RenderGraph.h"
+
+#include "GdrGeometryComponent.h"
+#include "GdrTexturedComponent.h"
+#include "GdrMaterialComponent.h"
+
+#include "ExampleComputePass.h"
+#include "GdrDeferredPass.h"
+#include "GdrPipeline.h"
 
 
 using namespace OSK;
@@ -151,7 +164,8 @@ protected:
 		IO::IMouseInput* mouseInput = nullptr;
 		Engine::GetInput()->QueryInterface(IUUID::IMouseInput, (void**)&mouseInput);
 
-		if (mouseInput) {
+		if (mouseInput) 
+		{
 			mouseInput->SetReturnMode(IO::MouseReturnMode::FREE);
 			mouseInput->SetMotionMode(IO::MouseMotionMode::RAW);
 		}
@@ -173,6 +187,30 @@ protected:
 		materialRenderTarget = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial("Resources/Materials/2D/material_rendertarget.json");
 
 		// SpawnCircuit();
+		
+		// Rendergraph TEST
+		{
+			auto renderGraph = MakeUnique<RenderGraph>(Engine::GetRenderer());
+			renderGraph->SetFramebufferResolution(Engine::GetDisplay()->GetResolution());
+
+			renderGraph->RegisterVertexAttribute(
+				VertexPositionAttribute3D::GetUuid(),
+				"positions",
+				sizeof(VertexPositionAttribute3D));
+
+			renderGraph->RegisterVertexAttribute(
+				VertexAttributes3D::GetUuid(),
+				"attributes",
+				sizeof(VertexAttributes3D));
+
+			m_gdrPbrPipeline = MakeUnique<GdrPipeline>(renderGraph.GetPointer());
+			m_gdrPbrPipeline->RegisterAll();			
+			renderGraph->Compile();
+			m_gdrPbrPipeline->FinalRegisterAll();
+
+			SetRenderGraph(std::move(renderGraph));
+		}
+
 		SpawnPista();
 		SpawnBall();
 		SpawnCamera();
@@ -182,6 +220,18 @@ protected:
 		
 		SpawnSecondCollider();
 		
+		// CONSTRAINTS TEST
+		/* {
+			auto constraint = MakeUnique<PHYSICS::DistanceConstraint>();
+			constraint->m_distance = 1.0f;
+
+			constraint->m_first = m_ballObject;
+			constraint->m_second = m_otherObject;
+
+			Engine::GetEcs()->GetSystem<PhysicsSystem>()
+				->m_constraints.Insert(std::move(constraint));
+		} */
+
 		SetupRenderTargets();
 		SetupPostProcessingChain();
 
@@ -439,6 +489,26 @@ protected:
 		auto commandList = Engine::GetRenderer()->GetMainCommandList();
 		auto renderpass = Engine::GetRenderer()->GetFinalRenderTarget();
 
+		const auto& camera = Engine::GetEcs()->GetComponent<CameraComponent3D>(cameraObject);
+		const auto& cameraTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(cameraObject);
+
+		GdrDeferredPass::CameraInfo currentCameraInfo{};
+		currentCameraInfo.projectionMatrix = camera.GetProjectionMatrix();
+		currentCameraInfo.viewMatrix = camera.GetViewMatrix(cameraTransform.GetTransform());
+		currentCameraInfo.projectionViewMatrix = currentCameraInfo.projectionMatrix * currentCameraInfo.viewMatrix;
+		currentCameraInfo.position = glm::vec4(cameraTransform.GetTransform().GetPosition().ToGlm(), 1.0f);
+		currentCameraInfo.nearFarPlanes = { camera.GetNearPlane(), camera.GetFarPlane() };
+
+		GdrDeferredPass::PreviousCameraInfo previousCameraInfo{};
+		previousCameraInfo.projectionMatrix = camera.GetProjectionMatrix();
+		previousCameraInfo.viewMatrix = camera.GetViewMatrix(cameraTransform.GetTransform());
+		previousCameraInfo.projectionViewMatrix = previousCameraInfo.projectionMatrix * previousCameraInfo.viewMatrix;
+
+		m_gdrPbrPipeline->UpdateCameraBuffers(
+			Engine::GetRenderer()->GetCurrentResourceIndex(),
+			currentCameraInfo,
+			previousCameraInfo);
+
 		const Vector4ui windowRec = {
 			0,
 			0,
@@ -457,21 +527,37 @@ protected:
 		commandList->BeginGraphicsRenderpass(textRenderTarget.GetPointer(), Color::Black * 0.0f);
 
 		{
-			SdfDrawCall2D debug{};
-			debug.transform.SetPosition(Vector2f{ 0.0f });
-			debug.transform.SetScale(Vector2f{ 1920.0f, 1080.0f });
-			debug.shape = SdfShape2D::RECTANGLE;
-			debug.contentType = SdfDrawCallContentType2D::TEXTURE;
-			GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
-			viewConfig.channel = SampledChannel::COLOR;
-			debug.texture = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetGbuffer().GetImage(GBuffer::Target::COLOR)->GetView(viewConfig);
-			debug.mainColor = Color::White;
+			
+			{
+				SdfDrawCall2D debug{};
+				debug.transform.SetPosition(Vector2f{ 0.0f });
+				debug.transform.SetScale(Vector2f{ 1920.0f, 1080.0f });
+				debug.shape = SdfShape2D::RECTANGLE;
+				debug.contentType = SdfDrawCallContentType2D::TEXTURE;
+				GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
+				viewConfig.channel = SampledChannel::COLOR;
+				debug.texture = Engine::GetEcs()->GetSystem<OSK_CURRENT_RSYSTEM>()->GetGbuffer().GetImage(GBuffer::Target::COLOR)->GetView(viewConfig);
+				debug.mainColor = Color::White;
+			}
 
 			m_sdfRenderer->Begin(commandList);
 			m_sdfRenderer->SetCamera(cameraObject2d);
 			// m_sdfRenderer->Draw(debug);
 
 			// GetRootUiElement().Render(m_sdfRenderer.GetPointer());
+
+			SdfDrawCall2D debugRenderGraph{};
+			debugRenderGraph.transform.SetPosition(Vector2f{ 0.0f });
+			debugRenderGraph.transform.SetScale(Vector2f{ 200, 200 });
+			debugRenderGraph.shape = SdfShape2D::RECTANGLE;
+			debugRenderGraph.contentType = SdfDrawCallContentType2D::TEXTURE;
+			debugRenderGraph.mainColor = Color::White;
+
+			/* GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
+			viewConfig.channel = SampledChannel::COLOR;
+			debugRenderGraph.texture = GetRenderGraph()->GetImage(m_renderGraphTarget).GetView(viewConfig);
+
+			m_sdfRenderer->Draw(debugRenderGraph); */
 
 			m_sdfRenderer->End();
 		}
@@ -892,13 +978,85 @@ private:
 		Engine::GetEcs()->AddComponent<CollisionComponent>(m_ballObject, std::move(collider));
 
 		// Render
-		auto ballModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/sphere.json");
+		auto ballModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/sphere.json");
 
 		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(m_ballObject, {});
 
 		modelComponent->SetModel(ballModel); // animModel
 		modelComponent->AddShaderPassName(StaticGBufferPass::Name);
 		modelComponent->AddShaderPassName(ShadowsStaticPass::Name);
+
+		auto& textureTable = ballModel->_GetModel().GetTextureTable();
+
+		Engine::GetEcs()->AddComponent<GdrGeometryComponent>(m_ballObject, RegisterModel(*ballModel.GetAsset()));
+		auto& textureComponent = Engine::GetEcs()->AddComponent<GdrTexturedComponent>(m_ballObject, {});
+
+		for (const auto& mesh : ballModel->GetModel().GetMeshes()) {
+			const auto& material = ballModel->GetModel().GetMaterial(mesh.GetMaterialIndex());
+
+			if (material.colorTextureIndex) {
+				textureComponent.colorImageUuid = GetRenderGraph()->RegisterExternalImage(
+					textureTable.GetImage(*material.colorTextureIndex));
+			}
+
+			if (material.normalTextureIndex) {
+				textureComponent.normalImageUuid = GetRenderGraph()->RegisterExternalImage(
+					textureTable.GetImage(*material.normalTextureIndex));
+			}
+		}
+
+	}
+
+	GpuGeometryDesc RegisterModel(const Model3D& model) {
+		auto* renderGraph = GetRenderGraph();
+		auto& gpuModel = model.GetModel();
+		auto& cpuModel = gpuModel.GetCpuModel();
+
+		TIndexSize meshesOffset = 0;
+		DynamicArray<UIndex32> indices{};
+		for (const auto& mesh : gpuModel.GetCpuModel().GetMeshes()) {
+			for (const auto& triangles : mesh.GetTriangles()) {
+				indices.Insert(static_cast<TIndexSize>(triangles[0] + meshesOffset));
+				indices.Insert(static_cast<TIndexSize>(triangles[1] + meshesOffset));
+				indices.Insert(static_cast<TIndexSize>(triangles[2] + meshesOffset));
+			}
+
+			meshesOffset += mesh.GetVertices().GetSize();
+		}
+
+		GpuGeometryDesc desc(indices);
+		
+		for (const auto& mesh : gpuModel.GetCpuModel().GetMeshes()) {
+			for (const auto& v : mesh.GetVertices()) {
+				desc.GetAttributesMap().AddVertexAttribute<VertexPositionAttribute3D>({ *v.position });
+
+				if (v.color && v.normal && v.tangent && v.uv) {
+					desc.GetAttributesMap().AddVertexAttribute<VertexAttributes3D>({
+						*v.normal,
+						*v.color,
+						*v.uv,
+						*v.tangent });
+				}
+
+				if (v.boneIds && v.boneWeights) {
+					desc.GetAttributesMap().AddVertexAttribute<VertexAnimationAttributes3D>({
+						{ (*v.boneIds    )[0], (*v.boneIds    )[1], (*v.boneIds    )[2], (*v.boneIds    )[3] },
+						{ (*v.boneWeights)[0], (*v.boneWeights)[1], (*v.boneWeights)[2], (*v.boneWeights)[3] } });
+				}
+			}
+
+			for (const auto& triangles : mesh.GetTriangles()) {
+				indices.Insert(static_cast<TIndexSize>(triangles[0] + meshesOffset));
+				indices.Insert(static_cast<TIndexSize>(triangles[1] + meshesOffset));
+				indices.Insert(static_cast<TIndexSize>(triangles[2] + meshesOffset));
+			}
+
+			meshesOffset += mesh.GetVertices().GetSize();
+		}
+
+		desc.entry = renderGraph->RegisterGeometry(desc);
+		
+		return desc;
 	}
 
 	void SpawnPista() {
@@ -925,13 +1083,18 @@ private:
 		Engine::GetEcs()->AddComponent<CollisionComponent>(pista, std::move(colliderComponent));
 
 		// Render
-		auto ballModel = Engine::GetAssetManager()->LoadAsync<Model3D>("Resources/Assets/Models/pista.json");
+		auto ballModel = Engine::GetAssetManager()->Load<Model3D>("Resources/Assets/Models/pista.json");
 
 		ModelComponent3D* modelComponent = &Engine::GetEcs()->AddComponent<ModelComponent3D>(pista, {});
 
 		modelComponent->SetModel(ballModel); // animModel
 		modelComponent->AddShaderPassName(StaticGBufferPass::Name);
 		modelComponent->AddShaderPassName(ShadowsStaticPass::Name);
+
+		GdrMaterialComponent material{};
+		Engine::GetEcs()->AddComponent<GdrGeometryComponent>(pista, RegisterModel(*ballModel.GetAsset()));
+		Engine::GetEcs()->AddComponent<GdrTexturedComponent>(pista, {});
+		Engine::GetEcs()->AddComponent<GdrMaterialComponent>(pista, {});
 	}
 
 	struct CollisionTestCase {
@@ -1069,6 +1232,10 @@ private:
 	ECS::GameObjectIndex m_otherObject = ECS::GameObjectIndex::CreateEmpty();
 
 	UniquePtr<SdfBindlessRenderer2D> m_sdfRenderer;
+
+	GdrBufferUuid cameraInfoUuid = GdrBufferUuid::CreateEmpty();
+	UniquePtr<GdrPipeline> m_gdrPbrPipeline;
+
 
 };
 

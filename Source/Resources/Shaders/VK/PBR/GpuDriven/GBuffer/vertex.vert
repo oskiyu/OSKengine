@@ -4,7 +4,6 @@
 
 
 // Camera & global scene
-
 layout (set = 0, binding = 0) uniform Camera {
     mat4 projection;
     mat4 view;
@@ -19,34 +18,45 @@ layout (set = 0, binding = 1) uniform PreviousCamera {
     mat4 projectionView;
 } previousCamera;
 
+// Estructuras de atributos:
 
-// Tables & attributes
+// Índices iniciales de los atributos
+// para esta instancia.
+struct AttributesIndices {
+    uint positionIdx;
+    uint attribsIdx;
+};
 
-layout (set = 1, binding = 0) uniform MeshInfo {
-    uint positionOffset;
-    uint attributesOffset;
-    uint animationAttributesOffset;
+layout (set = 1, binding = 1) readonly buffer AttributesIndicess {
+    AttributesIndices attribsIndices[];
+} attribsIndices;
 
-    uint materialOffset;
+layout (set = 1, binding = 2) readonly buffer VertexPositionAttribute {
+    vec3 positions[];
+} positions;
 
-    mat4 matrix;
-    mat4 previousMatrix;
-} meshInfos[];
-
-layout (set = 1, binding = 2) uniform Positions {
-    vec3 position;
-} positions[];
-
-layout (set = 1, binding = 3) uniform Attributes {
+struct VertexAttributes {
     vec3 normal;
     vec4 color;
     vec2 texCoords;
-    vec3 tangent;
-} attributes[];
+    vec3 tangent;  
+};
 
+layout (set = 1, binding = 3) readonly buffer VertexAttributess {
+    VertexAttributes attribs[];
+} attributes;
 
+// Estructuras por instancia:
+struct Model {
+    mat4 modelMatrix;
+    mat4 previousModelMatrix;
+    vec2 resolution;
+    float jitterIndex;
+};
 
-layout(location = 0) in uint gdrIndex;
+layout (set = 3, binding = 0) readonly buffer Models {
+    Model models[];
+} models;
 
 layout(location = 0) out uint outGdrIndex;
 
@@ -60,11 +70,6 @@ layout(location = 6) out vec4 outCurrentCameraPosition;
 layout(location = 7) out vec4 outUnjitteredCurrentCameraPosition;
 
 layout(location = 8) out mat3 outTangentMatrix;
-
-
-layout (push_constant) uniform PushConstants {
-    vec3 info;
-} pushConstants;
 
 
 const vec2 jitterValues[] = {
@@ -98,16 +103,29 @@ const vec2 haltonSequence[17] = {
 };
 
 void main() {
-    outGdrIndex = gdrIndex;
+    outGdrIndex = gl_InstanceIndex;
+
+    const uint worldPositionStart = attribsIndices.attribsIndices[gl_InstanceIndex].positionIdx + gl_VertexIndex;
+    const uint attribsStart = attribsIndices.attribsIndices[gl_InstanceIndex].attribsIdx + gl_VertexIndex;
+    
+    // Vertex pulling.
+    const vec3 inWorldPosition  = positions.positions[worldPositionStart];
+
+    const vec3 inNormal     = attributes.attribs[attribsStart].normal;
+    const vec4 inColor      = attributes.attribs[attribsStart].color;
+    const vec2 inTexCoords  = attributes.attribs[attribsStart].texCoords;
+    const vec3 inTangent    = attributes.attribs[attribsStart].tangent;
 
     // TAA
-    const float jitterFloat = pushConstants.info.z;
+    const float jitterFloat = models.models[gl_InstanceIndex].jitterIndex;
     int jitter = 0;
-    for (int i = 0; i < 4; i++)
-        if (abs(jitterFloat - i) < 0.2)
+    for (int i = 0; i < 4; i++) {
+        if (abs(jitterFloat - i) < 0.2) {
             jitter = i;
+        }
+    }
 
-    const vec2 resolution = pushConstants.info.xy;
+    const vec2 resolution = models.models[gl_InstanceIndex].resolution;
 	const float deltaWidth = 1 / resolution.x;
 	const float deltaHeight = 1 / resolution.y;
 
@@ -117,25 +135,17 @@ void main() {
     jitterMatrix[3][1] += (jitterValues[jitter].y) * deltaHeight * jitterScale;
 
     // Normal
-    const vec3 inPosition = positions[meshInfos[gdrIndex].positionOffset].position;
-    const vec3 inNormal = attributes[meshInfos[gdrIndex].attributesOffset].normal;
-    const vec4 inColor = attributes[meshInfos[gdrIndex].attributesOffset].color;
-    const vec2 inTexCoords = attributes[meshInfos[gdrIndex].attributesOffset].texCoords;
-    const vec3 inTangent = attributes[meshInfos[gdrIndex].attributesOffset].tangent;
-    
-    const mat4 modelMatrix = meshInfos[gdrIndex].matrix;
-
-    const mat3 normalMatrix = transpose(inverse(mat3(modelMatrix)));
+    const mat3 normalMatrix = transpose(inverse(mat3(models.models[gl_InstanceIndex].modelMatrix)));
 
     outColor = inColor;
     outNormal = normalize(normalMatrix * inNormal);
     outTexCoords = inTexCoords;
 
-    outWorldPosition = modelMatrix * vec4(inPosition, 1.0);
+    outWorldPosition = models.models[gl_InstanceIndex].modelMatrix * vec4(inWorldPosition, 1.0);
 
     // Normal mapping
     vec3 normal = normalize(vec3(normalMatrix * inNormal));
-    vec3 tangent = normalize(vec3(modelMatrix * vec4(inTangent, 0.0)));
+    vec3 tangent = normalize(vec3(models.models[gl_InstanceIndex].modelMatrix * vec4(inTangent, 0.0)));
     tangent = normalize(tangent - dot(tangent, normal) * normal);
     const vec3 bitangent = cross(normal, tangent);
 
@@ -143,9 +153,10 @@ void main() {
 
     outTangentMatrix = tangentMatrix;
 
-    outPreviousCameraPosition = previousCamera.projectionView * meshInfos[gdrIndex].previousMatrix * vec4(inPosition, 1.0);
-    outCurrentCameraPosition = jitterMatrix * camera.projectionView * meshInfos[gdrIndex].matrix * vec4(inPosition, 1.0);
-    outUnjitteredCurrentCameraPosition = camera.projectionView * meshInfos[gdrIndex].matrix * vec4(inPosition, 1.0);
+    jitterMatrix = mat4(1.0);
+    outPreviousCameraPosition = previousCamera.projectionView * models.models[gl_InstanceIndex].previousModelMatrix * vec4(inWorldPosition, 1.0);
+    outCurrentCameraPosition = jitterMatrix * camera.projectionView * models.models[gl_InstanceIndex].modelMatrix * vec4(inWorldPosition, 1.0);
+    outUnjitteredCurrentCameraPosition = camera.projectionView * models.models[gl_InstanceIndex].modelMatrix * vec4(inWorldPosition, 1.0);
 
     gl_Position = outCurrentCameraPosition;
 }
