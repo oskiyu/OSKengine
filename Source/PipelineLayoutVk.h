@@ -5,14 +5,16 @@
 
 #include "IPipelineLayout.h"
 #include "DynamicArray.hpp"
+#include "VulkanTarget.h"
 
 struct VkPipelineLayout_T;
 typedef VkPipelineLayout_T* VkPipelineLayout;
 
 namespace OSK::GRAPHICS {
 
-	class DescriptorLayoutVk;
+	template <VulkanTarget> class DescriptorLayoutVk;
 
+	template <VulkanTarget Target>
 	class OSKAPI_CALL PipelineLayoutVk final : public IPipelineLayout {
 
 	public:
@@ -28,6 +30,9 @@ namespace OSK::GRAPHICS {
 		VkPipelineLayout layout = 0;
 
 	};
+
+	template class PipelineLayoutVk<VulkanTarget::VK_1_0>;
+	template class PipelineLayoutVk<VulkanTarget::VK_LATEST>;
 
 }
 

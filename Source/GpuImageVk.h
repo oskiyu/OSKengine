@@ -7,6 +7,7 @@
 #include "VulkanTypedefs.h"
 #include "DynamicArray.hpp"
 #include "NumericTypes.h"
+#include "VulkanTarget.h"
 
 OSK_VULKAN_TYPEDEF(VkImage);
 OSK_VULKAN_TYPEDEF(VkSampler);
@@ -19,7 +20,8 @@ enum VkFilter;
 enum VkSamplerAddressMode;
 
 namespace OSK::GRAPHICS {
-	
+
+	template <VulkanTarget Target>
 	class OSKAPI_CALL GpuImageVk final : public GpuImage {
 
 	public:
@@ -39,7 +41,7 @@ namespace OSK::GRAPHICS {
 		VkImage GetVkImage() const;
 
 		void _SetVkImage(VkImage img);
-		
+
 		void SetSwapchainView(VkImageView view);
 		VkImageView GetSwapchainView() const;
 
@@ -64,6 +66,9 @@ namespace OSK::GRAPHICS {
 		std::string m_name = "";
 
 	};
+
+	template class GpuImageVk<VulkanTarget::VK_1_0>;
+	template class GpuImageVk<VulkanTarget::VK_LATEST>;
 
 }
 

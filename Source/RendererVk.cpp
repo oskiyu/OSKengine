@@ -104,17 +104,23 @@ VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBits
 		break;
 	}
 
-	Engine::GetLogger()->Log(level, std::string(pCallbackData->pMessage) + "\n");
+	Engine::GetLogger()->Log(level, std::to_string(pCallbackData->messageIdNumber) + "  " + std::string(pCallbackData->pMessage) + "\n");
+
+	if (pCallbackData->messageIdNumber == -303265468) {
+		Engine::GetLogger()->DebugLog("XD");
+	}
 
 	return VK_FALSE;
 }
 
 
-RendererVk::RendererVk(bool requestRayTracing) : IRenderer(RenderApiType::VULKAN, requestRayTracing) {
+template <VulkanTarget Target>
+RendererVk<Target>::RendererVk(bool requestRayTracing) : IRenderer(RenderApiType::VULKAN, requestRayTracing) {
 	m_implicitResizeHandling = true;
 }
 
-void RendererVk::Initialize(const std::string& appName, const Version& version, IO::IDisplay& display, PresentMode mode) {	
+template <VulkanTarget Target>
+void RendererVk<Target>::Initialize(const std::string& appName, const Version& version, IO::IDisplay& display, PresentMode mode) {	
 	CreateInstance(appName, version);
 
 	if (AreValidationLayersAvailable())
@@ -122,72 +128,91 @@ void RendererVk::Initialize(const std::string& appName, const Version& version, 
 	CreateSurface(display);
 	ChooseGpu();
 	
-	SetupDebugFunctions(GetGpu()->As<GpuVk>()->GetLogicalDevice());
+	auto* gpu = GetGpu()->As<GpuVk<Target>>();
+
+	SetupDebugFunctions(gpu->GetLogicalDevice());
 
 	CreateCommandQueues();
 	CreateSyncPrimitives();
 	CreateSwapchain(mode, display.GetResolution());
 	CreateGpuMemoryAllocator();
-	if (IsRtRequested() && GetGpu()->As<GpuVk>()->GetInfo().IsRtCompatible())
-		SetupRtFunctions(GetGpu()->As<GpuVk>()->GetLogicalDevice());
 
-	if (GetGpu()->As<GpuVk>()->GetInfo().IsCompatibleWithMeshShaders()) {
-		SetupMeshFunctions(GetGpu()->As<GpuVk>()->GetLogicalDevice());
+	// Las siguientes funcionalidades están disponibles
+	// con VK_LATEST:
+	// - Ray tracing.
+	// - Mesh shaders.
+	// - Dynamic rendering.
+	if constexpr (Target == VulkanTarget::VK_LATEST) {
+		if (IsRtRequested() && gpu->GetInfo().IsRtCompatible())
+			SetupRtFunctions(gpu->GetLogicalDevice());
+
+		if (gpu->GetInfo().IsCompatibleWithMeshShaders()) {
+			SetupMeshFunctions(gpu->GetLogicalDevice());
+		}
+
+		SetupRenderingFunctions(gpu->GetLogicalDevice());
 	}
-
-	SetupRenderingFunctions(GetGpu()->As<GpuVk>()->GetLogicalDevice());
 
 	CreateMainRenderpass();
 
-	if (Engine::GetEcs())
-		for (auto i : Engine::GetEcs()->GetRenderSystems())
+	if (Engine::GetEcs()) {
+		for (auto i : Engine::GetEcs()->GetRenderSystems()) {
 			i->CreateTargetImage(display.GetResolution());
+		}
+	}
 }
 
-UniquePtr<ICommandPool> RendererVk::CreateCommandPool(const ICommandQueue* targetQueueType) {
-	return MakeUnique<CommandPoolVk>(
-		*GetGpu()->As<GpuVk>(),
-		targetQueueType->As<CommandQueueVk>()->GetFamily(),
+template <VulkanTarget Target>
+UniquePtr<ICommandPool> RendererVk<Target>::CreateCommandPool(const ICommandQueue* targetQueueType) {
+	return MakeUnique<CommandPoolVk<Target>>(
+		*GetGpu()->As<GpuVk<Target>>(),
+		targetQueueType->As<CommandQueueVk<Target>>()->GetFamily(),
 		targetQueueType->GetQueueType());
 }
 
-UniquePtr<IGraphicsPipeline> RendererVk::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) {
-	auto pipeline = MakeUnique<GraphicsPipelineVk>();
+template <VulkanTarget Target>
+UniquePtr<IGraphicsPipeline> RendererVk<Target>::_CreateGraphicsPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexInfo) {
+	auto pipeline = MakeUnique<GraphicsPipelineVk<Target>>();
 	pipeline->Create(&layout, GetGpu(), pipelineInfo, vertexInfo);
 
 	return pipeline;
 }
 
-UniquePtr<IMeshPipeline> RendererVk::_CreateMeshPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
+template <VulkanTarget Target>
+UniquePtr<IMeshPipeline> RendererVk<Target>::_CreateMeshPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
 	auto pipeline = MakeUnique<MeshPipelineVk>();
 	pipeline->Create(&layout, GetGpu(), pipelineInfo);
 
 	return pipeline;
 }
 
-UniquePtr<IRaytracingPipeline> RendererVk::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) {
+template <VulkanTarget Target>
+UniquePtr<IRaytracingPipeline> RendererVk<Target>::_CreateRaytracingPipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout, const VertexInfo& vertexTypeName) {
 	auto pipeline = MakeUnique<RaytracingPipelineVk>();
 	pipeline->Create(layout, pipelineInfo);
 
 	return pipeline;
 }
 
-UniquePtr<IComputePipeline> RendererVk::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
-	auto pipeline = MakeUnique<ComputePipelineVk>();
+template <VulkanTarget Target>
+UniquePtr<IComputePipeline> RendererVk<Target>::_CreateComputePipeline(const PipelineCreateInfo& pipelineInfo, const MaterialLayout& layout) {
+	auto pipeline = MakeUnique<ComputePipelineVk<Target>>();
 	pipeline->Create(layout, pipelineInfo);
 
 	return pipeline;
 }
 
-void RendererVk::WaitForCompletion() {
-	const VkDevice device = GetGpu()->As<GpuVk>()->GetLogicalDevice();
+template <VulkanTarget Target>
+void RendererVk<Target>::WaitForCompletion() {
+	const VkDevice device = GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 
 	// Esperar a que termine la ejecución de todos los comandos.
 	vkDeviceWaitIdle(device);
 }
 
-void RendererVk::Close() {
-	const VkDevice device = GetGpu()->As<GpuVk>()->GetLogicalDevice();
+template <VulkanTarget Target>
+void RendererVk<Target>::Close() {
+	const VkDevice device = GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 	WaitForCompletion();
 
 	CloseSingletonInstances();
@@ -215,12 +240,14 @@ void RendererVk::Close() {
 	vkDestroyInstance(m_instance, nullptr);
 }
 
-void RendererVk::HandleResize(const Vector2ui& resolution) {
+template <VulkanTarget Target>
+void RendererVk<Target>::HandleResize(const Vector2ui& resolution) {
 	// El renderpass final se maneja automáticamente en el bucle principal del renderer.
 	IRenderer::HandleResize(resolution);
 }
 
-void RendererVk::SubmitSingleUseCommandList(UniquePtr<ICommandList>&& commandList) {
+template <VulkanTarget Target>
+void RendererVk<Target>::SubmitSingleUseCommandList(UniquePtr<ICommandList>&& commandList) {
 	std::lock_guard lock(m_queueSubmitMutex.mutex);
 
 	const auto cmdIndex = commandList->_GetCommandListIndex();
@@ -230,21 +257,21 @@ void RendererVk::SubmitSingleUseCommandList(UniquePtr<ICommandList>&& commandLis
 
 	if (UseUnifiedCommandQueue() && commandList->GetOwnerPool()->GetLinkedQueueType() == GetUnifiedQueue()->GetQueueType()) {
 		// Cola unificada.
-		queue = GetUnifiedQueue()->As<CommandQueueVk>()->GetQueue();
+		queue = GetUnifiedQueue()->As<CommandQueueVk<Target>>()->GetQueue();
 		// Engine::GetLogger()->InfoLog(std::format("\tInsertada lista en cola unificada."));
 	}
 	else if (!UseUnifiedCommandQueue() && commandList->GetOwnerPool()->GetLinkedQueueType() == GetGraphicsComputeQueue()->GetQueueType()) {
 		// Cola principal.
-		queue = GetGraphicsComputeQueue()->As<CommandQueueVk>()->GetQueue();
+		queue = GetGraphicsComputeQueue()->As<CommandQueueVk<Target>>()->GetQueue();
 		// Engine::GetLogger()->InfoLog(std::format("\tInsertada lista en cola principal."));
 	}
 	else if (HasTransferOnlyCommandPool() && commandList->GetOwnerPool()->GetLinkedQueueType() == GetTransferOnlyQueue()->GetQueueType()) {
 		// Cola de transferencia.
-		queue = GetTransferOnlyQueue()->As<CommandQueueVk>()->GetQueue();
+		queue = GetTransferOnlyQueue()->As<CommandQueueVk<Target>>()->GetQueue();
 		// Engine::GetLogger()->InfoLog(std::format("\tInsertada lista en cola exclusiva de transferencia."));
 	}
 
-	const VkCommandBuffer cmdBuffer = commandList->As<CommandListVk>()->GetCommandBuffers()[cmdIndex];
+	const VkCommandBuffer cmdBuffer = commandList->As<CommandListVk<Target>>()->GetCommandBuffers()[cmdIndex];
 
 	VkSubmitInfo submitInfo{};
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
@@ -257,14 +284,15 @@ void RendererVk::SubmitSingleUseCommandList(UniquePtr<ICommandList>&& commandLis
 	OSK_ASSERT(result == VK_SUCCESS, CommandQueueSubmitException(result));
 
 	vkFreeCommandBuffers(
-		GetGpu()->As<GpuVk>()->GetLogicalDevice(), 
-		commandList->GetOwnerPool()->As<CommandPoolVk>()->GetCommandPool(),
+		GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(),
+		commandList->GetOwnerPool()->As<CommandPoolVk<Target>>()->GetCommandPool(),
 		1, &cmdBuffer);
 
 	m_singleTimeCommandLists.Insert(std::move(commandList));
 }
 
-void RendererVk::CreateInstance(const std::string& appName, const Version& version) {
+template <VulkanTarget Target>
+void RendererVk<Target>::CreateInstance(const std::string& appName, const Version& version) {
 	// Obtenemos la versión de vulkan soportada
 	auto pvkEnumeratInstanceVersion = (PFN_vkEnumerateInstanceVersion)vkGetInstanceProcAddr(nullptr, "vkEnumerateInstanceVersion");
 	if (pvkEnumeratInstanceVersion == nullptr) {
@@ -272,6 +300,10 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 	}
 	else {
 		pvkEnumeratInstanceVersion(&vulkanVersion);
+	}
+
+	if constexpr (Target == VulkanTarget::VK_1_0) {
+		vulkanVersion = VK_API_VERSION_1_0;
 	}
 
 	//Información de la app.
@@ -337,26 +369,28 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 	OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Crear instancia de Vulkan", result));
 }
 
-void RendererVk::CreateSwapchain(PresentMode mode, const Vector2ui& resolution) {
+template <VulkanTarget Target>
+void RendererVk<Target>::CreateSwapchain(PresentMode mode, const Vector2ui& resolution) {
 	DynamicArray<UIndex32> queueIndices{};
 
 	if (UseUnifiedCommandQueue()) {
-		queueIndices.Insert(GetUnifiedQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
+		queueIndices.Insert(GetUnifiedQueue()->As<CommandQueueVk<Target>>()->GetFamily().familyIndex);
 	}
 	else {
-		queueIndices.Insert(GetGraphicsComputeQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
-		queueIndices.Insert(GetPresentationQueue()->As<CommandQueueVk>()->GetFamily().familyIndex);
+		queueIndices.Insert(GetGraphicsComputeQueue()->As<CommandQueueVk<Target>>()->GetFamily().familyIndex);
+		queueIndices.Insert(GetPresentationQueue()->As<CommandQueueVk<Target>>()->GetFamily().familyIndex);
 	}
 
-	_SetSwapchain(MakeUnique<SwapchainVk>(
+	_SetSwapchain(MakeUnique<SwapchainVk<Target>>(
 		mode,
 		Format::BGRA8_SRGB,
-		*GetGpu()->As<GpuVk>(),
+		*GetGpu()->As<GpuVk<Target>>(),
 		resolution,
 		queueIndices.GetFullSpan()));
 }
 
-void RendererVk::SetupDebugLogging() {
+template <VulkanTarget Target>
+void RendererVk<Target>::SetupDebugLogging() {
 	VkDebugUtilsMessengerCreateInfoEXT createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
 	createInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
@@ -372,12 +406,14 @@ void RendererVk::SetupDebugLogging() {
 	Engine::GetLogger()->InfoLog("Capas de validación activas.");
 }
 
-void RendererVk::CreateSurface(IO::IDisplay& display) {
+template <VulkanTarget Target>
+void RendererVk<Target>::CreateSurface(IO::IDisplay& display) {
 	const VkResult result = glfwCreateWindowSurface(m_instance, display.As<IO::Window>()->_GetGlfw(), nullptr, &m_surface);
 	OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("No se ha podido crear la superficie", result));
 }
 
-void RendererVk::ChooseGpu() {
+template <VulkanTarget Target>
+void RendererVk<Target>::ChooseGpu() {
 	// --------------- Physical ----------------- //
 
 	// Obtiene el número de GPUs disponibles.
@@ -392,19 +428,20 @@ void RendererVk::ChooseGpu() {
 
 	// Comprobar la compatibilidad de las GPUs.
 	// Obtener una GPU compatible.
-	DynamicArray<GpuVk::Info> gpus;
+	DynamicArray<GpuInfoVkAny<Target>> gpus;
 	for (const VkPhysicalDevice gpu : devices) {
-		const GpuVk::Info info = GpuVk::Info::Get(gpu, m_surface);
+		const auto info = GpuInfoVkAny<Target>::Get(gpu, m_surface);
 
-		if (info.isSuitable)
+		if (info.isSuitable) {
 			gpus.Insert(info);
+		}
 	}
 
 	OSK_ASSERT(!gpus.IsEmpty(), GpuNotFoundException());
 
 	VkPhysicalDevice gpu = devices[0];
 
-	GpuVk::Info info = gpus[0];
+	GpuInfoVkAny<Target> info = gpus[0];
 
 	bool hasDiscrete = false;
 	for (UIndex64 i = 0; i < devices.GetSize(); i++) {
@@ -418,14 +455,15 @@ void RendererVk::ChooseGpu() {
 
 	Engine::GetLogger()->InfoLog("GPU elegida: " + std::string(info.properties.deviceName));
 
-	auto gpuVk = MakeUnique<GpuVk>(gpu, m_surface);
+	auto gpuVk = MakeUnique<GpuVk<Target>>(gpu, m_surface);
 	gpuVk->CreateLogicalDevice();
 
 	_SetGpu(std::move(gpuVk));
 }
 
-void RendererVk::CreateCommandQueues() {
-	GpuVk& gpu = *GetGpu()->As<GpuVk>();
+template <VulkanTarget Target>
+void RendererVk<Target>::CreateCommandQueues() {
+	GpuVk<Target>& gpu = *GetGpu()->As<GpuVk<Target>>();
 
 	const QueueFamiles queueFamilies = gpu.GetQueueFamilyIndices();
 
@@ -444,7 +482,7 @@ void RendererVk::CreateCommandQueues() {
 		// Existe una familia con soporte para todos los comandos:
 		// usar cola unificada.
 
-		_SetUnifiedCommandQueue(MakeUnique<CommandQueueVk>(unifiedFamiliesList[0], 0, GpuQueueType::MAIN,  gpu));
+		_SetUnifiedCommandQueue(MakeUnique<CommandQueueVk<Target>>(unifiedFamiliesList[0], 0, GpuQueueType::MAIN,  gpu));
 
 		RegisterUnifiedCommandPool(GetUnifiedQueue());
 
@@ -461,7 +499,7 @@ void RendererVk::CreateCommandQueues() {
 			CommandsSupport::COMPUTE |
 			CommandsSupport::TRANSFER)[0];
 
-		_SetGraphicsCommputeCommandQueue(MakeUnique<CommandQueueVk>(graphicsAndComputeFamily, 0, GpuQueueType::MAIN, gpu));
+		_SetGraphicsCommputeCommandQueue(MakeUnique<CommandQueueVk<Target>>(graphicsAndComputeFamily, 0, GpuQueueType::MAIN, gpu));
 
 		RegisterGraphicsCommputeCommandPool(GetGraphicsComputeQueue());
 
@@ -469,7 +507,7 @@ void RendererVk::CreateCommandQueues() {
 		const QueueFamily presentationFamily = queueFamilies.GetFamilies(
 			CommandsSupport::PRESENTATION)[0];
 
-		_SetPresentationCommandQueue(MakeUnique<CommandQueueVk>(presentationFamily, 0, GpuQueueType::PRESENTATION, gpu));
+		_SetPresentationCommandQueue(MakeUnique<CommandQueueVk<Target>>(presentationFamily, 0, GpuQueueType::PRESENTATION, gpu));
 
 		_SetMainCommandList(GetGraphicsComputeCommandPool(std::this_thread::get_id())->CreateCommandList(gpu));
 
@@ -482,7 +520,7 @@ void RendererVk::CreateCommandQueues() {
 
 	for (const auto& family : transferFamilies) {
 		if (family.support == CommandsSupport::TRANSFER) {
-			_SetTransferOnlyCommandQueue(MakeUnique<CommandQueueVk>(family, 0, GpuQueueType::ASYNC_TRANSFER, gpu));
+			_SetTransferOnlyCommandQueue(MakeUnique<CommandQueueVk<Target>>(family, 0, GpuQueueType::ASYNC_TRANSFER, gpu));
 			RegisterTransferOnlyCommandPool(GetTransferOnlyQueue());
 			OSK::Engine::GetLogger()->InfoLog("Uso de cola GPU de transferencia.");
 
@@ -491,7 +529,8 @@ void RendererVk::CreateCommandQueues() {
 	}
 }
 
-bool RendererVk::AreValidationLayersAvailable() const {
+template <VulkanTarget Target>
+bool RendererVk<Target>::AreValidationLayersAvailable() const {
 #ifdef OSK_DEBUG
 	// Obtenemos el número de capas.
 	uint32_t layerCount;
@@ -524,12 +563,14 @@ bool RendererVk::AreValidationLayersAvailable() const {
 #endif 
 }
 
-UniquePtr<IMaterialSlot> RendererVk::_CreateMaterialSlot(const std::string& name, const MaterialLayout& layout) const {
-	return MakeUnique<MaterialSlotVk>(name, &layout);
+template <VulkanTarget Target>
+UniquePtr<IMaterialSlot> RendererVk<Target>::_CreateMaterialSlot(const std::string& name, const MaterialLayout& layout) const {
+	return MakeUnique<MaterialSlotVk<Target>>(name, &layout);
 }
 
-void RendererVk::CreateSyncPrimitives() {
-	const VkDevice logicalDevice = GetGpu()->As<GpuVk>()->GetLogicalDevice();
+template <VulkanTarget Target>
+void RendererVk<Target>::CreateSyncPrimitives() {
+	const VkDevice logicalDevice = GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 
 	VkSemaphoreCreateInfo semaphoreInfo{};
 	semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -584,11 +625,13 @@ void RendererVk::CreateSyncPrimitives() {
 	vkResetFences(logicalDevice, 1, &m_fullyRenderedFences[0]);
 }
 
-void RendererVk::CreateGpuMemoryAllocator() {
-	_SetMemoryAllocator(MakeUnique<GpuMemoryAllocatorVk>(GetGpu()));
+template <VulkanTarget Target>
+void RendererVk<Target>::CreateGpuMemoryAllocator() {
+	_SetMemoryAllocator(MakeUnique<GpuMemoryAllocatorVk<Target>>(GetGpu()));
 }
 
-void RendererVk::PresentFrame() {
+template <VulkanTarget Target>
+void RendererVk<Target>::PresentFrame() {
 	if (m_isFirstRender) {
 		AcquireNextFrame();
 
@@ -620,7 +663,8 @@ void RendererVk::PresentFrame() {
 	GetMainCommandList()->Start();
 }
 
-void RendererVk::SubmitMainCommandList() {
+template <VulkanTarget Target>
+void RendererVk<Target>::SubmitMainCommandList() {
 	// Esperar a que se completen todos los comandos.
 	const VkPipelineStageFlags waitStage = VK_PIPELINE_STAGE_ALL_COMMANDS_BIT;
 
@@ -633,20 +677,21 @@ void RendererVk::SubmitMainCommandList() {
 	submitInfo.signalSemaphoreCount = 1;
 
 	submitInfo.commandBufferCount = 1;
-	submitInfo.pCommandBuffers = &GetMainCommandList()->As<CommandListVk>()->GetCommandBuffers()[currentCommandBufferIndex];
+	submitInfo.pCommandBuffers = &GetMainCommandList()->As<CommandListVk<Target>>()->GetCommandBuffers()[currentCommandBufferIndex];
 
 	const VkQueue queue = UseUnifiedCommandQueue()
-		? GetUnifiedQueue()->As<CommandQueueVk>()->GetQueue()
-		: GetGraphicsComputeQueue()->As<CommandQueueVk>()->GetQueue();
+		? GetUnifiedQueue()->As<CommandQueueVk<Target>>()->GetQueue()
+		: GetGraphicsComputeQueue()->As<CommandQueueVk<Target>>()->GetQueue();
 
 	VkResult result = vkQueueSubmit(queue, 1, &submitInfo, m_fullyRenderedFences[currentCommandBufferIndex]);
 	OSK_ASSERT(result == VK_SUCCESS, CommandListSubmitException("PreCompute", result));
 }
 
-void RendererVk::SubmitFrame() {
-	const VkDevice logicalDevice = GetGpu()->As<GpuVk>()->GetLogicalDevice();
+template <VulkanTarget Target>
+void RendererVk<Target>::SubmitFrame() {
+	const VkDevice logicalDevice = GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 
-	const VkSwapchainKHR swapChains = _GetSwapchain()->As<SwapchainVk>()->GetSwapchain();
+	const VkSwapchainKHR swapChains = _GetSwapchain()->As<SwapchainVk<Target>>()->GetSwapchain();
 	// Esperamos a que la imagen haya terminado de rendereizarse.
 	const VkSemaphore waitSemaphores = m_imageFinishedSemaphores[currentCommandBufferIndex];
 
@@ -660,8 +705,8 @@ void RendererVk::SubmitFrame() {
 	presentInfo.pResults = nullptr;
 
 	const VkQueue queue = UseUnifiedCommandQueue()
-		? GetUnifiedQueue()->As<CommandQueueVk>()->GetQueue()
-		: GetPresentationQueue()->As<CommandQueueVk>()->GetQueue();
+		? GetUnifiedQueue()->As<CommandQueueVk<Target>>()->GetQueue()
+		: GetPresentationQueue()->As<CommandQueueVk<Target>>()->GetQueue();
 
 	VkResult result = vkQueuePresentKHR(queue, &presentInfo);
 	const bool resized = result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR;
@@ -674,8 +719,8 @@ void RendererVk::SubmitFrame() {
 		const auto& resolution = Engine::GetDisplay()->GetResolution();
 
 		if (resolution.x > 0 && resolution.y > 0) {
-			_GetSwapchain()->As<SwapchainVk>()->Resize(*GetGpu(), resolution);
-			Engine::GetRenderer()->As<RendererVk>()->HandleResize(resolution);
+			_GetSwapchain()->As<SwapchainVk<Target>>()->Resize(*GetGpu(), resolution);
+			Engine::GetRenderer()->As<RendererVk<Target>>()->HandleResize(resolution);
 		}
 	}
 
@@ -686,14 +731,15 @@ void RendererVk::SubmitFrame() {
 	vkResetFences(logicalDevice, 1, &m_fullyRenderedFences[currentCommandBufferIndex]);
 }
 
-void RendererVk::AcquireNextFrame() {
+template <VulkanTarget Target>
+void RendererVk<Target>::AcquireNextFrame() {
 	const static uint64_t OSK_NO_TIMEOUT = UINT64_MAX;
 
 	// Adquirimos el índice de la próxima imagen a procesar.
 	// NOTA: puede que tengamos que esperar a que esta imagen quede disponible.
 	VkResult result = vkAcquireNextImageKHR(
-		GetGpu()->As<GpuVk>()->GetLogicalDevice(),
-		_GetSwapchain()->As<SwapchainVk>()->GetSwapchain(),
+		GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(),
+		_GetSwapchain()->As<SwapchainVk<Target>>()->GetSwapchain(),
 		OSK_NO_TIMEOUT,
 		m_imageAvailableSemaphores[currentCommandBufferIndex], 
 		VK_NULL_HANDLE, 
@@ -702,7 +748,8 @@ void RendererVk::AcquireNextFrame() {
 	// OSK_CHECK(result == VK_SUCCESS, "vkAcquireNextImageKHR code: " + std::to_string(result));
 }
 
-void RendererVk::SetupRtFunctions(VkDevice device) {
+template <VulkanTarget Target>
+void RendererVk<Target>::SetupRtFunctions(VkDevice device) {
 	pvkGetBufferDeviceAddressKHR = reinterpret_cast<PFN_vkGetBufferDeviceAddressKHR>(vkGetDeviceProcAddr(device, "vkGetBufferDeviceAddressKHR"));
 	pvkCmdBuildAccelerationStructuresKHR = reinterpret_cast<PFN_vkCmdBuildAccelerationStructuresKHR>(vkGetDeviceProcAddr(device, "vkCmdBuildAccelerationStructuresKHR"));
 	pvkBuildAccelerationStructuresKHR = reinterpret_cast<PFN_vkBuildAccelerationStructuresKHR>(vkGetDeviceProcAddr(device, "vkBuildAccelerationStructuresKHR"));
@@ -717,11 +764,13 @@ void RendererVk::SetupRtFunctions(VkDevice device) {
 	m_isRtActive = true;
 }
 
-void RendererVk::SetupMeshFunctions(VkDevice logicalDevice) {
+template <VulkanTarget Target>
+void RendererVk<Target>::SetupMeshFunctions(VkDevice logicalDevice) {
 	pvkCmdDrawMeshTasksEXT = reinterpret_cast<PFN_vkCmdDrawMeshTasksEXT>(vkGetDeviceProcAddr(logicalDevice, "vkCmdDrawMeshTasksEXT"));
 }
 
-void RendererVk::SetupDebugFunctions(VkDevice instance) {
+template <VulkanTarget Target>
+void RendererVk<Target>::SetupDebugFunctions(VkDevice instance) {
 	pvkSetDebugUtilsObjectNameEXT = reinterpret_cast<PFN_vkSetDebugUtilsObjectNameEXT>(vkGetDeviceProcAddr(instance, "vkSetDebugUtilsObjectNameEXT"));
 	pvkSetDebugUtilsObjectTagEXT = reinterpret_cast<PFN_vkSetDebugUtilsObjectTagEXT>(vkGetDeviceProcAddr(instance, "vkSetDebugUtilsObjectTagEXT"));
 	pvkCmdDebugMarkerBeginEXT = reinterpret_cast<PFN_vkCmdDebugMarkerBeginEXT>(vkGetDeviceProcAddr(instance, "vkCmdDebugMarkerBeginEXT"));
@@ -730,7 +779,8 @@ void RendererVk::SetupDebugFunctions(VkDevice instance) {
 	pvkCmdEndDebugUtilsLabelEXT = reinterpret_cast<PFN_vkCmdEndDebugUtilsLabelEXT>(vkGetDeviceProcAddr(instance, "vkCmdEndDebugUtilsLabelEXT"));
 }
 
-void RendererVk::SetupRenderingFunctions(VkDevice logicalDevice) {
+template <VulkanTarget Target>
+void RendererVk<Target>::SetupRenderingFunctions(VkDevice logicalDevice) {
 	if (VK_VERSION_MAJOR(vulkanVersion) >= 1 && VK_VERSION_MINOR(vulkanVersion) >= 3) {
 		pvkCmdBeginRendering = vkCmdBeginRendering;
 		pvkCmdEndRendering = vkCmdEndRendering;
@@ -749,39 +799,54 @@ void RendererVk::SetupRenderingFunctions(VkDevice logicalDevice) {
 	OSK_ASSERT(pvkCmdEndRendering != nullptr, GpuNotCompatibleException("No se puede iniciar el renderizador, falta Dynamic Rendering."));
 }
 
-UIndex32 RendererVk::GetCurrentFrameIndex() const {
+template <VulkanTarget Target>
+UIndex32 RendererVk<Target>::GetCurrentFrameIndex() const {
 	return currentFrameIndex;
 }
 
-UIndex32 RendererVk::GetCurrentCommandListIndex() const {
+template <VulkanTarget Target>
+UIndex32 RendererVk<Target>::GetCurrentCommandListIndex() const {
 	return currentCommandBufferIndex;
 }
 
-bool RendererVk::SupportsRaytracing() const {
-	return GetGpu()->As<GpuVk>()->GetInfo().IsRtCompatible();
+template <VulkanTarget Target>
+bool RendererVk<Target>::SupportsRaytracing() const {
+	if constexpr (Target == VulkanTarget::VK_1_0) {
+		return false;
+	}
+
+	return GetGpu()->As<GpuVk<Target>>()->GetInfo().IsRtCompatible();
 }
 
-PFN_vkGetBufferDeviceAddressKHR RendererVk::pvkGetBufferDeviceAddressKHR = nullptr;
-PFN_vkCmdBuildAccelerationStructuresKHR RendererVk::pvkCmdBuildAccelerationStructuresKHR = nullptr;
-PFN_vkBuildAccelerationStructuresKHR RendererVk::pvkBuildAccelerationStructuresKHR = nullptr;
-PFN_vkCreateAccelerationStructureKHR RendererVk::pvkCreateAccelerationStructureKHR = nullptr;
-PFN_vkDestroyAccelerationStructureKHR RendererVk::pvkDestroyAccelerationStructureKHR = nullptr;
-PFN_vkGetAccelerationStructureBuildSizesKHR RendererVk::pvkGetAccelerationStructureBuildSizesKHR = nullptr;
-PFN_vkGetAccelerationStructureDeviceAddressKHR RendererVk::pvkGetAccelerationStructureDeviceAddressKHR = nullptr;
-PFN_vkCmdTraceRaysKHR RendererVk::pvkCmdTraceRaysKHR = nullptr;
-PFN_vkGetRayTracingShaderGroupHandlesKHR RendererVk::pvkGetRayTracingShaderGroupHandlesKHR = nullptr;
-PFN_vkCreateRayTracingPipelinesKHR RendererVk::pvkCreateRayTracingPipelinesKHR = nullptr;
+#define OSK_VK_DEF_FUNC(funcName) \
+PFN_##funcName RendererVk<VulkanTarget::VK_1_0>::p##funcName = nullptr; \
+PFN_##funcName RendererVk<VulkanTarget::VK_LATEST>::p##funcName = nullptr; 
 
-PFN_vkSetDebugUtilsObjectNameEXT RendererVk::pvkSetDebugUtilsObjectNameEXT = nullptr;
-PFN_vkSetDebugUtilsObjectTagEXT RendererVk::pvkSetDebugUtilsObjectTagEXT = nullptr;
-PFN_vkCmdDebugMarkerBeginEXT RendererVk::pvkCmdDebugMarkerBeginEXT = nullptr;
-PFN_vkCmdInsertDebugUtilsLabelEXT RendererVk::pvkCmdInsertDebugUtilsLabelEXT = nullptr;
-PFN_vkCmdBeginDebugUtilsLabelEXT RendererVk::pvkCmdBeginDebugUtilsLabelEXT = nullptr;
-PFN_vkCmdEndDebugUtilsLabelEXT RendererVk::pvkCmdEndDebugUtilsLabelEXT = nullptr;
+// Ray-tracing
+OSK_VK_DEF_FUNC(vkGetBufferDeviceAddressKHR);
+OSK_VK_DEF_FUNC(vkCmdBuildAccelerationStructuresKHR);
+OSK_VK_DEF_FUNC(vkBuildAccelerationStructuresKHR);
+OSK_VK_DEF_FUNC(vkCreateAccelerationStructureKHR);
+OSK_VK_DEF_FUNC(vkDestroyAccelerationStructureKHR);
+OSK_VK_DEF_FUNC(vkGetAccelerationStructureBuildSizesKHR);
+OSK_VK_DEF_FUNC(vkGetAccelerationStructureDeviceAddressKHR);
+OSK_VK_DEF_FUNC(vkCmdTraceRaysKHR);
+OSK_VK_DEF_FUNC(vkGetRayTracingShaderGroupHandlesKHR);
+OSK_VK_DEF_FUNC(vkCreateRayTracingPipelinesKHR);
 
-PFN_vkCmdBeginRendering RendererVk::pvkCmdBeginRendering = nullptr;
-PFN_vkCmdEndRendering RendererVk::pvkCmdEndRendering = nullptr;
+// Debug
+OSK_VK_DEF_FUNC(vkSetDebugUtilsObjectNameEXT);
+OSK_VK_DEF_FUNC(vkSetDebugUtilsObjectTagEXT);
+OSK_VK_DEF_FUNC(vkCmdDebugMarkerBeginEXT);
+OSK_VK_DEF_FUNC(vkCmdInsertDebugUtilsLabelEXT);
+OSK_VK_DEF_FUNC(vkCmdBeginDebugUtilsLabelEXT);
+OSK_VK_DEF_FUNC(vkCmdEndDebugUtilsLabelEXT);
 
-PFN_vkCmdDrawMeshTasksEXT RendererVk::pvkCmdDrawMeshTasksEXT = nullptr;
+// Dynamic rendering
+OSK_VK_DEF_FUNC(vkCmdBeginRendering);
+OSK_VK_DEF_FUNC(vkCmdEndRendering);
+
+// Mesh shaders
+OSK_VK_DEF_FUNC(vkCmdDrawMeshTasksEXT);
 
 #endif

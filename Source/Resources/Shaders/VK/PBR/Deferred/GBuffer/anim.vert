@@ -44,7 +44,7 @@ layout (push_constant) uniform Model {
     float jitterIndex;
 } model;
 
-layout (set = 2, binding = 0) buffer Animation {
+layout (set = 2, binding = 0) readonly buffer Animation {
     mat4 boneMatrices[];
 } animation;
 

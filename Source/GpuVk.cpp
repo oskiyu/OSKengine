@@ -7,7 +7,6 @@
 #include <set>
 #include "CommandPoolVk.h"
 #include "GpuImageSamplerVk.h"
-#include <vulkan/vulkan.h>
 #include "OSKengine.h"
 #include "Logger.h"
 
@@ -17,9 +16,9 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-
-GpuVk::GpuVk(VkPhysicalDevice gpu, VkSurfaceKHR surface) : physicalDevice(gpu), surface(surface) {
-	info = Info::Get(gpu, surface);
+template<VulkanTarget Target>
+GpuVk<Target>::GpuVk(VkPhysicalDevice gpu, VkSurfaceKHR surface) : physicalDevice(gpu), surface(surface) {
+	info = GpuInfoVkAny<Target>::Get(gpu, surface);
 	_SetName(info.properties.deviceName);
 
 	GpuMemoryAlignments alignments{};
@@ -30,17 +29,19 @@ GpuVk::GpuVk(VkPhysicalDevice gpu, VkSurfaceKHR surface) : physicalDevice(gpu), 
 	SetMinAlignments(alignments);
 }
 
-GpuVk::~GpuVk() {
+template<VulkanTarget Target>
+GpuVk<Target>::~GpuVk() {
 	Close();
 }
 
-GpuMemoryUsageInfo GpuVk::GetMemoryUsageInfo() const {
+template<VulkanTarget Target>
+GpuMemoryUsageInfo GpuVk<Target>::GetMemoryUsageInfo() const {
 	VkPhysicalDeviceProperties properties{};
 	vkGetPhysicalDeviceProperties(physicalDevice, &properties);
 
 	VkPhysicalDeviceMemoryBudgetPropertiesEXT memoryBudget{};
 	memoryBudget.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_BUDGET_PROPERTIES_EXT;
-	memoryBudget.pNext = NULL;
+	memoryBudget.pNext = nullptr;
 
 	VkPhysicalDeviceMemoryProperties2 memoryProperties{};
 	memoryProperties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_PROPERTIES_2;
@@ -75,17 +76,19 @@ GpuMemoryUsageInfo GpuVk::GetMemoryUsageInfo() const {
 	return output;
 }
 
-UniquePtr<ICommandPool> GpuVk::CreateGraphicsCommandPool() {
+template<VulkanTarget Target>
+UniquePtr<ICommandPool> GpuVk<Target>::CreateGraphicsCommandPool() {
 	const QueueFamiles families = GetQueueFamilyIndices();
 	const QueueFamily family = families.GetFamilies(
 		CommandsSupport::GRAPHICS | 
 		CommandsSupport::COMPUTE | 
 		CommandsSupport::PRESENTATION).AtCpy(0);
 
-	return MakeUnique<CommandPoolVk>(*this, family, GpuQueueType::MAIN);
+	return MakeUnique<CommandPoolVk<Target>>(*this, family, GpuQueueType::MAIN);
 }
 
-UniquePtr<ICommandPool> GpuVk::CreateComputeCommandPool() {
+template<VulkanTarget Target>
+UniquePtr<ICommandPool> GpuVk<Target>::CreateComputeCommandPool() {
 	const auto families = GetQueueFamilyIndices().GetFamilies(
 		CommandsSupport::GRAPHICS | 
 		CommandsSupport::COMPUTE | 
@@ -93,44 +96,50 @@ UniquePtr<ICommandPool> GpuVk::CreateComputeCommandPool() {
 
 	const QueueFamily family = families.At(0);
 
-	return MakeUnique<CommandPoolVk>(
+	return MakeUnique<CommandPoolVk<Target>>(
 		*this,
 		family,
 		GpuQueueType::MAIN);
 }
 
-std::optional<UniquePtr<ICommandPool>> GpuVk::CreateTransferOnlyCommandPool() {
+template<VulkanTarget Target>
+std::optional<UniquePtr<ICommandPool>> GpuVk<Target>::CreateTransferOnlyCommandPool() {
 	const auto families = GetQueueFamilyIndices().GetFamilies(CommandsSupport::TRANSFER);
 
 	for (const auto& family : families) {
 		if (family.support == CommandsSupport::TRANSFER) {
-			return MakeUnique<CommandPoolVk>(*this, family, GpuQueueType::ASYNC_TRANSFER);
+			return MakeUnique<CommandPoolVk<Target>>(*this, family, GpuQueueType::ASYNC_TRANSFER);
 		}
 	}
 
 	return {};
 }
 
-UniquePtr<IGpuImageSampler> GpuVk::CreateSampler(const GpuImageSamplerDesc& info) const {
-	return MakeUnique<GpuImageSamplerVk>(info, this);
+template<VulkanTarget Target>
+UniquePtr<IGpuImageSampler> GpuVk<Target>::CreateSampler(const GpuImageSamplerDesc& info) const {
+	return MakeUnique<GpuImageSamplerVk<Target>>(info, this);
 }
 
-VkSurfaceKHR GpuVk::GetSurface() const {
+template<VulkanTarget Target>
+VkSurfaceKHR GpuVk<Target>::GetSurface() const {
 	return surface;
 }
 
-void GpuVk::Close() {
+template<VulkanTarget Target>
+void GpuVk<Target>::Close() {
 	if (logicalDevice != VK_NULL_HANDLE) {
 		vkDestroyDevice(logicalDevice, nullptr);
 		logicalDevice = VK_NULL_HANDLE;
 	}
 }
 
-VkPhysicalDevice GpuVk::GetPhysicalDevice() const {
+template<VulkanTarget Target>
+VkPhysicalDevice GpuVk<Target>::GetPhysicalDevice() const {
 	return physicalDevice;
 }
 
-void GpuVk::CreateLogicalDevice() {
+template<VulkanTarget Target>
+void GpuVk<Target>::CreateLogicalDevice() {
 	const QueueFamiles families = GetQueueFamilyIndices();
 
 	const auto graphicsAndComputeFamiliesList = families.GetFamilies(
@@ -178,7 +187,10 @@ void GpuVk::CreateLogicalDevice() {
 	DynamicArray<VkExtensionProperties> availableExtensions = GetAvailableExtensions(physicalDevice);
 	DynamicArray<const char*> gpuExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
 
-	gpuExtensions.Insert(VK_EXT_MEMORY_BUDGET_EXTENSION_NAME);
+	// Solo en LATEST
+	if constexpr (Target == VulkanTarget::VK_LATEST) {
+		gpuExtensions.Insert(VK_EXT_MEMORY_BUDGET_EXTENSION_NAME);
+	}
 
 	// RT
 	if (info.IsRtCompatible()) {
@@ -214,23 +226,34 @@ void GpuVk::CreateLogicalDevice() {
 	createInfo.pEnabledFeatures = &features;
 	createInfo.enabledExtensionCount = static_cast<uint32_t>(gpuExtensions.GetSize());
 	createInfo.ppEnabledExtensionNames = gpuExtensions.GetData();
-	
-	createInfo.pEnabledFeatures = nullptr;
-	createInfo.pNext = &info.extendedFeatures;
-	info.extendedFeatures.features = features;
-	info.extendedFeatures.pNext = &info.dynamicRenderingFeatures;
 
-	// Renderizado dinámico.
-	info.dynamicRenderingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
-	info.dynamicRenderingFeatures.dynamicRendering = VK_TRUE;
-	info.dynamicRenderingFeatures.pNext = &info.syncFeatures;
+	// Cadena con extensiones.
+	if constexpr (Target == VulkanTarget::VK_LATEST) {
+		createInfo.pEnabledFeatures = nullptr;
+		createInfo.pNext = &info.extendedFeatures;
+		info.extendedFeatures.features = features;
+		info.extendedFeatures.pNext = &info.dynamicRenderingFeatures;
+	}
 
-	// Sincronización avanzada.
-	info.syncFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
-	info.syncFeatures.synchronization2 = VK_TRUE;
-	info.syncFeatures.pNext = nullptr;
+	// Renderizado dinámico (solo en LATEST).
+	if constexpr (Target == VulkanTarget::VK_LATEST) {
+		info.dynamicRenderingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
+		info.dynamicRenderingFeatures.dynamicRendering = VK_TRUE;
+		info.dynamicRenderingFeatures.pNext = &info.syncFeatures;
+	}
 
-	// Mesh shaders.
+	// Sincronización avanzada (solo en LATEST).
+	if constexpr (Target == VulkanTarget::VK_LATEST) {
+		info.syncFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
+		info.syncFeatures.synchronization2 = VK_TRUE;
+		info.syncFeatures.pNext = nullptr;
+	}
+
+
+	// Storage image sin formato (necesario)
+	info.features.shaderStorageImageWriteWithoutFormat = true;
+
+	// Mesh shaders (solo en LATEST).
 	if (info.IsCompatibleWithMeshShaders()) {
 		info.syncFeatures.pNext = &info.meshShaders;
 
@@ -243,7 +266,7 @@ void GpuVk::CreateLogicalDevice() {
 		info.meshShaders.pNext = nullptr;
 	}
 
-	// Trazado de rayos.
+	// Trazado de rayos (solo en LATEST).
 	if (info.IsRtCompatible()) {
 		if (info.IsCompatibleWithMeshShaders()) {
 			info.meshShaders.pNext = &info.rtAccelerationStructuresFeatures;
@@ -293,15 +316,18 @@ void GpuVk::CreateLogicalDevice() {
 	OSK_ASSERT(result == VK_SUCCESS, LogicalDeviceCreationException(result));
 }
 
-VkDevice GpuVk::GetLogicalDevice() const {
+template<VulkanTarget Target>
+VkDevice GpuVk<Target>::GetLogicalDevice() const {
 	return logicalDevice;
 }
 
-const GpuVk::Info& GpuVk::GetInfo() const {
+template<VulkanTarget Target>
+const GpuInfoVkAny<Target>& GpuVk<Target>::GetInfo() const {
 	return info;
 }
 
-QueueFamiles GpuVk::GetQueueFamilyIndices() const {
+template<VulkanTarget Target>
+QueueFamiles GpuVk<Target>::GetQueueFamilyIndices() const {
 	QueueFamiles output{};
 
 	// Número de familias.
@@ -348,121 +374,8 @@ QueueFamiles GpuVk::GetQueueFamilyIndices() const {
 	return output;
 }
 
-GpuVk::Info GpuVk::Info::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface) {
-	GpuVk::Info info{};
-
-	info.physicalDevice = gpu;
-
-	// Obtiene las propiedades de la gpu.
-	vkGetPhysicalDeviceProperties(gpu, &info.properties);
-	// Obtiene las características de la GPU.
-	vkGetPhysicalDeviceFeatures(gpu, &info.features);
-
-	// Obtiene las características de ray-tracing
-	VkPhysicalDeviceProperties2 gpuProperties2{};
-	gpuProperties2.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2;
-	gpuProperties2.properties = info.properties;
-	gpuProperties2.pNext = &info.rtPipelineProperties;
-
-	info.rtPipelineProperties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR;
-	info.rtPipelineProperties.pNext = &info.rtAccelerationStructuresProperites;
-
-	info.rtAccelerationStructuresProperites.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_PROPERTIES_KHR;
-
-	vkGetPhysicalDeviceProperties2(gpu, &gpuProperties2);
-	
-	// Featrues
-	info.extendedFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
-	info.extendedFeatures.features = info.features;
-	info.extendedFeatures.pNext = &info.rtPipelineFeatures;
-
-	info.rtPipelineFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR;
-	info.rtPipelineFeatures.pNext = &info.rtAccelerationStructuresFeatures;
-	info.rtAccelerationStructuresFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR;
-	info.rtAccelerationStructuresFeatures.pNext = &info.rtDeviceAddressFeatures;
-	info.rtDeviceAddressFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES;
-	info.rtDeviceAddressFeatures.pNext = &info.dynamicRenderingFeatures;
-
-	// Características para renderizado sin renderpasses
-	info.dynamicRenderingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
-	info.dynamicRenderingFeatures.dynamicRendering = VK_TRUE;
-	info.dynamicRenderingFeatures.pNext = &info.bindlessTexturesSets;
-
-	// Permitir arrays de recursos (para contener todas las texturas en un descriptor set).
-	info.bindlessTexturesSets.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_INDEXING_FEATURES;
-	info.bindlessTexturesSets.runtimeDescriptorArray = VK_TRUE;
-	info.bindlessTexturesSets.descriptorBindingPartiallyBound = VK_TRUE;
-	info.bindlessTexturesSets.pNext = &info.syncFeatures;
-
-	// Permitir sincronización avanzada.
-	info.syncFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
-	info.syncFeatures.synchronization2 = VK_TRUE;
-	info.syncFeatures.pNext = &info.meshShaders;
-
-	// Permitir mesh shaders.
-	info.meshShaders.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT;
-	info.meshShaders.meshShader = VK_TRUE;
-	info.meshShaders.taskShader = VK_TRUE;
-	info.meshShaders.multiviewMeshShader = VK_FALSE;
-	info.meshShaders.meshShaderQueries = VK_FALSE;
-	info.meshShaders.primitiveFragmentShadingRateMeshShader = VK_FALSE;
-	info.meshShaders.pNext = nullptr;
-
-	vkGetPhysicalDeviceFeatures2(gpu, &info.extendedFeatures);
-
-	// Comprobar soporte de swapchain.
-	bool swapchainSupported = false;
-
-	//info.shapchainSupport = getSwapchainSupportDetails(gpu);
-	//swapchainSupported = !info.shapchainSupport.presentModes.empty() && !info.shapchainSupport.formats.empty();
-
-	//info.isSuitable = info.families.IsComplete() && checkGPUextensionSupport(gpu) && swapchainSupported && info.features.samplerAnisotropy;
-	info.minAlignment = info.properties.limits.minUniformBufferOffsetAlignment;
-
-	// ---------- SWAPCHAIN ------------------ //
-
-	SwapchainSupportDetails shapchainSupport;
-
-	//Obtener las capacidades.
-	vkGetPhysicalDeviceSurfaceCapabilitiesKHR(gpu, surface, &shapchainSupport.surfaceCapabilities);
-
-	//Número de formatos soportados.
-	uint32_t formatCount = 0;
-	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, surface, &formatCount, nullptr);
-
-	//Obtener formatos soportados.
-	shapchainSupport.formats.Resize(formatCount);
-
-	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, surface, &formatCount, shapchainSupport.formats.GetData());
-	
-	//Números de modos de presentación.
-	uint32_t presentModeCount = 0;
-	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, surface, &presentModeCount, nullptr);
-
-	//Obtener modos de presentación.
-	shapchainSupport.presentModes.Resize(presentModeCount);
-
-	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, surface, &formatCount, shapchainSupport.presentModes.GetData());
-
-	vkGetPhysicalDeviceMemoryProperties(gpu, &info.memoryProperties);
-
-	info.swapchainSupportDetails = shapchainSupport;
-	
-	VkSampleCountFlags counts = info.properties.limits.framebufferColorSampleCounts & info.properties.limits.framebufferDepthSampleCounts;
-	if (counts & VK_SAMPLE_COUNT_64_BIT) { info.maxMsaaSamples = VK_SAMPLE_COUNT_64_BIT; }
-	else if (counts & VK_SAMPLE_COUNT_32_BIT) { info.maxMsaaSamples = VK_SAMPLE_COUNT_32_BIT; }
-	else if (counts & VK_SAMPLE_COUNT_16_BIT) { info.maxMsaaSamples = VK_SAMPLE_COUNT_16_BIT; }
-	else if (counts & VK_SAMPLE_COUNT_8_BIT) { info.maxMsaaSamples = VK_SAMPLE_COUNT_8_BIT; }
-	else if (counts & VK_SAMPLE_COUNT_4_BIT) { info.maxMsaaSamples = VK_SAMPLE_COUNT_4_BIT; }
-	else if (counts & VK_SAMPLE_COUNT_2_BIT) { info.maxMsaaSamples = VK_SAMPLE_COUNT_2_BIT; }
-
-	if (info.dynamicRenderingFeatures.dynamicRendering == VK_TRUE)
-		info.isSuitable = true;
-
-	return info;
-}
-
-DynamicArray<VkExtensionProperties> GpuVk::GetAvailableExtensions(VkPhysicalDevice gpu) {
+template <VulkanTarget Target>
+DynamicArray<VkExtensionProperties> GpuVk<Target>::GetAvailableExtensions(VkPhysicalDevice gpu) {
 	DynamicArray<VkExtensionProperties> output;
 
 	uint32_t extensionCount = 0;
@@ -473,52 +386,13 @@ DynamicArray<VkExtensionProperties> GpuVk::GetAvailableExtensions(VkPhysicalDevi
 	return output;
 }
 
-bool GpuVk::Info::IsRtCompatible() const {
-	const auto availableExtensions = GpuVk::GetAvailableExtensions(physicalDevice);
-
-	return (rtPipelineFeatures.rayTracingPipeline != 0) 
-		&& (rtAccelerationStructuresFeatures.accelerationStructure != 0)
-		&& (bindlessTexturesSets.descriptorBindingPartiallyBound == VK_TRUE) 
-		&& (bindlessTexturesSets.runtimeDescriptorArray == VK_TRUE)
-		
-		&& GpuVk::IsExtensionPresent(VK_KHR_ACCELERATION_STRUCTURE_EXTENSION_NAME, availableExtensions)
-		&& GpuVk::IsExtensionPresent(VK_KHR_RAY_TRACING_PIPELINE_EXTENSION_NAME, availableExtensions)
-		&& GpuVk::IsExtensionPresent(VK_KHR_BUFFER_DEVICE_ADDRESS_EXTENSION_NAME, availableExtensions)
-		&& GpuVk::IsExtensionPresent(VK_KHR_DEFERRED_HOST_OPERATIONS_EXTENSION_NAME, availableExtensions)
-		&& GpuVk::IsExtensionPresent(VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME, availableExtensions)
-		&& GpuVk::IsExtensionPresent(VK_KHR_SPIRV_1_4_EXTENSION_NAME, availableExtensions)
-		&& GpuVk::IsExtensionPresent(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME, availableExtensions)
-		
-		&& IsCompatibleWithBindless();
-}
-
-bool GpuVk::Info::IsCompatibleWithBindless() const {
-	const auto availableExtensions = GpuVk::GetAvailableExtensions(physicalDevice);
-
-	return 
-		// Para poder usar sets incompletos.
-		bindlessTexturesSets.descriptorBindingPartiallyBound == VK_TRUE &&
-		bindlessTexturesSets.runtimeDescriptorArray == VK_TRUE &&
-		bindlessTexturesSets.shaderSampledImageArrayNonUniformIndexing == VK_TRUE &&
-		GpuVk::IsExtensionPresent(VK_EXT_DESCRIPTOR_INDEXING_EXTENSION_NAME, availableExtensions);
-}
-
-bool GpuVk::Info::IsCompatibleWithMeshShaders() const {
-	const auto availableExtensions = GpuVk::GetAvailableExtensions(physicalDevice);
-
-	return
-		// Para poder usar sets incompletos.
-		meshShaders.meshShader == VK_TRUE &&
-		meshShaders.taskShader == VK_TRUE &&
-		GpuVk::IsExtensionPresent(VK_EXT_MESH_SHADER_EXTENSION_NAME, availableExtensions) &&
-		GpuVk::IsExtensionPresent(VK_KHR_SPIRV_1_4_EXTENSION_NAME, availableExtensions) &&
-		GpuVk::IsExtensionPresent(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME, availableExtensions);
-}
-
-bool GpuVk::IsExtensionPresent(const char* name, const DynamicArray<VkExtensionProperties>& extensions) {
-	for (const auto& ext : extensions)
-		if (strcmp(ext.extensionName, name) == 0)
+template <VulkanTarget Target>
+bool GpuVk<Target>::IsExtensionPresent(const char* name, const DynamicArray<VkExtensionProperties>& extensions) {
+	for (const auto& ext : extensions) {
+		if (strcmp(ext.extensionName, name) == 0) {
 			return true;
+		}
+	}
 
 	return false;
 }

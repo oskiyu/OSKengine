@@ -126,6 +126,10 @@ void IGame::_Run() {
 		Engine::GetEcs()->OnTick(m_deltaTime);
 		OnTick_AfterEcs(m_deltaTime);
 
+		if (m_renderGraph.HasValue()) {
+			m_renderGraph->Execute(Engine::GetRenderer()->GetMainCommandList());
+		}
+
 		Engine::GetEcs()->OnRender(Engine::GetRenderer()->GetMainCommandList());
 
 		BuildFrame();
@@ -147,6 +151,10 @@ void IGame::_Run() {
 
 	Sprite::globalVertexBuffer.Delete();
 	Sprite::globalIndexBuffer.Delete();
+
+	if (m_renderGraph.HasValue()) {
+		m_renderGraph.Delete();
+	}
 
 	OnExit();
 
@@ -192,4 +200,12 @@ void IGame::HandleResizeEvents() {
 
 		OnWindowResize(event.newResolution);
 	}
+}
+
+void IGame::SetRenderGraph(UniquePtr<GRAPHICS::RenderGraph>&& renderGraph) {
+	m_renderGraph = std::move(renderGraph);
+}
+
+GRAPHICS::RenderGraph* IGame::GetRenderGraph() {
+	return m_renderGraph.GetPointer();
 }

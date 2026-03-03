@@ -262,8 +262,8 @@ void GdrDeferredRenderSystem::WriteMeshUnifiedVertexAndIndexBuffers(const GpuMes
 void GdrDeferredRenderSystem::WriteMeshVertexAttributes(const VerticesAttributesMaps& attributesMap, GdrPerMeshInfo* previousOffsets) {
 	const auto resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
-	const auto& positions = attributesMap.GetVerticesAttributes<VertexPositionAttribute3D>();
-	const auto& attributes = attributesMap.GetVerticesAttributes<VertexAttributes3D>();
+	const auto& positions = attributesMap.TGetVerticesAttributes<VertexPositionAttribute3D>();
+	const auto& attributes = attributesMap.TGetVerticesAttributes<VertexAttributes3D>();
 
 	previousOffsets->positionsOffset += static_cast<USize32>(positions.GetSize());
 	previousOffsets->attributesOffset += static_cast<USize32>(attributes.GetSize());
@@ -273,8 +273,8 @@ void GdrDeferredRenderSystem::WriteMeshVertexAttributes(const VerticesAttributes
 		m_vertexAttributesBuffers[resourceIndex]->Write(attributes[a]);
 	}
 
-	if (attributesMap.HasAttribute(VertexAnimationAttributes3D::GetAttribName())) {
-		const auto& animAttribs = attributesMap.GetVerticesAttributes<VertexAttributes3D>();
+	if (attributesMap.HasAttribute(VertexAnimationAttributes3D::GetUuid())) {
+		const auto& animAttribs = attributesMap.TGetVerticesAttributes<VertexAttributes3D>();
 
 		previousOffsets->animationAttributesOffset += static_cast<USize32>(animAttribs.GetSize());
 

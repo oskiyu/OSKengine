@@ -68,6 +68,33 @@ namespace OSK::GRAPHICS {
 
 	};
 
+	/// @brief Uso único de una imagen en un render-pass.
+	enum class GpuExclusiveImageUsage {
+		UNKNOWN,
+
+		/// @brief Se usará como imagen final para el renderizado 3D.
+		COLOR,
+
+		/// @brief  Se usará como imagen de profundidad para el renderizado 3D.
+		DEPTH,
+
+		/// @brief Se usará como read-only desde los shaders.
+		SAMPLED,
+
+		/// @brief Se usará para copiar esta imagen a otra.
+		TRANSFER_SOURCE,
+
+		/// @brief Se copiarán los contenidos de otra imagen a esta.
+		TRANSFER_DESTINATION,
+
+		/// @brief Usado en shaders de computación.
+		COMPUTE_OR_RT_TARGET,
+
+		/// @brief Se usará como imagen de stencil para el renderizado 3D.
+		STENCIL,
+
+	};
+
 
 	/// <summary>
 	/// Define qué parte de una imagen se leerá al

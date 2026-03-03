@@ -15,7 +15,7 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 void RaytracingPipelineVk::Create(const MaterialLayout& materialLayout, const PipelineCreateInfo& info) {
-	layout = MakeUnique<PipelineLayoutVk>(&materialLayout);
+	layout = MakeUnique<PipelineLayoutVk<VulkanTarget::VK_LATEST>>(&materialLayout);
 
 	DynamicArray<VkRayTracingShaderGroupCreateInfoKHR> shaderGroupCreateInfos;
 
@@ -77,9 +77,9 @@ void RaytracingPipelineVk::Create(const MaterialLayout& materialLayout, const Pi
 	createInfo.groupCount = static_cast<uint32_t>(shaderGroupCreateInfos.GetSize());
 	createInfo.pGroups = shaderGroupCreateInfos.GetData();
 	createInfo.maxPipelineRayRecursionDepth = 1; // @todo config
-	createInfo.layout = layout->As<PipelineLayoutVk>()->GetLayout();
+	createInfo.layout = layout->As<PipelineLayoutVk<VulkanTarget::VK_LATEST>>()->GetLayout();
 
-	VkResult result = RendererVk::pvkCreateRayTracingPipelinesKHR(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
+	VkResult result = RendererVk<VulkanTarget::VK_LATEST>::pvkCreateRayTracingPipelinesKHR(Engine::GetRenderer()->GetGpu()->As<GpuVk<VulkanTarget::VK_LATEST>>()->GetLogicalDevice(),
 		VK_NULL_HANDLE, VK_NULL_HANDLE, 1, &createInfo, nullptr, &pipeline);
 	OSK_ASSERT(result == VK_SUCCESS, PipelineCreationException(result));
 

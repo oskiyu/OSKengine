@@ -92,4 +92,12 @@ UniquePtr<IGpuMemorySubblock> GpuMemoryBlockDx12::CreateNewMemorySubblock(USize6
 	return UniquePtr<IGpuMemorySubblock>();
 }
 
+TByte* GpuMemoryBlockDx12::MapRange_Impl(USize64 offset, USize64 size) {
+	OSK_ASSERT(false, NotImplementedException());
+}
+
+void GpuMemoryBlockDx12::UnmapAll_Impl() {
+	OSK_ASSERT(false, NotImplementedException());
+}
+
 #endif

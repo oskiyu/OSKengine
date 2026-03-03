@@ -1,0 +1,365 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Óscar Pozo de Cádiz}
+\title{Especificación para el formato \texttt{Binary Scene Format (.bsf)}}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Especificación \texttt{.bsf}}
+\chead{Versión 0}
+\rhead{\today}
+
+\usepackage{tablefootnote}
+
+%\usepackage[left=4cm,right=4cm,top=4cm,bottom=4cm]{geometry}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\section{Abstract}
+
+\pagebreak
+
+\section{Contenido}
+
+El formato está organizado en bloques binarios, y sigue la siguiente estructura básica:
+
+\subsection{Estructura general}
+
+\begin{table}[h]
+\center
+\begin{tabular}{llll}
+\hline
+Offset & Tamaño & Tipo & Descripción \\ \hline
+0 & 1 & \texttt{UINT8} & \textit{Magic number}. Debe ser \texttt{1}. \\
+1 & 1 & \texttt{UINT8}& Versión de la especificación. Debe ser \texttt{0}. \\
+2 & 4 & \texttt{UINT64} & Offset del bloque de sistemas. \\
+6 & 4 & \texttt{UINT64} & Offset del bloque de objetos. \\
+10 & 4 & \texttt{UINT64} & Offset del bloque de componentes. \\
+14 & $s_{s}$\tablefootnote{Tamaño del bloque de sistemas.} & \texttt{Blob} & Bloque con la información de los sistemas. \\
+14 + $s_{s}$ & $s_{o}$\tablefootnote{Tamaño del bloque de objetos.} & \texttt{Blob} & Bloque con la información de los objetos. \\
+14 + $s_{s}$ + $s_{o}$& $s_{c}$\tablefootnote{Tamaño del bloque de componentes.} & \texttt{Blob} & Bloque con la información de los componentes. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Bloque de sistemas}
+
+\subsubsection{Estructura general}
+
+\begin{table}[h]
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ \tablefootnote{Offset$_{bloque}$ = offset respecto al inicio del bloque, no del archivo.} & Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{UINT64} & Número de sistemas. \\
+4 & 4 & \texttt{UINT64} & Offset$_{bloque}$ del bloque de datos de sistemas. \\
+8 & $s_{sn}$ & \texttt{STRING[]} & Nombres de sistemas (null-terminated). \\
+8 + $s_{sn}$ & $s_{sd}$ & \texttt{Blob[]} & Bloques individuales de datos de sistemas. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Bloque de datos de sistemas}
+
+\begin{table}[h]
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$& Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{UINT64} & Tamaño del bloque. \\
+4 & ... & \texttt{Blob} & Datos del sistema en cuestión. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Bloque de objetos}
+
+\begin{table}[h]
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$& Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{UINT64} & Número de objetos. \\
+4 & ... & \texttt{UINT64[]} & Identificadores de los objetos. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Bloque de componentes}
+
+\begin{table}[h]
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{UINT64} & Número de tipos de componentes. \\
+4 & 4 & \texttt{UINT64} & Offset$_{bloque}$ del bloque de datos de componentes. \\
+8 & $s_{cn}$\tablefootnote{Tamaño del bloque de nombres de tipos de componentes.} & \texttt{STRING[]} & Nombres de tipos de componentes (null-terminated). \\
+12 + $s_{cn}$ & $s_{cd}$\tablefootnote{Tamaño del bloque de componentes.} & \texttt{Blob[]} & Bloques individuales de datos de componentes. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Bloque individual de componentes}
+
+\begin{table}[h]
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{UINT64} & Número de componentes. \\
+4 & 4 & \texttt{UINT64} & Offset$_{bloque}$ del bloque de IDs de objetos. \\
+8 & $s_{cs}$\tablefootnote{Tamaño de todos los datos de componentes.} & \texttt{Blob[]} & Datos de componentes. \\
+8 + $s_{cs}$ & $s_{o}$\tablefootnote{Tamaño de todos los identificadores de un tipo de componente.} & \texttt{UINT64[]} & Identificadores de objetos enlazados a los componentes. \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\pagebreak
+\appendix
+\section{Bloques de sistemas por defecto}
+
+\begin{table}[h]
+\caption{OSK::ColliderRenderSystem}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{UINT64} & ID de la cámara. \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{OSK::RenderBoundsRenderer}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{UINT64} & ID de la cámara. \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{OSK::SkyboxRenderSystem}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{UINT64} & ID de la cámara. \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{OSK::TreeNormalsRenderSystem}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{UINT64} & ID de la cámara. \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{OSK::DeferredRenderSystem}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{UINT64} & ID de la cámara. \\
+4 & 32 & \texttt{Blob} & Luz direccional (\texttt{DirectionalLigh}). \\
+36 & 16 & \texttt{Blob} & Configuración IBL (\texttt{PbrIblConfig}). \\
+52 & 52 & \texttt{Blob} & Mapa de sombras (\texttt{ShadowMap}). \\
+104 & ... & \texttt{STRING} & Ruta del mapa IBL de irradiancia. \\
+... & ... & \texttt{STRING} & Ruta del mapa IBL especular. \\
+... & ... & \texttt{STRING} & Nombre del pase de resolución. \\
+... & 4 & \texttt{UINT64} & Número de pases de renderizado. \\
+... & ... & \texttt{STRING[]} & Nombres de los pases de renderizado. \\
+... & 4 & \texttt{UINT64} & Número de pases de sombras. \\
+... & ... & \texttt{STRING[]} & Nombres de los pases de sombras. \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{OSK::PhysicsSystem}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 12 & \texttt{Blob} & Aceleración de gravedad (\texttt{Vector3f}) (no usado). \\
+12 & 12 & \texttt{Blob} & Dirección de gravedad (\texttt{Vector3f}) (no usado). \\
+\hline
+\end{tabular}
+\end{table}
+
+\pagebreak
+\section{Bloques de componentes por defecto}
+
+\begin{table}[h]
+\caption{OSK::CameraComponent2D}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 64 & \texttt{Blob} & Matriz (\texttt{glm::mat4}). \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{OSK::CameraComponent3D}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{float} & Field of view. \\
+4 & 4 & \texttt{float} & Límite inferior de field of view. \\
+8 & 4 & \texttt{float} & Límite superior de field of view. \\
+12 & 4 & \texttt{float} & Plano cercano. \\
+16 & 4 & \texttt{float} & Plano lejano. \\
+20 & 8 & \texttt{Blob} & Ángulos (\texttt{Vector2f}). \\
+28 & 8 & \texttt{float} & Ángulos acumulados (\texttt{Vector2f}). \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{OSK::CollisionComponent}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 1 & \texttt{UINT8} & 1 si contiene colisionador cargado, 0 en caso contrario. \\
+1 & 1 & \texttt{UINT8} & 1 si contiene colisionador customizado, 0 en caso contrario. \\
+2 & ... & \texttt{STRING} & Ruta del archivo de colisión (null-terminated). \\
+... & ... & \texttt{Blob} & Datos del colsionador customizado (\texttt{Collider}). \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{OSK::ModelComponent3D}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & ... & \texttt{STRING} & Ruta del modelo 3Ds. \\
+... & 1 & \texttt{UINT8} & 1 si proyecta sombras. \\
+... & 4 & \texttt{UINT64} & Número de pases de shaders. \\
+... & ... & \texttt{STRING[]} & Nombres de pases de shaders. \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{OSK::PhysicsComponent}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 1 & \texttt{UINT8} & 1 si el objeto es inmóvil. \\
+1 & 4 & \texttt{float} & Masa si el objeto no es inmóvil, masa inversa en caso contrario. \\
+5 & 36 & \texttt{Blob} & Tensor de inercia (\texttt{glm::mat3}). \\
+41 & 12 & \texttt{Blob} & Velocidad. \\
+53 & 12 & \texttt{Blob} & Aceleración. \\
+65 & 12 & \texttt{Blob} & Velocidad angular. \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{OSK::Transform2D}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{UINT64} & ID del objeto que posee el componente. \\
+4 & 8 & \texttt{UINT64} & ID del objeto padre. \\
+12 & 8 & \texttt{Blob} & Posición (\texttt{Vector2f}). \\
+20 & 8 & \texttt{Blob} & Escala (\texttt{Vector2f}). \\
+28 & 4 & \texttt{Blob} & Rotación. \\
+32 & 4 & \texttt{UINT64} & Número de objetos hijos. \\
+36 & ... & \texttt{UINT64[]} & ID de los objetos hijos. \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{OSK::Transform3D}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{UINT64} & ID del objeto que posee el componente. \\
+4 & 1 & \texttt{UINT8} & 1 si hereda la posición. \\
+5 & 1 & \texttt{UINT8} & 1 si hereda la rotación. \\
+6 & 1 & \texttt{UINT8} & 1 si hereda la escala. \\
+7 & 12 & \texttt{Blob} & Posición local (\texttt{Vector3f}). \\
+19 & 64 & \texttt{Blob} & Rotación local (\texttt{Quaterion}). \\
+83 & 12 & \texttt{Blob} & Escala local (\texttt{Vector3f}). \\
+95 & 4 & \texttt{UINT64} & Número de elementos hijos. \\
+99 & ... & \texttt{UINT64[]} & ID de los objetos hijos. \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\pagebreak
+\section{Bloques de datos por defecto}
+
+\begin{table}[h]
+\caption{OSK::GRAPHICS::PbrIblConfig}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{float} & Fuerza de mapa de irradiancia. \\
+4 & 4 & \texttt{float} & Fuerza de mapa especular. \\
+8 & 4 & \texttt{float} & Fuerza de radiancia. \\
+12 & 4 & \texttt{float} & Fuerza de materiales emisivos. \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{OSK::GRAPHICS::DirectionalLight}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 16 & \texttt{Blob} & Color de la luz (\texttt{Color}). \\
+16 & 12 & \texttt{Blob} & Dirección de la luz (\texttt{Vector3f}). \\
+28 & 4 & \texttt{float} & Fuerza de la luz. \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\caption{OSK::GRAPHICS::ShadowMap}
+\center
+\begin{tabular}{llll}
+\hline
+Offset$_\text{bloque}$ & Tamaño & Tipo & Descripción \\ \hline
+0 & 4 & \texttt{UINT64} & Identificador de la cámara. \\
+4 & 4 & \texttt{float} & Distancia del primer split. \\
+8 & 4 & \texttt{float} & Distancia del segundo split. \\
+12 & 4 & \texttt{float} & Distancia del tercer split. \\
+16 & 4 & \texttt{float} & Distancia del cuarto split. \\
+20 & 4 & \texttt{float} & Distancia hasta el near plane. \\
+24 & 4 & \texttt{float} & Distancia hasta el far plane. \\
+28 & 12 & \texttt{Blob} & Dirección de la luz (\texttt{Vector3f}). \\
+40 & 12 & \texttt{Blob} & Punto de la luz (\texttt{Vector3f}). \\
+\hline
+\end{tabular}
+\end{table}
+
+\end{document}

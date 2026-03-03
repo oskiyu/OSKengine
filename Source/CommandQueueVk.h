@@ -6,13 +6,15 @@
 #include "ICommandQueue.h"
 #include "DefineAs.h"
 #include "VulkanTypedefs.h"
+#include "VulkanTarget.h"
 
 OSK_VULKAN_TYPEDEF(VkQueue);
 
 namespace OSK::GRAPHICS {
 
-	class GpuVk;
+	template <VulkanTarget> class GpuVk;
 
+	template <VulkanTarget Target>
 	class OSKAPI_CALL CommandQueueVk final : public ICommandQueue {
 
 	public:
@@ -26,7 +28,7 @@ namespace OSK::GRAPHICS {
 			QueueFamily family,
 			UIndex32 queueIndexInsideFamily,
 			GpuQueueType queueType,
-			const GpuVk& gpu);
+			const GpuVk<Target>& gpu);
 
 
 		/// @return Familia de colas a partir de la cual
@@ -47,6 +49,9 @@ namespace OSK::GRAPHICS {
 		VkQueue m_queue = nullptr;
 
 	};
+
+	template class CommandQueueVk<VulkanTarget::VK_1_0>;
+	template class CommandQueueVk<VulkanTarget::VK_LATEST>;
 
 }
 

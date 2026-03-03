@@ -1,0 +1,3 @@
+/mnt/c/Users/Oscar/source/repos/OSKengine/CrossBuild/CMakeFiles/OSKengineCross.exe.dir
+/mnt/c/Users/Oscar/source/repos/OSKengine/CrossBuild/CMakeFiles/edit_cache.dir
+/mnt/c/Users/Oscar/source/repos/OSKengine/CrossBuild/CMakeFiles/rebuild_cache.dir

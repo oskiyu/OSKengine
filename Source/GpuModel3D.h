@@ -72,6 +72,7 @@ namespace OSK::GRAPHICS {
 			/// @pre @p imageIndex debe corresponderse con una imagen existente.
 			const IGpuImageView* GetImageView(UIndex64 imageIndex) const;
 
+			GpuImage* GetImage(UIndex64 imageIndex);
 
 			/// @brief Establece la textura en el índice dado.
 			/// @param index Índice de la imagen.
@@ -218,7 +219,6 @@ namespace OSK::GRAPHICS {
 
 		/// @return Número total de índices del modelo.
 		USize32 GetTotalIndexCount() const;
-
 
 		/// @return Tabla con las texturas usadas por los materiales.
 		TextureTable& GetTextureTable();

@@ -7,6 +7,7 @@
 #include "IMaterialSlot.h"
 
 #include <string>
+#include <format>
 
 namespace OSK::GRAPHICS {
 
@@ -27,7 +28,6 @@ namespace OSK::GRAPHICS {
 		/// </summary>
 		/// <param name="material">Material del que se crea la instancia.</param>
 		explicit MaterialInstance(Material* material);
-		~MaterialInstance();
 
 		OSK_DISABLE_COPY(MaterialInstance);
 		OSK_DEFAULT_MOVE_OPERATOR(MaterialInstance);
@@ -45,8 +45,8 @@ namespace OSK::GRAPHICS {
 		void RegisterSlot(const std::string& name);
 
 		/// Devuelve el slot con el nombre dado.
-		const IMaterialSlot* GetSlot(std::string_view name) const { return slots.find(name)->second.GetPointer(); }
-		IMaterialSlot* GetSlot(std::string_view name) { return slots.find(name)->second.GetPointer(); }
+		const IMaterialSlot* GetSlot(std::string_view name) const;
+		IMaterialSlot* GetSlot(std::string_view name);
 
 		/// <summary>
 		/// Devuelve el material del que es instancia esta instancia.

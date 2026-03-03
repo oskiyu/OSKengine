@@ -15,6 +15,8 @@
 
 #include "DefaultElementsProfiles.h"
 
+#include "RenderGraph.h"
+
 namespace OSK {
 
 	struct Version;
@@ -96,6 +98,9 @@ namespace OSK {
 		/// @return Elemento raíz de la interfaz de usuario.
 		const UI::IContainer& GetRootUiElement() const;
 
+		void SetRenderGraph(UniquePtr<GRAPHICS::RenderGraph>&& renderGraph);
+		GRAPHICS::RenderGraph* GetRenderGraph();
+
 	protected:
 
 		explicit IGame(GAME::DefaultContentProfile defaultContentProfile);
@@ -112,6 +117,8 @@ namespace OSK {
 		void UpdateFps(TDeltaTime deltaTime);
 
 		GAME::DefaultContentProfile m_defaultContentProfile = GAME::DefaultContentProfile::ALL;
+
+		UniquePtr<GRAPHICS::RenderGraph> m_renderGraph;
 
 		TDeltaTime m_deltaTime = 1.0f;
 

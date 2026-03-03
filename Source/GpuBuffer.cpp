@@ -47,7 +47,11 @@ IGpuMemorySubblock* GpuBuffer::GetMemorySubblock() {
 	return m_buffer.GetPointer();
 }
 
-IGpuMemoryBlock* GpuBuffer::GetMemoryBlock() const {
+IGpuMemoryBlock* GpuBuffer::GetMemoryBlock() {
+	return GetMemorySubblock()->GetOwnerBlock();
+}
+
+const IGpuMemoryBlock* GpuBuffer::GetMemoryBlock() const {
 	return GetMemorySubblock()->GetOwnerBlock();
 }
 
@@ -79,16 +83,12 @@ void GpuBuffer::MapMemory() {
 	m_buffer->MapMemory();
 }
 
-void GpuBuffer::MapMemory(USize64 size, USize64 offset) {
-	m_buffer->MapMemory(size, offset);
-}
-
 void GpuBuffer::Write(const void* data, USize64 size) {
-	m_buffer->Write(data, size);
+	m_buffer->Write((const TByte*)data, size);
 }
 
 void GpuBuffer::WriteOffset(const void* data, USize64 size, USize64 offset) {
-	m_buffer->WriteOffset(data, size, offset);
+	m_buffer->WriteOffset((const TByte*)data, size, offset);
 }
 
 void GpuBuffer::Unmap() {

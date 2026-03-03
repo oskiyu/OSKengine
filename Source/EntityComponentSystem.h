@@ -22,6 +22,9 @@ namespace OSK::IO {
 
 namespace OSK::ECS {
 
+	using ExternalEcsListUuid = BaseUuid<class ExternalEcsList_t>;
+
+
 	/// @brief Entity-Component-System es un paradigma de programación en el cual los objetos se dividen
 	/// en 3 partes diferenciables:
 	/// 
@@ -165,8 +168,9 @@ namespace OSK::ECS {
 
 			// Cambio de signature del objeto.
 			m_gameObjectManager->AddComponent(obj, m_componentManager->GetComponentType<TComponent>());
-
 			m_systemManager->GameObjectSignatureChanged(obj, m_gameObjectManager->GetSignature(obj));
+
+			UpdateExternalObjectList(obj);
 
 			return oComponent;
 		}
@@ -205,10 +209,10 @@ namespace OSK::ECS {
 			OSK_ASSERT(ObjectHasComponent<TComponent>(obj), ComponentNotFoundException(TComponent::GetComponentTypeName(), obj))
 			
 			m_componentManager->RemoveComponent<TComponent>(obj);
-
 			m_gameObjectManager->RemoveComponent(obj, m_componentManager->GetComponentType<TComponent>());
-
 			m_systemManager->GameObjectSignatureChanged(obj, m_gameObjectManager->GetSignature(obj));
+
+			UpdateExternalObjectList(obj);
 		}
 
 		/// @brief Devuelve una referencia no estable al componente del tipo dado del objeto.
@@ -414,6 +418,21 @@ namespace OSK::ECS {
 
 #pragma endregion
 
+		/// @brief Registra una nueva lista de objetos compatibles
+		/// para el signature indicado.
+		/// 
+		/// En caso de que la lista ya haya sido registrada,
+		/// se sobreescribe su signature con el signature indicado.
+		/// 
+		/// @param id Identificador único de la lista.
+		/// @param signature Signature de la lista.
+		ExternalEcsListUuid RegisterExternalList(const Signature& signature);
+
+		/// @param uuid Identificador único de la lista.
+		/// @return Lista asociada.
+		/// @pre La lista debe haber sido previamente registrada
+		/// mediante SetExternalSignature.
+		std::unordered_set<GameObjectIndex> GetCompatibleObjects(ExternalEcsListUuid uuid);
 
 		/// @brief Crea un nuevo objeto vacío y devuelve su ID.
 		/// @return ID del nuevo objeto.
@@ -451,18 +470,32 @@ namespace OSK::ECS {
 
 		template <typename TComponent> requires IsEcsComponent<TComponent>
 		void EnsureRegistered() {
-			if (!m_componentManager->ComponentHasBeenRegistered<TComponent>())
+			if (!m_componentManager->ComponentHasBeenRegistered<TComponent>()) {
 				RegisterComponent<TComponent>();
+			}
 		}
+
+		static std::string ExternalUuidToStr(ExternalEcsListUuid uuid);
 
 		IO::ILogger* m_logger = nullptr;
 
-		UniquePtr<SystemManager> m_systemManager = MakeUnique<SystemManager>();
-		UniquePtr<ComponentManager> m_componentManager = MakeUnique<ComponentManager>();
+		UniquePtr<SystemManager>	 m_systemManager	 = MakeUnique<SystemManager>();
+		UniquePtr<ComponentManager>  m_componentManager  = MakeUnique<ComponentManager>();
 		UniquePtr<GameObjectManager> m_gameObjectManager = MakeUnique<GameObjectManager>();
-		UniquePtr<EventManager> m_eventManager = MakeUnique<EventManager>();
+		UniquePtr<EventManager>		 m_eventManager		 = MakeUnique<EventManager>();
 
 		DynamicArray<IRenderSystem*> m_renderSystems;
+
+		StringHashMap<Signature> m_externalSignatures;
+		StringHashMap<std::unordered_set<GameObjectIndex>> m_externalCompatibleObjsLists;
+
+		/// @brief Actualiza las listas externas de objetos compatibles
+		/// después de cambiar el signature de un objeto.
+		/// @param obj Objeto cuyo signature ha cambiado.
+		void UpdateExternalObjectList(GameObjectIndex obj);
+
+		/// @brief Elimina un objeto de las listas externas de objetos.
+		void RemoveExternalObject(GameObjectIndex obj);
 
 	};
 

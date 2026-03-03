@@ -13,12 +13,12 @@
 #include "IMeshPipeline.h"
 
 #include "MaterialType.h"
+#include "MaterialInstance.h"
 
 #include <compare>
 
 namespace OSK::GRAPHICS {
 
-	class MaterialInstance;
 	struct PipelineCreateInfo;
 	class IRenderpass;
 

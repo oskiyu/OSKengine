@@ -39,6 +39,9 @@ namespace OSK::GRAPHICS {
 
 		GpuMemoryBlockDx12(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage);
 		GpuMemoryBlockDx12(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage, USize32 numLayers);
+		
+		TByte* MapRange_Impl(USize64 offset, USize64 size) override;
+		void UnmapAll_Impl() override;
 
 		ComPtr<ID3D12Heap> memory;
 

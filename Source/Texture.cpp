@@ -24,6 +24,10 @@ const GRAPHICS::GpuImage* Texture::GetGpuImage() const {
 	return m_image.GetPointer();
 }
 
+GRAPHICS::GpuImage* Texture::GetGpuImage() {
+	return m_image.GetPointer();
+}
+
 const IGpuImageView& Texture::GetTextureView2D() const {
 	return *m_image->GetView(GpuImageViewConfig::CreateSampled_Default());
 }

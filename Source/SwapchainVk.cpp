@@ -37,20 +37,22 @@ VkPresentModeKHR GetPresentModeVk(PresentMode mode) {
 	return VK_PRESENT_MODE_MAX_ENUM_KHR;
 }
 
-SwapchainVk::~SwapchainVk() {
-	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
+template <VulkanTarget Target>
+SwapchainVk<Target>::~SwapchainVk() {
+	const VkDevice device = Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
 
 	vkDestroySwapchainKHR(device, m_swapchain, nullptr);
 
 	for (UIndex32 i = 0; i < GetImageCount(); i++) {
-		GpuImageVk* image = GetImage(i)->As<GpuImageVk>();
+		auto* image = GetImage(i)->As<GpuImageVk<Target>>();
 
 		vkDestroyImageView(device, image->GetSwapchainView(), nullptr);
 		image->_SetVkImage(VK_NULL_HANDLE);
 	}
 }
 
-SwapchainVk::SwapchainVk(PresentMode mode, Format format, const GpuVk& device, const Vector2ui& resolution, std::span<const UIndex32> queueIndices) : ISwapchain(mode, format) {
+template <VulkanTarget Target>
+SwapchainVk<Target>::SwapchainVk(PresentMode mode, Format format, const GpuVk<Target>& device, const Vector2ui& resolution, std::span<const UIndex32> queueIndices) : ISwapchain(mode, format) {
 	CreationLogic(device, resolution, queueIndices);
 
 	for (auto index : queueIndices) {
@@ -58,7 +60,8 @@ SwapchainVk::SwapchainVk(PresentMode mode, Format format, const GpuVk& device, c
 	}
 }
 
-void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution, std::span<const UIndex32> queueIndices) {
+template <VulkanTarget Target>
+void SwapchainVk<Target>::CreationLogic(const GpuVk<Target>& device, const Vector2ui& resolution, std::span<const UIndex32> queueIndices) {
 	auto& info = device.GetInfo();
 
 	// Formato del swapchain.
@@ -141,7 +144,7 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 			? Engine::GetRenderer()->GetUnifiedQueue()
 			: Engine::GetRenderer()->GetPresentationQueue();
 
-		SetImage(MakeUnique<GpuImageVk>(imageInfo, queue), i);
+		SetImage(MakeUnique<GpuImageVk<Target>>(imageInfo, queue), i);
 	}
 
 	AcquireImages(device);
@@ -149,7 +152,8 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 }
 
 
-void SwapchainVk::AcquireImages(const GpuVk& device) {
+template <VulkanTarget Target>
+void SwapchainVk<Target>::AcquireImages(const GpuVk<Target>& device) {
 	auto imageCount = GetImageCount();
 	VkResult result = vkGetSwapchainImagesKHR(device.GetLogicalDevice(), m_swapchain, &imageCount, nullptr);
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
@@ -159,16 +163,17 @@ void SwapchainVk::AcquireImages(const GpuVk& device) {
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
 
 	for (UIndex32 i = 0; i < imageCount; i++)
-		GetImage(i)->As<GpuImageVk>()->_SetVkImage(tempImages[i]);
+		GetImage(i)->As<GpuImageVk<Target>>()->_SetVkImage(tempImages[i]);
 }
 
-void SwapchainVk::AcquireViews(const GpuVk& device) {
+template <VulkanTarget Target>
+void SwapchainVk<Target>::AcquireViews(const GpuVk<Target>& device) {
 	auto tempViews = std::unique_ptr<VkImageView[]>(new VkImageView[GetImageCount()]);
 
 	for (UIndex32 i = 0; i < GetImageCount(); i++) {
 		VkImageViewCreateInfo createInfo{};
 		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-		createInfo.image = GetImage(i)->As<GpuImageVk>()->GetVkImage();
+		createInfo.image = GetImage(i)->As<GpuImageVk<Target>>()->GetVkImage();
 		createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
 		createInfo.format = GetFormatVk(GetColorFormat());
 		createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
@@ -184,33 +189,36 @@ void SwapchainVk::AcquireViews(const GpuVk& device) {
 		VkResult result = vkCreateImageView(device.GetLogicalDevice(), &createInfo, nullptr, &tempViews[i]);
 		OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al crear view de imagen del swapchain", result));
 
-		if (GetImage(i)->As<GpuImageVk>()->GetSwapchainView() != VK_NULL_HANDLE) {
+		if (GetImage(i)->As<GpuImageVk<Target>>()->GetSwapchainView() != VK_NULL_HANDLE) {
 			vkDestroyImageView(
-				Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), 
-				GetImage(i)->As<GpuImageVk>()->GetSwapchainView(), 0);
+				Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(),
+				GetImage(i)->As<GpuImageVk<Target>>()->GetSwapchainView(), 0);
 		}
 
-		GetImage(i)->As<GpuImageVk>()->SetSwapchainView(tempViews[i]);
+		GetImage(i)->As<GpuImageVk<Target>>()->SetSwapchainView(tempViews[i]);
 	}
 }
 
-VkSwapchainKHR SwapchainVk::GetSwapchain() const {
+template <VulkanTarget Target>
+VkSwapchainKHR SwapchainVk<Target>::GetSwapchain() const {
 	return m_swapchain;
 }
 
-void SwapchainVk::Resize(const IGpu& gpu, Vector2ui newResolution) {
+template <VulkanTarget Target>
+void SwapchainVk<Target>::Resize(const IGpu& gpu, Vector2ui newResolution) {
 	for (UIndex32 i = 0; i < GetImageCount(); i++) {
-		GetImage(i)->As<GpuImageVk>()->_SetVkImage(VK_NULL_HANDLE);
+		GetImage(i)->As<GpuImageVk<Target>>()->_SetVkImage(VK_NULL_HANDLE);
 	}
 
 	vkDestroySwapchainKHR(
-		gpu.As<GpuVk>()->GetLogicalDevice(),
+		gpu.As<GpuVk<Target>>()->GetLogicalDevice(),
 		m_swapchain, nullptr);
 
-	CreationLogic(*gpu.As<GpuVk>(), newResolution, m_queueIndices.GetFullSpan());
+	CreationLogic(*gpu.As<GpuVk<Target>>(), newResolution, m_queueIndices.GetFullSpan());
 }
 
-VkColorSpaceKHR SwapchainVk::GetSupportedColorSpace(const GpuVk& device) {
+template <VulkanTarget Target>
+VkColorSpaceKHR SwapchainVk<Target>::GetSupportedColorSpace(const GpuVk<Target>& device) {
 	for (const auto& format : device.GetInfo().swapchainSupportDetails.formats)
 		if (format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR && format.format == VK_FORMAT_B8G8R8A8_SRGB)
 			return format.colorSpace;
@@ -218,7 +226,8 @@ VkColorSpaceKHR SwapchainVk::GetSupportedColorSpace(const GpuVk& device) {
 	return device.GetInfo().swapchainSupportDetails.formats[0].colorSpace;
 }
 
-void SwapchainVk::Present() {
+template <VulkanTarget Target>
+void SwapchainVk<Target>::Present() {
 	// Not needed in Vulkan.
 }
 

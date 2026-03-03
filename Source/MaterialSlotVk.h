@@ -13,13 +13,15 @@
 #include <unordered_set>
 
 #include <vulkan/vulkan.h>
+#include "VulkanTarget.h"
 
 namespace OSK::GRAPHICS {
 
-	class GpuMemorySubblockVk;
+	template <VulkanTarget> class GpuMemorySubblockVk;
 	class IGpuImageView;
 
 
+	template <VulkanTarget Target>
 	class OSKAPI_CALL MaterialSlotVk final : public IMaterialSlot {
 
 	public:
@@ -53,7 +55,7 @@ namespace OSK::GRAPHICS {
 		/// @return Estructura, rellena
 		/// con los datos indicados.
 		static UniquePtr<VkDescriptorBufferInfo> GetDescriptorBufferInfo(
-			const GpuMemorySubblockVk& subblock,
+			const GpuMemorySubblockVk<Target>& subblock,
 			const GpuBufferRange& range);
 
 		/// @param view Vista de la imagen.
@@ -102,10 +104,13 @@ namespace OSK::GRAPHICS {
 
 		DynamicArray<VkAccelerationStructureKHR> m_accelerationStructures;
 
-		UniquePtr<DescriptorPoolVk> m_pool;
-		UniquePtr<DescriptorLayoutVk> m_descLayout;
+		UniquePtr<DescriptorPoolVk<Target>> m_pool;
+		UniquePtr<DescriptorLayoutVk<Target>> m_descLayout;
 
 	};
+
+	template class MaterialSlotVk<VulkanTarget::VK_1_0>;
+	template class MaterialSlotVk<VulkanTarget::VK_LATEST>;
 
 }
 

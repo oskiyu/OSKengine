@@ -31,14 +31,15 @@ void MeshPipelineVk::SetDebugName(const std::string& name) {
 	nameInfo.pObjectName = name.c_str();
 	nameInfo.pNext = nullptr;
 
-	if (RendererVk::pvkSetDebugUtilsObjectNameEXT != nullptr)
-		RendererVk::pvkSetDebugUtilsObjectNameEXT(m_gpu->GetLogicalDevice(), &nameInfo);
+	if (RendererVk<VulkanTarget::VK_LATEST>::pvkSetDebugUtilsObjectNameEXT != nullptr) {
+		RendererVk<VulkanTarget::VK_LATEST>::pvkSetDebugUtilsObjectNameEXT(m_gpu->GetLogicalDevice(), &nameInfo);
+	}
 }
 
 void MeshPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info) {
-	m_gpu = device->As<GpuVk>();
+	m_gpu = device->As<GpuVk<VulkanTarget::VK_LATEST>>();
 
-	m_layout = MakeUnique<PipelineLayoutVk>(materialLayout);
+	m_layout = MakeUnique<PipelineLayoutVk<VulkanTarget::VK_LATEST>>(materialLayout);
 
 	if (info.meshAmplificationShaderPath != "") {
 		LoadAmplificationShader(info.meshAmplificationShaderPath);
@@ -142,7 +143,7 @@ void MeshPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* device, 
 	pipelineCreateInfo.pDepthStencilState = &depthInfo;
 	pipelineCreateInfo.pColorBlendState = &colorBlendCreateInfo;
 	pipelineCreateInfo.pDynamicState = &dynamicCreateInfo;
-	pipelineCreateInfo.layout = m_layout->As<PipelineLayoutVk>()->GetLayout();
+	pipelineCreateInfo.layout = m_layout->As<PipelineLayoutVk<VulkanTarget::VK_LATEST>>()->GetLayout();
 	pipelineCreateInfo.renderPass = VK_NULL_HANDLE;
 	pipelineCreateInfo.subpass = 0;
 	pipelineCreateInfo.basePipelineHandle = nullptr;

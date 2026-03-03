@@ -6,6 +6,17 @@ namespace OSK {
 
 	/// @brief Índice de un elemento,
 	/// almacenado en un unsigned int
+	/// de 16 bits.
+	using UIndex16 = uint16_t;
+
+	/// @brief Tamaño,
+	/// almacenado en un unsigned int
+	/// de 32 bits.
+	using USize16 = uint16_t;
+
+
+	/// @brief Índice de un elemento,
+	/// almacenado en un unsigned int
 	/// de 32 bits.
 	using UIndex32 = uint32_t;
 

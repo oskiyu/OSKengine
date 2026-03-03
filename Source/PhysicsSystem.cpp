@@ -43,6 +43,27 @@ void PhysicsSystem::Execute(TDeltaTime deltaTime, std::span<const GameObjectInde
 		physicsComponent._ResetForces();
 		physicsComponent._ResetCurrentFrameDeltas();
 	}
+
+	for (int i = 0; i < 10; i++) {
+		SolveConstraings(float(1) / float(10));
+	}
+}
+
+void PhysicsSystem::SolveConstraings(TDeltaTime deltaTime) {
+	for (const auto& c : m_constraints) {
+		auto& firstTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(c->m_first);
+		auto& firstPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(c->m_first);
+
+		auto& secondTransform = Engine::GetEcs()->GetComponent<TransformComponent3D>(c->m_second);
+		auto& secondPhysics = Engine::GetEcs()->GetComponent<PhysicsComponent>(c->m_second);
+
+		c->Execute(
+			&firstPhysics,
+			&firstTransform,
+			&secondPhysics,
+			&secondTransform,
+			deltaTime);
+	}
 }
 
 const Vector3f& PhysicsSystem::GetGravity() const {

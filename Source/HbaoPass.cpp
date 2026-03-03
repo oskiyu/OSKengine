@@ -55,7 +55,6 @@ void HbaoPass::Create(const Vector2ui& size) {
 		m_cameraBuffers[i]->Write(glm::mat4(1.0f));
 		m_cameraBuffers[i]->Write(glm::mat4(1.0f));
 		m_cameraBuffers[i]->Write(1.0f);
-		m_cameraBuffers[i]->Unmap();
 
 		m_hbaoMaterialInstances[i]->GetSlot("camera")->SetUniformBuffer("camera", m_cameraBuffers[i].GetValue());
 		m_hbaoMaterialInstances[i]->GetSlot("camera")->FlushUpdate();
@@ -208,11 +207,9 @@ void HbaoPass::UpdateCamera(const glm::mat4& inverseProjection, const glm::mat4&
 	const UIndex32 resourceIndex = Engine::GetRenderer()->GetCurrentResourceIndex();
 
 	m_cameraBuffers[resourceIndex]->ResetCursor();
-	m_cameraBuffers[resourceIndex]->MapMemory();
 	m_cameraBuffers[resourceIndex]->Write(inverseProjection);
 	m_cameraBuffers[resourceIndex]->Write(view);
 	m_cameraBuffers[resourceIndex]->Write(nearPlane);
-	m_cameraBuffers[resourceIndex]->Unmap();
 }
 
 void HbaoPass::Execute(ICommandList* computeCmdList) {

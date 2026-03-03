@@ -4,11 +4,12 @@
 
 #include "VertexInfo.h"
 #include "PipelineCreateInfo.h"
+#include "VulkanTarget.h"
 
 namespace OSK::GRAPHICS {
 
 	enum class ShaderStage;
-	class GpuVk;
+	template <VulkanTarget> class GpuVk;
 
 	/// @brief Contiene los datos compilados de un shader.
 	struct ShaderStageVk {
@@ -19,6 +20,7 @@ namespace OSK::GRAPHICS {
 
 	/// @brief Clase base para todos los pipelines de Vulkan.
 	/// Contiene funciones auxiliares.
+	template <VulkanTarget Target>
 	class OSKAPI_CALL IPipelineVk {
 
 	public:
@@ -28,7 +30,7 @@ namespace OSK::GRAPHICS {
 		/// @return Pipeline nativo.
 		VkPipeline GetPipeline() const;
 
-	protected:
+	// protected:
 
 		/// @brief Crea un módulo de un shader en concreto.
 		/// @param code Código SPIR-V del shader.
@@ -52,7 +54,7 @@ namespace OSK::GRAPHICS {
 		VkShaderStageFlagBits GetShaderStageVk(ShaderStage stage) const;
 		VkPipelineRasterizationStateCreateInfo GetResterizerInfo(const PipelineCreateInfo& info) const;
 		VkPipelineDepthStencilStateCreateInfo GetDepthInfo(const PipelineCreateInfo& info) const;
-		VkPipelineMultisampleStateCreateInfo GetMsaaInfo(const PipelineCreateInfo& info, const GpuVk& gpu) const;
+		VkPipelineMultisampleStateCreateInfo GetMsaaInfo(const PipelineCreateInfo& info, const GpuVk<Target>& gpu) const;
 		VkPipelineTessellationStateCreateInfo GetTesselationInfo(const PipelineCreateInfo& info) const;
 
 		ShaderStageVk LoadShader(const std::string& path, ShaderStage stage);
@@ -63,5 +65,8 @@ namespace OSK::GRAPHICS {
 		VkPipeline pipeline = VK_NULL_HANDLE;
 
 	};
+
+	template class IPipelineVk<VulkanTarget::VK_1_0>;
+	template class IPipelineVk<VulkanTarget::VK_LATEST>;
 
 }

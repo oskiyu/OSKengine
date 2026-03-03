@@ -22,32 +22,38 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 
-GpuMemoryBlockVk::~GpuMemoryBlockVk() {
+template <VulkanTarget Target>
+GpuMemoryBlockVk<Target>::~GpuMemoryBlockVk() {
 	// Eliminamos todos los subbloques.
 	subblocks.Free();
+	const auto logicalDevice = device->As<GpuVk<Target>>()->GetLogicalDevice();
 
 	if (buffer != VK_NULL_HANDLE) {
-		vkDestroyBuffer(device->As<GpuVk>()->GetLogicalDevice(), buffer, nullptr);
+		vkDestroyBuffer(logicalDevice, buffer, nullptr);
 		buffer = VK_NULL_HANDLE;
 	}
 
 	if (memory != VK_NULL_HANDLE) {
-		vkFreeMemory(device->As<GpuVk>()->GetLogicalDevice(), memory, nullptr);
+		vkFreeMemory(logicalDevice, memory, nullptr);
 		memory = VK_NULL_HANDLE;
 	}
 }
 
-UniquePtr<GpuMemoryBlockVk> GpuMemoryBlockVk::CreateNewBufferBlock(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) {
+template <VulkanTarget Target>
+UniquePtr<GpuMemoryBlockVk<Target>> GpuMemoryBlockVk<Target>::CreateNewBufferBlock(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage) {
 	return UniquePtr<GpuMemoryBlockVk>(new GpuMemoryBlockVk(reservedSize, device, type, bufferUSage));
 }
-UniquePtr<GpuMemoryBlockVk> GpuMemoryBlockVk::CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage) {
+
+template <VulkanTarget Target>
+UniquePtr<GpuMemoryBlockVk<Target>> GpuMemoryBlockVk<Target>::CreateNewImageBlock(GpuImage* image, IGpu* device, GpuSharedMemoryType type, GpuImageUsage imageUSage) {
 	return UniquePtr<GpuMemoryBlockVk>(new GpuMemoryBlockVk(image, device, imageUSage, type));
 }
 
-GpuMemoryBlockVk::GpuMemoryBlockVk(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage)
+template <VulkanTarget Target>
+GpuMemoryBlockVk<Target>::GpuMemoryBlockVk(USize64 reservedSize, IGpu* device, GpuSharedMemoryType type, GpuBufferUsage bufferUSage)
 	: IGpuMemoryBlock(reservedSize, device, type, GpuMemoryUsage::BUFFER) {
 
-	const VkDevice logicalDevice = device->As<GpuVk>()->GetLogicalDevice();
+	const VkDevice logicalDevice = device->As<GpuVk<Target>>()->GetLogicalDevice();
 
 	VkBufferCreateInfo bufferInfo{};
 	bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
@@ -69,7 +75,7 @@ GpuMemoryBlockVk::GpuMemoryBlockVk(USize64 reservedSize, IGpu* device, GpuShared
 	VkMemoryAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 	allocInfo.allocationSize = memRequirements.size;
-	allocInfo.memoryTypeIndex = GetMemoryType(memRequirements.memoryTypeBits, device->As<GpuVk>(), type);
+	allocInfo.memoryTypeIndex = GetMemoryType(memRequirements.memoryTypeBits, device->As<GpuVk<Target>>(), type);
 	allocInfo.pNext = &memoryAllocateFlagsInfo;
 
 	result = vkAllocateMemory(logicalDevice, &allocInfo, nullptr, &memory);
@@ -78,38 +84,45 @@ GpuMemoryBlockVk::GpuMemoryBlockVk(USize64 reservedSize, IGpu* device, GpuShared
 	vkBindBufferMemory(logicalDevice, buffer, memory, 0);
 }
 
-UniquePtr<IGpuMemorySubblock> GpuMemoryBlockVk::CreateNewMemorySubblock(USize64 size, USize64 offset) {
-	return MakeUnique<GpuMemorySubblockVk>(this, size, offset);
+template <VulkanTarget Target>
+UniquePtr<IGpuMemorySubblock> GpuMemoryBlockVk<Target>::CreateNewMemorySubblock(USize64 size, USize64 offset) {
+	return MakeUnique<GpuMemorySubblockVk<Target>>(this, size, offset);
 }
 
-GpuMemoryBlockVk::GpuMemoryBlockVk(GpuImage* image, IGpu* device, GpuImageUsage imageUsage, GpuSharedMemoryType type)
+template <VulkanTarget Target>
+GpuMemoryBlockVk<Target>::GpuMemoryBlockVk(GpuImage* image, IGpu* device, GpuImageUsage imageUsage, GpuSharedMemoryType type)
 	: IGpuMemoryBlock(
 		GetFormatNumberOfBytes(image->GetFormat()) * image->GetSize2D().x * image->GetSize2D().y, 
 		device, type, GpuMemoryUsage::IMAGE) {
 	
+	const VkDevice logicalDevice = device->As<GpuVk<Target>>()->GetLogicalDevice();
+
 	VkMemoryRequirements memRequirements{};
-	vkGetImageMemoryRequirements(device->As<GpuVk>()->GetLogicalDevice(), image->As<GpuImageVk>()->GetVkImage(), &memRequirements);
+	vkGetImageMemoryRequirements(logicalDevice, image->As<GpuImageVk<Target>>()->GetVkImage(), &memRequirements);
 
 	VkMemoryAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 	allocInfo.allocationSize = memRequirements.size;
-	allocInfo.memoryTypeIndex = GetMemoryType(memRequirements.memoryTypeBits, device->As<GpuVk>(), type);
+	allocInfo.memoryTypeIndex = GetMemoryType(memRequirements.memoryTypeBits, device->As<GpuVk<Target>>(), type);
 
-	VkResult result = vkAllocateMemory(device->As<GpuVk>()->GetLogicalDevice(), &allocInfo, nullptr, &memory);
+	VkResult result = vkAllocateMemory(logicalDevice, &allocInfo, nullptr, &memory);
 	OSK_ASSERT(result == VK_SUCCESS, GpuMemoryAllocException(result));
 
-	vkBindImageMemory(device->As<GpuVk>()->GetLogicalDevice(), image->As<GpuImageVk>()->GetVkImage(), memory, 0);
+	vkBindImageMemory(logicalDevice, image->As<GpuImageVk<Target>>()->GetVkImage(), memory, 0);
 }
 
-VkDeviceMemory GpuMemoryBlockVk::GetVulkanMemory() const {
+template <VulkanTarget Target>
+VkDeviceMemory GpuMemoryBlockVk<Target>::GetVulkanMemory() const {
 	return memory;
 }
 
-VkBuffer GpuMemoryBlockVk::GetVulkanBuffer() const {
+template <VulkanTarget Target>
+VkBuffer GpuMemoryBlockVk<Target>::GetVulkanBuffer() const {
 	return buffer;
 }
 
-VkMemoryAllocateFlags GpuMemoryBlockVk::GetMemoryAllocateFlags(GpuBufferUsage usage) {
+template <VulkanTarget Target>
+VkMemoryAllocateFlags GpuMemoryBlockVk<Target>::GetMemoryAllocateFlags(GpuBufferUsage usage) {
 	VkMemoryAllocateFlags output = 0;
 
 	if (EFTraits::HasFlag(usage, GpuBufferUsage::RT_ACCELERATION_STRUCTURE))
@@ -128,7 +141,8 @@ VkMemoryAllocateFlags GpuMemoryBlockVk::GetMemoryAllocateFlags(GpuBufferUsage us
 	return output;
 }
 
-uint32_t GpuMemoryBlockVk::GetMemoryType(uint32_t memoryTypeFilter, GpuVk* device, GpuSharedMemoryType type) {
+template <VulkanTarget Target>
+uint32_t GpuMemoryBlockVk<Target>::GetMemoryType(uint32_t memoryTypeFilter, GpuVk<Target>* device, GpuSharedMemoryType type) {
 	auto nativeSharedMode = GetGpuSharedMemoryTypeVk(type);
 
 	for (uint32_t i = 0; i < device->GetInfo().memoryProperties.memoryTypeCount; i++)
@@ -138,6 +152,29 @@ uint32_t GpuMemoryBlockVk::GetMemoryType(uint32_t memoryTypeFilter, GpuVk* devic
 	OSK_ASSERT(false, GpuMemoryAllocException(0));
 
 	return -1;
+}
+
+template <VulkanTarget Target>
+TByte* GpuMemoryBlockVk<Target>::MapRange_Impl(USize64 offset, USize64 size) 
+{
+	TByte* output;
+
+	vkMapMemory(
+		GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(),
+		GetVulkanMemory(),
+		offset,
+		size,
+		0,
+		(void**)&output);
+
+	return output;
+}
+
+template <VulkanTarget Target>
+void GpuMemoryBlockVk<Target>::UnmapAll_Impl() {
+	vkUnmapMemory(
+		GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(),
+		GetVulkanMemory());
 }
 
 #endif

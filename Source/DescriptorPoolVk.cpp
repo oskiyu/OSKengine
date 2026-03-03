@@ -1,6 +1,5 @@
 #include "DescriptorPoolVk.h"
 
-#include "DescriptorPoolVk.h"
 #include "DynamicArray.hpp"
 #include "MaterialLayoutSlot.h"
 #include "DescriptorLayoutVk.h"
@@ -18,7 +17,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-DescriptorPoolVk::DescriptorPoolVk(const DescriptorLayoutVk& layout, USize32 maxSets) {
+template <VulkanTarget Target>
+DescriptorPoolVk<Target>::DescriptorPoolVk(const DescriptorLayoutVk<Target>& layout, USize32 maxSets) {
 	const bool isBindless = Engine::GetRenderer()->GetGpu()->SupportsBindlessResources();
 
 	DynamicArray<VkDescriptorPoolSize> sizes;
@@ -47,17 +47,19 @@ DescriptorPoolVk::DescriptorPoolVk(const DescriptorLayoutVk& layout, USize32 max
 	poolInfo.maxSets = Engine::GetRenderer()->GetSwapchainImagesCount() * maxSets;
 	poolInfo.flags = isBindless ? VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT_EXT : 0;
 
-	VkResult result = vkCreateDescriptorPool(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(), 
+	VkResult result = vkCreateDescriptorPool(Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(), 
 		&poolInfo, nullptr, &pool);
 	OSK_ASSERT(result == VK_SUCCESS, DescriptorPoolCreationException(result));
 }
 
-DescriptorPoolVk::~DescriptorPoolVk() {
+template <VulkanTarget Target>
+DescriptorPoolVk<Target>::~DescriptorPoolVk() {
 	vkDestroyDescriptorPool(
-		Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
+		Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(),
 		pool, nullptr);
 }
 
-VkDescriptorPool DescriptorPoolVk::GetPool() const {
+template <VulkanTarget Target>
+VkDescriptorPool DescriptorPoolVk<Target>::GetPool() const {
 	return pool;
 }

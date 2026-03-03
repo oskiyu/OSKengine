@@ -9,12 +9,13 @@
 #include "DynamicArray.hpp"
 
 #include <vulkan/vulkan.h>
+#include "VulkanTarget.h"
+
+#include "GpuVk.h"
 
 namespace OSK::GRAPHICS {
 
-	class GpuVk;
-
-	class OSKAPI_CALL MeshPipelineVk final : public IMeshPipeline, public IPipelineVk {
+	class OSKAPI_CALL MeshPipelineVk final : public IMeshPipeline, public IPipelineVk<VulkanTarget::VK_LATEST> {
 
 	public:
 
@@ -33,7 +34,7 @@ namespace OSK::GRAPHICS {
 		/// @throws FileNotFoundException si no se encuentra el archivo del shader.
 		void LoadFragmentShader(const std::string& path);
 
-		GpuVk* m_gpu = nullptr;
+		GpuVk<VulkanTarget::VK_LATEST>* m_gpu = nullptr;
 
 	};
 

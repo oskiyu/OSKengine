@@ -5,6 +5,7 @@
 #include "MaterialLayout.h"
 #include "NumericTypes.h"
 #include "HashMap.hpp"
+#include "LoadedMaterialInfo.h"
 
 namespace OSK::GRAPHICS {
 
@@ -21,9 +22,13 @@ namespace OSK::GRAPHICS {
 	/// @throws InvalidDescriptionFileException si la información del 
 	/// material no es correcta.
 	UniquePtr<MaterialLayout> LoadMaterialLayoutV1(
-		const nlohmann::json& materialInfo, 
+		const LoadedMaterialInfoV1& materialInfo,
 		PipelineCreateInfo* info, 
 		MaterialType type);
+
+
+	// Lee el JSON con la información del material.
+	LoadedMaterialInfoV1 GetMaterialInfoV1(const nlohmann::json& materialInfo);
 
 
 	/// @brief Genera el layout de un material de rasterizado.
@@ -35,7 +40,7 @@ namespace OSK::GRAPHICS {
 	/// @throws InvalidDescriptionFileException si la información del 
 	/// material no es correcta.
 	static UniquePtr<MaterialLayout> LoadGraphicsMaterialLayoutV1(
-		const nlohmann::json& materialInfo,
+		const LoadedMaterialInfoV1& materialInfo,
 		PipelineCreateInfo* info);
 
 	/// @brief Genera el layout de un material de computación.
@@ -47,7 +52,7 @@ namespace OSK::GRAPHICS {
 	/// @throws InvalidDescriptionFileException si la información del 
 	/// material no es correcta.
 	static UniquePtr<MaterialLayout> LoadComputeMaterialLayoutV1(
-		const nlohmann::json& materialInfo,
+		const LoadedMaterialInfoV1& materialInfo,
 		PipelineCreateInfo* info);
 
 	/// @brief Genera el layout de un material de meshes.
@@ -59,7 +64,7 @@ namespace OSK::GRAPHICS {
 	/// @throws InvalidDescriptionFileException si la información del 
 	/// material no es correcta.
 	static UniquePtr<MaterialLayout> LoadMeshMaterialLayoutV1(
-		const nlohmann::json& materialInfo,
+		const LoadedMaterialInfoV1& materialInfo,
 		PipelineCreateInfo* info);
 
 	/// @brief Genera el layout de un material de trazado de rayos.
@@ -71,7 +76,7 @@ namespace OSK::GRAPHICS {
 	/// @throws InvalidDescriptionFileException si la información del 
 	/// material no es correcta.
 	static UniquePtr<MaterialLayout> LoadRayTracingMaterialLayoutV1(
-		const nlohmann::json& materialInfo,
+		const LoadedMaterialInfoV1& materialInfo,
 		PipelineCreateInfo* info);
 
 
