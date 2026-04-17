@@ -12,6 +12,9 @@
 
 namespace OSK::GRAPHICS {
 
+	/// @brief Encapsula un subpase de un renderpass.
+	/// Se usa cuando no se soporta el renderizado 
+	/// dinámico.
 	class OSKAPI_CALL RenderSubpassVk {
 
 	public:

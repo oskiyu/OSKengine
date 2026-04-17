@@ -1,6 +1,8 @@
+#include "EngineException.h"
 #include "Game1.hpp"
+#include "Logger.h"
 
-#ifdef OSK_DEVELOPMENT
+// #ifdef OSK_DEVELOPMENT
 int main() {
 
 
@@ -17,11 +19,15 @@ int main() {
 		throw e;
 	}
 #else
-	Game1 game;
-	game._Run();
+	GameMin game;
+	try {
+		game._Run();
+	} catch (const OSK::EngineException& e) {
+		Engine::GetLogger()->Log(IO::LogLevel::L_ERROR, e.what());
+	}
 #endif // OSK_RELEASE
 
 	return 0;
 }
 
-#endif // OSK_DEVELOPMENT
+// #endif // OSK_DEVELOPMENT

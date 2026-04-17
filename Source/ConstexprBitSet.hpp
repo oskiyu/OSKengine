@@ -2,6 +2,9 @@
 
 #include "DynamicArray.hpp"
 
+// Para memset
+#include <cstring>
+
 namespace OSK {
 
 	using TByte = uint8_t;

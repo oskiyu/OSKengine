@@ -13,14 +13,14 @@ namespace OSK::EFTraits {
 	/// </summary>
 	/// <typeparam name="T">Tipo de dato.</typeparam>
 	/// <returns>Falso, al no ser que se sobreescriba con OSK_FLAGS.</returns>
-	template <typename T> constexpr bool IsEnumFlag(T) {
+	template <typename T> constexpr bool IsEnumFlag() {
 		return false;
 	}
 
 	/// <summary>
 	/// Concepto para que los operadores sólo funcionen con enum flags.
 	/// </summary>
-	template <typename T> concept IsEnum = IsEnumFlag<T>({});
+	template <typename T> concept IsEnum = IsEnumFlag<T>();
 
 }
 
@@ -63,7 +63,7 @@ template <typename TEnum> constexpr TEnum operator~(TEnum left) requires OSK::EF
 		);
 }
 
-#define OSK_FLAGS(T) template <> constexpr bool OSK::EFTraits::IsEnumFlag<T>(T) { return true; };
+#define OSK_FLAGS(T) template <> constexpr bool OSK::EFTraits::IsEnumFlag<T>() { return true; };
 
 namespace OSK::EFTraits {
 

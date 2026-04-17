@@ -10,6 +10,8 @@
 
 #include "GpuModel3D.h"
 
+#include <list>
+
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 

@@ -6,7 +6,7 @@
 #include "ApiCall.h"
 #include "VulkanTypedefs.h"
 
-enum VkImageLayout;
+#include <vulkan/vulkan.h>
 
 namespace OSK::GRAPHICS {
 

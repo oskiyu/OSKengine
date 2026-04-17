@@ -2,7 +2,7 @@
 
 #include "NumericTypes.h"
 
-#include <xhash>
+#include <functional> // antes <xhash> en Windows
 #include <atomic>
 
 

@@ -1,7 +1,5 @@
 #include "StringOperations.h"
 
-#include <Windows.h>
-
 OSK::DynamicArray<std::string> OSK::Tokenize(std::string_view string, char delimiter) {
 	DynamicArray<std::string> output;
 
@@ -20,6 +18,10 @@ OSK::DynamicArray<std::string> OSK::Tokenize(std::string_view string, char delim
 	return output;
 }
 
+#ifdef OSK_WINDOWS
+
+#include <Windows.h>
+
 std::wstring OSK::StringToWideString(std::string_view string) {
 	const int stringLength = static_cast<int>(string.length()) + 1;
 
@@ -33,3 +35,5 @@ std::wstring OSK::StringToWideString(std::string_view string) {
 
 	return r;
 }
+
+#endif

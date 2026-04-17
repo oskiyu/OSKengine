@@ -8,8 +8,7 @@
 
 #include "VulkanTarget.h"
 
-enum VkColorSpaceKHR;
-OSK_VULKAN_TYPEDEF(VkSwapchainKHR);
+#include <vulkan/vulkan.h>
 
 namespace OSK::GRAPHICS {
 

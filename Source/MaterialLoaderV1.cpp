@@ -15,7 +15,7 @@
 OSK::GRAPHICS::LoadedMaterialInfoV1 OSK::GRAPHICS::GetMaterialInfoV1(const nlohmann::json& materialInfo) {
 	LoadedMaterialInfoV1 output{};
 
-	output.name = materialInfo["name"];
+	output.name = std::string(materialInfo["name"]);
 
 	OSK_LOAD_MATERIAL_INFO_COND(output.vertexShaderPath,   "vertex_shader");
 	OSK_LOAD_MATERIAL_INFO_COND(output.fragmentShaderPath, "fragment_shader");
@@ -178,7 +178,7 @@ static std::unordered_map<OSK::UIndex32, std::string> OSK::GRAPHICS::GetSlotsNam
 
 	if (materialInfo.contains("slots")) {
 		for (const auto& [index, name] : materialInfo["slots"].items()) {
-			output[std::stoi(index)] = name;
+			output[std::stoi(index)] = (std::string)name;
 		}
 	}
 

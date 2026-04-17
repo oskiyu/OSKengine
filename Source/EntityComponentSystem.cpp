@@ -192,7 +192,7 @@ SavedGameObjectTranslator EntityComponentSystem::LoadScene(std::string_view path
 
 	// Components
 	for (const auto& componentEntry : data["components"]) {
-		const std::string_view componentTypeName = componentEntry["component_type"];
+		const auto componentTypeName = std::string(componentEntry["component_type"]);
 
 		// Puede estar vacío
 		if (!componentEntry.contains("components")) {

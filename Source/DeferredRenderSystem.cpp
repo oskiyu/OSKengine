@@ -763,20 +763,20 @@ void DeferredRenderSystem::ApplyConfiguration(const nlohmann::json& config, cons
 	m_shadowsPasses.RemoveAllPasses();
 
 	for (const auto& passName : config["passesNames"]) {
-		AddShaderPass(shaderPassFactory->CreatePass(passName));
+		AddShaderPass(shaderPassFactory->CreatePass(std::string(passName)));
 	}
 
 	m_shadowMap = PERSISTENCE::DeserializeData<ShadowMap>(config["shadowMap"]);
 	m_shadowMap.SetSceneCamera(m_cameraObject);
 
 	for (const auto& passName : config["shadowsPassesNames"]) {
-		auto pass = shaderPassFactory->CreatePass(passName);
+		auto pass = shaderPassFactory->CreatePass(std::string(passName));
 		pass->As<IShadowsPass>()->SetupShadowMap(m_shadowMap);
 
 		AddShadowsPass(std::move(pass));
 	}
 
-	SetResolver(UniquePtr(shaderPassFactory->CreatePass(config["resolverName"]).Release()->As<IDeferredResolver>()));
+	SetResolver(UniquePtr(shaderPassFactory->CreatePass(std::string(config["resolverName"])).Release()->As<IDeferredResolver>()));
 
 	SetupResolveMaterial();
 

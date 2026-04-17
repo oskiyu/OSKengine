@@ -13,6 +13,9 @@
 
 namespace OSK::GRAPHICS {
 
+	/// @brief Encapsula un renderpass nativo de
+	/// para Vulkan. Se usa si no se soporta el 
+	/// renderizado dinámico.
 	template <VulkanTarget Target>
 	class RenderpassVk {
 

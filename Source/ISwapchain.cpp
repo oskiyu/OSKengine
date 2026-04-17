@@ -109,7 +109,11 @@ void ISwapchain::TakeScreenshot(std::string_view path) {
 	const auto now = std::chrono::system_clock::now();
 	const auto time = std::chrono::system_clock::to_time_t(now);
 	std::tm now2{};
+#ifdef OSK_WINDOWS
 	localtime_s(&now2, &time);
+#else
+	localtime_r(&time, &now2);
+#endif
 	
 	const std::string nowText = std::format(
 		"{}_{}_{}_{}{}{}",

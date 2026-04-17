@@ -132,3 +132,4 @@ void Load(const std::string& assetFilePath) override { \
 }
 
 // OSK::ASSETS::AssetRef<TType>& output = *static_cast<OSK::ASSETS::AssetRef<TType>*>(assetRef); \
+

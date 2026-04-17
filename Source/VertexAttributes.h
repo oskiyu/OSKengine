@@ -190,8 +190,12 @@ namespace OSK::GRAPHICS {
 			OSK_ASSERT(
 				HasAttribute(TAttrib::GetUuid()),
 				InvalidArgumentException(std::format("No existe el atributo {}", TAttrib::GetAttribName())));
+			
+			const auto& attribs = GetVerticesAttributes(TAttrib::GetUuid());
+			const auto& list = attribs.list.GetValue();
+			const auto casted = std::any_cast<const DynamicArray<TAttrib>&>(list); // TODO: ref?
 
-			return std::any_cast<DynamicArray<TAttrib>>(GetVerticesAttributes(TAttrib::GetUuid()).list.GetValue());
+			return casted;
 		}
 	};
 

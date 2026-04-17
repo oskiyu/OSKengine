@@ -21,7 +21,7 @@ void Logger::Start(const std::string& path) {
 	m_hasBeenStarted = true;
 }
 
-void Logger::Log(LogLevel level, const std::string& msg) {
+void Logger::_Log(LogLevel level, const std::string& msg) {
 	std::lock_guard lock(m_mutex);
 
 	if (!m_hasBeenStarted)

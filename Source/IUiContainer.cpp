@@ -41,7 +41,7 @@ void IContainer::AdjustSizeToChildren() {
 
 		const Vector2f furthestPoint = child->GetSize() + childRelativePosition + childRightBottomMargings;
 
-		newSize = Vector2f(glm::max(newSize.ToGlm(), furthestPoint.ToGlm()));
+		newSize = Vector2f::FromGlm(glm::max(newSize.ToGlm(), furthestPoint.ToGlm()));
 	}
 
 	SetSize(newSize + GetPadding2D());

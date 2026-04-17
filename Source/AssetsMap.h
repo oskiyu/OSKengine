@@ -7,6 +7,7 @@
 
 #include "IAsset.h"
 
+#include <mutex>
 #include <shared_mutex>
 
 

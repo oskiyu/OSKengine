@@ -195,7 +195,7 @@ void UI::Dropdown::RemoveElement(std::string_view text) {
 
 	const UIndex64 elementIndex = m_elementsMap.find(text)->second;
 	m_elements.RemoveAt(elementIndex);
-	m_elementsMap.erase(text);
+	m_elementsMap.erase((std::string)text);
 
 	// Actualización del mapa.
 	for (UIndex64 n = elementIndex; n < m_elements.GetSize(); n++)

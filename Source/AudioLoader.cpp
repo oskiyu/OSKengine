@@ -12,7 +12,7 @@ void AudioLoader::Load(const std::string& assetFilePath, AudioAsset* asset) {
 	// Asset file.
 	const nlohmann::json assetInfo = ValidateDescriptionFile(assetFilePath);
 
-	std::string_view rawPath = assetInfo["raw_asset_path"];
+	std::string rawPath = assetInfo["raw_asset_path"];
 	asset->SetName(assetInfo["name"]);
 
 	// Audio

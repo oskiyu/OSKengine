@@ -14,13 +14,16 @@
 
 #include <stbi_image.h>
 
+#ifdef OSK_WINDOWS
 #include <Windows.h>
 #include "StringOperations.h"
+#endif
 
 #include "InitializeWindowException.h"
 
 using namespace OSK;
 using namespace OSK::IO;
+
 
 Window::Window() {
 	glfwInit();
@@ -125,8 +128,10 @@ GLFWwindow* Window::_GetGlfw() {
 }
 
 void Window::ShowMessageBox(std::string_view msg) {
-	const std::wstring widestring = StringToWideString((std::string)msg);	\
-	MessageBox(NULL, widestring.c_str(), NULL, MB_OK | MB_ICONERROR);	\
+#ifdef OSK_WINDOWS
+	const std::wstring widestring = StringToWideString((std::string)msg);
+	MessageBox(NULL, widestring.c_str(), NULL, MB_OK | MB_ICONERROR);
+#endif
 }
 
 Window* Window::GetWindowForCallback(GLFWwindow* window) {

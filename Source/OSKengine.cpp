@@ -111,16 +111,18 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 
 	switch (type) {
 
+#ifdef OSK_USE_VULKAN_BACKEND
 	case OSK::GRAPHICS::RenderApiType::VULKAN:
 		// @todo: ver target
 		renderer = MakeUnique<GRAPHICS::RendererVk<GRAPHICS::VulkanTarget::VK_LATEST>>(requestRayTracing);
-
 		break;
+#endif
 
+#ifdef OSK_USE_DX12_BACKEND
 	case OSK::GRAPHICS::RenderApiType::DX12:
 		renderer = MakeUnique<GRAPHICS::RendererDx12>(requestRayTracing);
-
 		break;
+#endif
 	}
 
 	assetManager = MakeUnique<ASSETS::AssetManager>();

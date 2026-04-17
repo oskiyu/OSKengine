@@ -1,6 +1,7 @@
 #include "MouseState.h"
 
 #include <memory>
+#include <cstring>
 
 using namespace OSK;
 using namespace OSK::IO;

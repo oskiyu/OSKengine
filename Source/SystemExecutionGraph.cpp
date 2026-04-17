@@ -3,6 +3,8 @@
 #include "OSKengine.h"
 #include "Logger.h"
 
+#include <list>
+
 using namespace OSK;
 using namespace OSK::ECS;
 

@@ -2,6 +2,9 @@
 
 #include <compare>
 
+// Para hash.
+#include <functional>
+
 #include "GpuImageUsage.h"
 #include "ApiCall.h"
 #include "NumericTypes.h"

@@ -5,8 +5,8 @@
 namespace OSK::COLLISION {
 
 	/// @brief Detector para el caso especial
-	/// de dos esferas, debido a ofrecer una solución
-	/// muy rápida.
+	/// de dos esferas, debido a ofrecer una soluciï¿½n
+	/// muy rï¿½pida.
 	class OSKAPI_CALL AabbAabbCollisionDetector final : public IBroadCollisionDetector {
 
 	public:

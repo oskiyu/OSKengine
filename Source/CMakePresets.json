@@ -1,0 +1,57 @@
+{
+    "version": 2,
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/bin",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": {
+                    "value" : "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                    "type": "FILEPATH"
+                },
+                "EXTRA_DEFINES": "SPIRV_REFLECT_USE_SYSTEM_SPIRV_H",
+                "VULKAN_SDK": "/home/oskiyu/Descargas/vulkansdk-linux-x86_64-1.4.341.1/1.4.341.1/"
+            }
+        },
+
+        {
+            "name": "base-linux",
+            "hidden": true,
+            "inherits": "base",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-linux",
+                "OSK_PLATFORM": "OSK_LINUX"
+            }
+        },
+        {
+            "name": "exe-linux",
+            "inherits": "base-linux",
+            "cacheVariables": {
+                "OSK_EXTRA": "OSK_DEVELOPMENT"
+            }
+        },
+
+        {
+            "name": "base-windows",
+            "hidden": true,
+            "inherits": "base",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x64-windows",
+                "OSK_PLATFORM": "OSK_WINDOWS"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "exe-linux",
+            "displayName": "Ejecutable Linux Debug",
+            "configurePreset": "exe-linux"
+        }
+    ]
+}

@@ -3,7 +3,7 @@
 #include "Platforms.h"
 #ifdef OSK_USE_VULKAN_BACKEND
 
-enum VkFormat;
+#include <vulkan/vulkan.h>
 
 namespace OSK::GRAPHICS {
 	

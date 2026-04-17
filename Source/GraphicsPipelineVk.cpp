@@ -105,15 +105,15 @@ void GraphicsPipelineVk<Target>::Create(const MaterialLayout* materialLayout, IG
 	VkPipelineTessellationStateCreateInfo tesselationInfo = m_pipeline.GetTesselationInfo(info);
 
 	// Estructuras dinámicas
-	const VkDynamicState states[] = { 
+	const std::array<const VkDynamicState, 2> states = { 
 		VK_DYNAMIC_STATE_VIEWPORT, 
 		VK_DYNAMIC_STATE_SCISSOR
 	};
 
 	VkPipelineDynamicStateCreateInfo dynamicCreateInfo{};
 	dynamicCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
-	dynamicCreateInfo.pDynamicStates = states;
-	dynamicCreateInfo.dynamicStateCount = _countof(states);
+	dynamicCreateInfo.pDynamicStates = states.data();
+	dynamicCreateInfo.dynamicStateCount = states.size();
 	dynamicCreateInfo.flags = 0;
 
 	// Viewport (será dinámico)

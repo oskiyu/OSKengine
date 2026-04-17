@@ -78,14 +78,19 @@ void SwapchainVk<Target>::CreationLogic(const GpuVk<Target>& device, const Vecto
 	extent.height = resolution.y;
 
 	// Número de imágenes en el swapchain.
+	// Por alguna razón, pueden salir al revés.
+	const auto minImageCount = glm::min(info.swapchainSupportDetails.surfaceCapabilities.minImageCount, info.swapchainSupportDetails.surfaceCapabilities.maxImageCount);
+	const auto maxImageCount = glm::max(info.swapchainSupportDetails.surfaceCapabilities.minImageCount, info.swapchainSupportDetails.surfaceCapabilities.maxImageCount);
 	if (
-		info.swapchainSupportDetails.surfaceCapabilities.minImageCount <= MAX_RESOURCES_IN_FLIGHT &&
-		info.swapchainSupportDetails.surfaceCapabilities.maxImageCount >= MAX_RESOURCES_IN_FLIGHT) {
+		minImageCount <= MAX_RESOURCES_IN_FLIGHT && maxImageCount >= MAX_RESOURCES_IN_FLIGHT) {
 		SetNumImagesInFlight(MAX_RESOURCES_IN_FLIGHT);
 	}
 	else {
-		SetNumImagesInFlight(info.swapchainSupportDetails.surfaceCapabilities.maxImageCount);
+		SetNumImagesInFlight(maxImageCount);
 	}
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Imágenes mínimas:", minImageCount);
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Imágenes máximas:", maxImageCount);
+	Engine::GetLogger()->InfoLog(std::format("Número de imágenes de swapchain: {}", GetImageCount()));
 
 	// Create info.
 	VkSwapchainCreateInfoKHR createInfo{};

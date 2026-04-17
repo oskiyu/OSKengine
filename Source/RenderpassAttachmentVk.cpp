@@ -27,4 +27,8 @@ const VkAttachmentReference& RenderpassAttachmentVk::GetReference() const {
 	return m_reference;
 }
 
+VkAttachmentDescription RenderpassAttachmentVk::GetDescription() const {
+	return m_description;
+}
+
 #endif // OSK_USE_VULKAN_BACKEND

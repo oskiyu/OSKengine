@@ -22,7 +22,8 @@ nlohmann::json OSK::ASSETS::IAssetLoader::ValidateDescriptionFile(std::string_vi
 	OSK_ASSERT(file.contains("asset_type"), InvalidDescriptionFileException("No se encuentra asset_type", filePath));
 	OSK_ASSERT(file.contains("raw_asset_path"), InvalidDescriptionFileException("No se encuentra raw_asset_path", filePath));
 
-	OSK_ASSERT(IO::FileIO::FileExists(file["raw_asset_path"]), RawAssetFileNotFoundException(file["raw_asset_path"]));
+	const std::string rawPath = file["raw_asset_path"];
+	OSK_ASSERT(IO::FileIO::FileExists(rawPath), RawAssetFileNotFoundException(rawPath));
 
 	return file;
 }

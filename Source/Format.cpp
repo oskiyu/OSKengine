@@ -4,10 +4,14 @@
 
 #include "Assert.h"
 
-#include <dxgi1_6.h>
 #include <vulkan/vulkan.h>
 #include "NotImplementedException.h"
 
+#include "Platforms.h"
+
+
+#ifdef OSK_USE_DIRECTX12_BACKEND
+#include <dxgi1_6.h>
 DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {
 	switch (format) {
 		case Format::RGBA8_UNORM:
@@ -47,6 +51,7 @@ DXGI_FORMAT OSK::GRAPHICS::GetFormatDx12(Format format) {
 	OSK_ASSERT(false, NotImplementedException());
 	return DXGI_FORMAT_UNKNOWN;
 }
+#endif
 
 VkFormat OSK::GRAPHICS::GetFormatVk(Format format) {
 	switch (format) {

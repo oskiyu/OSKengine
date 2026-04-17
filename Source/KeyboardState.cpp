@@ -1,6 +1,7 @@
 #include "KeyboardState.h"
 
 #include <memory>
+#include <cstring>
 
 using namespace OSK::IO;
 

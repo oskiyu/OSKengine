@@ -4,6 +4,7 @@
 #include "HashMap.hpp"
 
 #include <shared_mutex>
+#include <atomic>
 
 
 namespace OSK {

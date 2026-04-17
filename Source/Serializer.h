@@ -104,23 +104,23 @@ namespace OSK::PERSISTENCE {
 
 #define OSK_SERIALIZABLE() \
 template <typename T> \
-friend ::nlohmann::json OSK::PERSISTENCE::SerializeData<T>(const T& data); \
+friend ::nlohmann::json OSK::PERSISTENCE::SerializeData(const T& data); \
 template <typename T> \
-friend T OSK::PERSISTENCE::DeserializeData<T>(const ::nlohmann::json& data); \
+friend T OSK::PERSISTENCE::DeserializeData(const ::nlohmann::json& data); \
 template <typename T> \
-friend OSK::PERSISTENCE::BinaryBlock OSK::PERSISTENCE::BinarySerializeData<T>(const T& data); \
+friend OSK::PERSISTENCE::BinaryBlock OSK::PERSISTENCE::BinarySerializeData(const T& data); \
 template <typename T> \
-friend T OSK::PERSISTENCE::BinaryDeserializeData<T>(OSK::PERSISTENCE::BinaryBlockReader* reader); \
+friend T OSK::PERSISTENCE::BinaryDeserializeData(OSK::PERSISTENCE::BinaryBlockReader* reader); \
 
 #define OSK_SERIALIZABLE_COMPONENT() \
 template <typename T> \
-friend ::nlohmann::json OSK::PERSISTENCE::SerializeComponent<T>(const T& data); \
+friend ::nlohmann::json OSK::PERSISTENCE::SerializeComponent(const T& data); \
 template <typename T> \
-friend T OSK::PERSISTENCE::DeserializeComponent<T>(const ::nlohmann::json& data, const ::OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator); \
+friend T OSK::PERSISTENCE::DeserializeComponent(const ::nlohmann::json& data, const ::OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator); \
 template <typename T> \
-friend OSK::PERSISTENCE::BinaryBlock OSK::PERSISTENCE::BinarySerializeComponent<T>(const T& data); \
+friend OSK::PERSISTENCE::BinaryBlock OSK::PERSISTENCE::BinarySerializeComponent(const T& data); \
 template <typename T> \
-friend T OSK::PERSISTENCE::BinaryDeserializeComponent<T>(OSK::PERSISTENCE::BinaryBlockReader* reader, const ::OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator); \
+friend T OSK::PERSISTENCE::BinaryDeserializeComponent(OSK::PERSISTENCE::BinaryBlockReader* reader, const ::OSK::ECS::SavedGameObjectTranslator& gameObjectTranslator); \
 
 
 #define OSK_SERIALIZATION(type) \

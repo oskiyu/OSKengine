@@ -9,15 +9,7 @@
 #include "NumericTypes.h"
 #include "VulkanTarget.h"
 
-OSK_VULKAN_TYPEDEF(VkImage);
-OSK_VULKAN_TYPEDEF(VkSampler);
-OSK_VULKAN_TYPEDEF(VkImageView);
-OSK_VULKAN_FLAGS_TYPEDEF(VkImageAspectFlags);
-
-enum VkImageViewType;
-enum VkImageType;
-enum VkFilter;
-enum VkSamplerAddressMode;
+#include <vulkan/vulkan.h>
 
 namespace OSK::GRAPHICS {
 

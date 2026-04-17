@@ -6,8 +6,17 @@
 
 #ifdef OSK_DEVELOPMENT
 
+#include "CopyImageInfo.h"
+#include "GpuImageSamplerDesc.h"
+#include "GpuImageViewConfig.h"
 #include "IDebugGame.h"
+#include "Logger.h"
+#include "NumericTypes.h"
 #include "OSKengine.h"
+#include "RenderTargetAttachmentInfo.h"
+#include "RtRenderTarget.h"
+#include "SdfDrawCall2D.h"
+#include "SdfDrawCallType2D.h"
 #include "Window.h"
 #include "IRenderer.h"
 #include "GameObject.h"
@@ -56,6 +65,7 @@
 #include "Vertex2D.h"
 #include "Sprite.h"
 #include "PushConst2D.h"
+#include <glm/common.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
 #include "Font.h"
 #include "FontLoader.h"
@@ -306,8 +316,9 @@ protected:
 			}
 
 
-
+#ifdef OSK_WINDOWS
 #pragma region Exposición y gamma
+#endif
 
 			// Exposición (~brillo) de la escena
 			const bool increaseExposure = keyboard->IsKeyDown(IO::Key::F1);
@@ -334,8 +345,9 @@ protected:
 				toneMappingPass->SetGamma(toneMappingPass->GetGamma() - deltaTime * 2);
 			if (keyboard->IsKeyDown(IO::Key::K))
 				toneMappingPass->SetGamma(toneMappingPass->GetGamma() + deltaTime * 2);
-
+#ifdef OSK_WINDOWS
 #pragma endregion
+#endif
 
 			// Configuración gráfica
 			//
@@ -1236,6 +1248,255 @@ private:
 	GdrBufferUuid cameraInfoUuid = GdrBufferUuid::CreateEmpty();
 	UniquePtr<GdrPipeline> m_gdrPbrPipeline;
 
+
+};
+
+// #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// @brief Ejemplo de juego con funcionalidad mínima,
+/// para comprobar el funcionamiento correcto del motor.
+///
+/// Usa renderizado y computación.
+class GameMin : public OSK::IGame {
+
+public:
+
+	GameMin() : OSK::IGame(GAME::DefaultContentProfile::MINIMAL) {
+
+	}
+
+protected:
+
+	/// @brief Crea la ventana, con título "OSKengine Min"
+	void CreateWindow() override {
+		Engine::GetLogger()->InfoLog("CreateWindow");
+		Engine::GetDisplay()->Create({ 1800u, 900u }, "OSKengine Min");
+
+		IO::IMouseInput* mouseInput = nullptr;
+		Engine::GetInput()->QueryInterface(IUUID::IMouseInput, (void**)&mouseInput);
+
+		if (mouseInput) 
+		{
+			mouseInput->SetReturnMode(IO::MouseReturnMode::FREE);
+			mouseInput->SetMotionMode(IO::MouseMotionMode::RAW);
+		}
+	}
+
+	void SetupEngine() override {
+		Engine::GetLogger()->InfoLog("SetupEngine");
+		Engine::GetRenderer()->Initialize(
+			"OSKengine minimal demo", 
+			{}, 
+			*Engine::GetDisplay(), 
+			PresentMode::VSYNC_ON);
+	}
+
+	void OnCreate() override {
+		Engine::GetLogger()->InfoLog("OnCreate Start");
+		IGame::OnCreate();
+		Engine::GetJobSystem()->WaitForJobs<AssetLoaderJob>();
+
+		m_minComputeMaterial = Engine::GetRenderer()->GetMaterialSystem()
+			->LoadMaterial("Resources/Materials/Testing/min_compute.json");
+		m_minComputeMaterialInstance = m_minComputeMaterial->CreateInstance();
+
+		RenderTargetAttachmentInfo info{};
+		info.name = "Min Compute";
+		info.format = Format::RGBA8_UNORM;
+		info.usage = GpuImageUsage::TRANSFER_SOURCE;
+		info.sampler = GpuImageSamplerDesc::CreateDefault_NoMipMap();
+
+		m_minRt = MakeUnique<ComputeRenderTarget>();
+		m_minRt->Create(
+			Engine::GetDisplay()->GetResolution(), 
+			info);
+		SetComputeImage();
+
+		m_sdfRenderer = MakeUnique<SdfBindlessRenderer2D>(
+			Engine::GetEcs(),
+			Engine::GetRenderer()->GetAllocator(),
+			Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(SdfBindlessRenderer2D::DefaultMaterialPath));
+		Engine::GetLogger()->InfoLog("OnCreate End");
+
+
+		cameraObject2d = Engine::GetEcs()->SpawnObject();
+		CameraComponent2D* camera2D = &Engine::GetEcs()->AddComponent<CameraComponent2D>(cameraObject2d, {});
+		camera2D->LinkToDisplay(Engine::GetDisplay());
+		Engine::GetEcs()->AddComponent<Transform2D>(cameraObject2d, Transform2D(cameraObject2d));
+	}
+
+	void RegisterSystems() override {
+		
+	}
+	
+	void OnTick_BeforeEcs(TDeltaTime deltaTime) override {
+		IGame::OnTick_BeforeEcs(deltaTime);
+
+		static TDeltaTime totalTime = 0.0f;
+		totalTime += deltaTime;
+		m_frameCount++;
+		
+		if (totalTime >= 1.0f) {
+			totalTime = 0.0f;
+			Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "FPS: ", m_frameCount);
+			m_frameCount = 0;
+		}
+
+		IO::IKeyboardInput* keyboard = nullptr;
+		IO::IGamepadInput* gamepad = nullptr;
+		IO::IMouseInput* mouse = nullptr;
+
+		// Obtenemos las interfaces necesarias
+		Engine::GetInput()->QueryInterface(IUUID::IKeyboardInput, (void**)&keyboard);
+		Engine::GetInput()->QueryInterface(IUUID::IGamepadInput, (void**)&gamepad);
+		Engine::GetInput()->QueryInterface(IUUID::IMouseInput, (void**)&mouse);
+
+		Engine::GetEcs()->GetComponent<CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
+			Engine::GetEcs()->GetComponent<Transform2D>(cameraObject2d)
+		);
+
+		// Si disponemos de teclado...
+		if (keyboard) {
+
+			// Exit
+			if (keyboard->IsKeyDown(IO::Key::ESCAPE))
+				this->Exit();
+
+			// Fullscreen
+			if (keyboard->IsKeyStroked(IO::Key::F11)) {
+				IO::IFullscreenableDisplay* display = nullptr;
+				Engine::GetDisplay()->QueryInterface(OSK_IUUID(IO::IFullscreenableDisplay), (void**)&display);
+
+				if (display)
+					display->ToggleFullscreen();
+			}
+		}
+
+		// UI
+		if (mouse) {
+			const bool isPressed = mouse->GetMouseState().IsButtonDown(IO::MouseButton::BUTTON_LEFT);
+			const Vector2f position = mouse->GetMouseState().GetPosition().ToVector2f();
+
+			GetRootUiElement().UpdateByCursor(position, isPressed);
+		}
+
+		if (keyboard) {
+			GetRootUiElement().UpdateByKeyboard(
+				keyboard->GetPreviousKeyboardState(), 
+				keyboard->GetKeyboardState());
+		}
+	}
+
+	void BuildFrame() override {
+		auto commandList = Engine::GetRenderer()->GetMainCommandList();
+		auto renderpass  = Engine::GetRenderer()->GetFinalRenderTarget();
+
+		const Vector4ui windowRec = {
+			0,
+			0,
+			Engine::GetDisplay()->GetResolution().x,
+			Engine::GetDisplay()->GetResolution().y
+		};
+
+		Viewport viewport{};
+		viewport.rectangle = windowRec;
+		commandList->SetViewport(viewport);
+		commandList->SetScissor(windowRec);
+
+		commandList->SetGpuImageBarrier(
+			m_minRt->GetTargetImage(),
+			GpuImageLayout::GENERAL,
+			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
+		commandList->BindMaterial(*m_minComputeMaterial);
+		commandList->BindMaterialInstance(m_minComputeMaterialInstance.GetValue());
+		commandList->PushMaterialConstants("time", Engine::GetCurrentTime());
+		commandList->DispatchCompute({ 
+			(USize32)glm::ceil(windowRec.z / 16.0f), 
+			(USize32)glm::ceil(windowRec.w / 16.0f), 1 });
+		commandList->SetGpuImageBarrier(
+			m_minRt->GetTargetImage(),
+			GpuImageLayout::SAMPLED,
+			GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
+		auto* swapchainImg = Engine::GetRenderer()->_GetSwapchain()->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex());
+		
+		commandList->BindVertexBuffer(Sprite::globalVertexBuffer.GetValue());
+		commandList->BindIndexBuffer(Sprite::globalIndexBuffer.GetValue());
+
+
+		commandList->BeginGraphicsRenderpass(renderpass);
+		commandList->BindMaterial(*Engine::GetRenderer()->GetFullscreenRenderingMaterial());
+
+		commandList->BindMaterialSlot(*m_minRt->GetFullscreenSpriteMaterialSlot());
+		commandList->DrawSingleInstance(6);
+
+		m_sdfRenderer->Begin(commandList);
+		m_sdfRenderer->SetCamera(cameraObject2d);
+		SdfDrawCall2D drawCall{};
+		drawCall.contentType = OSK::GRAPHICS::SdfDrawCallContentType2D::TEXTURE;
+		const auto& img = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/engine_logo.json");
+		drawCall.transform.SetPosition(Vector2f{  (windowRec.z - img->GetSize().x) / 2.0f, (windowRec.w - img->GetSize().y) / 2.0f });
+		drawCall.transform.SetScale(img->GetSize().ToVector2f());
+		drawCall.shape = SdfShape2D::RECTANGLE;
+		drawCall.contentType = SdfDrawCallContentType2D::TEXTURE;
+		drawCall.mainColor = Color::White;
+		GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
+		viewConfig.channel = SampledChannel::COLOR;
+		drawCall.texture = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/engine_logo.json")->GetTextureView2D();
+		m_sdfRenderer->Draw(drawCall);
+		m_sdfRenderer->End();
+
+		commandList->EndGraphicsRenderpass();
+
+		commandList->SetGpuImageBarrier(
+			Engine::GetRenderer()->_GetSwapchain()->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex()),
+			GpuImageLayout::PRESENT,
+			GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE));
+	}
+
+
+	void OnWindowResize(const Vector2ui& size) override {
+		m_minRt->Resize(size);
+		SetComputeImage();
+	}
+
+	void OnExit() override {
+		m_sdfRenderer.Delete();
+		m_minComputeMaterialInstance.Delete();
+		m_minRt.Delete();
+	}
+
+private:
+
+	void SetComputeImage() {
+		auto* slot  = m_minComputeMaterialInstance->GetSlot("image");
+		slot->SetStorageImage("image", *m_minRt->GetTargetImage()->GetView(GpuImageViewConfig::CreateStorage_Default()));
+		slot->FlushUpdate();
+	}
+
+
+	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
+
+	bool m_inEditor = false;
+
+	Material* m_minComputeMaterial = nullptr;
+	UniquePtr<MaterialInstance> m_minComputeMaterialInstance;
+	UniquePtr<ComputeRenderTarget> m_minRt;
+
+	UniquePtr<SdfBindlessRenderer2D> m_sdfRenderer;
+	int m_frameCount = 0;
 
 };
 

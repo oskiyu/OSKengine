@@ -5,6 +5,8 @@
 
 #include <type_traits>
 
+// Para hash
+#include <functional>
 
 namespace OSK::GRAPHICS {
 

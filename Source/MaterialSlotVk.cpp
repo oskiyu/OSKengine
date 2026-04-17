@@ -304,7 +304,7 @@ template <VulkanTarget Target>
 UniquePtr<VkDescriptorBufferInfo> MaterialSlotVk<Target>::GetDescriptorBufferInfo(const GpuMemorySubblockVk<Target>& subblock, const GpuBufferRange& range) {
 	UniquePtr<VkDescriptorBufferInfo> bufferInfo = MakeUnique<VkDescriptorBufferInfo>();
 
-	bufferInfo->buffer = subblock.GetOwnerBlock()->As<GpuMemoryBlockVk<Target>>()->GetVulkanBuffer();
+	bufferInfo->buffer = subblock.GetOwnerBlock()->template As<GpuMemoryBlockVk<Target>>()->GetVulkanBuffer();
 
 	if (range.full) {
 		bufferInfo->offset = subblock.GetOffsetFromBlock();

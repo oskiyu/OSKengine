@@ -4,7 +4,6 @@
 #ifdef OSK_USE_VULKAN_BACKEND
 
 #include "GpuImageLayoutVk.h"
-#include <vulkan/vulkan.h>
 
 VkImageLayout OSK::GRAPHICS::GetGpuImageLayoutVk(GpuImageLayout layout) {
 	switch (layout) {

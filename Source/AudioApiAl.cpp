@@ -66,7 +66,7 @@ void AudioApiAl::RegisterAllDevices() {
 		newDevice->Initialize(name);
 
 		RegisterDevice(std::move(newDevice));
-	} while (devicesNames[1] != NULL);
+	} while (devicesNames[1] != 0);
 	
 	auto defaultDeviceName = std::string(alcGetString(nullptr, ALC_DEFAULT_DEVICE_SPECIFIER));
 	

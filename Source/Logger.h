@@ -2,6 +2,7 @@
 
 #include "ApiCall.h"
 
+#include <format>
 #include <string>
 #include <mutex>
 
@@ -52,14 +53,18 @@ namespace OSK::IO {
 
 		/// @brief Manda un mensaje por el logger.
 		/// @param level Nivel del mensaje.
-		/// @param msg Mensaje a mostrar.
+		/// @param args Mensaje a mostrar.
 		/// 
 		/// @pre El logger debe haber sido inicializado con Start().
 		/// @throws LoggerNotInitializedException si se incumple la precondición.
 		/// 
 		/// @threadsafe
-		virtual void Log(LogLevel level, const std::string& msg) = 0;
-
+		template <typename ...T>
+		void Log(LogLevel level, T... args)
+		{
+			_Log(level, Append(args...));
+		}
+		
 		/// @brief Manda un mensaje de depuración.
 		/// @param msg Mensaje a mostrar.
 		/// 
@@ -96,6 +101,32 @@ namespace OSK::IO {
 		/// @throws LoggerNotInitializedException si se incumple la precondición.
 		virtual void Close() = 0;
 
+protected:
+
+		/// @brief Manda un mensaje por el logger.
+		/// @param level Nivel del mensaje.
+		/// @param msg Mensaje a mostrar.
+		/// 
+		/// @pre El logger debe haber sido inicializado con Start().
+		/// @throws LoggerNotInitializedException si se incumple la precondición.
+		/// 
+		/// @threadsafe
+		virtual void _Log(LogLevel level, const std::string& msg) = 0;
+
+private:
+
+		template <typename T, typename ...TArgs>
+		std::string Append(const T& arg1, TArgs... args)
+		{
+			return std::format("{} {}", arg1, Append(args...));
+		}
+
+		template <typename T>
+		std::string Append(const T& arg)
+		{
+			return std::format("{}", arg);
+		}
+
 	};
 
 
@@ -107,7 +138,8 @@ namespace OSK::IO {
 
 		void Start(const std::string& path);
 
-		void Log(LogLevel level, const std::string& msg);
+		
+		void _Log(LogLevel level, const std::string& msg);		
 		void DebugLog(const std::string& msg);
 		void InfoLog(const std::string& msg);
 

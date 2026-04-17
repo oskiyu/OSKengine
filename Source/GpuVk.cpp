@@ -226,27 +226,35 @@ void GpuVk<Target>::CreateLogicalDevice() {
 	createInfo.pEnabledFeatures = &features;
 	createInfo.enabledExtensionCount = static_cast<uint32_t>(gpuExtensions.GetSize());
 	createInfo.ppEnabledExtensionNames = gpuExtensions.GetData();
+	createInfo.pNext = nullptr;
+
+	const void** pNext = &createInfo.pNext;
 
 	// Cadena con extensiones.
 	if constexpr (Target == VulkanTarget::VK_LATEST) {
 		createInfo.pEnabledFeatures = nullptr;
-		createInfo.pNext = &info.extendedFeatures;
+		
 		info.extendedFeatures.features = features;
 		info.extendedFeatures.pNext = &info.dynamicRenderingFeatures;
+
+		*pNext = (const void**)&info.dynamicRenderingFeatures;
+		 pNext = (const void**)&info.dynamicRenderingFeatures.pNext;
 	}
 
 	// Renderizado dinámico (solo en LATEST).
 	if constexpr (Target == VulkanTarget::VK_LATEST) {
 		info.dynamicRenderingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
 		info.dynamicRenderingFeatures.dynamicRendering = VK_TRUE;
-		info.dynamicRenderingFeatures.pNext = &info.syncFeatures;
+
+		*pNext = (const void**)&info.syncFeatures;
+		 pNext = (const void**)&info.syncFeatures.pNext;
+		*pNext = nullptr;
 	}
 
 	// Sincronización avanzada (solo en LATEST).
 	if constexpr (Target == VulkanTarget::VK_LATEST) {
 		info.syncFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
 		info.syncFeatures.synchronization2 = VK_TRUE;
-		info.syncFeatures.pNext = nullptr;
 	}
 
 
@@ -255,7 +263,7 @@ void GpuVk<Target>::CreateLogicalDevice() {
 
 	// Mesh shaders (solo en LATEST).
 	if (info.IsCompatibleWithMeshShaders()) {
-		info.syncFeatures.pNext = &info.meshShaders;
+		*pNext = (const void**)&info.meshShaders;
 
 		info.meshShaders.meshShader = VK_TRUE;
 		info.meshShaders.taskShader = VK_TRUE;
@@ -263,17 +271,13 @@ void GpuVk<Target>::CreateLogicalDevice() {
 		info.meshShaders.meshShaderQueries = VK_FALSE;
 		info.meshShaders.primitiveFragmentShadingRateMeshShader = VK_FALSE;
 
-		info.meshShaders.pNext = nullptr;
+		 pNext = (const void**)&info.meshShaders.pNext;
+		*pNext = nullptr;
 	}
 
 	// Trazado de rayos (solo en LATEST).
 	if (info.IsRtCompatible()) {
-		if (info.IsCompatibleWithMeshShaders()) {
-			info.meshShaders.pNext = &info.rtAccelerationStructuresFeatures;
-		}
-		else {
-			info.syncFeatures.pNext = &info.rtAccelerationStructuresFeatures;
-		}
+		*pNext = (const void**)&info.rtAccelerationStructuresFeatures;
 
 		info.rtAccelerationStructuresFeatures = {};
 		info.rtAccelerationStructuresFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR,
@@ -294,26 +298,28 @@ void GpuVk<Target>::CreateLogicalDevice() {
 		info.bindlessTexturesSets.runtimeDescriptorArray = VK_TRUE;
 		info.bindlessTexturesSets.descriptorBindingVariableDescriptorCount = VK_TRUE;
 		info.bindlessTexturesSets.pNext = nullptr;
+
+		pNext = (const void**)&info.bindlessTexturesSets.pNext;
 	}
 	else if (info.IsCompatibleWithBindless()) {
-		if (info.IsCompatibleWithMeshShaders()) {
-			info.meshShaders.pNext = &info.rtAccelerationStructuresFeatures;
-		}
-		else {
-			info.syncFeatures.pNext = &info.rtAccelerationStructuresFeatures;
-		}
+		*pNext = (const void**)&info.bindlessTexturesSets;
 
 		info.bindlessTexturesSets.shaderSampledImageArrayNonUniformIndexing = VK_TRUE;
 		info.bindlessTexturesSets.runtimeDescriptorArray = VK_TRUE;
 		info.bindlessTexturesSets.descriptorBindingVariableDescriptorCount = VK_TRUE;
 		info.bindlessTexturesSets.pNext = nullptr;
+
+		pNext = (const void**)&info.bindlessTexturesSets.pNext;
 	}
 	
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Antes de Logical device");
 	// Crear el logical device.
 	VkResult result = vkCreateDevice(physicalDevice, &createInfo, nullptr, &logicalDevice);
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Después del logical device");
 
 	// Error-handling.
 	OSK_ASSERT(result == VK_SUCCESS, LogicalDeviceCreationException(result));
+	Engine::GetLogger()->InfoLog(std::format("Logical Device Result: {}", (int)result));
 }
 
 template<VulkanTarget Target>

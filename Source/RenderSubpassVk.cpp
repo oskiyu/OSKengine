@@ -2,6 +2,7 @@
 
 #ifdef OSK_USE_VULKAN_BACKEND
 
+using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 RenderSubpassVk::RenderSubpassVk(
@@ -15,6 +16,14 @@ RenderSubpassVk::RenderSubpassVk(
 	SetColorAttachments(colorAttachments);
 
 	m_description.pDepthStencilAttachment = &m_depthAttachment.GetReference();
+}
+
+VkSubpassDescription RenderSubpassVk::GetDescription() const {
+	return m_description;
+}
+
+const DynamicArray<VkSubpassDependency> RenderSubpassVk::GetDependencies() const {
+	return m_dependencies;
 }
 
 void RenderSubpassVk::SetColorAttachments(const DynamicArray<RenderpassAttachmentVk>& attachments) {

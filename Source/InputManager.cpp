@@ -1,5 +1,7 @@
 #include "InputManager.h"
 
+#include <array>
+
 #include "IInputListener.h"
 
 #include "IUserInput.h"
@@ -13,7 +15,7 @@ using namespace OSK::IO;
 
 
 // Gamepad buttons
-const static GamepadButton gamepadButtons[] = {
+const static std::array<GamepadButton, 12> gamepadButtons = {
 	GamepadButton::x,
 	GamepadButton::y,
 	GamepadButton::A,
@@ -122,7 +124,7 @@ void InputManager::_Update(const IUserInput& input) {
 				continue;
 
 			// Buttons
-			for (UIndex32 i = 0; i < _countof(gamepadButtons); i++) {
+			for (UIndex32 i = 0; i < gamepadButtons.size(); i++) {
 				const GamepadButton button = gamepadButtons[i];
 
 				// Pressed

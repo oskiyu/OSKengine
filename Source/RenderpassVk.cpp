@@ -9,7 +9,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-static DynamicArray<VkAttachmentDescription> GetAttachmentsVk(const DynamicArray<RenderpassAttachmentVk>& attachments) {
+DynamicArray<VkAttachmentDescription> GetAttachmentsVk(const DynamicArray<RenderpassAttachmentVk>& attachments) {
 	auto output = DynamicArray<VkAttachmentDescription>::CreateResized(attachments.GetSize());
 
 	for (UIndex64 i = 0; i < attachments.GetSize(); i++) {
@@ -19,7 +19,7 @@ static DynamicArray<VkAttachmentDescription> GetAttachmentsVk(const DynamicArray
 	return output;
 }
 
-static DynamicArray<VkSubpassDescription> GetSubpassesVk(const DynamicArray<RenderSubpassVk>& subpasses) {
+DynamicArray<VkSubpassDescription> GetSubpassesVk(const DynamicArray<RenderSubpassVk>& subpasses) {
 	auto output = DynamicArray<VkSubpassDescription>::CreateResized(subpasses.GetSize());
 
 	for (UIndex64 i = 0; i < subpasses.GetSize(); i++) {
@@ -29,7 +29,7 @@ static DynamicArray<VkSubpassDescription> GetSubpassesVk(const DynamicArray<Rend
 	return output;
 }
 
-static DynamicArray<VkSubpassDependency> GetDependenciesVk(const DynamicArray<RenderSubpassVk>& subpasses) {
+DynamicArray<VkSubpassDependency> GetDependenciesVk(const DynamicArray<RenderSubpassVk>& subpasses) {
 	DynamicArray<VkSubpassDependency> output{};
 
 	for (const auto& subpass : subpasses) {

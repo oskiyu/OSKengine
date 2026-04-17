@@ -9,7 +9,7 @@ namespace OSK {
 	/// @brief Representa un vector 2D.
 	/// @tparam T Precisión.
 	template <typename T> 
-	class Vector2_t {
+	class 	Vector2_t {
 
 	public:
 
@@ -39,8 +39,9 @@ namespace OSK {
 
 		/// @brief Crea un vector 2D con los parámetros de vec.
 		/// @param vec Vector.
-		explicit constexpr Vector2_t(const glm::vec2& vec) : x(vec.x), y(vec.y) { }
-
+		static constexpr Vector2_t FromGlm(const glm::vec2& vec) {
+			return Vector2_t(vec.x, vec.y);
+		}
 
 		/// @return Operación Vector2 + Vector2.
 		/// @param vec Otro vector.

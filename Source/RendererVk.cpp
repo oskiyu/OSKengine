@@ -357,16 +357,19 @@ void RendererVk<Target>::CreateInstance(const std::string& appName, const Versio
 	createInfo.ppEnabledExtensionNames = extensions.GetData();
 	createInfo.pNext = nullptr;
 
-	//Engine::GetLogger()->InfoLog("Extensiones del renderizador: ");
-	//for (const auto& i : extensions)
-	//	Engine::GetLogger()->InfoLog("	" + std::string(i));
+	Engine::GetLogger()->InfoLog("Extensiones del renderizador: ");
+	for (const auto& i : extensions)
+		Engine::GetLogger()->InfoLog("	" + std::string(i));
 
-	//Engine::GetLogger()->InfoLog("Capas de validación del renderizador: ");
-	//for (const auto& i : validationLayers)
-	//	Engine::GetLogger()->InfoLog("	" + std::string(i));
+	Engine::GetLogger()->InfoLog("Capas de validación del renderizador: ");
+	for (const auto& i : validationLayers)
+		Engine::GetLogger()->InfoLog("	" + std::string(i));
 
 	VkResult result = vkCreateInstance(&createInfo, nullptr, &m_instance);
+	Engine::GetLogger()->DebugLog(std::format("Resultado de la inicialización: {}", (int)result));
 	OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("Crear instancia de Vulkan", result));
+	
+	Engine::GetLogger()->DebugLog("Finalizada inicialización del renderizador.");
 }
 
 template <VulkanTarget Target>
@@ -819,8 +822,8 @@ bool RendererVk<Target>::SupportsRaytracing() const {
 }
 
 #define OSK_VK_DEF_FUNC(funcName) \
-PFN_##funcName RendererVk<VulkanTarget::VK_1_0>::p##funcName = nullptr; \
-PFN_##funcName RendererVk<VulkanTarget::VK_LATEST>::p##funcName = nullptr; 
+template<> PFN_##funcName RendererVk<VulkanTarget::VK_1_0>::p##funcName = nullptr; \
+template<> PFN_##funcName RendererVk<VulkanTarget::VK_LATEST>::p##funcName = nullptr; 
 
 // Ray-tracing
 OSK_VK_DEF_FUNC(vkGetBufferDeviceAddressKHR);

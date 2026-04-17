@@ -74,13 +74,13 @@ void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json
 
 	for (auto& slotInfo : materialInfo["layout"]["slots"]) {
 		MaterialLayoutSlot slot{};
-		slot.name = slotInfo["name"];
+		slot.name = (std::string)slotInfo["name"];
 
 		for (auto& bindingInfo : slotInfo["bindings"]) {
 			MaterialLayoutBinding binding{};
 
-			binding.name = bindingInfo["name"];
-			binding.type = GetShaderBindingType(bindingInfo["type"]);
+			binding.name = (std::string)bindingInfo["name"];
+			binding.type = GetShaderBindingType((std::string)bindingInfo["type"]);
 
 			slot.bindings[binding.name] = binding;
 		}
@@ -91,7 +91,7 @@ void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json
 	for (auto& pushConstantInfo : materialInfo["layout"]["push_constants"]) {
 		MaterialLayoutPushConstant pushConst{};
 
-		pushConst.name = pushConstantInfo["name"];
+		pushConst.name = (std::string)pushConstantInfo["name"];
 		pushConst.size = pushConstantInfo["size"];
 
 		layout->AddPushConstant(pushConst);
@@ -104,24 +104,24 @@ void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json
 		int fileVersion = shaderInfo["spec_ver"];
 
 		if (Engine::GetRenderer()->GetRenderApi() == RenderApiType::VULKAN) {
-			info->vertexPath = shaderInfo["glsl_shaders"]["vertex"];
-			info->fragmentPath = shaderInfo["glsl_shaders"]["fragment"];
+			info->vertexPath = (std::string)shaderInfo["glsl_shaders"]["vertex"];
+			info->fragmentPath = (std::string)shaderInfo["glsl_shaders"]["fragment"];
 
 			if (shaderInfo["glsl_shaders"].contains("tesselation_control"))
-				info->tesselationControlPath = shaderInfo["glsl_shaders"]["tesselation_control"];
+				info->tesselationControlPath = (std::string)shaderInfo["glsl_shaders"]["tesselation_control"];
 
 			if (shaderInfo["glsl_shaders"].contains("tesselation_evaluation"))
-				info->tesselationEvaluationPath = shaderInfo["glsl_shaders"]["tesselation_evaluation"];
+				info->tesselationEvaluationPath = (std::string)shaderInfo["glsl_shaders"]["tesselation_evaluation"];
 		}
 		else if (Engine::GetRenderer()->GetRenderApi() == RenderApiType::DX12) {
-			info->vertexPath = shaderInfo["hlsl_shaders"]["vertex"];
-			info->fragmentPath = shaderInfo["hlsl_shaders"]["fragment"];
+			info->vertexPath = (std::string)shaderInfo["hlsl_shaders"]["vertex"];
+			info->fragmentPath = (std::string)shaderInfo["hlsl_shaders"]["fragment"];
 
 			if (shaderInfo["hlsl_shaders"].contains("tesselation_control"))
-				info->tesselationControlPath = shaderInfo["hlsl_shaders"]["tesselation_control"];
+				info->tesselationControlPath = (std::string)shaderInfo["hlsl_shaders"]["tesselation_control"];
 
 			if (shaderInfo["hlsl_shaders"].contains("tesselation_evaluation"))
-				info->tesselationEvaluationPath = shaderInfo["hlsl_shaders"]["tesselation_evaluation"];
+				info->tesselationEvaluationPath = (std::string)shaderInfo["hlsl_shaders"]["tesselation_evaluation"];
 		}
 
 		for (auto& slotInfo : shaderInfo["slots"]) {
@@ -130,10 +130,10 @@ void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json
 			slot.glslSetIndex = slotInfo["glsl_set"];
 
 			for (auto& stage : slotInfo["shader_stages"])
-				EFTraits::AddFlag(&slot.stage, GetShaderStage(stage));
+				EFTraits::AddFlag(&slot.stage, GetShaderStage((std::string)stage));
 
 			for (auto& bindingInfo : slotInfo["bindings"]) {
-				std::string bindingName = bindingInfo["name"];
+				std::string bindingName = (std::string)bindingInfo["name"];
 
 				slot.bindings[bindingName].glslIndex = bindingInfo["glsl_index"];
 				slot.bindings[bindingName].hlslIndex = bindingInfo["hlsl_index"];
@@ -141,10 +141,10 @@ void MaterialSystem::LoadMaterialV0(MaterialLayout* layout, const nlohmann::json
 		}
 
 		for (auto& pushConstantInfo : shaderInfo["push_constants"]) {
-			auto& pushConst = layout->GetPushConstant(pushConstantInfo["name"]);
+			auto& pushConst = layout->GetPushConstant((std::string)pushConstantInfo["name"]);
 
 			for (auto& stage : pushConstantInfo["shader_stages"])
-				EFTraits::AddFlag(&pushConst.stage, GetShaderStage(stage));
+				EFTraits::AddFlag(&pushConst.stage, GetShaderStage((std::string)stage));
 
 			pushConst.hlslIndex = pushConstantInfo["hlsl_index"];
 		}
@@ -238,7 +238,7 @@ Material* MaterialSystem::LoadMaterial(const std::string& path) {
 	}
 
 	if (materialInfo.contains("polygon_mode"))
-		info.polygonMode = GetPolygonMode(materialInfo["polygon_mode"]);
+		info.polygonMode = GetPolygonMode((std::string)materialInfo["polygon_mode"]);
 
 	// Engine::GetLogger()->DebugLog(ToString(*layout));
 

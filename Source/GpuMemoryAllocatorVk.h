@@ -7,21 +7,7 @@
 #include "Vector3.hpp"
 #include "VulkanTarget.h"
 
-struct VkDeviceMemory_T;
-typedef VkDeviceMemory_T* VkDeviceMemory;
-
-struct VkImage_T;
-typedef VkImage_T* VkImage;
-
-struct VkSampler_T;
-typedef VkSampler_T* VkSampler;
-
-struct VkImageView_T;
-typedef VkImageView_T* VkImageView;
-
-enum VkSampleCountFlagBits;
-enum VkImageViewType;
-enum VkImageType;
+#include <vulkan/vulkan.h>
 
 namespace OSK::GRAPHICS {
 

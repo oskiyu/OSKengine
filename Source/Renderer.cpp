@@ -273,7 +273,9 @@ void IRenderer::_SetMainCommandList(UniquePtr<ICommandList>&& commandList) {
 }
 
 void IRenderer::_SetGpu(UniquePtr<IGpu>&& gpu) {
+	Engine::GetLogger()->InfoLog("Before _SetGpu");
 	m_currentGpu = std::move(gpu);
+	Engine::GetLogger()->InfoLog("After _SetGpu");
 }
 
 void IRenderer::_SetMemoryAllocator(UniquePtr<IGpuMemoryAllocator>&& allocator) {

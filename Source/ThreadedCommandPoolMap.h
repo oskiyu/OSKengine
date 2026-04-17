@@ -8,6 +8,7 @@
 #include "ICommandPool.h"
 
 // Sincronización.
+#include <thread>
 #include <shared_mutex>
 
 
