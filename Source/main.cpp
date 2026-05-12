@@ -8,7 +8,7 @@ int main() {
 
 #ifdef OSK_RELEASE
 	try {
-		Game1 game = Game1();
+		auto game = GameMin();
 		game._Run();
 	}
 	catch (const OSK::EngineException& e) {

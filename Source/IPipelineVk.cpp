@@ -16,23 +16,20 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-template <VulkanTarget Target>
-IPipelineVk<Target>::~IPipelineVk() {
+IPipelineVk::~IPipelineVk() {
 	for (UIndex32 i = 0; i < shaderModulesToDelete.GetSize(); i++)
-		vkDestroyShaderModule(Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(),
+		vkDestroyShaderModule(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 			shaderModulesToDelete.At(i), nullptr);
 
-	vkDestroyPipeline(Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(),
+	vkDestroyPipeline(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 		pipeline, nullptr);
 }
 
-template <VulkanTarget Target>
-VkPipeline IPipelineVk<Target>::GetPipeline() const {
+VkPipeline IPipelineVk::GetPipeline() const {
 	return pipeline;
 }
 
-template <VulkanTarget Target>
-VkVertexInputBindingDescription IPipelineVk<Target>::GetBindingDescription(const VertexInfo& info) const {
+VkVertexInputBindingDescription IPipelineVk::GetBindingDescription(const VertexInfo& info) const {
 	VkVertexInputBindingDescription bindingDescription{};
 
 	USize32 size = 0;
@@ -46,8 +43,7 @@ VkVertexInputBindingDescription IPipelineVk<Target>::GetBindingDescription(const
 	return bindingDescription;
 }
 
-template <VulkanTarget Target>
-VkShaderModule IPipelineVk<Target>::CreateShaderModule(std::span<const char> code, std::string_view name, VkDevice logicalDevice) {
+VkShaderModule IPipelineVk::CreateShaderModule(std::span<const char> code, std::string_view name, VkDevice logicalDevice) {
 	VkShaderModule output = VK_NULL_HANDLE;
 
 	VkShaderModuleCreateInfo createInfo{};
@@ -58,21 +54,20 @@ VkShaderModule IPipelineVk<Target>::CreateShaderModule(std::span<const char> cod
 	VkResult result = vkCreateShaderModule(logicalDevice, &createInfo, nullptr, &output);
 	OSK_ASSERT(result == VK_SUCCESS, ShaderLoadingException(result));
 
-	if (RendererVk<Target>::pvkSetDebugUtilsObjectNameEXT) {
+	if (RendererVk::pvkSetDebugUtilsObjectNameEXT) {
 		VkDebugUtilsObjectNameInfoEXT nameInfo{};
 		nameInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
 		nameInfo.objectType = VK_OBJECT_TYPE_SHADER_MODULE;
 		nameInfo.objectHandle = (uint64_t)output;
 		nameInfo.pObjectName = name.data();
 
-		RendererVk<Target>::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
+		RendererVk::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
 	}
 
 	return output;
 }
 
-template <VulkanTarget Target>
-VkFormat IPipelineVk<Target>::GetVertexAttribFormat(const VertexInfo::Entry& entry) const {
+VkFormat IPipelineVk::GetVertexAttribFormat(const VertexInfo::Entry& entry) const {
 	switch (entry.type) {
 
 	case VertexInfo::Entry::Type::INT:
@@ -99,8 +94,7 @@ VkFormat IPipelineVk<Target>::GetVertexAttribFormat(const VertexInfo::Entry& ent
 	return VK_FORMAT_MAX_ENUM;
 }
 
-template <VulkanTarget Target>
-DynamicArray<VkVertexInputAttributeDescription> IPipelineVk<Target>::GetAttributeDescription(const VertexInfo& info) const {
+DynamicArray<VkVertexInputAttributeDescription> IPipelineVk::GetAttributeDescription(const VertexInfo& info) const {
 	DynamicArray<VkVertexInputAttributeDescription> output;
 
 	USize32 offset = 0;
@@ -120,8 +114,7 @@ DynamicArray<VkVertexInputAttributeDescription> IPipelineVk<Target>::GetAttribut
 	return output;
 }
 
-template <VulkanTarget Target>
-VkPipelineColorBlendAttachmentState IPipelineVk<Target>::GetColorBlendInfo(const PipelineCreateInfo& info) const {
+VkPipelineColorBlendAttachmentState IPipelineVk::GetColorBlendInfo(const PipelineCreateInfo& info) const {
 	VkPipelineColorBlendAttachmentState output{};
 
 	output.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
@@ -139,8 +132,7 @@ VkPipelineColorBlendAttachmentState IPipelineVk<Target>::GetColorBlendInfo(const
 	return output;
 }
 
-template <VulkanTarget Target>
-VkPolygonMode IPipelineVk<Target>::GetPolygonMode(PolygonMode mode) const {
+VkPolygonMode IPipelineVk::GetPolygonMode(PolygonMode mode) const {
 	switch (mode) {
 	case PolygonMode::TRIANGLE_FILL:
 		return VK_POLYGON_MODE_FILL;
@@ -152,8 +144,7 @@ VkPolygonMode IPipelineVk<Target>::GetPolygonMode(PolygonMode mode) const {
 	}
 }
 
-template <VulkanTarget Target>
-VkCullModeFlagBits IPipelineVk<Target>::GetCullMode(PolygonCullMode mode) const {
+VkCullModeFlagBits IPipelineVk::GetCullMode(PolygonCullMode mode) const {
 	switch (mode) {
 	case PolygonCullMode::FRONT:
 		return VK_CULL_MODE_FRONT_BIT;
@@ -166,8 +157,7 @@ VkCullModeFlagBits IPipelineVk<Target>::GetCullMode(PolygonCullMode mode) const 
 	}
 }
 
-template <VulkanTarget Target>
-VkFrontFace IPipelineVk<Target>::GetFrontFaceMode(PolygonFrontFaceType type) const {
+VkFrontFace IPipelineVk::GetFrontFaceMode(PolygonFrontFaceType type) const {
 	switch (type) {
 	case PolygonFrontFaceType::CLOCKWISE:
 		return VK_FRONT_FACE_CLOCKWISE;
@@ -178,8 +168,7 @@ VkFrontFace IPipelineVk<Target>::GetFrontFaceMode(PolygonFrontFaceType type) con
 	}
 }
 
-template <VulkanTarget Target>
-VkShaderStageFlagBits IPipelineVk<Target>::GetShaderStageVk(ShaderStage stage) const {
+VkShaderStageFlagBits IPipelineVk::GetShaderStageVk(ShaderStage stage) const {
 	if (EFTraits::HasFlag(stage, ShaderStage::VERTEX))
 		return VK_SHADER_STAGE_VERTEX_BIT;
 	if (EFTraits::HasFlag(stage, ShaderStage::FRAGMENT))
@@ -203,8 +192,7 @@ VkShaderStageFlagBits IPipelineVk<Target>::GetShaderStageVk(ShaderStage stage) c
 	return VK_SHADER_STAGE_ALL;
 }
 
-template <VulkanTarget Target>
-ShaderStageVk IPipelineVk<Target>::LoadShader(const std::string& path, ShaderStage stage) {
+ShaderStageVk IPipelineVk::LoadShader(const std::string& path, ShaderStage stage) {
 	ShaderStageVk output{};
 
 	// Lee el código SPIR-V.
@@ -215,7 +203,7 @@ ShaderStageVk IPipelineVk<Target>::LoadShader(const std::string& path, ShaderSta
 	createInfo.codeSize = code.GetSize();
 	createInfo.pCode = reinterpret_cast<const uint32_t*>(code.GetData());
 
-	VkResult result = vkCreateShaderModule(Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(),
+	VkResult result = vkCreateShaderModule(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 		&createInfo, nullptr, &output.shaderModule);
 	OSK_ASSERT(result == VK_SUCCESS, ShaderLoadingException(result));
 
@@ -232,8 +220,7 @@ ShaderStageVk IPipelineVk<Target>::LoadShader(const std::string& path, ShaderSta
 }
 
 
-template <VulkanTarget Target>
-VkPipelineRasterizationStateCreateInfo IPipelineVk<Target>::GetResterizerInfo(const PipelineCreateInfo& info) const {
+VkPipelineRasterizationStateCreateInfo IPipelineVk::GetResterizerInfo(const PipelineCreateInfo& info) const {
 	VkPipelineRasterizationStateCreateInfo output{};
 
 	output.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
@@ -255,8 +242,7 @@ VkPipelineRasterizationStateCreateInfo IPipelineVk<Target>::GetResterizerInfo(co
 	return output;
 }
 
-template <VulkanTarget Target>
-VkPipelineDepthStencilStateCreateInfo IPipelineVk<Target>::GetDepthInfo(const PipelineCreateInfo& info) const {
+VkPipelineDepthStencilStateCreateInfo IPipelineVk::GetDepthInfo(const PipelineCreateInfo& info) const {
 	VkPipelineDepthStencilStateCreateInfo output{};
 
 	output.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
@@ -274,8 +260,7 @@ VkPipelineDepthStencilStateCreateInfo IPipelineVk<Target>::GetDepthInfo(const Pi
 	return output;
 }
 
-template <VulkanTarget Target>
-VkPipelineMultisampleStateCreateInfo IPipelineVk<Target>::GetMsaaInfo(const PipelineCreateInfo& info, const GpuVk<Target>& gpu) const {
+VkPipelineMultisampleStateCreateInfo IPipelineVk::GetMsaaInfo(const PipelineCreateInfo& info, const GpuVk& gpu) const {
 	VkPipelineMultisampleStateCreateInfo output{};
 
 	output.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
@@ -289,8 +274,7 @@ VkPipelineMultisampleStateCreateInfo IPipelineVk<Target>::GetMsaaInfo(const Pipe
 	return output;
 }
 
-template <VulkanTarget Target>
-VkPipelineTessellationStateCreateInfo IPipelineVk<Target>::GetTesselationInfo(const PipelineCreateInfo& info) const {
+VkPipelineTessellationStateCreateInfo IPipelineVk::GetTesselationInfo(const PipelineCreateInfo& info) const {
 	VkPipelineTessellationStateCreateInfo output{};
 
 	output.sType = VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO;

@@ -21,16 +21,22 @@
 #ifdef OSK_ANDROID
 #define OSK_USE_VULKAN_BACKEND
 #define OSK_USE_VULKAN_1_0
-#elif OSK_WINDOWS
+#endif
+
+#ifdef OSK_WINDOWS
 #define OSK_USE_VULKAN_BACKEND
 #define OSK_USE_VULKAN_1_3
 #define OSK_USE_DIRECTX12_BACKEND
 #define OSK_USE_PC_WINDOW
-#elif OSK_LINUX
+#endif
+
+#ifdef OSK_LINUX
 #define OSK_USE_VULKAN_BACKEND
 #define OSK_USE_VULKAN_1_3
 #define OSK_USE_PC_WINDOW
-#else
+#endif
+
+#if OSK_PLATFORM_CHECK_A + OSK_PLATFORM_CHECK_B + OSK_PLATFORM_CHECK_C == 0
 #error No se ha establecido la plataforma de destino.
 #endif
 

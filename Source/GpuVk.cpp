@@ -16,9 +16,8 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-template<VulkanTarget Target>
-GpuVk<Target>::GpuVk(VkPhysicalDevice gpu, VkSurfaceKHR surface) : physicalDevice(gpu), surface(surface) {
-	info = GpuInfoVkAny<Target>::Get(gpu, surface);
+GpuVk::GpuVk(VkPhysicalDevice gpu, VkSurfaceKHR surface) : physicalDevice(gpu), surface(surface) {
+	info = GpuInfoVkAny::Get(gpu, surface);
 	_SetName(info.properties.deviceName);
 
 	GpuMemoryAlignments alignments{};
@@ -29,13 +28,11 @@ GpuVk<Target>::GpuVk(VkPhysicalDevice gpu, VkSurfaceKHR surface) : physicalDevic
 	SetMinAlignments(alignments);
 }
 
-template<VulkanTarget Target>
-GpuVk<Target>::~GpuVk() {
+GpuVk::~GpuVk() {
 	Close();
 }
 
-template<VulkanTarget Target>
-GpuMemoryUsageInfo GpuVk<Target>::GetMemoryUsageInfo() const {
+GpuMemoryUsageInfo GpuVk::GetMemoryUsageInfo() const {
 	VkPhysicalDeviceProperties properties{};
 	vkGetPhysicalDeviceProperties(physicalDevice, &properties);
 
@@ -76,19 +73,17 @@ GpuMemoryUsageInfo GpuVk<Target>::GetMemoryUsageInfo() const {
 	return output;
 }
 
-template<VulkanTarget Target>
-UniquePtr<ICommandPool> GpuVk<Target>::CreateGraphicsCommandPool() {
+UniquePtr<ICommandPool> GpuVk::CreateGraphicsCommandPool() {
 	const QueueFamiles families = GetQueueFamilyIndices();
 	const QueueFamily family = families.GetFamilies(
 		CommandsSupport::GRAPHICS | 
 		CommandsSupport::COMPUTE | 
 		CommandsSupport::PRESENTATION).AtCpy(0);
 
-	return MakeUnique<CommandPoolVk<Target>>(*this, family, GpuQueueType::MAIN);
+	return MakeUnique<CommandPoolVk>(*this, family, GpuQueueType::MAIN);
 }
 
-template<VulkanTarget Target>
-UniquePtr<ICommandPool> GpuVk<Target>::CreateComputeCommandPool() {
+UniquePtr<ICommandPool> GpuVk::CreateComputeCommandPool() {
 	const auto families = GetQueueFamilyIndices().GetFamilies(
 		CommandsSupport::GRAPHICS | 
 		CommandsSupport::COMPUTE | 
@@ -96,50 +91,44 @@ UniquePtr<ICommandPool> GpuVk<Target>::CreateComputeCommandPool() {
 
 	const QueueFamily family = families.At(0);
 
-	return MakeUnique<CommandPoolVk<Target>>(
+	return MakeUnique<CommandPoolVk>(
 		*this,
 		family,
 		GpuQueueType::MAIN);
 }
 
-template<VulkanTarget Target>
-std::optional<UniquePtr<ICommandPool>> GpuVk<Target>::CreateTransferOnlyCommandPool() {
+std::optional<UniquePtr<ICommandPool>> GpuVk::CreateTransferOnlyCommandPool() {
 	const auto families = GetQueueFamilyIndices().GetFamilies(CommandsSupport::TRANSFER);
 
 	for (const auto& family : families) {
 		if (family.support == CommandsSupport::TRANSFER) {
-			return MakeUnique<CommandPoolVk<Target>>(*this, family, GpuQueueType::ASYNC_TRANSFER);
+			return MakeUnique<CommandPoolVk>(*this, family, GpuQueueType::ASYNC_TRANSFER);
 		}
 	}
 
 	return {};
 }
 
-template<VulkanTarget Target>
-UniquePtr<IGpuImageSampler> GpuVk<Target>::CreateSampler(const GpuImageSamplerDesc& info) const {
-	return MakeUnique<GpuImageSamplerVk<Target>>(info, this);
+UniquePtr<IGpuImageSampler> GpuVk::CreateSampler(const GpuImageSamplerDesc& info) const {
+	return MakeUnique<GpuImageSamplerVk>(info, this);
 }
 
-template<VulkanTarget Target>
-VkSurfaceKHR GpuVk<Target>::GetSurface() const {
+VkSurfaceKHR GpuVk::GetSurface() const {
 	return surface;
 }
 
-template<VulkanTarget Target>
-void GpuVk<Target>::Close() {
+void GpuVk::Close() {
 	if (logicalDevice != VK_NULL_HANDLE) {
 		vkDestroyDevice(logicalDevice, nullptr);
 		logicalDevice = VK_NULL_HANDLE;
 	}
 }
 
-template<VulkanTarget Target>
-VkPhysicalDevice GpuVk<Target>::GetPhysicalDevice() const {
+VkPhysicalDevice GpuVk::GetPhysicalDevice() const {
 	return physicalDevice;
 }
 
-template<VulkanTarget Target>
-void GpuVk<Target>::CreateLogicalDevice() {
+void GpuVk::CreateLogicalDevice() {
 	const QueueFamiles families = GetQueueFamilyIndices();
 
 	const auto graphicsAndComputeFamiliesList = families.GetFamilies(
@@ -187,8 +176,7 @@ void GpuVk<Target>::CreateLogicalDevice() {
 	DynamicArray<VkExtensionProperties> availableExtensions = GetAvailableExtensions(physicalDevice);
 	DynamicArray<const char*> gpuExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
 
-	// Solo en LATEST
-	if constexpr (Target == VulkanTarget::VK_LATEST) {
+	if (info.SupportsMemoryBudgetQuery()) {
 		gpuExtensions.Insert(VK_EXT_MEMORY_BUDGET_EXTENSION_NAME);
 	}
 
@@ -231,30 +219,32 @@ void GpuVk<Target>::CreateLogicalDevice() {
 	const void** pNext = &createInfo.pNext;
 
 	// Cadena con extensiones.
-	if constexpr (Target == VulkanTarget::VK_LATEST) {
+	if (info.IsCompatibleWithBindless()) {
 		createInfo.pEnabledFeatures = nullptr;
-		
 		info.extendedFeatures.features = features;
-		info.extendedFeatures.pNext = &info.dynamicRenderingFeatures;
+
+		*pNext = (const void**)&info.extendedFeatures;
+		 pNext = (const void**)&info.extendedFeatures.pNext;
+	}
+
+	// Renderizado dinámico.
+	if (info.SupportsDynamicRendering()) {
+		info.dynamicRenderingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
+		info.dynamicRenderingFeatures.dynamicRendering = VK_TRUE;
 
 		*pNext = (const void**)&info.dynamicRenderingFeatures;
 		 pNext = (const void**)&info.dynamicRenderingFeatures.pNext;
+		*pNext = nullptr;
 	}
 
-	// Renderizado dinámico (solo en LATEST).
-	if constexpr (Target == VulkanTarget::VK_LATEST) {
-		info.dynamicRenderingFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DYNAMIC_RENDERING_FEATURES;
-		info.dynamicRenderingFeatures.dynamicRendering = VK_TRUE;
+	// Sincronización avanzada.
+	if (info.SupportsSync2()) {
+		info.syncFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
+		info.syncFeatures.synchronization2 = VK_TRUE;
 
 		*pNext = (const void**)&info.syncFeatures;
 		 pNext = (const void**)&info.syncFeatures.pNext;
 		*pNext = nullptr;
-	}
-
-	// Sincronización avanzada (solo en LATEST).
-	if constexpr (Target == VulkanTarget::VK_LATEST) {
-		info.syncFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SYNCHRONIZATION_2_FEATURES;
-		info.syncFeatures.synchronization2 = VK_TRUE;
 	}
 
 
@@ -263,14 +253,13 @@ void GpuVk<Target>::CreateLogicalDevice() {
 
 	// Mesh shaders (solo en LATEST).
 	if (info.IsCompatibleWithMeshShaders()) {
-		*pNext = (const void**)&info.meshShaders;
-
 		info.meshShaders.meshShader = VK_TRUE;
 		info.meshShaders.taskShader = VK_TRUE;
 		info.meshShaders.multiviewMeshShader = VK_FALSE;
 		info.meshShaders.meshShaderQueries = VK_FALSE;
 		info.meshShaders.primitiveFragmentShadingRateMeshShader = VK_FALSE;
 
+		*pNext = (const void**)&info.meshShaders;
 		 pNext = (const void**)&info.meshShaders.pNext;
 		*pNext = nullptr;
 	}
@@ -322,18 +311,15 @@ void GpuVk<Target>::CreateLogicalDevice() {
 	Engine::GetLogger()->InfoLog(std::format("Logical Device Result: {}", (int)result));
 }
 
-template<VulkanTarget Target>
-VkDevice GpuVk<Target>::GetLogicalDevice() const {
+VkDevice GpuVk::GetLogicalDevice() const {
 	return logicalDevice;
 }
 
-template<VulkanTarget Target>
-const GpuInfoVkAny<Target>& GpuVk<Target>::GetInfo() const {
+const GpuInfoVkAny& GpuVk::GetInfo() const {
 	return info;
 }
 
-template<VulkanTarget Target>
-QueueFamiles GpuVk<Target>::GetQueueFamilyIndices() const {
+QueueFamiles GpuVk::GetQueueFamilyIndices() const {
 	QueueFamiles output{};
 
 	// Número de familias.
@@ -380,8 +366,7 @@ QueueFamiles GpuVk<Target>::GetQueueFamilyIndices() const {
 	return output;
 }
 
-template <VulkanTarget Target>
-DynamicArray<VkExtensionProperties> GpuVk<Target>::GetAvailableExtensions(VkPhysicalDevice gpu) {
+DynamicArray<VkExtensionProperties> GpuVk::GetAvailableExtensions(VkPhysicalDevice gpu) {
 	DynamicArray<VkExtensionProperties> output;
 
 	uint32_t extensionCount = 0;
@@ -392,8 +377,7 @@ DynamicArray<VkExtensionProperties> GpuVk<Target>::GetAvailableExtensions(VkPhys
 	return output;
 }
 
-template <VulkanTarget Target>
-bool GpuVk<Target>::IsExtensionPresent(const char* name, const DynamicArray<VkExtensionProperties>& extensions) {
+bool GpuVk::IsExtensionPresent(const char* name, const DynamicArray<VkExtensionProperties>& extensions) {
 	for (const auto& ext : extensions) {
 		if (strcmp(ext.extensionName, name) == 0) {
 			return true;

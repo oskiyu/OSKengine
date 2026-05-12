@@ -12,9 +12,8 @@ typedef VkPipelineLayout_T* VkPipelineLayout;
 
 namespace OSK::GRAPHICS {
 
-	template <VulkanTarget> class DescriptorLayoutVk;
+	class DescriptorLayoutVk;
 
-	template <VulkanTarget Target>
 	class OSKAPI_CALL PipelineLayoutVk final : public IPipelineLayout {
 
 	public:
@@ -30,9 +29,6 @@ namespace OSK::GRAPHICS {
 		VkPipelineLayout layout = 0;
 
 	};
-
-	template class PipelineLayoutVk<VulkanTarget::VK_1_0>;
-	template class PipelineLayoutVk<VulkanTarget::VK_LATEST>;
 
 }
 

@@ -21,6 +21,11 @@ namespace OSK::GRAPHICS {
 	/// 2D usando signed-distance-fields.
 	struct SdfDrawCall2D {
 
+		/// @param view Vista de la imagen a renderizar.
+		/// @return Draw call rectangular para una imagen.
+		static SdfDrawCall2D Texture(const IGpuImageView& view);
+
+
 		/// @brief Transform del elemento 2D.
 		OSK::ECS::Transform2D transform = OSK::ECS::Transform2D(ECS::GameObjectIndex::CreateEmpty());
 

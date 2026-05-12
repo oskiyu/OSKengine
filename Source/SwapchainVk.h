@@ -14,12 +14,11 @@ namespace OSK::GRAPHICS {
 
 	enum class Format;
 
-	template <VulkanTarget> class GpuVk;
-	template <VulkanTarget> class GpuImageVk;
+	class GpuVk;
+	class GpuImageVk;
 
 	class RenderpassVulkan;
 
-	template <VulkanTarget Target>
 	class OSKAPI_CALL SwapchainVk final : public ISwapchain {
 
 	public:
@@ -35,7 +34,7 @@ namespace OSK::GRAPHICS {
 		SwapchainVk(
 			PresentMode mode,
 			Format format,
-			const GpuVk<Target>& device,
+			const GpuVk& device,
 			const Vector2ui& resolution,
 			std::span<const UIndex32> queueIndices);
 		~SwapchainVk() override;
@@ -52,27 +51,24 @@ namespace OSK::GRAPHICS {
 	private:
 
 		void CreationLogic(
-			const GpuVk<Target>& device,
+			const GpuVk& device,
 			const Vector2ui& resolution,
 			std::span<const UIndex32> queueIndices);
 
 		/// @throws SwapchainCreationException Si ocurre algún error.
-		void AcquireImages(const GpuVk<Target>& device);
+		void AcquireImages(const GpuVk& device);
 		/// @throws SwapchainCreationException Si ocurre algún error.
-		void AcquireViews(const GpuVk<Target>& device);
+		void AcquireViews(const GpuVk& device);
 
 		/// <summary>
 		/// Devuelve el mejor formato de colores soportado por el monitor.
 		/// </summary>
-		static VkColorSpaceKHR GetSupportedColorSpace(const GpuVk<Target>& device);
+		static VkColorSpaceKHR GetSupportedColorSpace(const GpuVk& device);
 
 		VkSwapchainKHR m_swapchain = nullptr;
 		DynamicArray<UIndex32> m_queueIndices;
 
 	};
-
-	template class SwapchainVk<VulkanTarget::VK_1_0>;
-	template class SwapchainVk<VulkanTarget::VK_LATEST>;
 
 }
 

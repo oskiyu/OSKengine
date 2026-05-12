@@ -79,7 +79,7 @@ void ICommandList::BeginGraphicsRenderpass(RenderTarget* renderpass, const Color
 		}
 	}
 
-	BeginGraphicsRenderpass(colorImages, { renderpass->GetDepthImage(), 0 }, color, autoSync);
+	BeginGraphicsRenderpass(colorImages, RenderPassImageInfo{ renderpass->GetDepthImage(), 0 }, color, autoSync);
 }
 
 void ICommandList::BindVertexBuffer(const GpuBuffer& buffer) {
@@ -97,13 +97,14 @@ void ICommandList::BindMaterial(const Material& material) {
 
 	switch (material.GetMaterialType()) {
 		case MaterialType::GRAPHICS: {
-			OSK_ASSERT_2(
-				m_currentlyBoundDepthImage.targetImage != nullptr,
-				InvalidObjectStateException("No se ha establecido una imagen de profundidad para el pipeline gráfico."),
-				Engine::GetLogger());
-
 			PipelineKey pipelineKey{};
-			pipelineKey.depthFormat = m_currentlyBoundDepthImage.targetImage->GetFormat();
+
+			if (m_currentlyBoundDepthImage.targetImage == nullptr) {
+				pipelineKey.depthFormat = Format::UNKNOWN;
+			}
+			else {
+				pipelineKey.depthFormat = m_currentlyBoundDepthImage.targetImage->GetFormat();
+			}
 
 			for (const auto& colorImg : m_currentlyBoundColorImages)
 				pipelineKey.colorFormats.Insert(colorImg.targetImage->GetFormat());
@@ -115,13 +116,14 @@ void ICommandList::BindMaterial(const Material& material) {
 		}
 
 		case MaterialType::MESH: {
-			OSK_ASSERT_2(
-				m_currentlyBoundDepthImage.targetImage != nullptr,
-				InvalidObjectStateException("No se ha establecido una imagen de profundidad para el pipeline gráfico."),
-				Engine::GetLogger());
-
 			PipelineKey pipelineKey{};
-			pipelineKey.depthFormat = m_currentlyBoundDepthImage.targetImage->GetFormat();
+
+			if (m_currentlyBoundDepthImage.targetImage == nullptr) {
+				pipelineKey.depthFormat = Format::UNKNOWN;
+			}
+			else {
+				pipelineKey.depthFormat = m_currentlyBoundDepthImage.targetImage->GetFormat();
+			}
 
 			for (const auto& colorImg : m_currentlyBoundColorImages)
 				pipelineKey.colorFormats.Insert(colorImg.targetImage->GetFormat());

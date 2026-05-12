@@ -71,7 +71,7 @@ namespace OSK::GRAPHICS {
 	private:
 
 		std::unordered_map<GdrBufferUuid, DynamicArray<PartialRgBufferDependency>> GetBufferDependencies(std::span<const RenderPassEntry> renderpasses);
-		std::unordered_map<GdrBufferUuid, GpuBufferUsage> GetBufferUses(const std::unordered_map<GdrBufferUuid, DynamicArray<PartialRgBufferDependency>>& dependencies);
+		static std::unordered_map<GdrBufferUuid, GpuBufferUsage> GetBufferUses(const std::unordered_map<GdrBufferUuid, DynamicArray<PartialRgBufferDependency>>& dependencies);
 
 		IRenderer* m_renderer = nullptr;
 

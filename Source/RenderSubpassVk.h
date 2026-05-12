@@ -7,6 +7,7 @@
 
 #include <vulkan/vulkan.h>
 #include "DynamicArray.hpp"
+#include <optional>
 
 #include "RenderpassAttachmentVk.h"
 
@@ -22,10 +23,10 @@ namespace OSK::GRAPHICS {
 		explicit RenderSubpassVk(
 			VkPipelineBindPoint bindPoint,
 			const DynamicArray<RenderpassAttachmentVk>& colorAttachments,
-			const RenderpassAttachmentVk& depthAttachment);
+			std::optional<RenderpassAttachmentVk> depthAttachment);
 
 		VkSubpassDescription GetDescription() const;
-		const DynamicArray<VkSubpassDependency> GetDependencies() const;
+		const DynamicArray<VkSubpassDependency>& GetDependencies() const;
 
 	private:
 
@@ -33,9 +34,10 @@ namespace OSK::GRAPHICS {
 
 		VkSubpassDescription m_description{};
 		DynamicArray<RenderpassAttachmentVk> m_attachments{};
-		RenderpassAttachmentVk m_depthAttachment;
+		std::optional<RenderpassAttachmentVk> m_depthAttachment;
 		DynamicArray<VkSubpassDependency> m_dependencies{};
 		DynamicArray<VkAttachmentReference> m_references{};
+		VkAttachmentReference m_depthReference{};
 
 	};
 

@@ -24,17 +24,15 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-template <VulkanTarget Target>
 inline static VkDevice GetDevice() {
-	return Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
+	return Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 }
 
-template <VulkanTarget Target>
-MaterialSlotVk<Target>::MaterialSlotVk(const std::string& name, const MaterialLayout* layout)
+MaterialSlotVk::MaterialSlotVk(const std::string& name, const MaterialLayout* layout)
 	: IMaterialSlot(layout, name),
-	m_descLayout(new DescriptorLayoutVk<Target>(&layout->GetSlot(name)))
+	m_descLayout(new DescriptorLayoutVk(&layout->GetSlot(name)))
 {
-	m_pool = MakeUnique<DescriptorPoolVk<Target>>(m_descLayout.GetValue(), m_descLayout->GetNumDescriptors());
+	m_pool = MakeUnique<DescriptorPoolVk>(m_descLayout.GetValue(), m_descLayout->GetNumDescriptors());
 
 	std::array<USize32, MAX_RESOURCES_IN_FLIGHT> maxCount{};
 	maxCount.fill(m_descLayout->GetNumDescriptors());
@@ -60,20 +58,18 @@ MaterialSlotVk<Target>::MaterialSlotVk(const std::string& name, const MaterialLa
 
 	allocInfo.pSetLayouts = layouts.data();
 
-	VkResult result = vkAllocateDescriptorSets(GetDevice<Target>(), &allocInfo, &m_descriptorSet);
+	VkResult result = vkAllocateDescriptorSets(GetDevice(), &allocInfo, &m_descriptorSet);
 	OSK_ASSERT(result == VK_SUCCESS, MaterialSlotCreationException(result));
 
 	SetDebugName(name);
 }
 
-template <VulkanTarget Target>
-MaterialSlotVk<Target>::~MaterialSlotVk() {
+MaterialSlotVk::~MaterialSlotVk() {
 	m_pool.Delete();
 	m_descLayout.Delete();
 }
 
-template <VulkanTarget Target>
-void MaterialSlotVk<Target>::SetUniformBuffer(
+void MaterialSlotVk::SetUniformBuffer(
 	std::string_view binding, 
 	const GpuBuffer& buffer, 
 	const GpuBufferRange& range,
@@ -89,7 +85,7 @@ void MaterialSlotVk<Target>::SetUniformBuffer(
 
 	const UIndex32 bindingIndexInShader = it->second.glslIndex;
 
-	UniquePtr<VkDescriptorBufferInfo> bufferInfo = GetDescriptorBufferInfo(*buffer.GetMemorySubblock()->As<GpuMemorySubblockVk<Target>>(), range);
+	UniquePtr<VkDescriptorBufferInfo> bufferInfo = GetDescriptorBufferInfo(*buffer.GetMemorySubblock()->As<GpuMemorySubblockVk>(), range);
 
 	VkWriteDescriptorSet descriptorWrite{};
 	descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -107,8 +103,7 @@ void MaterialSlotVk<Target>::SetUniformBuffer(
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
-template <VulkanTarget Target>
-void MaterialSlotVk<Target>::SetStorageBuffer(
+void MaterialSlotVk::SetStorageBuffer(
 	std::string_view binding,
 	const GpuBuffer& buffer,
 	const GpuBufferRange& range,
@@ -124,7 +119,7 @@ void MaterialSlotVk<Target>::SetStorageBuffer(
 
 	const UIndex32 bindingIndexInShader = it->second.glslIndex;
 
-	UniquePtr<VkDescriptorBufferInfo> bufferInfo = GetDescriptorBufferInfo(*buffer.GetMemorySubblock()->As<GpuMemorySubblockVk<Target>>(), range);
+	UniquePtr<VkDescriptorBufferInfo> bufferInfo = GetDescriptorBufferInfo(*buffer.GetMemorySubblock()->As<GpuMemorySubblockVk>(), range);
 
 	VkWriteDescriptorSet descriptorWrite{};
 	descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -142,8 +137,7 @@ void MaterialSlotVk<Target>::SetStorageBuffer(
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
-template <VulkanTarget Target>
-void MaterialSlotVk<Target>::SetGpuImage(
+void MaterialSlotVk::SetGpuImage(
 	std::string_view binding,
 	const IGpuImageView& image,
 	const IGpuImageSampler& sampler,
@@ -177,8 +171,7 @@ void MaterialSlotVk<Target>::SetGpuImage(
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
-template <VulkanTarget Target>
-void MaterialSlotVk<Target>::SetStorageImage(
+void MaterialSlotVk::SetStorageImage(
 	std::string_view binding,
 	const IGpuImageView& image,
 	UIndex32 arrayIndex)
@@ -211,8 +204,7 @@ void MaterialSlotVk<Target>::SetStorageImage(
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
-template <VulkanTarget Target>
-void MaterialSlotVk<Target>::SetAccelerationStructure(
+void MaterialSlotVk::SetAccelerationStructure(
 	std::string_view binding,
 	const ITopLevelAccelerationStructure& accelerationStructure,
 	UIndex32 arrayIndex)
@@ -247,9 +239,8 @@ void MaterialSlotVk<Target>::SetAccelerationStructure(
 	m_bindings[bindingIndexInShader].dirtyDescriptorWrites.insert(arrayIndex);
 }
 
-template <VulkanTarget Target>
-void MaterialSlotVk<Target>::FlushUpdate() {
-	VkDevice device = GetDevice<Target>();
+void MaterialSlotVk::FlushUpdate() {
+	VkDevice device = GetDevice();
 
 	m_descriptorWrites.Empty();
 
@@ -274,14 +265,13 @@ void MaterialSlotVk<Target>::FlushUpdate() {
 		nullptr);
 }
 
-template <VulkanTarget Target>
-void MaterialSlotVk<Target>::SetDebugName(const std::string& name) {
+void MaterialSlotVk::SetDebugName(const std::string& name) {
 	VkDebugUtilsObjectNameInfoEXT nameInfo{};
 	nameInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
 	nameInfo.objectType = VK_OBJECT_TYPE_DESCRIPTOR_SET;
 	nameInfo.pNext = nullptr;
 
-	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
+	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 
 	std::string finalName = std::format("{} {}", name, GetName());
 
@@ -289,22 +279,20 @@ void MaterialSlotVk<Target>::SetDebugName(const std::string& name) {
 
 	nameInfo.objectHandle = (uint64_t)(m_descriptorSet);
 
-	if (RendererVk<Target>::pvkSetDebugUtilsObjectNameEXT != nullptr) {
-		RendererVk<Target>::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
+	if (RendererVk::pvkSetDebugUtilsObjectNameEXT != nullptr) {
+		RendererVk::pvkSetDebugUtilsObjectNameEXT(logicalDevice, &nameInfo);
 	}
 
 }
 
-template <VulkanTarget Target>
-VkDescriptorSet MaterialSlotVk<Target>::GetDescriptorSet() const {
+VkDescriptorSet MaterialSlotVk::GetDescriptorSet() const {
 	return m_descriptorSet;
 }
 
-template <VulkanTarget Target>
-UniquePtr<VkDescriptorBufferInfo> MaterialSlotVk<Target>::GetDescriptorBufferInfo(const GpuMemorySubblockVk<Target>& subblock, const GpuBufferRange& range) {
+UniquePtr<VkDescriptorBufferInfo> MaterialSlotVk::GetDescriptorBufferInfo(const GpuMemorySubblockVk& subblock, const GpuBufferRange& range) {
 	UniquePtr<VkDescriptorBufferInfo> bufferInfo = MakeUnique<VkDescriptorBufferInfo>();
 
-	bufferInfo->buffer = subblock.GetOwnerBlock()->template As<GpuMemoryBlockVk<Target>>()->GetVulkanBuffer();
+	bufferInfo->buffer = subblock.GetOwnerBlock()->template As<GpuMemoryBlockVk>()->GetVulkanBuffer();
 
 	if (range.full) {
 		bufferInfo->offset = subblock.GetOffsetFromBlock();
@@ -318,22 +306,20 @@ UniquePtr<VkDescriptorBufferInfo> MaterialSlotVk<Target>::GetDescriptorBufferInf
 	return bufferInfo;
 }
 
-template <VulkanTarget Target>
-UniquePtr<VkDescriptorImageInfo> MaterialSlotVk<Target>::GetDescriptorImageInfo(const IGpuImageView& view, const IGpuImageSampler& sampler, VkImageLayout layout) {
+UniquePtr<VkDescriptorImageInfo> MaterialSlotVk::GetDescriptorImageInfo(const IGpuImageView& view, const IGpuImageSampler& sampler, VkImageLayout layout) {
 	UniquePtr<VkDescriptorImageInfo> imageInfo = GetDescriptorImageInfo(view, layout);
 
-	imageInfo->sampler = sampler.As<GpuImageSamplerVk<Target>>()->GetSamplerVk();
+	imageInfo->sampler = sampler.As<GpuImageSamplerVk>()->GetSamplerVk();
 
 	return imageInfo;
 }
 
-template <VulkanTarget Target>
-UniquePtr<VkDescriptorImageInfo> MaterialSlotVk<Target>::GetDescriptorImageInfo(const IGpuImageView& view, VkImageLayout layout) {
+UniquePtr<VkDescriptorImageInfo> MaterialSlotVk::GetDescriptorImageInfo(const IGpuImageView& view, VkImageLayout layout) {
 	UniquePtr<VkDescriptorImageInfo> imageInfo = MakeUnique<VkDescriptorImageInfo>();
 
 	imageInfo->imageLayout = layout;
 	imageInfo->sampler = VK_NULL_HANDLE;
-	imageInfo->imageView = view.As<GpuImageViewVk<Target>>()->GetVkView();
+	imageInfo->imageView = view.As<GpuImageViewVk>()->GetVkView();
 
 	return imageInfo;
 }

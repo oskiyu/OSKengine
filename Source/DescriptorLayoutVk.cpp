@@ -16,8 +16,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-template <VulkanTarget Target>
-DescriptorLayoutVk<Target>::DescriptorLayoutVk(const MaterialLayoutSlot* slotLayout)
+DescriptorLayoutVk::DescriptorLayoutVk(const MaterialLayoutSlot* slotLayout)
 	: m_slotLayout(slotLayout)  {
 
 	const bool isBindless = Engine::GetRenderer()->GetGpu()->SupportsBindlessResources();
@@ -64,28 +63,24 @@ DescriptorLayoutVk<Target>::DescriptorLayoutVk(const MaterialLayoutSlot* slotLay
 		layoutInfo.pNext = &flagsCreateInfo;
 	}
 
-	VkResult result = vkCreateDescriptorSetLayout(Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(),
+	VkResult result = vkCreateDescriptorSetLayout(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 		&layoutInfo, nullptr, &m_layoutVk);
 	OSK_ASSERT(result == VK_SUCCESS, DescriptorLayoutCreationException(result));
 }
 
-template <VulkanTarget Target>
-DescriptorLayoutVk<Target>::~DescriptorLayoutVk() {
-	vkDestroyDescriptorSetLayout(Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice(),
+DescriptorLayoutVk::~DescriptorLayoutVk() {
+	vkDestroyDescriptorSetLayout(Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice(),
 		m_layoutVk, nullptr);
 }
 
-template <VulkanTarget Target>
-VkDescriptorSetLayout DescriptorLayoutVk<Target>::GetLayout() const {
+VkDescriptorSetLayout DescriptorLayoutVk::GetLayout() const {
 	return m_layoutVk;
 }
 
-template <VulkanTarget Target>
-const MaterialLayoutSlot* DescriptorLayoutVk<Target>::GetMaterialSlotLayout() const {
+const MaterialLayoutSlot* DescriptorLayoutVk::GetMaterialSlotLayout() const {
 	return m_slotLayout;
 }
 
-template <VulkanTarget Target>
-USize32 DescriptorLayoutVk<Target>::GetNumDescriptors() const {
+USize32 DescriptorLayoutVk::GetNumDescriptors() const {
 	return m_numDescriptors;
 }

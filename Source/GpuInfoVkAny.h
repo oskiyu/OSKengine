@@ -12,7 +12,6 @@ namespace OSK::GRAPHICS {
 
 	/// @brief Información de las capacidades y características de
 	/// una GPU en concreto.
-	template <VulkanTarget Target>
 	struct GpuInfoVkAny {
 
 		/// @brief Detalles sobre el soporte de swapchain.
@@ -96,6 +95,9 @@ namespace OSK::GRAPHICS {
 		bool IsCompatibleWithBindless() const;
 		bool IsCompatibleWithMeshShaders() const;
 
+		bool SupportsMemoryBudgetQuery() const;
+		bool SupportsDynamicRendering() const;
+		bool SupportsSync2() const;
 
 		/// @brief Alineamiento mínimo para dynamic ubos.
 		USize64 minAlignment = 0;
@@ -118,9 +120,6 @@ namespace OSK::GRAPHICS {
 		VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
 
 	};
-
-	template struct GpuInfoVkAny<VulkanTarget::VK_1_0>;
-	template struct GpuInfoVkAny<VulkanTarget::VK_LATEST>;
 
 }
 

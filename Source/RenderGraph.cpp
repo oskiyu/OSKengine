@@ -130,6 +130,19 @@ GdrImageUuid RenderGraph::RegisterExternalImage(GpuImage* image) {
 	return m_imageManager->RegisterExternalImage(image);
 }
 
+void RenderGraph::RebindExternalImage(GdrImageUuid uuid, GpuImage* newImage) {
+	m_imageManager->RebindExternalImage(uuid, newImage);
+
+	for (auto* r : m_flatRenderPass) {
+		for (const auto& dependency : r->GetImageDependencies()) {
+			if (dependency.imageRefId == uuid) {
+				r->RebindDependencies();
+				break;
+			}
+		}
+	}
+}
+
 void RenderGraph::RegisterVertexAttribute(
 	VertexAttribUuid uuid,
 	std::string name,
@@ -343,6 +356,13 @@ void RenderGraph::SetFramebufferResolution(Vector2ui res) {
 
 void RenderGraph::SetFramebufferResolution(Vector3ui res) {
 	m_imageManager->SetFramebufferResolution(res);
+}
+
+void RenderGraph::RecreateRelativeImages() {
+	m_imageManager->RecreateRelativeImages(m_renderPassesEntries.GetFullSpan());
+	for (auto* rp : m_flatRenderPass) {
+		rp->RebindDependencies(); // TODO: rebind sólamente de las imágenes redimensionadas.
+	}
 }
 
 IRenderPass* RenderGraph::GetRenderPass(RenderPassUuid uuid) {

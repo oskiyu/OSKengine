@@ -10,7 +10,6 @@
 
 namespace OSK::GRAPHICS {
 
-	template <VulkanTarget Target>	
 	class GpuImageViewVk final : public IGpuImageView {
 
 	public:
@@ -29,9 +28,6 @@ namespace OSK::GRAPHICS {
 		VkImageView view = VK_NULL_HANDLE;
 
 	};
-
-	template class GpuImageViewVk<VulkanTarget::VK_1_0>;
-	template class GpuImageViewVk<VulkanTarget::VK_LATEST>;
 
 }
 

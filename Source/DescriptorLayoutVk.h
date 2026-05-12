@@ -17,7 +17,6 @@ namespace OSK::GRAPHICS {
 
 	/// @brief Wrapper de un VkDescrpitorSetLayout.
 	/// Se encarga de crear el layout a partir del MaterialLayoutSlot.
-	template <VulkanTarget Target>
 	class OSKAPI_CALL DescriptorLayoutVk final {
 
 	public:
@@ -41,9 +40,6 @@ namespace OSK::GRAPHICS {
 		USize32 m_numDescriptors = 0;
 
 	};
-
-	template class DescriptorLayoutVk<VulkanTarget::VK_1_0>;
-	template class DescriptorLayoutVk<VulkanTarget::VK_LATEST>;
 
 }
 

@@ -262,8 +262,7 @@ static VkIndexType GetIndexTypevk(IndexType type) {
 }
 
 
-template <VulkanTarget Target>
-CommandListVk<Target>::CommandListVk(const GpuVk<Target>& gpu, CommandPoolVk<Target>* commandPool) : ICommandList(commandPool), m_logicalDevice(gpu.GetLogicalDevice()) {
+CommandListVk::CommandListVk(const GpuVk& gpu, CommandPoolVk* commandPool) : ICommandList(commandPool), m_logicalDevice(gpu.GetLogicalDevice()), m_gpu(&gpu) {
 	VkCommandBufferAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
 	allocInfo.commandPool = commandPool->GetCommandPool();
@@ -279,19 +278,16 @@ CommandListVk<Target>::CommandListVk(const GpuVk<Target>& gpu, CommandPoolVk<Tar
 }
 
 
-template <VulkanTarget Target>
-std::span<const VkCommandBuffer> CommandListVk<Target>::GetCommandBuffers() const {
+std::span<const VkCommandBuffer> CommandListVk::GetCommandBuffers() const {
 	return m_commandBuffers;
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::Reset() {
+void CommandListVk::Reset() {
 	VkResult result = vkResetCommandBuffer(m_commandBuffers[_GetCommandListIndex()], 0);
 	OSK_ASSERT(result == VK_SUCCESS, CommandListResetException(result));
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::Start() {
+void CommandListVk::Start() {
 	const VkCommandBufferBeginInfo beginInfo {
 		VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,
 		nullptr,
@@ -303,14 +299,12 @@ void CommandListVk<Target>::Start() {
 	OSK_ASSERT(result == VK_SUCCESS, CommandListStartException(result));
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::Close() {
+void CommandListVk::Close() {
 	VkResult result = vkEndCommandBuffer(m_commandBuffers[_GetCommandListIndex()]);
 	OSK_ASSERT(result == VK_SUCCESS, CommandListEndException(result));
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::SetGpuImageBarrier(
+void CommandListVk::SetGpuImageBarrier(
 	GpuImage* image, 
 	GpuImageLayout previousLayout, 
 	GpuImageLayout nextLayout, 
@@ -320,7 +314,7 @@ void CommandListVk<Target>::SetGpuImageBarrier(
 	const ResourceQueueTransferInfo queueTranfer) 
 {
 	// Usar barrera normal para Vulkan 1.0.
-	if constexpr (Target == VulkanTarget::VK_1_0) {
+	if (!m_gpu->GetInfo().SupportsSync2()) {
 		VkImageMemoryBarrier barrier{};
 
 		barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
@@ -331,7 +325,7 @@ void CommandListVk<Target>::SetGpuImageBarrier(
 		barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 		barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 
-		barrier.image = image->As<GpuImageVk<Target>>()->GetVkImage();
+		barrier.image = image->As<GpuImageVk>()->GetVkImage();
 
 		barrier.subresourceRange.baseMipLevel = imageInfo.baseMipLevel;
 		barrier.subresourceRange.levelCount = imageInfo.numMipLevels;
@@ -365,7 +359,7 @@ void CommandListVk<Target>::SetGpuImageBarrier(
 			&barrier);
 	}
 
-	if constexpr (Target == VulkanTarget::VK_LATEST) {
+	if (m_gpu->GetInfo().SupportsSync2()) {
 		VkImageMemoryBarrier2 barrier{};
 		barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER_2;
 
@@ -375,7 +369,7 @@ void CommandListVk<Target>::SetGpuImageBarrier(
 		barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 		barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 
-		barrier.image = image->As<GpuImageVk<Target>>()->GetVkImage();
+		barrier.image = image->As<GpuImageVk>()->GetVkImage();
 
 		barrier.subresourceRange.baseMipLevel = imageInfo.baseMipLevel;
 		barrier.subresourceRange.levelCount = imageInfo.numMipLevels;
@@ -398,8 +392,8 @@ void CommandListVk<Target>::SetGpuImageBarrier(
 
 		// Queue transfer.
 		if (queueTranfer.transfer) {
-			barrier.srcQueueFamilyIndex = queueTranfer.sourceQueue->As<CommandQueueVk<Target>>()->GetFamily().familyIndex;
-			barrier.dstQueueFamilyIndex = queueTranfer.destinationQueue->As<CommandQueueVk<Target>>()->GetFamily().familyIndex;
+			barrier.srcQueueFamilyIndex = queueTranfer.sourceQueue->As<CommandQueueVk>()->GetFamily().familyIndex;
+			barrier.dstQueueFamilyIndex = queueTranfer.destinationQueue->As<CommandQueueVk>()->GetFamily().familyIndex;
 		}
 
 		VkDependencyInfo info{};
@@ -427,19 +421,18 @@ void CommandListVk<Target>::SetGpuImageBarrier(
 	}
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::SetGpuBufferBarrier(
+void CommandListVk::SetGpuBufferBarrier(
 	GpuBuffer* buffer, 
 	const GpuBufferRange& range,
 	GpuBarrierInfo previous, 
 	GpuBarrierInfo next,
 	const ResourceQueueTransferInfo queueTranfer) 
 {
-	if constexpr (Target == VulkanTarget::VK_1_0) {
+	if (m_gpu->GetInfo().SupportsSync2()) {
 		VkBufferMemoryBarrier barrier{};
 		barrier.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
 
-		barrier.buffer = buffer->GetMemoryBlock()->As<GpuMemoryBlockVk<Target>>()->GetVulkanBuffer();
+		barrier.buffer = buffer->GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer();
 
 		barrier.offset = range.offset;
 		barrier.size = range.size;
@@ -452,8 +445,8 @@ void CommandListVk<Target>::SetGpuBufferBarrier(
 
 		// Queue transfer.
 		if (queueTranfer.transfer) {
-			barrier.srcQueueFamilyIndex = queueTranfer.sourceQueue->As<CommandQueueVk<Target>>()->GetFamily().familyIndex;
-			barrier.dstQueueFamilyIndex = queueTranfer.destinationQueue->As<CommandQueueVk<Target>>()->GetFamily().familyIndex;
+			barrier.srcQueueFamilyIndex = queueTranfer.sourceQueue->As<CommandQueueVk>()->GetFamily().familyIndex;
+			barrier.dstQueueFamilyIndex = queueTranfer.destinationQueue->As<CommandQueueVk>()->GetFamily().familyIndex;
 		}
 
 		barrier.pNext = nullptr;
@@ -471,11 +464,11 @@ void CommandListVk<Target>::SetGpuBufferBarrier(
 			nullptr);
 	}
 
-	if constexpr (Target == VulkanTarget::VK_LATEST) {
+	if (m_gpu->GetInfo().SupportsSync2()) {
 		VkBufferMemoryBarrier2 barrier{};
 		barrier.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER_2;
 
-		barrier.buffer = buffer->GetMemoryBlock()->As<GpuMemoryBlockVk<Target>>()->GetVulkanBuffer();
+		barrier.buffer = buffer->GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer();
 
 		barrier.offset = range.offset;
 		barrier.size = range.size;
@@ -488,8 +481,8 @@ void CommandListVk<Target>::SetGpuBufferBarrier(
 
 		// Queue transfer.
 		if (queueTranfer.transfer) {
-			barrier.srcQueueFamilyIndex = queueTranfer.sourceQueue->As<CommandQueueVk<Target>>()->GetFamily().familyIndex;
-			barrier.dstQueueFamilyIndex = queueTranfer.destinationQueue->As<CommandQueueVk<Target>>()->GetFamily().familyIndex;
+			barrier.srcQueueFamilyIndex = queueTranfer.sourceQueue->As<CommandQueueVk>()->GetFamily().familyIndex;
+			barrier.dstQueueFamilyIndex = queueTranfer.destinationQueue->As<CommandQueueVk>()->GetFamily().familyIndex;
 		}
 
 		barrier.pNext = nullptr;
@@ -515,8 +508,7 @@ void CommandListVk<Target>::SetGpuBufferBarrier(
 	}
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, UIndex32 layer, USize64 offset) {
+void CommandListVk::CopyBufferToImage(const GpuBuffer& source, GpuImage* dest, UIndex32 layer, USize64 offset) {
 	VkBufferImageCopy region{};
 
 	region.bufferOffset = source.GetMemorySubblock()->GetOffsetFromBlock() + offset;
@@ -538,8 +530,8 @@ void CommandListVk<Target>::CopyBufferToImage(const GpuBuffer& source, GpuImage*
 	// `Layout[0] = TRANSFER_DEST`
 	vkCmdCopyBufferToImage(
 		m_commandBuffers[_GetCommandListIndex()],
-		source.GetMemoryBlock()->As<GpuMemoryBlockVk<Target>>()->GetVulkanBuffer(),
-		dest->As<GpuImageVk<Target>>()->GetVkImage(),
+		source.GetMemoryBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(),
+		dest->As<GpuImageVk>()->GetVkImage(),
 		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
 
 	if (dest->GetMipLevels() > 1) {
@@ -580,8 +572,8 @@ void CommandListVk<Target>::CopyBufferToImage(const GpuBuffer& source, GpuImage*
 
 			// Mip actual: layout DESTINATION
 			vkCmdBlitImage(m_commandBuffers[_GetCommandListIndex()],
-				dest->As<GpuImageVk<Target>>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
-				dest->As<GpuImageVk<Target>>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+				dest->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+				dest->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
 				1, &blit, VK_FILTER_LINEAR);
 
 			if (mipSize.x > 1)
@@ -612,8 +604,7 @@ void CommandListVk<Target>::CopyBufferToImage(const GpuBuffer& source, GpuImage*
 	}
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::RawCopyImageToImage(const GpuImage& source, GpuImage* destination, const CopyImageInfo& copyInfo) {
+void CommandListVk::RawCopyImageToImage(const GpuImage& source, GpuImage* destination, const CopyImageInfo& copyInfo) {
 	VkImageCopy region{};
 
 	region.srcOffset = {
@@ -629,12 +620,12 @@ void CommandListVk<Target>::RawCopyImageToImage(const GpuImage& source, GpuImage
 
 	const USize32 numLayers = copyInfo.numArrayLevels == CopyImageInfo::ALL_ARRAY_LEVELS ? source.GetNumLayers() : copyInfo.numArrayLevels;
 
-	region.srcSubresource.aspectMask = GpuImageVk<Target>::GetAspectFlags(copyInfo.sourceChannel);
+	region.srcSubresource.aspectMask = GpuImageVk::GetAspectFlags(copyInfo.sourceChannel);
 	region.srcSubresource.mipLevel = copyInfo.sourceMipLevel;
 	region.srcSubresource.baseArrayLayer = copyInfo.sourceArrayLevel;
 	region.srcSubresource.layerCount = numLayers;
 
-	region.dstSubresource.aspectMask = GpuImageVk<Target>::GetAspectFlags(copyInfo.destinationChannel);
+	region.dstSubresource.aspectMask = GpuImageVk::GetAspectFlags(copyInfo.destinationChannel);
 	region.dstSubresource.mipLevel = copyInfo.destinationMipLevel;
 	region.dstSubresource.baseArrayLayer = copyInfo.destinationArrayLevel;
 	region.dstSubresource.layerCount = numLayers;
@@ -644,13 +635,12 @@ void CommandListVk<Target>::RawCopyImageToImage(const GpuImage& source, GpuImage
 	region.extent.depth = copyInfo.copySize.z;
 
 	vkCmdCopyImage(m_commandBuffers[_GetCommandListIndex()],
-		source.As<GpuImageVk<Target>>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
-		destination->As<GpuImageVk<Target>>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+		source.As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+		destination->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
 		1, &region);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::CopyImageToImage(const GpuImage& source, GpuImage* destination, const CopyImageInfo& copyInfo, GpuImageFilteringType filter) {
+void CommandListVk::CopyImageToImage(const GpuImage& source, GpuImage* destination, const CopyImageInfo& copyInfo, GpuImageFilteringType filter) {
 	const USize32 numLayers = copyInfo.numArrayLevels == CopyImageInfo::ALL_ARRAY_LEVELS ? source.GetNumLayers() : copyInfo.numArrayLevels; 
 	
 	VkImageBlit copyRegion{};
@@ -678,7 +668,7 @@ void CommandListVk<Target>::CopyImageToImage(const GpuImage& source, GpuImage* d
 	};
 
 	VkImageSubresourceLayers sourceLayer{};
-	sourceLayer.aspectMask = GpuImageVk<Target>::GetAspectFlags(copyInfo.sourceChannel);
+	sourceLayer.aspectMask = GpuImageVk::GetAspectFlags(copyInfo.sourceChannel);
 	sourceLayer.baseArrayLayer = copyInfo.sourceArrayLevel;
 	sourceLayer.layerCount = numLayers;
 	sourceLayer.mipLevel = copyInfo.sourceMipLevel;
@@ -686,7 +676,7 @@ void CommandListVk<Target>::CopyImageToImage(const GpuImage& source, GpuImage* d
 	copyRegion.srcSubresource = sourceLayer;
 
 	VkImageSubresourceLayers destinationLayer{};
-	destinationLayer.aspectMask = GpuImageVk<Target>::GetAspectFlags(copyInfo.destinationChannel);
+	destinationLayer.aspectMask = GpuImageVk::GetAspectFlags(copyInfo.destinationChannel);
 	destinationLayer.baseArrayLayer = copyInfo.destinationArrayLevel;
 	destinationLayer.layerCount = numLayers;
 	destinationLayer.mipLevel = copyInfo.destinationMipLevel;
@@ -695,14 +685,13 @@ void CommandListVk<Target>::CopyImageToImage(const GpuImage& source, GpuImage* d
 
 	vkCmdBlitImage(
 		m_commandBuffers[_GetCommandListIndex()],
-		source.As<GpuImageVk<Target>>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
-		destination->As<GpuImageVk<Target>>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
+		source.As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL,
+		destination->As<GpuImageVk>()->GetVkImage(), VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
 		1, &copyRegion,
-		GpuImageSamplerVk<Target>::GetFilterTypeVk(filter));
+		GpuImageSamplerVk::GetFilterTypeVk(filter));
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, USize64 size, USize64 sourceOffset, USize64 destOffset) {
+void CommandListVk::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* dest, USize64 size, USize64 sourceOffset, USize64 destOffset) {
 	VkBufferCopy copyRegion{};
 
 	copyRegion.srcOffset = sourceOffset + source.GetMemorySubblock()->GetOffsetFromBlock();
@@ -711,13 +700,12 @@ void CommandListVk<Target>::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffe
 
 	vkCmdCopyBuffer(
 		m_commandBuffers[_GetCommandListIndex()],
-		source.GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk<Target>>()->GetVulkanBuffer(),
-		dest->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk<Target>>()->GetVulkanBuffer(), 
+		source.GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(),
+		dest->GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(), 
 		1, &copyRegion);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::ClearImage(GpuImage* image, const GpuImageRange& range, const Color& color) {
+void CommandListVk::ClearImage(GpuImage* image, const GpuImageRange& range, const Color& color) {
 	VkClearColorValue vkColor{};
 	vkColor.float32[0] = color.red;
 	vkColor.float32[1] = color.green;
@@ -740,15 +728,14 @@ void CommandListVk<Target>::ClearImage(GpuImage* image, const GpuImageRange& ran
 
 	vkCmdClearColorImage(
 		m_commandBuffers[_GetCommandListIndex()],
-		image->As<GpuImageVk<Target>>()->GetVkImage(), 
+		image->As<GpuImageVk>()->GetVkImage(), 
 		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 
 		&vkColor, 1, &vkRange);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::BeginGraphicsRenderpass(
+void CommandListVk::BeginGraphicsRenderpass(
 	DynamicArray<RenderPassImageInfo> colorImages, 
-	RenderPassImageInfo depthImage, 
+	std::optional<RenderPassImageInfo> depthImage, 
 	const Color& color, 
 	bool autoSync) 
 {
@@ -785,96 +772,155 @@ void CommandListVk<Target>::BeginGraphicsRenderpass(
 			}
 		}
 
-		SampledChannel depthChannel = SampledChannel::DEPTH;
-		if (FormatSupportsStencil(depthImage.targetImage->GetFormat()))
-			depthChannel |= SampledChannel::STENCIL;
+		if (depthImage) {
+			SampledChannel depthChannel = SampledChannel::DEPTH;
+			if (FormatSupportsStencil(depthImage->targetImage->GetFormat()))
+				depthChannel |= SampledChannel::STENCIL;
 
-		if (depthImage.clear) {
-			SetGpuImageBarrier(
-				depthImage.targetImage,
-				GpuImageLayout::UNDEFINED,
-				GpuImageLayout::DEPTH_STENCIL_TARGET,
-				GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
-				GpuBarrierInfo(GpuCommandStage::DEPTH_STENCIL_START, GpuAccessStage::DEPTH_STENCIL_READ | GpuAccessStage::DEPTH_STENCIL_WRITE),
-				{ .baseLayer = depthImage.arrayLevel,
-					.numLayers = 1,
-					.baseMipLevel = 0,
-					.numMipLevels = ALL_MIP_LEVELS,
-					.channel = depthChannel },
-				ResourceQueueTransferInfo::Empty());
-		}
-		else {
-			const GpuImageLayout previousLayout = depthImage.targetImage->_GetLayout(depthImage.arrayLevel, 0);
-			SetGpuImageBarrier(
-				depthImage.targetImage,
-				previousLayout,
-				GpuImageLayout::DEPTH_STENCIL_TARGET,
-				depthImage.targetImage->GetCurrentBarrier(),
-				GpuBarrierInfo(GpuCommandStage::DEPTH_STENCIL_START, GpuAccessStage::DEPTH_STENCIL_READ | GpuAccessStage::DEPTH_STENCIL_WRITE),
-				{ .baseLayer = depthImage.arrayLevel,
-					.numLayers = 1,
-					.baseMipLevel = 0,
-					.numMipLevels = ALL_MIP_LEVELS,
-					.channel = depthChannel },
-				ResourceQueueTransferInfo::Empty());
+			if (depthImage->clear) {
+				SetGpuImageBarrier(
+					depthImage->targetImage,
+					GpuImageLayout::UNDEFINED,
+					GpuImageLayout::DEPTH_STENCIL_TARGET,
+					GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE),
+					GpuBarrierInfo(GpuCommandStage::DEPTH_STENCIL_START, GpuAccessStage::DEPTH_STENCIL_READ | GpuAccessStage::DEPTH_STENCIL_WRITE),
+					{ .baseLayer = depthImage->arrayLevel,
+						.numLayers = 1,
+						.baseMipLevel = 0,
+						.numMipLevels = ALL_MIP_LEVELS,
+						.channel = depthChannel },
+					ResourceQueueTransferInfo::Empty());
+			}
+			else {
+				const GpuImageLayout previousLayout = depthImage->targetImage->_GetLayout(depthImage->arrayLevel, 0);
+				SetGpuImageBarrier(
+					depthImage->targetImage,
+					previousLayout,
+					GpuImageLayout::DEPTH_STENCIL_TARGET,
+					depthImage->targetImage->GetCurrentBarrier(),
+					GpuBarrierInfo(GpuCommandStage::DEPTH_STENCIL_START, GpuAccessStage::DEPTH_STENCIL_READ | GpuAccessStage::DEPTH_STENCIL_WRITE),
+					{ .baseLayer = depthImage->arrayLevel,
+						.numLayers = 1,
+						.baseMipLevel = 0,
+						.numMipLevels = ALL_MIP_LEVELS,
+						.channel = depthChannel },
+					ResourceQueueTransferInfo::Empty());
+			}
 		}
 	}
 
-	GpuImageViewConfig colorAttachmentConfig = GpuImageViewConfig::CreateTarget_Color();
-	DynamicArray<VkRenderingAttachmentInfo> colorAttachments = DynamicArray<VkRenderingAttachmentInfo>::CreateResized(colorImages.GetSize());
-	for (UIndex64 i = 0; i < colorImages.GetSize(); i++) {
-		colorAttachmentConfig.baseArrayLevel = colorImages[i].arrayLevel;
+	if (m_gpu->GetInfo().SupportsDynamicRendering()) {
+		GpuImageViewConfig colorAttachmentConfig = GpuImageViewConfig::CreateTarget_Color();
+		DynamicArray<VkRenderingAttachmentInfo> colorAttachments = DynamicArray<VkRenderingAttachmentInfo>::CreateResized(colorImages.GetSize());
+		for (UIndex64 i = 0; i < colorImages.GetSize(); i++) {
+			colorAttachmentConfig.baseArrayLevel = colorImages[i].arrayLevel;
 
-		colorAttachments[i] = {};
-		colorAttachments[i].sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
-		colorAttachments[i].loadOp = colorImages[i].clear ? VK_ATTACHMENT_LOAD_OP_CLEAR : VK_ATTACHMENT_LOAD_OP_LOAD;
-		colorAttachments[i].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-		colorAttachments[i].imageLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-		colorAttachments[i].imageView = colorImages[i].targetImage->GetView(colorAttachmentConfig)->As<GpuImageViewVk<Target>>()->GetVkView();
-		colorAttachments[i].resolveMode = VK_RESOLVE_MODE_NONE;
-		colorAttachments[i].resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-		colorAttachments[i].resolveImageView = VK_NULL_HANDLE;
-		colorAttachments[i].clearValue.color = { color.red, color.green, color.blue, color.alpha };
+			colorAttachments[i] = {};
+			colorAttachments[i].sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
+			colorAttachments[i].loadOp = colorImages[i].clear ? VK_ATTACHMENT_LOAD_OP_CLEAR : VK_ATTACHMENT_LOAD_OP_LOAD;
+			colorAttachments[i].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+			colorAttachments[i].imageLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+			colorAttachments[i].imageView = colorImages[i].targetImage->GetView(colorAttachmentConfig)->As<GpuImageViewVk>()->GetVkView();
+			colorAttachments[i].resolveMode = VK_RESOLVE_MODE_NONE;
+			colorAttachments[i].resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+			colorAttachments[i].resolveImageView = VK_NULL_HANDLE;
+			colorAttachments[i].clearValue.color = { color.red, color.green, color.blue, color.alpha };
+		}
+
+		VkRenderingInfo renderpassInfo{};
+		renderpassInfo.sType = VK_STRUCTURE_TYPE_RENDERING_INFO;
+		renderpassInfo.renderArea = { 0, 0, targetSize.x, targetSize.y };
+		renderpassInfo.layerCount = 1;
+		renderpassInfo.colorAttachmentCount = static_cast<uint32_t>(colorAttachments.GetSize());
+		renderpassInfo.pColorAttachments = colorAttachments.GetData();
+		renderpassInfo.pDepthAttachment = VK_NULL_HANDLE;
+		renderpassInfo.pStencilAttachment = VK_NULL_HANDLE;
+
+		if (depthImage) {
+			GpuImageViewConfig dephtAttachmentConfig = FormatSupportsStencil(depthImage->targetImage->GetFormat())
+				? GpuImageViewConfig::CreateTarget_DepthStencil()
+				: GpuImageViewConfig::CreateTarget_Depth();
+			dephtAttachmentConfig.baseArrayLevel = depthImage->arrayLevel;
+
+			VkRenderingAttachmentInfo depthAttachment{};
+			depthAttachment.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
+			depthAttachment.loadOp = depthImage->clear ? VK_ATTACHMENT_LOAD_OP_CLEAR : VK_ATTACHMENT_LOAD_OP_LOAD;
+			depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+			depthAttachment.imageLayout = FormatSupportsStencil(depthImage->targetImage->GetFormat())
+				? VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL
+				: VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL;
+			depthAttachment.imageView = depthImage->targetImage->GetView(dephtAttachmentConfig)->As<GpuImageViewVk>()->GetVkView();
+			depthAttachment.resolveMode = VK_RESOLVE_MODE_NONE;
+			depthAttachment.resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+			depthAttachment.resolveImageView = VK_NULL_HANDLE;
+			depthAttachment.clearValue.depthStencil = { 0.0f, 0 };
+
+			renderpassInfo.pDepthAttachment = &depthAttachment;
+			renderpassInfo.pStencilAttachment = FormatSupportsStencil(depthImage->targetImage->GetFormat())
+				? &depthAttachment
+				: VK_NULL_HANDLE;
+		}
+
+		RendererVk::pvkCmdBeginRendering(m_commandBuffers[_GetCommandListIndex()], &renderpassInfo);
+	} else {
+		GpuImageViewConfig colorAttachmentConfig = GpuImageViewConfig::CreateTarget_Color();
+
+		RenderpassVkMapEntry entry{};
+		FramebufferVkMapEntry framebufferEntry{};
+
+		for (const auto& color : colorImages) {
+			colorAttachmentConfig.baseArrayLevel = color.arrayLevel;
+
+			entry.colors.Insert({
+				.format = color.targetImage->GetFormat(),
+				.clear = color.clear
+				});
+			framebufferEntry.views.Insert(color.targetImage->GetView(colorAttachmentConfig)->As<GpuImageViewVk>());
+		}
+		if (depthImage) {
+			const auto dephtAttachmentConfig = FormatSupportsStencil(depthImage->targetImage->GetFormat())
+				? GpuImageViewConfig::CreateTarget_DepthStencil()
+				: GpuImageViewConfig::CreateTarget_Depth();
+			framebufferEntry.views.Insert(depthImage->targetImage->GetView(dephtAttachmentConfig)->As<GpuImageViewVk>());
+
+			entry.depth = {
+				.format = depthImage->targetImage->GetFormat(),
+				.clear = depthImage->clear
+			};
+		}
+
+		auto* renderpass = m_renderpasses.GetRenderpass(m_gpu, entry);
+		auto* framebuffer = renderpass->GetFramebuffer(framebufferEntry);
+
+		VkRenderPassBeginInfo info{};
+		info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+		info.renderArea = { 0, 0, targetSize.x, targetSize.y };
+		info.renderPass = renderpass->GetRenderpass();
+		info.framebuffer = framebuffer->GetFramebuffer();
+		
+		VkClearValue clearColors{};
+		clearColors.color = { color.red, color.green, color.blue, color.alpha };
+		clearColors.depthStencil = { 0.0f, 0 };
+
+		info.clearValueCount = 1;
+		info.pClearValues = &clearColors;
+
+		vkCmdBeginRenderPass(m_commandBuffers[_GetCommandListIndex()], &info, VK_SUBPASS_CONTENTS_INLINE);
 	}
-
-	GpuImageViewConfig dephtAttachmentConfig = FormatSupportsStencil(depthImage.targetImage->GetFormat())
-		? GpuImageViewConfig::CreateTarget_DepthStencil()
-		: GpuImageViewConfig::CreateTarget_Depth();
-	dephtAttachmentConfig.baseArrayLevel = depthImage.arrayLevel;
-
-	VkRenderingAttachmentInfo depthAttachment{};
-	depthAttachment.sType = VK_STRUCTURE_TYPE_RENDERING_ATTACHMENT_INFO_KHR;
-	depthAttachment.loadOp = depthImage.clear ? VK_ATTACHMENT_LOAD_OP_CLEAR : VK_ATTACHMENT_LOAD_OP_LOAD;
-	depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-	depthAttachment.imageLayout = FormatSupportsStencil(depthImage.targetImage->GetFormat()) 
-		? VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL
-		: VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL;
-	depthAttachment.imageView = depthImage.targetImage->GetView(dephtAttachmentConfig)->As<GpuImageViewVk<Target>>()->GetVkView();
-	depthAttachment.resolveMode = VK_RESOLVE_MODE_NONE;
-	depthAttachment.resolveImageLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-	depthAttachment.resolveImageView = VK_NULL_HANDLE;
-	depthAttachment.clearValue.depthStencil = { 0.0f, 0 };
-
-	VkRenderingInfo renderpassInfo{};
-	renderpassInfo.sType = VK_STRUCTURE_TYPE_RENDERING_INFO;
-	renderpassInfo.renderArea = { 0, 0, targetSize.x, targetSize.y };
-	renderpassInfo.layerCount = 1;
-	renderpassInfo.colorAttachmentCount = static_cast<uint32_t>(colorAttachments.GetSize());
-	renderpassInfo.pColorAttachments = colorAttachments.GetData();
-	renderpassInfo.pDepthAttachment = &depthAttachment;
-	renderpassInfo.pStencilAttachment = FormatSupportsStencil(depthImage.targetImage->GetFormat()) 
-		? &depthAttachment
-		: VK_NULL_HANDLE;
-
-	RendererVk<Target>::pvkCmdBeginRendering(m_commandBuffers[_GetCommandListIndex()], &renderpassInfo);
 
 	m_currentlyBoundColorImages = colorImages;
-	m_currentlyBoundDepthImage = depthImage;
+	if (depthImage) {
+		m_currentlyBoundDepthImage = *depthImage;
+	}
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::EndGraphicsRenderpass(bool autoSync) {
-	RendererVk<Target>::pvkCmdEndRendering(m_commandBuffers[_GetCommandListIndex()]);
+void CommandListVk::EndGraphicsRenderpass(bool autoSync) {
+	if (m_gpu->GetInfo().SupportsDynamicRendering()) {
+		RendererVk::pvkCmdEndRendering(m_commandBuffers[_GetCommandListIndex()]);
+	}
+	else {
+		vkCmdEndRenderPass(m_commandBuffers[_GetCommandListIndex()]);
+	}
 
 	const bool isFinal = m_currentlyBoundRenderTargetType == RenderpassType::FINAL;
 
@@ -883,26 +929,23 @@ void CommandListVk<Target>::EndGraphicsRenderpass(bool autoSync) {
 	}
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::BindVertexBufferRange(const GpuBuffer& buffer, const VertexBufferView& view) {
-	VkBuffer vertexBuffer = buffer.GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk<Target>>()->GetVulkanBuffer();
+void CommandListVk::BindVertexBufferRange(const GpuBuffer& buffer, const VertexBufferView& view) {
+	VkBuffer vertexBuffer = buffer.GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer();
 	VkDeviceSize offset = buffer.GetMemorySubblock()->GetOffsetFromBlock() + view.offsetInBytes;
 
 	vkCmdBindVertexBuffers(m_commandBuffers[_GetCommandListIndex()], 0, 1, &vertexBuffer, &offset);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::BindIndexBufferRange(const GpuBuffer& buffer, const IndexBufferView& view) {
+void CommandListVk::BindIndexBufferRange(const GpuBuffer& buffer, const IndexBufferView& view) {
 	vkCmdBindIndexBuffer(
 		m_commandBuffers[_GetCommandListIndex()],
-		buffer.GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk<Target>>()->GetVulkanBuffer(),
+		buffer.GetMemorySubblock()->GetOwnerBlock()->As<GpuMemoryBlockVk>()->GetVulkanBuffer(),
 		buffer.GetMemorySubblock()->GetOffsetFromBlock() + view.offsetInBytes, 
 		GetIndexTypevk(view.type));
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::BindMaterialSlot(const IMaterialSlot& slot) {
-	VkDescriptorSet set = slot.As<MaterialSlotVk<Target>>()->GetDescriptorSet();
+void CommandListVk::BindMaterialSlot(const IMaterialSlot& slot) {
+	VkDescriptorSet set = slot.As<MaterialSlotVk>()->GetDescriptorSet();
 
 	VkPipelineBindPoint bindPoint{};
 	switch (m_currentlyBoundMaterial->GetMaterialType()) {
@@ -914,47 +957,42 @@ void CommandListVk<Target>::BindMaterialSlot(const IMaterialSlot& slot) {
 
 	VkPipelineLayout layout = VK_NULL_HANDLE;
 	switch (m_currentlyBoundMaterial->GetMaterialType()) {
-		case MaterialType::COMPUTE: layout = m_currentPipeline.compute->GetLayout()->As<PipelineLayoutVk<Target>>()->GetLayout(); break;
-		case MaterialType::GRAPHICS: layout = m_currentPipeline.graphics->GetLayout()->As<PipelineLayoutVk<Target>>()->GetLayout(); break;
-		case MaterialType::RAYTRACING: layout = m_currentPipeline.raytracing->GetLayout()->As<PipelineLayoutVk<Target>>()->GetLayout(); break;
-		case MaterialType::MESH: layout = m_currentPipeline.mesh->GetLayout()->As<PipelineLayoutVk<Target>>()->GetLayout(); break;
+		case MaterialType::COMPUTE: layout = m_currentPipeline.compute->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
+		case MaterialType::GRAPHICS: layout = m_currentPipeline.graphics->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
+		case MaterialType::RAYTRACING: layout = m_currentPipeline.raytracing->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
+		case MaterialType::MESH: layout = m_currentPipeline.mesh->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
 	}
 
 	const auto glslSetIndex = m_currentlyBoundMaterial->GetLayout()->GetSlot(slot.GetName()).glslSetIndex;
 	vkCmdBindDescriptorSets(m_commandBuffers[_GetCommandListIndex()], bindPoint, layout, glslSetIndex, 1, std::addressof(set), 0, nullptr);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::PushMaterialConstants(const std::string& pushConstName, const void* data, USize32 size, USize32 offset) {
+void CommandListVk::PushMaterialConstants(const std::string& pushConstName, const void* data, USize32 size, USize32 offset) {
 	VkPipelineLayout layout = VK_NULL_HANDLE;
 	switch (m_currentlyBoundMaterial->GetMaterialType()) {
-		case MaterialType::COMPUTE: layout = m_currentPipeline.compute->GetLayout()->As<PipelineLayoutVk<Target>>()->GetLayout(); break;
-		case MaterialType::GRAPHICS: layout = m_currentPipeline.graphics->GetLayout()->As<PipelineLayoutVk<Target>>()->GetLayout(); break;
-		case MaterialType::RAYTRACING: layout = m_currentPipeline.raytracing->GetLayout()->As<PipelineLayoutVk<Target>>()->GetLayout(); break;
-		case MaterialType::MESH: layout = m_currentPipeline.mesh->GetLayout()->As<PipelineLayoutVk<Target>>()->GetLayout(); break;
+		case MaterialType::COMPUTE:		layout = m_currentPipeline.compute->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
+		case MaterialType::GRAPHICS:	layout = m_currentPipeline.graphics->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
+		case MaterialType::RAYTRACING:	layout = m_currentPipeline.raytracing->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
+		case MaterialType::MESH:		layout = m_currentPipeline.mesh->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
 	}
 	auto& pushConstInfo = m_currentlyBoundMaterial->GetLayout()->GetPushConstant(pushConstName);
 
 	vkCmdPushConstants(m_commandBuffers[_GetCommandListIndex()], layout, GetShaderStageVk(pushConstInfo.stage), 0 + offset, size, data);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::DrawSingleInstance(USize32 numIndices) {
+void CommandListVk::DrawSingleInstance(USize32 numIndices) {
 	vkCmdDrawIndexed(m_commandBuffers[_GetCommandListIndex()], numIndices, 1, 0, 0, 0);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::DrawSingleMesh(UIndex32 firstIndex, USize32 numIndices) {
+void CommandListVk::DrawSingleMesh(UIndex32 firstIndex, USize32 numIndices) {
 	vkCmdDrawIndexed(m_commandBuffers[_GetCommandListIndex()], numIndices, 1, firstIndex, 0, 0);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::DrawInstances(UIndex32 firstIndex, USize32 numIndices, UIndex32 firstInstance, USize32 instanceCount) {
+void CommandListVk::DrawInstances(UIndex32 firstIndex, USize32 numIndices, UIndex32 firstInstance, USize32 instanceCount) {
 	vkCmdDrawIndexed(m_commandBuffers[_GetCommandListIndex()], numIndices, instanceCount, firstIndex, 0, firstInstance);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::TraceRays(UIndex32 raygenEntry, UIndex32 closestHitEntry, UIndex32 missEntry, const Vector2ui& resolution) {
+void CommandListVk::TraceRays(UIndex32 raygenEntry, UIndex32 closestHitEntry, UIndex32 missEntry, const Vector2ui& resolution) {
 	const RtShaderTableVk* shaderTable = m_currentPipeline.raytracing->GetShaderTable()->As<RtShaderTableVk>();
 
 	const VkStridedDeviceAddressRegionKHR raygenTable = shaderTable->GetRaygenTableAddressRegion();
@@ -962,43 +1000,36 @@ void CommandListVk<Target>::TraceRays(UIndex32 raygenEntry, UIndex32 closestHitE
 	const VkStridedDeviceAddressRegionKHR missTable = shaderTable->GetMissTableAddressRegion();
 	const VkStridedDeviceAddressRegionKHR emptyTable{};
 
-	RendererVk<Target>::pvkCmdTraceRaysKHR(m_commandBuffers[_GetCommandListIndex()],
+	RendererVk::pvkCmdTraceRaysKHR(m_commandBuffers[_GetCommandListIndex()],
 						&raygenTable, &missTable, &closestHitTable, &emptyTable, 
 						resolution.x, resolution.y, 1);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::DrawMeshShader(const Vector3ui& groupCount) {
-	RendererVk<Target>::pvkCmdDrawMeshTasksEXT(m_commandBuffers[_GetCommandListIndex()], groupCount.x, groupCount.y, groupCount.z);
+void CommandListVk::DrawMeshShader(const Vector3ui& groupCount) {
+	RendererVk::pvkCmdDrawMeshTasksEXT(m_commandBuffers[_GetCommandListIndex()], groupCount.x, groupCount.y, groupCount.z);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::DispatchCompute(const Vector3ui& groupCount) {
+void CommandListVk::DispatchCompute(const Vector3ui& groupCount) {
 	vkCmdDispatch(m_commandBuffers[_GetCommandListIndex()], groupCount.x, groupCount.y, groupCount.z);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::BindGraphicsPipeline(const IGraphicsPipeline& pipeline) {
-	vkCmdBindPipeline(m_commandBuffers[_GetCommandListIndex()], VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline.As<GraphicsPipelineVk<Target>>()->GetPipeline());
+void CommandListVk::BindGraphicsPipeline(const IGraphicsPipeline& pipeline) {
+	vkCmdBindPipeline(m_commandBuffers[_GetCommandListIndex()], VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline.As<GraphicsPipelineVk>()->GetPipeline());
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::BindComputePipeline(const IComputePipeline& pipeline) {
-	vkCmdBindPipeline(m_commandBuffers[_GetCommandListIndex()], VK_PIPELINE_BIND_POINT_COMPUTE, pipeline.As<ComputePipelineVk<Target>>()->GetPipeline());
+void CommandListVk::BindComputePipeline(const IComputePipeline& pipeline) {
+	vkCmdBindPipeline(m_commandBuffers[_GetCommandListIndex()], VK_PIPELINE_BIND_POINT_COMPUTE, pipeline.As<ComputePipelineVk>()->GetPipeline());
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::BindRayTracingPipeline(const IRaytracingPipeline& pipeline) {
+void CommandListVk::BindRayTracingPipeline(const IRaytracingPipeline& pipeline) {
 	vkCmdBindPipeline(m_commandBuffers[_GetCommandListIndex()], VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR, pipeline.As<RaytracingPipelineVk>()->GetPipeline());
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::BindMeshPipeline(const IMeshPipeline& meshPipeline) {
+void CommandListVk::BindMeshPipeline(const IMeshPipeline& meshPipeline) {
 	vkCmdBindPipeline(m_commandBuffers[_GetCommandListIndex()], VK_PIPELINE_BIND_POINT_GRAPHICS, meshPipeline.As<MeshPipelineVk>()->GetPipeline());
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::SetViewport(const Viewport& vp) {
+void CommandListVk::SetViewport(const Viewport& vp) {
 	ICommandList::SetViewport(vp);
 
 	VkViewport viewport{};
@@ -1014,8 +1045,7 @@ void CommandListVk<Target>::SetViewport(const Viewport& vp) {
 	vkCmdSetViewport(m_commandBuffers[_GetCommandListIndex()], 0, 1, &viewport);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::SetScissor(const Vector4ui& scissorRect) {
+void CommandListVk::SetScissor(const Vector4ui& scissorRect) {
 	VkRect2D scissor{};
 
 	scissor.offset = {
@@ -1031,8 +1061,7 @@ void CommandListVk<Target>::SetScissor(const Vector4ui& scissorRect) {
 	vkCmdSetScissor(m_commandBuffers[_GetCommandListIndex()], 0, 1, &scissor);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::SetDebugName(const std::string& name) {
+void CommandListVk::SetDebugName(const std::string& name) {
 	VkDebugUtilsObjectNameInfoEXT nameInfo{};
 	nameInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
 	nameInfo.objectType = VK_OBJECT_TYPE_COMMAND_BUFFER;
@@ -1043,13 +1072,12 @@ void CommandListVk<Target>::SetDebugName(const std::string& name) {
 		nameInfo.pObjectName = nname.c_str();
 		nameInfo.objectHandle = (uint64_t)m_commandBuffers[i];
 
-		if (RendererVk<Target>::pvkSetDebugUtilsObjectNameEXT != nullptr)
-			RendererVk<Target>::pvkSetDebugUtilsObjectNameEXT(m_logicalDevice, &nameInfo);
+		if (RendererVk::pvkSetDebugUtilsObjectNameEXT != nullptr)
+			RendererVk::pvkSetDebugUtilsObjectNameEXT(m_logicalDevice, &nameInfo);
 	}
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::AddDebugMarker(const std::string& mark, const Color& color) {
+void CommandListVk::AddDebugMarker(const std::string& mark, const Color& color) {
 	VkDebugUtilsLabelEXT label{};
 	label.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT;
 	label.pLabelName = mark.c_str();
@@ -1059,11 +1087,10 @@ void CommandListVk<Target>::AddDebugMarker(const std::string& mark, const Color&
 	label.color[3] = color.alpha;
 	label.pNext = nullptr;
 
-	RendererVk<Target>::pvkCmdInsertDebugUtilsLabelEXT(m_commandBuffers[_GetCommandListIndex()], &label);
+	RendererVk::pvkCmdInsertDebugUtilsLabelEXT(m_commandBuffers[_GetCommandListIndex()], &label);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::StartDebugSection(const std::string& mark, const Color& color) {
+void CommandListVk::StartDebugSection(const std::string& mark, const Color& color) {
 	VkDebugUtilsLabelEXT label{};
 	label.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT;
 	label.pLabelName = mark.c_str();
@@ -1073,12 +1100,15 @@ void CommandListVk<Target>::StartDebugSection(const std::string& mark, const Col
 	label.color[3] = color.alpha;
 	label.pNext = nullptr;
 
-	RendererVk<Target>::pvkCmdBeginDebugUtilsLabelEXT(m_commandBuffers[_GetCommandListIndex()], &label);
+	RendererVk::pvkCmdBeginDebugUtilsLabelEXT(m_commandBuffers[_GetCommandListIndex()], &label);
 }
 
-template <VulkanTarget Target>
-void CommandListVk<Target>::EndDebugSection() {
-	RendererVk<Target>::pvkCmdEndDebugUtilsLabelEXT(m_commandBuffers[_GetCommandListIndex()]);
+void CommandListVk::EndDebugSection() {
+	RendererVk::pvkCmdEndDebugUtilsLabelEXT(m_commandBuffers[_GetCommandListIndex()]);
+}
+
+void CommandListVk::ClearImagesCache() {
+	m_renderpasses.Clear();
 }
 
 #endif

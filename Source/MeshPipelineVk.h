@@ -15,7 +15,7 @@
 
 namespace OSK::GRAPHICS {
 
-	class OSKAPI_CALL MeshPipelineVk final : public IMeshPipeline, public IPipelineVk<VulkanTarget::VK_LATEST> {
+	class OSKAPI_CALL MeshPipelineVk final : public IMeshPipeline, public IPipelineVk {
 
 	public:
 
@@ -34,7 +34,7 @@ namespace OSK::GRAPHICS {
 		/// @throws FileNotFoundException si no se encuentra el archivo del shader.
 		void LoadFragmentShader(const std::string& path);
 
-		GpuVk<VulkanTarget::VK_LATEST>* m_gpu = nullptr;
+		GpuVk* m_gpu = nullptr;
 
 	};
 

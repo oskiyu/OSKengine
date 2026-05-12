@@ -12,9 +12,8 @@ OSK_VULKAN_TYPEDEF(VkQueue);
 
 namespace OSK::GRAPHICS {
 
-	template <VulkanTarget> class GpuVk;
+	class GpuVk;
 
-	template <VulkanTarget Target>
 	class OSKAPI_CALL CommandQueueVk final : public ICommandQueue {
 
 	public:
@@ -28,7 +27,7 @@ namespace OSK::GRAPHICS {
 			QueueFamily family,
 			UIndex32 queueIndexInsideFamily,
 			GpuQueueType queueType,
-			const GpuVk<Target>& gpu);
+			const GpuVk& gpu);
 
 
 		/// @return Familia de colas a partir de la cual
@@ -49,9 +48,6 @@ namespace OSK::GRAPHICS {
 		VkQueue m_queue = nullptr;
 
 	};
-
-	template class CommandQueueVk<VulkanTarget::VK_1_0>;
-	template class CommandQueueVk<VulkanTarget::VK_LATEST>;
 
 }
 

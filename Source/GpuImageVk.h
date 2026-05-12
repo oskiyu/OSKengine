@@ -13,7 +13,6 @@
 
 namespace OSK::GRAPHICS {
 
-	template <VulkanTarget Target>
 	class OSKAPI_CALL GpuImageVk final : public GpuImage {
 
 	public:
@@ -58,9 +57,6 @@ namespace OSK::GRAPHICS {
 		std::string m_name = "";
 
 	};
-
-	template class GpuImageVk<VulkanTarget::VK_1_0>;
-	template class GpuImageVk<VulkanTarget::VK_LATEST>;
 
 }
 

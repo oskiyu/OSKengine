@@ -14,25 +14,23 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-template <VulkanTarget Target>
-void ComputePipelineVk<Target>::Create(const MaterialLayout& materialLayout, const PipelineCreateInfo& info) {
-	layout = MakeUnique<PipelineLayoutVk<Target>>(&materialLayout);
+void ComputePipelineVk::Create(const MaterialLayout& materialLayout, const PipelineCreateInfo& info) {
+	layout = MakeUnique<PipelineLayoutVk>(&materialLayout);
 
 	const ShaderStageVk stage = m_pipeline.LoadShader(info.computeShaderPath, ShaderStage::COMPUTE);
 	
 	VkComputePipelineCreateInfo createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
 	createInfo.stage = stage.shaderCreateInfo;
-	createInfo.layout = layout->As<PipelineLayoutVk<Target>>()->GetLayout();
+	createInfo.layout = layout->As<PipelineLayoutVk>()->GetLayout();
 	createInfo.pNext = nullptr;
 
-	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
+	const VkDevice logicalDevice = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 	VkResult result = vkCreateComputePipelines(logicalDevice, VK_NULL_HANDLE, 1, &createInfo, nullptr, &m_pipeline.pipeline);
 	OSK_ASSERT(result == VK_SUCCESS, PipelineCreationException(result));
 }
 
-template <VulkanTarget Target>
-VkPipeline ComputePipelineVk<Target>::GetPipeline() const {
+VkPipeline ComputePipelineVk::GetPipeline() const {
 	return m_pipeline.pipeline;
 }
 

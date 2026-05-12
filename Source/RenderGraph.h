@@ -84,6 +84,7 @@ namespace OSK::GRAPHICS {
 			RgAbsoluteSizeImageRegisterArgs size);
 
 		GdrImageUuid RegisterExternalImage(GpuImage* image);
+		void RebindExternalImage(GdrImageUuid uuid, GpuImage* newImage);
 
 		/// @brief Registra un nuevo render-pass.
 		/// @param pass Render-pass.
@@ -152,6 +153,7 @@ namespace OSK::GRAPHICS {
 		void SetFramebufferResolution(Vector2ui res);
 		void SetFramebufferResolution(Vector3ui res);
 
+		void RecreateRelativeImages();
 
 		IRenderPass* GetRenderPass(RenderPassUuid uuid);
 		const IRenderPass* GetRenderPass(RenderPassUuid uuid) const;

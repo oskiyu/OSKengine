@@ -16,6 +16,16 @@ namespace OSK::GRAPHICS {
 			return RenderPassDependencies{};
 		};
 
+		static RenderPassDependencies After(std::initializer_list<std::string> passes) {
+			auto output = Empty();
+
+			for (const auto& other : passes) {
+				output.executeAfterThese.insert(other);
+			}
+
+			return output;
+		}
+
 	};
 
 }

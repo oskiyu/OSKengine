@@ -40,7 +40,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @post Tendrá una instancia de material creada.
 		explicit IRenderPass(
-			std::string_view materialName,
+			std::optional<std::string_view> materialName,
 			RenderPassType type);
 
 	public:
@@ -105,6 +105,13 @@ namespace OSK::GRAPHICS {
 		/// @return Nombre ÚNICO del renderpass.
 		virtual std::string_view GetName() const = 0;
 
+		/// @brief Reenlaza todas las dependencias.
+		void RebindDependencies();
+
+	protected:
+
+		RenderGraph* GetRenderGraph();
+
 	private:
 
 		/// @brief Enlaza todas las dependencias a las
@@ -160,8 +167,10 @@ namespace OSK::GRAPHICS {
 
 		RenderPassType m_type;
 
-		std::optional<DynamicArray<RenderPassImageInfo>> m_colorTargets;
+		std::optional<std::array<DynamicArray<RenderPassImageInfo>, MAX_RESOURCES_IN_FLIGHT>> m_colorTargets;
 		std::optional<RenderPassImageInfo> m_depthTarget;
+
+		RenderGraph* m_rg = nullptr;
 
 	};
 

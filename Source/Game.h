@@ -73,7 +73,7 @@ namespace OSK {
 		/// 
 		/// Los comandos de renderizado finales deben ejecutarse en el renderpass principal
 		/// del motor (IRenderer::GetMainRenderpass).
-		virtual void BuildFrame() = 0;
+		virtual void BuildFrame();
 
 		/// @brief Función que se ejecuta al salir del juego.
 		virtual void OnExit();
@@ -111,10 +111,19 @@ namespace OSK {
 		/// @brief Debe inicializar el renderizador del Engine.
 		virtual void SetupEngine() = 0;
 
+		virtual void OnTick_Keyboard(const IO::IKeyboardInput& keyboard);
+		virtual void OnTick_Mouse(const IO::IMouseInput& mouse);
+
+		IO::IKeyboardInput* GetKeyboard();
+		IO::IMouseInput* GetMouse();
+		IO::IGamepadInput* GetGamepad();
+
 	private:
 
 		void HandleResizeEvents();
 		void UpdateFps(TDeltaTime deltaTime);
+
+		void UpdateUi();
 
 		GAME::DefaultContentProfile m_defaultContentProfile = GAME::DefaultContentProfile::ALL;
 

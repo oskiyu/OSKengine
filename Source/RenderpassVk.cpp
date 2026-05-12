@@ -39,10 +39,30 @@ DynamicArray<VkSubpassDependency> GetDependenciesVk(const DynamicArray<RenderSub
 	return output;
 }
 
-template <VulkanTarget Target>
-RenderpassVk<Target>::RenderpassVk(
+RenderpassAttachmentVk GetColorAttachment() {
+	return RenderpassAttachmentVk(
+		VK_FORMAT_MAX_ENUM,
+		VK_ATTACHMENT_LOAD_OP_CLEAR,
+		VK_ATTACHMENT_STORE_OP_STORE,
+		VK_IMAGE_LAYOUT_UNDEFINED,
+		VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL
+	);
+}
+
+RenderSubpassVk GetColorSubpass() {
+	return RenderSubpassVk(
+		VK_PIPELINE_BIND_POINT_GRAPHICS,
+		{ GetColorAttachment() },
+		GetColorAttachment()
+	);
+}
+
+RenderpassVk::RenderpassVk(
+	const GpuVk* gpu,
 	const DynamicArray<RenderpassAttachmentVk>& attachments,
 	const DynamicArray<RenderSubpassVk>& subpasses)
+	:
+	m_framebuffers(gpu)
 {
 	VkRenderPassCreateInfo renderPassInfo{};
 	renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
@@ -59,18 +79,18 @@ RenderpassVk<Target>::RenderpassVk(
 	renderPassInfo.dependencyCount = dependenciesVk.GetSize();
 	renderPassInfo.pDependencies = dependenciesVk.GetData();
 
-	const auto device = Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
-	vkCreateRenderPass(
+	const auto device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
+	const auto result = vkCreateRenderPass(
 		device,
 		&renderPassInfo,
 		nullptr,
 		&m_renderpass);
+	OSK_ASSERT(result == VK_SUCCESS, EngineException(std::format("Error al crear el renderpass: {}", (int)result)));
 }
 
-template <VulkanTarget Target>
-RenderpassVk<Target>::~RenderpassVk() {
+RenderpassVk::~RenderpassVk() {
 	if (m_renderpass) {
-		const auto device = Engine::GetRenderer()->GetGpu()->As<GpuVk<Target>>()->GetLogicalDevice();
+		const auto device = Engine::GetRenderer()->GetGpu()->As<GpuVk>()->GetLogicalDevice();
 		vkDestroyRenderPass(
 			device,
 			m_renderpass,
@@ -78,20 +98,23 @@ RenderpassVk<Target>::~RenderpassVk() {
 	}
 }
 
-template <VulkanTarget Target>
-RenderpassVk<Target>::RenderpassVk(RenderpassVk<Target>&& other) noexcept {
+RenderpassVk::RenderpassVk(RenderpassVk&& other) noexcept : m_framebuffers(nullptr) {
 	std::swap(m_renderpass, other.m_renderpass);
+	std::swap(m_framebuffers, other.m_framebuffers);
 }
 
-template <VulkanTarget Target>
-const RenderpassVk<Target>& RenderpassVk<Target>::operator=(RenderpassVk<Target>&& other) noexcept {
+RenderpassVk& RenderpassVk::operator=(RenderpassVk&& other) noexcept {
 	std::swap(m_renderpass, other.m_renderpass);
+	std::swap(m_framebuffers, other.m_framebuffers);
 	return *this;
 }
 
-template <VulkanTarget Target>
-VkRenderPass RenderpassVk<Target>::GetRenderpass() const {
+VkRenderPass RenderpassVk::GetRenderpass() const {
 	return m_renderpass;
+}
+
+FramebufferVk* RenderpassVk::GetFramebuffer(const FramebufferVkMapEntry& entry) {
+	return m_framebuffers.GetFramebuffer(entry, *this);
 }
 
 #endif //  OSK_USE_VULKAN_BACKEND

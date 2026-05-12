@@ -25,6 +25,7 @@ void ISwapchain::SetNumImagesInFlight(USize32 imageCount) {
 }
 
 void ISwapchain::SetImage(UniquePtr<GpuImage>&& image, UIndex32 index) {
+	m_images[index].Delete();
 	m_images[index] = std::move(image);
 }
 

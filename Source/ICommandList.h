@@ -263,7 +263,7 @@ namespace OSK::GRAPHICS {
 		/// soportar, al menos, `CommandsSupport::GRAPHICS`.
 		virtual void BeginGraphicsRenderpass(
 			DynamicArray<RenderPassImageInfo> colorImages,
-			RenderPassImageInfo depthImage,
+			std::optional<RenderPassImageInfo> depthImage,
 			const Color& color = Color::Black,
 			bool autoSync = true) = 0;
 
@@ -871,6 +871,8 @@ namespace OSK::GRAPHICS {
 		GpuQueueType GetCompatibleQueueType() const;
 
 		UIndex32 _GetCommandListIndex() const;
+
+		virtual void ClearImagesCache() {}
 
 	protected:
 

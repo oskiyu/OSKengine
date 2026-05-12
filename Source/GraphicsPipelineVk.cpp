@@ -13,14 +13,15 @@
 #include "FormatVk.h"
 #include "RendererVk.h"
 
+#include "RenderpassVk.h"
+
 #include "PipelinesExceptions.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 
-template <VulkanTarget Target>
-void GraphicsPipelineVk<Target>::SetDebugName(const std::string& name) {
+void GraphicsPipelineVk::SetDebugName(const std::string& name) {
 	VkDebugUtilsObjectNameInfoEXT nameInfo{};
 	nameInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
 	nameInfo.objectType = VK_OBJECT_TYPE_PIPELINE;
@@ -28,16 +29,15 @@ void GraphicsPipelineVk<Target>::SetDebugName(const std::string& name) {
 	nameInfo.pObjectName = name.c_str();
 	nameInfo.pNext = nullptr;
 
-	if (RendererVk<Target>::pvkSetDebugUtilsObjectNameEXT != nullptr) {
-		RendererVk<Target>::pvkSetDebugUtilsObjectNameEXT(gpu->As<GpuVk<Target>>()->GetLogicalDevice(), &nameInfo);
+	if (RendererVk::pvkSetDebugUtilsObjectNameEXT != nullptr) {
+		RendererVk::pvkSetDebugUtilsObjectNameEXT(gpu->As<GpuVk>()->GetLogicalDevice(), &nameInfo);
 	}
 }
 
-template <VulkanTarget Target>
-void GraphicsPipelineVk<Target>::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) {
+void GraphicsPipelineVk::Create(const MaterialLayout* materialLayout, IGpu* device, const PipelineCreateInfo& info, const VertexInfo& vertexInfo) {
 	gpu = device;
 
-	layout = MakeUnique<PipelineLayoutVk<Target>>(materialLayout);
+	layout = MakeUnique<PipelineLayoutVk>(materialLayout);
 
 	LoadVertexShader(info.vertexPath);
 
@@ -100,7 +100,7 @@ void GraphicsPipelineVk<Target>::Create(const MaterialLayout* materialLayout, IG
 	// Depth-stencil.
 	VkPipelineDepthStencilStateCreateInfo depthInfo = m_pipeline.GetDepthInfo(info);
 
-	VkPipelineMultisampleStateCreateInfo msaaCreateInfo = m_pipeline.GetMsaaInfo(info, *gpu->As<GpuVk<Target>>());
+	VkPipelineMultisampleStateCreateInfo msaaCreateInfo = m_pipeline.GetMsaaInfo(info, *gpu->As<GpuVk>());
 
 	VkPipelineTessellationStateCreateInfo tesselationInfo = m_pipeline.GetTesselationInfo(info);
 
@@ -159,15 +159,50 @@ void GraphicsPipelineVk<Target>::Create(const MaterialLayout* materialLayout, IG
 		pipelineCreateInfo.pTessellationState = nullptr;
 	else
 		pipelineCreateInfo.pTessellationState = &tesselationInfo;
-	pipelineCreateInfo.layout = layout->As<PipelineLayoutVk<Target>>()->GetLayout();
+	pipelineCreateInfo.layout = layout->As<PipelineLayoutVk>()->GetLayout();
 	pipelineCreateInfo.renderPass = VK_NULL_HANDLE;
 	pipelineCreateInfo.subpass = 0;
 	pipelineCreateInfo.basePipelineHandle = nullptr;
 	pipelineCreateInfo.basePipelineIndex = -1;
 	pipelineCreateInfo.pNext = &renderingCreateInfo;
 
+	if (!gpu->As<GpuVk>()->GetInfo().SupportsDynamicRendering()) {
+		DynamicArray<RenderpassAttachmentVk> attachments{};
+		for (UIndex32 i = 0; i < info.formats.GetSize(); i++) {
+			attachments.Insert(RenderpassAttachmentVk(
+				GetFormatVk(info.formats[i]),
+				VK_ATTACHMENT_LOAD_OP_LOAD,
+				VK_ATTACHMENT_STORE_OP_STORE,
+				VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
+				VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL));
+		}
+
+		std::optional<RenderpassAttachmentVk> depthAttachment = std::nullopt;
+		if (info.depthFormat != Format::UNKNOWN) {
+			depthAttachment = RenderpassAttachmentVk(
+				GetFormatVk(info.depthFormat),
+				VK_ATTACHMENT_LOAD_OP_LOAD,
+				VK_ATTACHMENT_STORE_OP_STORE,
+				VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL,
+				VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
+		}
+
+		const auto subpass = RenderSubpassVk(
+			VK_PIPELINE_BIND_POINT_GRAPHICS,
+			attachments,
+			depthAttachment);
+
+		if (depthAttachment) {
+			attachments.Insert(*depthAttachment);
+		}
+
+		m_renderpass = RenderpassVk(gpu->As<GpuVk>(), attachments, { subpass });
+
+		pipelineCreateInfo.renderPass = m_renderpass->GetRenderpass();
+	}
+
 	const auto result = vkCreateGraphicsPipelines(
-		gpu->As<GpuVk<Target>>()->GetLogicalDevice(),
+		gpu->As<GpuVk>()->GetLogicalDevice(),
 		nullptr, 
 		1, 
 		&pipelineCreateInfo, 
@@ -177,19 +212,17 @@ void GraphicsPipelineVk<Target>::Create(const MaterialLayout* materialLayout, IG
 	OSK_ASSERT(result == VK_SUCCESS, PipelineCreationException(result));
 }
 
-template <VulkanTarget Target>
-VkPipeline GraphicsPipelineVk<Target>::GetPipeline() const {
+VkPipeline GraphicsPipelineVk::GetPipeline() const {
 	return m_pipeline.pipeline;
 }
 
-template <VulkanTarget Target>
-void GraphicsPipelineVk<Target>::LoadVertexShader(const std::string& path) {
+void GraphicsPipelineVk::LoadVertexShader(const std::string& path) {
 	// Lee el código SPIR-V.
 	const DynamicArray<char> vertexCode = IO::FileIO::ReadBinaryFromFile(path);
 	const VkShaderModule shaderModule = m_pipeline.CreateShaderModule(
 		vertexCode.GetFullSpan(),
 		path,
-		gpu->As<GpuVk<Target>>()->GetLogicalDevice());
+		gpu->As<GpuVk>()->GetLogicalDevice());
 
 	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
 	VkPipelineShaderStageCreateInfo vertexShaderStageInfo{};
@@ -202,14 +235,13 @@ void GraphicsPipelineVk<Target>::LoadVertexShader(const std::string& path) {
 	m_pipeline.shaderModulesToDelete.Insert(shaderModule);
 }
 
-template <VulkanTarget Target>
-void GraphicsPipelineVk<Target>::LoadFragmentShader(const std::string& path) {
+void GraphicsPipelineVk::LoadFragmentShader(const std::string& path) {
 	// Lee el código SPIR-V.
 	const DynamicArray<char> fragmentCode = IO::FileIO::ReadBinaryFromFile(path);
 	const VkShaderModule shaderModule = m_pipeline.CreateShaderModule(
 		fragmentCode.GetFullSpan(),
 		path,
-		gpu->As<GpuVk<Target>>()->GetLogicalDevice());
+		gpu->As<GpuVk>()->GetLogicalDevice());
 
 	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
 	VkPipelineShaderStageCreateInfo fragmentShaderStageInfo{};
@@ -222,14 +254,13 @@ void GraphicsPipelineVk<Target>::LoadFragmentShader(const std::string& path) {
 	m_pipeline.shaderModulesToDelete.Insert(shaderModule);
 }
 
-template <VulkanTarget Target>
-void GraphicsPipelineVk<Target>::LoadTesselationControlShader(const std::string& path) {
+void GraphicsPipelineVk::LoadTesselationControlShader(const std::string& path) {
 	// Lee el código SPIR-V.
 	const DynamicArray<char> code = IO::FileIO::ReadBinaryFromFile(path);
 	const VkShaderModule shaderModule = m_pipeline.CreateShaderModule(
 		code.GetFullSpan(),
 		path,
-		gpu->As<GpuVk<Target>>()->GetLogicalDevice());
+		gpu->As<GpuVk>()->GetLogicalDevice());
 
 	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.
 	VkPipelineShaderStageCreateInfo shaderStageInfo{};
@@ -242,14 +273,13 @@ void GraphicsPipelineVk<Target>::LoadTesselationControlShader(const std::string&
 	m_pipeline.shaderModulesToDelete.Insert(shaderModule);
 }
 
-template <VulkanTarget Target>
-void GraphicsPipelineVk<Target>::LoadTesselationEvaluationShader(const std::string& path) {
+void GraphicsPipelineVk::LoadTesselationEvaluationShader(const std::string& path) {
 	// Lee el código SPIR-V.
 	const DynamicArray<char> code = IO::FileIO::ReadBinaryFromFile(path);
 	const VkShaderModule shaderModule = m_pipeline.CreateShaderModule(
 		code.GetFullSpan(),
 		path,
-		gpu->As<GpuVk<Target>>()->GetLogicalDevice());
+		gpu->As<GpuVk>()->GetLogicalDevice());
 
 
 	// Insertar el stage en el array, para poder insertarlo al crear el pipeline.

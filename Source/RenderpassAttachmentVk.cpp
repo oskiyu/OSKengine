@@ -21,10 +21,8 @@ RenderpassAttachmentVk::RenderpassAttachmentVk(
 
 	m_description.initialLayout = startLayout;
 	m_description.finalLayout = endLayout;
-}
 
-const VkAttachmentReference& RenderpassAttachmentVk::GetReference() const {
-	return m_reference;
+	m_description.samples = VK_SAMPLE_COUNT_1_BIT;
 }
 
 VkAttachmentDescription RenderpassAttachmentVk::GetDescription() const {

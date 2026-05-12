@@ -17,8 +17,7 @@ using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 
-template <VulkanTarget Target>
-CommandPoolVk<Target>::CommandPoolVk(const GpuVk<Target>& device, const QueueFamily& queueType, GpuQueueType type) : ICommandPool(queueType.support, type), m_logicalDevice(device.GetLogicalDevice()) {
+CommandPoolVk::CommandPoolVk(const GpuVk& device, const QueueFamily& queueType, GpuQueueType type) : ICommandPool(queueType.support, type), m_logicalDevice(device.GetLogicalDevice()) {
 	VkCommandPoolCreateInfo poolInfo{};
 	poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
 	poolInfo.queueFamilyIndex = queueType.familyIndex;
@@ -33,36 +32,31 @@ CommandPoolVk<Target>::CommandPoolVk(const GpuVk<Target>& device, const QueueFam
 	OSK_ASSERT(result == VK_SUCCESS, CommandPoolCreationException(result));
 }
 
-template <VulkanTarget Target>
-CommandPoolVk<Target>::~CommandPoolVk() {
+CommandPoolVk::~CommandPoolVk() {
 	vkDestroyCommandPool(
 		m_logicalDevice,
 		m_commandPool, 
 		nullptr);
 }
 
-template <VulkanTarget Target>
-UniquePtr<ICommandList> CommandPoolVk<Target>::CreateCommandList(const IGpu& device) {
+UniquePtr<ICommandList> CommandPoolVk::CreateCommandList(const IGpu& device) {
 	return CreateList(device, MAX_RESOURCES_IN_FLIGHT);
 }
 
-template <VulkanTarget Target>
-UniquePtr<ICommandList> CommandPoolVk<Target>::CreateSingleTimeCommandList(const IGpu& device) {
+UniquePtr<ICommandList> CommandPoolVk::CreateSingleTimeCommandList(const IGpu& device) {
 	UniquePtr<ICommandList> list = CreateList(device, 1);
 	list->_SetSingleTimeUse();
 
 	return list;
 }
 
-template <VulkanTarget Target>
-UniquePtr<ICommandList> CommandPoolVk<Target>::CreateList(const IGpu& device, USize32 numNativeLists) {
-	return MakeUnique<CommandListVk<Target>>(
-		*device.As<GpuVk<Target>>(),
+UniquePtr<ICommandList> CommandPoolVk::CreateList(const IGpu& device, USize32 numNativeLists) {
+	return MakeUnique<CommandListVk>(
+		*device.As<GpuVk>(),
 		this);
 }
 
-template <VulkanTarget Target>
-VkCommandPool CommandPoolVk<Target>::GetCommandPool() const {
+VkCommandPool CommandPoolVk::GetCommandPool() const {
 	return m_commandPool;
 }
 

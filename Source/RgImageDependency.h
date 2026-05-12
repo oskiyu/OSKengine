@@ -34,6 +34,17 @@ namespace OSK::GRAPHICS {
 	/// de un render-pass (y cómo se va a usar).
 	struct RgImageDependency {
 
+		/// @return Dependencia en la que se escribe sobre el target @p imageRefId.
+		static RgImageDependency ColorTarget(GdrImageUuid imageRefId);
+		
+		/// @return Dependencia en la que se escribe sobre el target @p imageRefId,
+		/// que estará enlazada en slot @p slot binding @p binding.
+		static RgImageDependency ComputeTarget(GdrImageUuid imageRefId, const std::string& slot, const std::string& binding);
+
+		/// @return  Dependencia en la que se lee (SAMPLED) la imagen @p imageRefId,
+		/// que estará enlazada en slot @p slot binding @p binding.
+		static RgImageDependency Sampled_Fragment_SingleMipLevel(GdrImageUuid imageRefId, const std::string& slot, const std::string& binding);
+
 		/// @brief ID único de la imagen.
 		GdrImageUuid imageRefId;
 

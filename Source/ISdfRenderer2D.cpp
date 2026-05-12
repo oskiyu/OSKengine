@@ -92,6 +92,9 @@ void OSK::GRAPHICS::ISdfRenderer2D::SetCamera(ECS::GameObjectIndex gameObject) {
 		m_ecs->GetComponent<OSK::ECS::Transform2D>(gameObject));
 }
 
+void OSK::GRAPHICS::ISdfRenderer2D::SetCamera(Vector2f position, Vector2f size) {
+	m_currentCameraMatrix = glm::ortho<float>(position.x, size.x, position.y + size.y, 0.0f, -1.0f, 1.0f);
+}
 
 glm::mat4 OSK::GRAPHICS::ISdfRenderer2D::GetCurrentCameraMatrix() const {
 	return m_currentCameraMatrix;

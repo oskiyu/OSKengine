@@ -36,7 +36,7 @@ namespace OSK::GRAPHICS {
 			const GpuImageRange& range,
 			const Color& color) override;
 
-		void BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color, bool autoSync) override;
+		void BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, std::optional<RenderPassImageInfo> depthImage, const Color& color, bool autoSync) override;
 		void EndGraphicsRenderpass(bool autoSync) override;
 
 		void SetGpuImageBarrier(

@@ -113,8 +113,7 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 
 #ifdef OSK_USE_VULKAN_BACKEND
 	case OSK::GRAPHICS::RenderApiType::VULKAN:
-		// @todo: ver target
-		renderer = MakeUnique<GRAPHICS::RendererVk<GRAPHICS::VulkanTarget::VK_LATEST>>(requestRayTracing);
+		renderer = MakeUnique<GRAPHICS::RendererVk>(requestRayTracing);
 		break;
 #endif
 

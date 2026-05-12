@@ -1785,6 +1785,21 @@
     <ClCompile Include="GdrPipeline.cpp">
       <Filter>Archivos de origen\BuiltIn\GRAPHICS\RenderGraph</Filter>
     </ClCompile>
+    <ClCompile Include="FramebufferVk.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Renderpass</Filter>
+    </ClCompile>
+    <ClCompile Include="RgImageDependency.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="SdfDrawCall.cpp">
+      <Filter>Archivos de origen\Core\Graphics\HighLevel\2D\SDF</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderpassVkMap.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Renderpass</Filter>
+    </ClCompile>
+    <ClCompile Include="FramebufferVkMap.cpp">
+      <Filter>Archivos de origen\Core\Graphics\LowLevel\Renderpass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -3212,6 +3227,15 @@
     <ClInclude Include="GdrPipeline.h">
       <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\RenderGraph</Filter>
     </ClInclude>
+    <ClInclude Include="FramebufferVk.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderpass</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderpassVkMap.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderpass</Filter>
+    </ClInclude>
+    <ClInclude Include="FramebufferVkMap.h">
+      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderpass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc">
@@ -3265,5 +3289,6 @@
     <None Include="profiles_dependencies.dox">
       <Filter>Doc</Filter>
     </None>
+    <None Include="FramebufferVkMap.g" />
   </ItemGroup>
 </Project>

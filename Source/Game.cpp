@@ -10,10 +10,16 @@
 #include "Sprite.h"
 #include "InputManager.h"
 
+#include "IKeyboardInput.h"
+#include "IMouseInput.h"
+#include "IGamepadInput.h"
+
 #include "GameExceptions.h"
+#include "GpuImageLayout.h"
 
 #include "FileIO.h"
 #include <json.hpp>
+#include "IGpuImage.h"
 
 using namespace OSK;
 using namespace OSK::IO;
@@ -50,6 +56,15 @@ void IGame::OnTick_BeforeEcs(TDeltaTime) {
 
 void IGame::OnTick_AfterEcs(TDeltaTime) {
 	// Sobreescrito en clase Game del juego.
+}
+
+void IGame::BuildFrame() {
+	auto commandList = Engine::GetRenderer()->GetMainCommandList();
+
+	commandList->SetGpuImageBarrier(
+		Engine::GetRenderer()->_GetSwapchain()->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex()),
+		GpuImageLayout::PRESENT,
+		GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE));
 }
 
 void IGame::OnExit() {
@@ -123,6 +138,9 @@ void IGame::_Run() {
 		Engine::GetInputManager()->_Update(*Engine::GetInput());
 
 		OnTick_BeforeEcs(m_deltaTime);
+		UpdateUi();
+		if (const auto* mouse = GetMouse())			OnTick_Mouse(*mouse);
+		if (const auto* keyboard = GetKeyboard())	OnTick_Keyboard(*keyboard);
 		Engine::GetEcs()->OnTick(m_deltaTime);
 		OnTick_AfterEcs(m_deltaTime);
 
@@ -169,6 +187,47 @@ void IGame::UpdateFps(TDeltaTime deltaTime) {
 		m_frameCount = 0;
 		m_framerateCountTimer = 0.0f;
 	}
+}
+
+void IGame::OnTick_Keyboard(const IO::IKeyboardInput& keyboard) {
+	// Sobreescrito en clase Game del juego.
+}
+
+void IGame::OnTick_Mouse(const IO::IMouseInput& mouse) {
+	// Sobreescrito en clase Game del juego.
+}
+
+void IGame::UpdateUi() {
+	if (const auto* mouse = GetMouse()) {
+		const bool isPressed = mouse->GetMouseState().IsButtonDown(IO::MouseButton::BUTTON_LEFT);
+		const Vector2f position = mouse->GetMouseState().GetPosition().ToVector2f();
+
+		GetRootUiElement().UpdateByCursor(position, isPressed);
+	}
+
+	if (const auto* keyboard = GetKeyboard()) {
+		GetRootUiElement().UpdateByKeyboard(
+			keyboard->GetPreviousKeyboardState(),
+			keyboard->GetKeyboardState());
+	}
+}
+
+IO::IKeyboardInput* IGame::GetKeyboard() {
+	IO::IKeyboardInput* keyboard = nullptr;
+	Engine::GetInput()->QueryInterface(IUUID::IKeyboardInput, (void**)&keyboard);
+	return keyboard;
+}
+
+IO::IMouseInput* IGame::GetMouse() {
+	IO::IMouseInput* mouse = nullptr;
+	Engine::GetInput()->QueryInterface(IUUID::IMouseInput, (void**)&mouse);
+	return mouse;
+}
+
+IO::IGamepadInput* IGame::GetGamepad() {
+	IO::IGamepadInput* gamepad = nullptr;
+	Engine::GetInput()->QueryInterface(IUUID::IGamepadInput, (void**)&gamepad);
+	return gamepad;
 }
 
 void IGame::Exit() {

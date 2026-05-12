@@ -175,7 +175,7 @@ void CommandListDx12::CopyBufferToBuffer(const GpuBuffer& source, GpuBuffer* des
 		source.GetMemorySubblock()->As<GpuMemorySubblockDx12>()->GetResource(), sourceOffset, size);
 }
 
-void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, RenderPassImageInfo depthImage, const Color& color, bool autoSync) {
+void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> colorImages, std::optional<RenderPassImageInfo> depthImage, const Color& color, bool autoSync) {
 	DynamicArray<D3D12_CPU_DESCRIPTOR_HANDLE> colorAttachments{};
 	D3D12_CPU_DESCRIPTOR_HANDLE depthStencilDesc{};
 
@@ -193,7 +193,7 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 	else {
 		GpuImageViewConfig colorView = GpuImageViewConfig::CreateTarget_Color();
 		GpuImageViewConfig depthView = GpuImageViewConfig::CreateTarget_DepthStencil();
-		depthView.baseArrayLevel = depthImage.arrayLevel;
+		depthView.baseArrayLevel = depthImage->arrayLevel;
 
 		for (const auto& [image, layer, clear] : colorImages) {
 			colorView.baseArrayLevel = layer;
@@ -201,7 +201,7 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 				->As<GpuImageViewDx12>()->GetCpuAddress());
 		}
 
-		depthStencilDesc = depthImage.targetImage->GetView(depthView)
+		depthStencilDesc = depthImage->targetImage->GetView(depthView)
 			->As<GpuImageViewDx12>()->GetCpuAddress();
 	}
 
@@ -228,7 +228,7 @@ void CommandListDx12::BeginGraphicsRenderpass(DynamicArray<RenderPassImageInfo> 
 	commandList->OMSetRenderTargets(static_cast<UINT>(colorAttachments.GetSize()), colorAttachments.GetData(), FALSE, &depthStencilDesc);
 
 	m_currentlyBoundColorImages = std::move(colorImages);
-	m_currentlyBoundDepthImage = depthImage;
+	m_currentlyBoundDepthImage = *depthImage;
 }
 
 void CommandListDx12::EndGraphicsRenderpass(bool autoSync) {

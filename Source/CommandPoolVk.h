@@ -8,15 +8,14 @@
 #include "VulkanTypedefs.h"
 #include "VulkanTarget.h"
 
-OSK_VULKAN_TYPEDEF(VkCommandPool);
-OSK_VULKAN_TYPEDEF(VkDevice);
+#include <vulkan/vulkan.h>
+#include "GpuQueueTypes.h"
+#include "QueueFamilyIndices.h"
 
 namespace OSK::GRAPHICS {
 
-	struct QueueFamily;
-	template <VulkanTarget> class GpuVk;
+	class GpuVk;
 
-	template <VulkanTarget Target>
 	class OSKAPI_CALL CommandPoolVk final : public ICommandPool {
 
 	public:
@@ -30,7 +29,7 @@ namespace OSK::GRAPHICS {
 		/// 
 		/// @throws CommandPoolCreationException
 		CommandPoolVk(
-			const GpuVk<Target>& device,
+			const GpuVk& device,
 			const QueueFamily& queueType,
 			GpuQueueType type);
 
@@ -50,9 +49,6 @@ namespace OSK::GRAPHICS {
 		VkDevice m_logicalDevice = nullptr;
 
 	};
-
-	template class CommandPoolVk<VulkanTarget::VK_1_0>;
-	template class CommandPoolVk<VulkanTarget::VK_LATEST>;
 
 }
 

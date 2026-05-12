@@ -44,6 +44,11 @@ namespace OSK::GRAPHICS {
 		/// @pre @p gameObject debe tener un componente del tipo CameraComponent2D.
 		/// @pre @p gameObject debe tener un componente del tipo Transform2D.
 		void SetCamera(ECS::GameObjectIndex gameObject);
+		
+		/// @brief Establece la cámara 2D con la que se renderizarán los próximos sprites.
+		/// @param position Posición de la cámara en el mundo.
+		/// @param size Resolución de la imagen de la cámara.
+		void SetCamera(Vector2f position, Vector2f size);
 
 #pragma endregion
 

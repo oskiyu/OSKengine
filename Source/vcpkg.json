@@ -5,6 +5,7 @@
   "dependencies": [
     "glm",
     "glfw3",
+    "spirv-tools",
     "spirv-reflect",
     "freetype",
     "directx-dxc",

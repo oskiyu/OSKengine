@@ -1,7 +1,7 @@
 #pragma once
 
 namespace OSK::GRAPHICS {
-
+	/*
 	enum class VulkanTarget {
 
 		// Corresponde a ...Vk0
@@ -11,5 +11,5 @@ namespace OSK::GRAPHICS {
 		VK_LATEST
 
 	};
-
+	*/
 }

@@ -1261,8 +1261,131 @@ private:
 
 
 
+class MinComputePass : public IRenderPass {
 
+public:
 
+	explicit MinComputePass(GdrImageUuid targetImage) : IRenderPass("Resources/Materials/Testing/min_compute.json", RenderPassType::COMPUTE) {
+		AddImageDependency(RgImageDependency::ComputeTarget(targetImage, "image", "image"));
+	}
+
+	void Execute(ICommandList* cmdList) override {
+		const auto windowRec = Engine::GetDisplay()->GetResolution();
+
+		cmdList->PushMaterialConstants("time", Engine::GetCurrentTime());
+
+		cmdList->DispatchCompute({
+			(USize32)glm::ceil(windowRec.x / 16.0f),
+			(USize32)glm::ceil(windowRec.y / 16.0f), 1 });
+	}
+
+	std::string_view GetName() const override {
+		return "MinComputePass";
+	}
+
+};
+
+class ISdfRenderPass : public IRenderPass {
+
+protected:
+
+	ISdfRenderPass() : IRenderPass(std::nullopt, RenderPassType::GRAPHICS) {
+		m_sdfRenderer = MakeUnique<SdfBindlessRenderer2D>(
+			Engine::GetEcs(), 
+			Engine::GetRenderer()->GetAllocator(), 
+			Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(SdfBindlessRenderer2D::DefaultMaterialPath));
+	}
+
+	ISdfRenderer2D* GetSdfRenderer() {
+		return m_sdfRenderer.GetPointer();
+	}
+
+private:
+
+	UniquePtr<ISdfRenderer2D> m_sdfRenderer;
+
+};
+
+class Render2dPass : public ISdfRenderPass {
+
+public:
+
+	explicit Render2dPass(GdrImageUuid targetImage) : ISdfRenderPass() {
+		m_img = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/engine_logo.json");
+
+		auto imageDependency = RgImageDependency::ColorTarget(targetImage);
+		imageDependency.clearIfTargetImage = false;
+		AddImageDependency(imageDependency);
+	}
+
+	void Execute(ICommandList* cmdList) override {
+		const auto& windowRec = Engine::GetDisplay()->GetResolution();
+		auto* sdfRenderer = GetSdfRenderer();
+
+		sdfRenderer->Begin(cmdList);
+		sdfRenderer->SetCamera(Vector2f::Zero, windowRec.ToVector2f());
+
+		auto drawCall = SdfDrawCall2D::Texture(m_img->GetTextureView2D());
+		drawCall.transform.SetPosition(Vector2f((windowRec.x - m_img->GetSize().x) / 2.0f, (windowRec.y - m_img->GetSize().y) / 2.0f));
+		drawCall.transform.SetScale(m_img->GetSize().ToVector2f());
+
+		sdfRenderer->Draw(drawCall);
+
+		sdfRenderer->End();
+	}
+
+	std::string_view GetName() const override {
+		return "Render2dPass";
+	}
+
+private:
+
+	AssetRef<Texture> m_img;
+
+};
+
+class RenderToSwapchainPass : public ISdfRenderPass {
+
+public:
+
+	explicit RenderToSwapchainPass(GdrImageUuid src, const std::span<GdrImageUuid, 3> targetImages) : ISdfRenderPass(), m_src(src) {
+		AddImageDependency(RgImageDependency::Sampled_Fragment_SingleMipLevel(src, "", ""));
+
+		for (UIndex16 i = 0; i < targetImages.size(); i++) {
+			auto imageDependency = RgImageDependency::ColorTarget(targetImages[i]);
+			imageDependency.clearIfTargetImage = false;
+			imageDependency.frameInFlight = i;
+
+			AddImageDependency(imageDependency);
+		}
+	}
+
+	void Execute(ICommandList* cmdList) override {
+		const auto& windowRec = Engine::GetDisplay()->GetResolution();
+		auto* sdfRenderer = GetSdfRenderer();
+		auto& img = GetRenderGraph()->GetImage(m_src);
+
+		sdfRenderer->Begin(cmdList);
+		sdfRenderer->SetCamera(Vector2f::Zero, windowRec.ToVector2f());
+
+		auto drawCall = SdfDrawCall2D::Texture(*img.GetView(GpuImageViewConfig::CreateSampled_SingleMipLevel(0)));
+		drawCall.transform.SetPosition(Vector2f::Zero);
+		drawCall.transform.SetScale(img.GetSize2D().ToVector2f());
+		
+		sdfRenderer->Draw(drawCall);
+
+		sdfRenderer->End();
+	}
+
+	std::string_view GetName() const override {
+		return "RenderToSwapchainPass";
+	}
+
+private:
+
+	GdrImageUuid m_src;
+
+};
 
 
 
@@ -1274,21 +1397,15 @@ class GameMin : public OSK::IGame {
 
 public:
 
-	GameMin() : OSK::IGame(GAME::DefaultContentProfile::MINIMAL) {
-
-	}
+	GameMin() : OSK::IGame(GAME::DefaultContentProfile::MINIMAL) {}
 
 protected:
 
 	/// @brief Crea la ventana, con título "OSKengine Min"
 	void CreateWindow() override {
-		Engine::GetLogger()->InfoLog("CreateWindow");
 		Engine::GetDisplay()->Create({ 1800u, 900u }, "OSKengine Min");
 
-		IO::IMouseInput* mouseInput = nullptr;
-		Engine::GetInput()->QueryInterface(IUUID::IMouseInput, (void**)&mouseInput);
-
-		if (mouseInput) 
+		if (auto* mouseInput = GetMouse()) 
 		{
 			mouseInput->SetReturnMode(IO::MouseReturnMode::FREE);
 			mouseInput->SetMotionMode(IO::MouseMotionMode::RAW);
@@ -1296,7 +1413,6 @@ protected:
 	}
 
 	void SetupEngine() override {
-		Engine::GetLogger()->InfoLog("SetupEngine");
 		Engine::GetRenderer()->Initialize(
 			"OSKengine minimal demo", 
 			{}, 
@@ -1305,43 +1421,33 @@ protected:
 	}
 
 	void OnCreate() override {
-		Engine::GetLogger()->InfoLog("OnCreate Start");
 		IGame::OnCreate();
 		Engine::GetJobSystem()->WaitForJobs<AssetLoaderJob>();
 
-		m_minComputeMaterial = Engine::GetRenderer()->GetMaterialSystem()
-			->LoadMaterial("Resources/Materials/Testing/min_compute.json");
-		m_minComputeMaterialInstance = m_minComputeMaterial->CreateInstance();
+		auto renderGraph = MakeUnique<RenderGraph>(Engine::GetRenderer());
+		renderGraph->SetFramebufferResolution(Engine::GetDisplay()->GetResolution());
 
-		RenderTargetAttachmentInfo info{};
-		info.name = "Min Compute";
-		info.format = Format::RGBA8_UNORM;
-		info.usage = GpuImageUsage::TRANSFER_SOURCE;
-		info.sampler = GpuImageSamplerDesc::CreateDefault_NoMipMap();
+		for (UIndex16 i = 0; i < m_swapchainImages.size(); i++) {
+			auto* img = Engine::GetRenderer()->_GetSwapchain()->GetImage(i);
+			m_swapchainImages[i] = renderGraph->RegisterExternalImage(img);
+		}
 
-		m_minRt = MakeUnique<ComputeRenderTarget>();
-		m_minRt->Create(
-			Engine::GetDisplay()->GetResolution(), 
-			info);
-		SetComputeImage();
+		RgImageRegisterInfo target{};
+		target.numLayers = 1;
+		target.dimension = GpuImageDimension::d2D;
+		target.format = Format::RGBA8_UNORM;
+		target.name = "Target Image";
+		const auto targetUuid = renderGraph->RegisterImage(target, RgRelativeSizeImageRegisterArgs::From2D(Vector2f::One));
 
-		m_sdfRenderer = MakeUnique<SdfBindlessRenderer2D>(
-			Engine::GetEcs(),
-			Engine::GetRenderer()->GetAllocator(),
-			Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(SdfBindlessRenderer2D::DefaultMaterialPath));
-		Engine::GetLogger()->InfoLog("OnCreate End");
+		renderGraph->RegisterRenderpass(MakeUnique<MinComputePass>(targetUuid),								RenderPassDependencies::Empty());
+		renderGraph->RegisterRenderpass(MakeUnique<Render2dPass>(targetUuid),								RenderPassDependencies::After({ "MinCompute" }));
+		renderGraph->RegisterRenderpass(MakeUnique<RenderToSwapchainPass>(targetUuid, m_swapchainImages),	RenderPassDependencies::After({ "Render2dPass" }));
 
+		renderGraph->Compile();
 
-		cameraObject2d = Engine::GetEcs()->SpawnObject();
-		CameraComponent2D* camera2D = &Engine::GetEcs()->AddComponent<CameraComponent2D>(cameraObject2d, {});
-		camera2D->LinkToDisplay(Engine::GetDisplay());
-		Engine::GetEcs()->AddComponent<Transform2D>(cameraObject2d, Transform2D(cameraObject2d));
+		SetRenderGraph(std::move(renderGraph));
 	}
 
-	void RegisterSystems() override {
-		
-	}
-	
 	void OnTick_BeforeEcs(TDeltaTime deltaTime) override {
 		IGame::OnTick_BeforeEcs(deltaTime);
 
@@ -1354,148 +1460,40 @@ protected:
 			Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "FPS: ", m_frameCount);
 			m_frameCount = 0;
 		}
+	}
 
-		IO::IKeyboardInput* keyboard = nullptr;
-		IO::IGamepadInput* gamepad = nullptr;
-		IO::IMouseInput* mouse = nullptr;
+	void OnTick_Keyboard(const IO::IKeyboardInput& keyboard) override {
+		// Exit
+		if (keyboard.IsKeyDown(IO::Key::ESCAPE)) {
+			this->Exit();
+		}
 
-		// Obtenemos las interfaces necesarias
-		Engine::GetInput()->QueryInterface(IUUID::IKeyboardInput, (void**)&keyboard);
-		Engine::GetInput()->QueryInterface(IUUID::IGamepadInput, (void**)&gamepad);
-		Engine::GetInput()->QueryInterface(IUUID::IMouseInput, (void**)&mouse);
+		// Fullscreen
+		if (keyboard.IsKeyStroked(IO::Key::F11)) {
+			IO::IFullscreenableDisplay* display = nullptr;
+			Engine::GetDisplay()->QueryInterface(OSK_IUUID(IO::IFullscreenableDisplay), (void**)&display);
 
-		Engine::GetEcs()->GetComponent<CameraComponent2D>(cameraObject2d).UpdateUniformBuffer(
-			Engine::GetEcs()->GetComponent<Transform2D>(cameraObject2d)
-		);
-
-		// Si disponemos de teclado...
-		if (keyboard) {
-
-			// Exit
-			if (keyboard->IsKeyDown(IO::Key::ESCAPE))
-				this->Exit();
-
-			// Fullscreen
-			if (keyboard->IsKeyStroked(IO::Key::F11)) {
-				IO::IFullscreenableDisplay* display = nullptr;
-				Engine::GetDisplay()->QueryInterface(OSK_IUUID(IO::IFullscreenableDisplay), (void**)&display);
-
-				if (display)
-					display->ToggleFullscreen();
+			if (display) {
+				display->ToggleFullscreen();
 			}
 		}
+	}
 
-		// UI
-		if (mouse) {
-			const bool isPressed = mouse->GetMouseState().IsButtonDown(IO::MouseButton::BUTTON_LEFT);
-			const Vector2f position = mouse->GetMouseState().GetPosition().ToVector2f();
+	void OnWindowResize(const Vector2ui& res) override {
+		auto* renderGraph = GetRenderGraph();
 
-			GetRootUiElement().UpdateByCursor(position, isPressed);
+		for (UIndex16 i = 0; i < m_swapchainImages.size(); i++) {
+			auto* img = Engine::GetRenderer()->_GetSwapchain()->GetImage(i);
+			renderGraph->RebindExternalImage(m_swapchainImages[i], img);
 		}
 
-		if (keyboard) {
-			GetRootUiElement().UpdateByKeyboard(
-				keyboard->GetPreviousKeyboardState(), 
-				keyboard->GetKeyboardState());
-		}
-	}
-
-	void BuildFrame() override {
-		auto commandList = Engine::GetRenderer()->GetMainCommandList();
-		auto renderpass  = Engine::GetRenderer()->GetFinalRenderTarget();
-
-		const Vector4ui windowRec = {
-			0,
-			0,
-			Engine::GetDisplay()->GetResolution().x,
-			Engine::GetDisplay()->GetResolution().y
-		};
-
-		Viewport viewport{};
-		viewport.rectangle = windowRec;
-		commandList->SetViewport(viewport);
-		commandList->SetScissor(windowRec);
-
-		commandList->SetGpuImageBarrier(
-			m_minRt->GetTargetImage(),
-			GpuImageLayout::GENERAL,
-			GpuBarrierInfo(GpuCommandStage::COMPUTE_SHADER, GpuAccessStage::SHADER_WRITE));
-		commandList->BindMaterial(*m_minComputeMaterial);
-		commandList->BindMaterialInstance(m_minComputeMaterialInstance.GetValue());
-		commandList->PushMaterialConstants("time", Engine::GetCurrentTime());
-		commandList->DispatchCompute({ 
-			(USize32)glm::ceil(windowRec.z / 16.0f), 
-			(USize32)glm::ceil(windowRec.w / 16.0f), 1 });
-		commandList->SetGpuImageBarrier(
-			m_minRt->GetTargetImage(),
-			GpuImageLayout::SAMPLED,
-			GpuBarrierInfo(GpuCommandStage::FRAGMENT_SHADER, GpuAccessStage::SAMPLED_READ));
-		auto* swapchainImg = Engine::GetRenderer()->_GetSwapchain()->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex());
-		
-		commandList->BindVertexBuffer(Sprite::globalVertexBuffer.GetValue());
-		commandList->BindIndexBuffer(Sprite::globalIndexBuffer.GetValue());
-
-
-		commandList->BeginGraphicsRenderpass(renderpass);
-		commandList->BindMaterial(*Engine::GetRenderer()->GetFullscreenRenderingMaterial());
-
-		commandList->BindMaterialSlot(*m_minRt->GetFullscreenSpriteMaterialSlot());
-		commandList->DrawSingleInstance(6);
-
-		m_sdfRenderer->Begin(commandList);
-		m_sdfRenderer->SetCamera(cameraObject2d);
-		SdfDrawCall2D drawCall{};
-		drawCall.contentType = OSK::GRAPHICS::SdfDrawCallContentType2D::TEXTURE;
-		const auto& img = Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/engine_logo.json");
-		drawCall.transform.SetPosition(Vector2f{  (windowRec.z - img->GetSize().x) / 2.0f, (windowRec.w - img->GetSize().y) / 2.0f });
-		drawCall.transform.SetScale(img->GetSize().ToVector2f());
-		drawCall.shape = SdfShape2D::RECTANGLE;
-		drawCall.contentType = SdfDrawCallContentType2D::TEXTURE;
-		drawCall.mainColor = Color::White;
-		GpuImageViewConfig viewConfig = GpuImageViewConfig::CreateSampled_SingleMipLevel(0);
-		viewConfig.channel = SampledChannel::COLOR;
-		drawCall.texture = &Engine::GetAssetManager()->Load<ASSETS::Texture>("Resources/Assets/Textures/engine_logo.json")->GetTextureView2D();
-		m_sdfRenderer->Draw(drawCall);
-		m_sdfRenderer->End();
-
-		commandList->EndGraphicsRenderpass();
-
-		commandList->SetGpuImageBarrier(
-			Engine::GetRenderer()->_GetSwapchain()->GetImage(Engine::GetRenderer()->GetCurrentFrameIndex()),
-			GpuImageLayout::PRESENT,
-			GpuBarrierInfo(GpuCommandStage::NONE, GpuAccessStage::NONE));
-	}
-
-
-	void OnWindowResize(const Vector2ui& size) override {
-		m_minRt->Resize(size);
-		SetComputeImage();
-	}
-
-	void OnExit() override {
-		m_sdfRenderer.Delete();
-		m_minComputeMaterialInstance.Delete();
-		m_minRt.Delete();
+		renderGraph->SetFramebufferResolution(res);
+		renderGraph->RecreateRelativeImages();
 	}
 
 private:
 
-	void SetComputeImage() {
-		auto* slot  = m_minComputeMaterialInstance->GetSlot("image");
-		slot->SetStorageImage("image", *m_minRt->GetTargetImage()->GetView(GpuImageViewConfig::CreateStorage_Default()));
-		slot->FlushUpdate();
-	}
-
-
-	ECS::GameObjectIndex cameraObject2d = ECS::EMPTY_GAME_OBJECT;
-
-	bool m_inEditor = false;
-
-	Material* m_minComputeMaterial = nullptr;
-	UniquePtr<MaterialInstance> m_minComputeMaterialInstance;
-	UniquePtr<ComputeRenderTarget> m_minRt;
-
-	UniquePtr<SdfBindlessRenderer2D> m_sdfRenderer;
+	std::array<GdrImageUuid, MAX_RESOURCES_IN_FLIGHT> m_swapchainImages;
 	int m_frameCount = 0;
 
 };

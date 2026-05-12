@@ -13,7 +13,6 @@ namespace OSK::GRAPHICS {
 
 	enum class GpuImageUsage;
 
-	template <VulkanTarget Target>
 	class OSKAPI_CALL GpuMemoryAllocatorVk final : public IGpuMemoryAllocator {
 
 	public:
@@ -38,9 +37,6 @@ namespace OSK::GRAPHICS {
 		UniquePtr<ITopLevelAccelerationStructure> _CreateTopAccelerationStructure() override;
 
 	};
-
-	template class GpuMemoryAllocatorVk<VulkanTarget::VK_1_0>;
-	template class GpuMemoryAllocatorVk<VulkanTarget::VK_LATEST>;
 
 }
 

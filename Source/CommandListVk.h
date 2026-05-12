@@ -10,6 +10,8 @@
 #include <array>
 #include "ResourcesInFlight.h"
 #include "VulkanTarget.h"
+#include "GpuInfoVkAny.h"
+#include "RenderpassVkMap.h"
 
 OSK_VULKAN_TYPEDEF(VkCommandBuffer);
 OSK_VULKAN_TYPEDEF(VkDevice);
@@ -18,18 +20,17 @@ namespace OSK::GRAPHICS {
 
 	class GpuBuffer;
 
-	template <VulkanTarget> class GpuVk;
-	template <VulkanTarget> class CommandPoolVk;
-	template <VulkanTarget> class GraphicsPipelineVk;
+	class GpuVk;
+	class CommandPoolVk;
+	class GraphicsPipelineVk;
 
-	template <VulkanTarget Target>
 	class OSKAPI_CALL CommandListVk final : public ICommandList {
 
 	public:
 
 		CommandListVk(
-			const GpuVk<Target>& gpu,
-			CommandPoolVk<Target>* commandPool);
+			const GpuVk& gpu,
+			CommandPoolVk* commandPool);
 
 		std::span<const VkCommandBuffer> GetCommandBuffers() const;
 
@@ -44,7 +45,7 @@ namespace OSK::GRAPHICS {
 
 		void BeginGraphicsRenderpass(
 			DynamicArray<RenderPassImageInfo> colorImages, 
-			RenderPassImageInfo depthImage, 
+			std::optional<RenderPassImageInfo> depthImage,
 			const Color& color, 
 			bool autoSync) override;
 		void EndGraphicsRenderpass(bool autoSync) override;
@@ -84,6 +85,8 @@ namespace OSK::GRAPHICS {
 		void StartDebugSection(const std::string& mark, const Color& color) override;
 		void EndDebugSection() override;
 
+		void ClearImagesCache() override;
+
 	private:
 
 		void BindGraphicsPipeline(const IGraphicsPipeline& computePipeline) override;
@@ -92,12 +95,12 @@ namespace OSK::GRAPHICS {
 		void BindMeshPipeline(const IMeshPipeline& computePipeline) override;
 
 		std::array<VkCommandBuffer, MAX_RESOURCES_IN_FLIGHT> m_commandBuffers;
+		RenderpassVkMap m_renderpasses;
+
 		VkDevice m_logicalDevice = nullptr;
+		const GpuVk* m_gpu = nullptr;
 
 	};
-
-	template class CommandListVk<VulkanTarget::VK_1_0>;
-	template class CommandListVk<VulkanTarget::VK_LATEST>;
 
 }
 

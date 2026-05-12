@@ -54,6 +54,10 @@ namespace OSK::GRAPHICS {
 		/// @return UUID asignado a la imagen.
 		GdrImageUuid RegisterExternalImage(GpuImage* image);
 
+		/// @brief Hace que @p uuid ahora apunte a la imagen @p newImage.
+		/// @pre @p uuid debe haber sido creado mediante `RegisterExternalImage`.
+		/// @note Útil para cuando dicha imagen cambia de resolución.
+		void RebindExternalImage(GdrImageUuid uuid, GpuImage* newImage);
 
 		/// @brief Crea las imágenes, teniendo en cuenta las
 		/// dependencias declaradas en los renderpases.
@@ -72,7 +76,11 @@ namespace OSK::GRAPHICS {
 		void SetFramebufferResolution(Vector2ui res);
 		void SetFramebufferResolution(Vector3ui res);
 
+		void RecreateRelativeImages(std::span<const RenderPassEntry> renderpasses);
+
 	private:
+
+		Vector3ui GetResolution(const RgImageSizeInfo& size) const;
 
 		GdrImageUuid RegisterImage(
 			const RgImageRegisterInfo& info,
@@ -82,11 +90,21 @@ namespace OSK::GRAPHICS {
 
 		Vector3ui m_framebufferResolution = Vector3ui::Zero;
 
-		std::unordered_map<GdrImageUuid, GpuImage*>  m_imagesMap;
+		struct Entry {
+			UniquePtr<GpuImage> imgContainer;
+			GpuImage* img;
+			RgImageSizeInfo size;
+			RgImageRegisterInfo info;
+			bool isExternal = false;
+		};
+
+		std::unordered_map<GdrImageUuid, Entry> m_images;
+
+		/*std::unordered_map<GdrImageUuid, GpuImage*>  m_imagesMap;
 		DynamicArray<UniquePtr<GpuImage>> m_images;
 
 		std::unordered_map<GdrImageUuid, RgImageSizeInfo> m_imageSizes;
-		std::unordered_map<GdrImageUuid, RgImageRegisterInfo> m_imageInfos;
+		std::unordered_map<GdrImageUuid, RgImageRegisterInfo> m_imageInfos;*/
 
 	};
 

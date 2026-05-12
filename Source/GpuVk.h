@@ -13,7 +13,6 @@
 
 namespace OSK::GRAPHICS {
 
-	template <VulkanTarget Target>
 	class OSKAPI_CALL GpuVk final : public IGpu {
 
 	public:
@@ -25,7 +24,7 @@ namespace OSK::GRAPHICS {
 
 		/// @brief Devuelve la información de esta GPU.
 		/// @return Información de esta GPU.
-		const GpuInfoVkAny<Target>& GetInfo() const;
+		const GpuInfoVkAny& GetInfo() const;
 
 		/// @brief Obtiene el handler de Vulkan de la GPU.
 		/// @return Handler de la GPU.
@@ -76,12 +75,9 @@ namespace OSK::GRAPHICS {
 		VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
 		VkDevice logicalDevice = VK_NULL_HANDLE;
 		VkSurfaceKHR surface = VK_NULL_HANDLE;
-		GpuInfoVkAny<Target> info{};
+		GpuInfoVkAny info{};
 
 	};
-
-	template class GpuVk<VulkanTarget::VK_1_0>;
-	template class GpuVk<VulkanTarget::VK_LATEST>;
 
 }
 

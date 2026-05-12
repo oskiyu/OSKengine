@@ -5,24 +5,20 @@
 #include "Assert.h"
 #include "UnreachableException.h"
 
-template <OSK::GRAPHICS::VulkanTarget Target>
-OSK::GRAPHICS::GpuImageSamplerVk<Target>::GpuImageSamplerVk(const GpuImageSamplerDesc& info, const GpuVk<Target>* gpu)
+OSK::GRAPHICS::GpuImageSamplerVk::GpuImageSamplerVk(const GpuImageSamplerDesc& info, const GpuVk* gpu)
 	: IGpuImageSampler(info), m_sampler(CreateSamplerVk(info, gpu)), m_gpu(gpu) {
 
 }
 
-template <OSK::GRAPHICS::VulkanTarget Target>
-OSK::GRAPHICS::GpuImageSamplerVk<Target>::~GpuImageSamplerVk() {
+OSK::GRAPHICS::GpuImageSamplerVk::~GpuImageSamplerVk() {
 	vkDestroySampler(m_gpu->GetLogicalDevice(), m_sampler, nullptr);
 }
 
-template <OSK::GRAPHICS::VulkanTarget Target>
-VkSampler OSK::GRAPHICS::GpuImageSamplerVk<Target>::GetSamplerVk() const {
+VkSampler OSK::GRAPHICS::GpuImageSamplerVk::GetSamplerVk() const {
 	return m_sampler;
 }
 
-template <OSK::GRAPHICS::VulkanTarget Target>
-VkSampler OSK::GRAPHICS::GpuImageSamplerVk<Target>::CreateSamplerVk(const GpuImageSamplerDesc& info, const GpuVk<Target>* gpu) {
+VkSampler OSK::GRAPHICS::GpuImageSamplerVk::CreateSamplerVk(const GpuImageSamplerDesc& info, const GpuVk* gpu) {
 	VkSampler output = VK_NULL_HANDLE;
 
 	// Info del sampler.
@@ -73,8 +69,7 @@ VkSampler OSK::GRAPHICS::GpuImageSamplerVk<Target>::CreateSamplerVk(const GpuIma
 	return output;
 }
 
-template <OSK::GRAPHICS::VulkanTarget Target>
-VkFilter OSK::GRAPHICS::GpuImageSamplerVk<Target>::GetFilterTypeVk(GpuImageFilteringType type) {
+VkFilter OSK::GRAPHICS::GpuImageSamplerVk::GetFilterTypeVk(GpuImageFilteringType type) {
 	switch (type) {
 	case OSK::GRAPHICS::GpuImageFilteringType::LINEAR:
 		return VK_FILTER_LINEAR;
@@ -87,8 +82,7 @@ VkFilter OSK::GRAPHICS::GpuImageSamplerVk<Target>::GetFilterTypeVk(GpuImageFilte
 	OSK_ASSERT(false, UnreachableException("GpuImageFilteringType no reconocido."));
 }
 
-template <OSK::GRAPHICS::VulkanTarget Target>
-VkSamplerAddressMode OSK::GRAPHICS::GpuImageSamplerVk<Target>::GetAddressModeVk(GpuImageAddressMode mode) {
+VkSamplerAddressMode OSK::GRAPHICS::GpuImageSamplerVk::GetAddressModeVk(GpuImageAddressMode mode) {
 	switch (mode) {
 	case OSK::GRAPHICS::GpuImageAddressMode::REPEAT:
 		return VK_SAMPLER_ADDRESS_MODE_REPEAT;

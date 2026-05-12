@@ -10,16 +10,15 @@
 
 namespace OSK::GRAPHICS {
 
-	template <OSK::GRAPHICS::VulkanTarget> class GpuVk;
+	class GpuVk;
 
-	template <VulkanTarget Target>
 	class GpuImageSamplerVk final : public IGpuImageSampler {
 
 	public:
 
 		explicit GpuImageSamplerVk(
 			const GpuImageSamplerDesc& info,
-			const GpuVk<Target>* gpu);
+			const GpuVk* gpu);
 		~GpuImageSamplerVk() override;
 
 		VkSampler GetSamplerVk() const;
@@ -31,16 +30,13 @@ namespace OSK::GRAPHICS {
 		static VkSamplerAddressMode GetAddressModeVk(GpuImageAddressMode mode);
 		static VkSampler CreateSamplerVk(
 			const GpuImageSamplerDesc& info,
-			const GpuVk<Target>* gpu);
+			const GpuVk* gpu);
 
 		VkSampler m_sampler = VK_NULL_HANDLE;
 
-		const GpuVk<Target>* m_gpu = nullptr;
+		const GpuVk* m_gpu = nullptr;
 
 	};
-
-	template class GpuImageSamplerVk<VulkanTarget::VK_1_0>;
-	template class GpuImageSamplerVk<VulkanTarget::VK_LATEST>;
 
 }
 

@@ -9,8 +9,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-template <VulkanTarget Target>
-CommandQueueVk<Target>::CommandQueueVk(QueueFamily family, UIndex32 indexInsideFamily, GpuQueueType queueType, const GpuVk<Target>& gpu)
+CommandQueueVk::CommandQueueVk(QueueFamily family, UIndex32 indexInsideFamily, GpuQueueType queueType, const GpuVk& gpu)
 	: ICommandQueue(queueType), m_family(family), m_queueIndex(indexInsideFamily) {
 
 	vkGetDeviceQueue(
@@ -20,18 +19,15 @@ CommandQueueVk<Target>::CommandQueueVk(QueueFamily family, UIndex32 indexInsideF
 		&m_queue);
 }
 
-template <VulkanTarget Target>
-const QueueFamily& CommandQueueVk<Target>::GetFamily() const {
+const QueueFamily& CommandQueueVk::GetFamily() const {
 	return m_family;
 }
 
-template <VulkanTarget Target>
-UIndex32 CommandQueueVk<Target>::GetQueueIndexInsideFamily() const {
+UIndex32 CommandQueueVk::GetQueueIndexInsideFamily() const {
 	return m_queueIndex;
 }
 
-template <VulkanTarget Target>
-VkQueue CommandQueueVk<Target>::GetQueue() const {
+VkQueue CommandQueueVk::GetQueue() const {
 	return m_queue;
 }
 

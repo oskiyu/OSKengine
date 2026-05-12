@@ -11,11 +11,13 @@
 #include <vulkan/vulkan.h>
 #include "VulkanTarget.h"
 
+#include <optional>
+#include "RenderpassVk.h"
+
 namespace OSK::GRAPHICS {
 
-	template <VulkanTarget> class GpuVk;
+	class GpuVk;
 
-	template <VulkanTarget Target>
 	class OSKAPI_CALL GraphicsPipelineVk final : public IGraphicsPipeline {
 
 	public:
@@ -37,14 +39,13 @@ namespace OSK::GRAPHICS {
 		/// @throws FileNotFoundException si no se encuentra el archivo del shader.
 		void LoadTesselationEvaluationShader(const std::string& path);
 
-		IPipelineVk<Target> m_pipeline;
+		IPipelineVk m_pipeline;
 
 		IGpu* gpu = nullptr;
 
-	};
+		std::optional<RenderpassVk> m_renderpass = std::nullopt;
 
-	template class GraphicsPipelineVk<VulkanTarget::VK_1_0>;
-	template class GraphicsPipelineVk<VulkanTarget::VK_LATEST>;
+	};
 
 }
 

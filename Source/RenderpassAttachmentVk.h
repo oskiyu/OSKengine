@@ -19,12 +19,10 @@ namespace OSK::GRAPHICS {
 			VkImageLayout endLayout);
 
 		VkAttachmentDescription GetDescription() const;
-		const VkAttachmentReference& GetReference() const;
 
 	private:
 
 		VkAttachmentDescription m_description{};
-		VkAttachmentReference m_reference{};
 	};
 
 }

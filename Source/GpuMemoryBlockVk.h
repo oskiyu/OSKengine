@@ -14,9 +14,8 @@ namespace OSK::GRAPHICS {
 	enum class GpuImageUsage;
 
 	class GpuImage;
-	template <VulkanTarget> class GpuVk;
+	class GpuVk;
 
-	template <VulkanTarget Target>
 	class OSKAPI_CALL GpuMemoryBlockVk final : public IGpuMemoryBlock {
 
 	public:
@@ -85,7 +84,7 @@ namespace OSK::GRAPHICS {
 		static VkMemoryAllocateFlags GetMemoryAllocateFlags(GpuBufferUsage usage);
 
 		/// @throws NoCompatibleGpuMemoryException Si no se encontró memoria compatible.
-		static uint32_t GetMemoryType(uint32_t memoryTypeFilter, GpuVk<Target>* device, GpuSharedMemoryType type);
+		static uint32_t GetMemoryType(uint32_t memoryTypeFilter, GpuVk* device, GpuSharedMemoryType type);
 
 		TByte* MapRange_Impl(USize64 offset, USize64 size) override;
 		void UnmapAll_Impl() override;
@@ -98,9 +97,6 @@ namespace OSK::GRAPHICS {
 		VkBuffer buffer = VK_NULL_HANDLE;
 
 	};
-
-	template class GpuMemoryBlockVk<VulkanTarget::VK_1_0>;
-	template class GpuMemoryBlockVk<VulkanTarget::VK_LATEST>;
 
 }
 

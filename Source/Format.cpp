@@ -97,6 +97,10 @@ VkFormat OSK::GRAPHICS::GetFormatVk(Format format) {
 
 	case Format::D24S8_SFLOAT_SUINT:
 		return VK_FORMAT_D24_UNORM_S8_UINT;
+
+	case Format::UNKNOWN:
+		return VK_FORMAT_UNDEFINED;
+
 	}
 
 	OSK_ASSERT(false, NotImplementedException());

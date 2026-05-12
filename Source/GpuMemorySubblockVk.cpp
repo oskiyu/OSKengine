@@ -14,8 +14,7 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-template <VulkanTarget Target>
-GpuMemorySubblockVk<Target>::GpuMemorySubblockVk(IGpuMemoryBlock* owner, UIndex64 size, UIndex64 offset)
+GpuMemorySubblockVk::GpuMemorySubblockVk(IGpuMemoryBlock* owner, UIndex64 size, UIndex64 offset)
 	: IGpuMemorySubblock(owner, size, offset) {
 
 }

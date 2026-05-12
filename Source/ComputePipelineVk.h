@@ -9,7 +9,6 @@
 
 namespace OSK::GRAPHICS {
 
-	template <VulkanTarget Target>
 	class OSKAPI_CALL ComputePipelineVk final : public IComputePipeline {
 
 	public:
@@ -20,12 +19,9 @@ namespace OSK::GRAPHICS {
 
 	private:
 
-		IPipelineVk<Target> m_pipeline{};
+		IPipelineVk m_pipeline{};
 
 	};
-
-	template class ComputePipelineVk<VulkanTarget::VK_1_0>;
-	template class ComputePipelineVk<VulkanTarget::VK_LATEST>;
 
 }
 

@@ -8,20 +8,23 @@
 #include "InvalidObjectStateException.h"
 #include <format>
 
+#include "IRenderer.h"
 #include "Logger.h"
 
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
 IRenderPass::IRenderPass(
-	std::string_view materialName,
+	std::optional<std::string_view> materialName,
 	RenderPassType type)
 :
 	m_type(type)
 {
-	m_material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(static_cast<std::string>(materialName));
-	for (UIndex16 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
-		m_materialInstance[i] = m_material->CreateInstance();
+	if (materialName) {
+		m_material = Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(static_cast<std::string>(*materialName));
+		for (UIndex16 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
+			m_materialInstance[i] = m_material->CreateInstance();
+		}
 	}
 }
 
@@ -37,22 +40,20 @@ void IRenderPass::_Execute(ICommandList* cmdList, RenderGraph& renderGraph) {
 			m_colorTargets,
 			InvalidObjectStateException(std::format("No se ha establecido ningún target de color para el renderpass {}", GetName())),
 			Engine::GetLogger());
-		OSK_ASSERT_2(
-			m_depthTarget,
-			InvalidObjectStateException(std::format("No se ha establecido ningún target de profundidad para el renderpass {}", GetName())),
-			Engine::GetLogger());
+
+		const auto i = Engine::GetRenderer()->GetCurrentFrameIndex();
 
 		cmdList->BeginGraphicsRenderpass(
-			*m_colorTargets,
-			*m_depthTarget,
+			(*m_colorTargets)[i],
+			m_depthTarget,
 			Color::Black,
 			false);
 
 		Vector4ui windowRec = {
 			0,
 			0,
-			m_depthTarget->targetImage->GetSize2D().x,
-			m_depthTarget->targetImage->GetSize2D().y
+			(*m_colorTargets)[i][0].targetImage->GetSize2D().x,
+			(*m_colorTargets)[i][0].targetImage->GetSize2D().y
 		};
 
 		Viewport viewport{};
@@ -68,9 +69,12 @@ void IRenderPass::_Execute(ICommandList* cmdList, RenderGraph& renderGraph) {
 		BindResources(cmdList, renderGraph);
 	}
 
-	cmdList->BindMaterial(*m_material);
-	cmdList->BindMaterialInstance(m_materialInstance[Engine::GetRenderer()->GetCurrentResourceIndex()].GetValue());
+	if (m_material) {
+		cmdList->BindMaterial(*m_material);
+		cmdList->BindMaterialInstance(m_materialInstance[Engine::GetRenderer()->GetCurrentResourceIndex()].GetValue());
+	}
 
+	m_rg = &renderGraph;
 	Execute(cmdList);
 
 	if (m_type == RenderPassType::GRAPHICS) {
@@ -89,7 +93,7 @@ void IRenderPass::BindResources(ICommandList* cmdList, RenderGraph& renderGraph)
 				continue;
 			}
 
-			if (dependency.usage == RgBufferUsage::STORAGE_BUFFER) {
+			if (dependency.usage == RgBufferUsage::STORAGE_BUFFER && m_materialInstance[i].HasValue()) {
 				m_materialInstance[i]
 					->GetSlot(dependency.shaderBinding.slotName)
 					->SetStorageBuffer(
@@ -98,7 +102,7 @@ void IRenderPass::BindResources(ICommandList* cmdList, RenderGraph& renderGraph)
 						dependency.range,
 						dependency.arrayIndex);
 			}
-			else if (dependency.usage == RgBufferUsage::UNIFORM_BUFFER) {
+			else if (dependency.usage == RgBufferUsage::UNIFORM_BUFFER && m_materialInstance[i].HasValue()) {
 				m_materialInstance[i]
 					->GetSlot(dependency.shaderBinding.slotName)
 					->SetUniformBuffer(
@@ -132,7 +136,7 @@ void IRenderPass::BindResources(ICommandList* cmdList, RenderGraph& renderGraph)
 			const auto& image = renderGraph.GetImage(dependency.imageRefId);
 
 			// Storage image.
-			if (dependency.usage == GpuExclusiveImageUsage::COMPUTE_OR_RT_TARGET) {
+			if (dependency.usage == GpuExclusiveImageUsage::COMPUTE_OR_RT_TARGET && m_materialInstance[i].HasValue()) {
 				m_materialInstance[i]
 					->GetSlot(dependency.shaderBinding.slotName)
 					->SetStorageImage(
@@ -142,7 +146,7 @@ void IRenderPass::BindResources(ICommandList* cmdList, RenderGraph& renderGraph)
 			}
 
 			// Sampler.
-			else if (dependency.usage == GpuExclusiveImageUsage::SAMPLED) {
+			else if (dependency.usage == GpuExclusiveImageUsage::SAMPLED && m_materialInstance[i].HasValue()) {
 				m_materialInstance[i]
 					->GetSlot(dependency.shaderBinding.slotName)
 					->SetGpuImage(
@@ -154,8 +158,10 @@ void IRenderPass::BindResources(ICommandList* cmdList, RenderGraph& renderGraph)
 		}
 
 		// Update de todos los recursos.
-		for (const auto& [name, _] : m_materialInstance[i]->GetLayout()->GetAllSlots()) {
-			m_materialInstance[i]->GetSlot(name)->FlushUpdate();
+		if (m_material) {
+			for (const auto& [name, _] : m_materialInstance[i]->GetLayout()->GetAllSlots()) {
+				m_materialInstance[i]->GetSlot(name)->FlushUpdate();
+			}
 		}
 	}
 
@@ -183,8 +189,10 @@ void IRenderPass::RebindGraphicsBuffers(ICommandList* cmdList, RenderGraph& rend
 }
 
 void IRenderPass::BindTargetImages(RenderGraph& renderGraph) {
+	auto i = Engine::GetRenderer()->GetCurrentFrameIndex();
+
 	if (m_colorTargets) {
-		m_colorTargets->Empty();
+		m_colorTargets.value()[i].Empty();
 	}
 
 	// Dependencias de imágenes.
@@ -198,12 +206,18 @@ void IRenderPass::BindTargetImages(RenderGraph& renderGraph) {
 			info.clear = dependency.clearIfTargetImage;
 			info.targetImage = &image;
 
+			if (dependency.frameInFlight && *dependency.frameInFlight != i) {
+				continue;
+			}
+
 			if (!m_colorTargets.has_value()) {
-				m_colorTargets = { info };
+				m_colorTargets = std::array<DynamicArray<RenderPassImageInfo>, MAX_RESOURCES_IN_FLIGHT>{};
+				m_colorTargets.value()[i]  = { info };
 			}
 			else {
-				m_colorTargets->Insert(info);
+				m_colorTargets.value()[i].Insert(info);
 			}
+
 		}
 
 		// Target de profundidad.
@@ -213,7 +227,7 @@ void IRenderPass::BindTargetImages(RenderGraph& renderGraph) {
 			info.clear = dependency.clearIfTargetImage;
 			info.targetImage = &image;
 
-			m_depthTarget = info;
+			m_depthTarget.emplace(info);
 		}
 	}
 }
@@ -270,4 +284,12 @@ void IRenderPass::AddPartialImageDependency(const PartialRgImageDependency& depe
 
 RenderPassType IRenderPass::GetType() const {
 	return m_type;
+}
+
+void IRenderPass::RebindDependencies() {
+	m_needsResourceBinding = true;
+}
+
+RenderGraph* IRenderPass::GetRenderGraph() {
+	return m_rg;
 }

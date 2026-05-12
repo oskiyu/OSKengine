@@ -14,7 +14,6 @@ namespace OSK::GRAPHICS {
 
 	class IRenderpass;
 
-	template <VulkanTarget Target>
 	class OSKAPI_CALL RendererVk final : public IRenderer {
 
 	public:
@@ -27,7 +26,6 @@ namespace OSK::GRAPHICS {
 			IO::IDisplay& display,
 			PresentMode mode) override;
 		void Close() override;
-		void HandleResize(const Vector2ui& resolution) override;
 		void PresentFrame() override;
 		void SubmitSingleUseCommandList(UniquePtr<ICommandList>&& commandList) override;
 		void WaitForCompletion() override;
@@ -139,9 +137,6 @@ namespace OSK::GRAPHICS {
 		USize32 vulkanVersion = VK_API_VERSION_1_3;
 
 	};
-
-	template class RendererVk<VulkanTarget::VK_1_0>;
-	template class RendererVk<VulkanTarget::VK_LATEST>;
 
 }
 
