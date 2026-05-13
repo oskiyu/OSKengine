@@ -1460,6 +1460,8 @@ protected:
 			Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "FPS: ", m_frameCount);
 			m_frameCount = 0;
 		}
+
+		Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "FRAME: ", Engine::GetCurrentGameFrameIndex());
 	}
 
 	void OnTick_Keyboard(const IO::IKeyboardInput& keyboard) override {

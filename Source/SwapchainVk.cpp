@@ -1,6 +1,9 @@
 #include "SwapchainVk.h"
 
+#include "GpuInfoVkAny.h"
 #include "Platforms.h"
+#include <array>
+#include <vulkan/vulkan_core.h>
 #ifdef OSK_USE_VULKAN_BACKEND
 
 #include <vulkan/vulkan.h>
@@ -24,14 +27,28 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
-VkPresentModeKHR GetPresentModeVk(PresentMode mode) {
+std::array<VkPresentModeKHR, 3> GetPreferredModes(PresentMode mode) {
 	switch (mode) {
-	case OSK::GRAPHICS::PresentMode::VSYNC_OFF:
-		return VK_PRESENT_MODE_IMMEDIATE_KHR;
-	case OSK::GRAPHICS::PresentMode::VSYNC_ON:
-		return VK_PRESENT_MODE_FIFO_KHR;
-	case OSK::GRAPHICS::PresentMode::VSYNC_ON_TRIPLE_BUFFER:
-		return VK_PRESENT_MODE_MAILBOX_KHR;
+	case PresentMode::VSYNC_OFF:
+		return { VK_PRESENT_MODE_IMMEDIATE_KHR, VK_PRESENT_MODE_MAILBOX_KHR, VK_PRESENT_MODE_FIFO_KHR };
+	case PresentMode::VSYNC_ON:
+		return { VK_PRESENT_MODE_FIFO_KHR, VK_PRESENT_MODE_MAILBOX_KHR, VK_PRESENT_MODE_IMMEDIATE_KHR };
+	case PresentMode::VSYNC_ON_TRIPLE_BUFFER:
+		return { VK_PRESENT_MODE_MAILBOX_KHR, VK_PRESENT_MODE_FIFO_KHR, VK_PRESENT_MODE_IMMEDIATE_KHR };
+	}
+}
+
+/// @return El modo de presentación nativo preferido
+/// para la configuración deseada.
+/// @param mode Modo preferido.
+/// @param info Información sobre la GPU seleccionada.
+/// @note Puede devolver un modo distinto al solicitado
+/// si este no está soportado.
+VkPresentModeKHR GetPresentModeVk(PresentMode mode, const GpuInfoVkAny& info) {
+	for (const auto nativeMode : GetPreferredModes(mode)) {
+		if (info.swapchainSupportDetails.presentModes.ContainsElement(nativeMode)) {
+			return nativeMode;
+		}
 	}
 
 	return VK_PRESENT_MODE_MAX_ENUM_KHR;
@@ -70,7 +87,7 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 	surfaceFormat.format = GetFormatVk(GetColorFormat());
 
 	// Modo de pressentación.
-	VkPresentModeKHR presentMode = GetPresentModeVk(GetCurrentPresentMode());
+	VkPresentModeKHR presentMode = GetPresentModeVk(GetCurrentPresentMode(), device.GetInfo());
 
 	// Tamaño.
 	VkExtent2D extent{};
@@ -139,9 +156,12 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 	createInfo.clipped = VK_TRUE; // Si hay algo tapando la ventana, no se renderiza.
 	createInfo.oldSwapchain = nullptr;
 
+	Engine::GetLogger()->Log(IO::LogLevel::INFO, "A.");
 	// Crearlo y error-handling.
 	VkResult result = vkCreateSwapchainKHR(device.GetLogicalDevice(), &createInfo, nullptr, &m_swapchain);
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("No se ha podido crear el swapchain", result));
+
+	Engine::GetLogger()->Log(IO::LogLevel::INFO, "B.");
 
 	for (UIndex32 i = 0; i < GetImageCount(); i++) {
 		GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(resolution, GetColorFormat(), GpuImageUsage::COLOR);
@@ -152,23 +172,30 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 		SetImage(MakeUnique<GpuImageVk>(imageInfo, queue), i);
 	}
 
+	Engine::GetLogger()->Log(IO::LogLevel::INFO, "C.");
 	AcquireImages(device);
+	Engine::GetLogger()->Log(IO::LogLevel::INFO, "XDDDDD.");
+	Engine::GetLogger()->Log(IO::LogLevel::INFO, "D.");
 	AcquireViews(device);
+
+	Engine::GetLogger()->Log(IO::LogLevel::INFO, "Terminada creación del swapchain.");
 }
 
 
 
 void SwapchainVk::AcquireImages(const GpuVk& device) {
 	auto imageCount = GetImageCount();
+	
 	VkResult result = vkGetSwapchainImagesKHR(device.GetLogicalDevice(), m_swapchain, &imageCount, nullptr);
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
 
-	auto tempImages = DynamicArray<VkImage>::CreateResized(imageCount);
-	vkGetSwapchainImagesKHR(device.GetLogicalDevice(), m_swapchain, &imageCount, tempImages.GetData());
+	auto tempImages = std::array<VkImage, MAX_RESOURCES_IN_FLIGHT>{};
+	vkGetSwapchainImagesKHR(device.GetLogicalDevice(), m_swapchain, &imageCount, tempImages.data());
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
 
-	for (UIndex32 i = 0; i < imageCount; i++)
+	for (UIndex32 i = 0; i < imageCount; i++) {
 		GetImage(i)->As<GpuImageVk>()->_SetVkImage(tempImages[i]);
+	}
 }
 
 
