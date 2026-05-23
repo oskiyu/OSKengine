@@ -6,7 +6,6 @@
 #include "ICommandPool.h"
 #include "NumericTypes.h"
 #include "VulkanTypedefs.h"
-#include "VulkanTarget.h"
 
 #include <vulkan/vulkan.h>
 #include "GpuQueueTypes.h"

@@ -27,6 +27,15 @@
 using namespace OSK;
 using namespace OSK::GRAPHICS;
 
+
+VkFormat GetSupportedFormat(const GpuVk& device) {
+	for (const auto& format : device.GetInfo().swapchainSupportDetails.formats)
+		if (format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR/* && format.format == VK_FORMAT_B8G8R8A8_SRGB*/)
+			return format.format;
+
+	return device.GetInfo().swapchainSupportDetails.formats[0].format;
+}
+
 std::array<VkPresentModeKHR, 3> GetPreferredModes(PresentMode mode) {
 	switch (mode) {
 	case PresentMode::VSYNC_OFF:
@@ -84,7 +93,7 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 	// Formato del swapchain.
 	VkSurfaceFormatKHR surfaceFormat{};
 	surfaceFormat.colorSpace = GetSupportedColorSpace(device);
-	surfaceFormat.format = GetFormatVk(GetColorFormat());
+	surfaceFormat.format = GetSupportedFormat(device);
 
 	// Modo de pressentación.
 	VkPresentModeKHR presentMode = GetPresentModeVk(GetCurrentPresentMode(), device.GetInfo());
@@ -118,7 +127,7 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 	createInfo.imageColorSpace = surfaceFormat.colorSpace;
 	createInfo.imageExtent = extent;
 	createInfo.imageArrayLayers = 1;
-	createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_STORAGE_BIT;
+	createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
 	// Colas.
 	// Cómo se maneja el swapchain.
@@ -151,20 +160,21 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 	}
 
 	createInfo.preTransform = info.swapchainSupportDetails.surfaceCapabilities.currentTransform;
+#ifdef OSK_PC_ANY
 	createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR; // ¿Debería mostrarse lo que hay detrás de la ventana?
+#else
+	createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR;
+#endif
 	createInfo.presentMode = presentMode;
 	createInfo.clipped = VK_TRUE; // Si hay algo tapando la ventana, no se renderiza.
 	createInfo.oldSwapchain = nullptr;
 
-	Engine::GetLogger()->Log(IO::LogLevel::INFO, "A.");
 	// Crearlo y error-handling.
 	VkResult result = vkCreateSwapchainKHR(device.GetLogicalDevice(), &createInfo, nullptr, &m_swapchain);
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("No se ha podido crear el swapchain", result));
 
-	Engine::GetLogger()->Log(IO::LogLevel::INFO, "B.");
-
 	for (UIndex32 i = 0; i < GetImageCount(); i++) {
-		GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(resolution, GetColorFormat(), GpuImageUsage::COLOR);
+		GpuImageCreateInfo imageInfo = GpuImageCreateInfo::CreateDefault2D(resolution, FormatVkToEngine(GetSupportedFormat(device)), GpuImageUsage::COLOR);
 		const auto* queue = Engine::GetRenderer()->UseUnifiedCommandQueue()
 			? Engine::GetRenderer()->GetUnifiedQueue()
 			: Engine::GetRenderer()->GetPresentationQueue();
@@ -172,13 +182,8 @@ void SwapchainVk::CreationLogic(const GpuVk& device, const Vector2ui& resolution
 		SetImage(MakeUnique<GpuImageVk>(imageInfo, queue), i);
 	}
 
-	Engine::GetLogger()->Log(IO::LogLevel::INFO, "C.");
 	AcquireImages(device);
-	Engine::GetLogger()->Log(IO::LogLevel::INFO, "XDDDDD.");
-	Engine::GetLogger()->Log(IO::LogLevel::INFO, "D.");
 	AcquireViews(device);
-
-	Engine::GetLogger()->Log(IO::LogLevel::INFO, "Terminada creación del swapchain.");
 }
 
 
@@ -192,7 +197,7 @@ void SwapchainVk::AcquireImages(const GpuVk& device) {
 	auto tempImages = std::array<VkImage, MAX_RESOURCES_IN_FLIGHT>{};
 	vkGetSwapchainImagesKHR(device.GetLogicalDevice(), m_swapchain, &imageCount, tempImages.data());
 	OSK_ASSERT(result == VK_SUCCESS, SwapchainCreationException("Error al adquirir imagenes del swapchain", result));
-
+	
 	for (UIndex32 i = 0; i < imageCount; i++) {
 		GetImage(i)->As<GpuImageVk>()->_SetVkImage(tempImages[i]);
 	}
@@ -207,7 +212,7 @@ void SwapchainVk::AcquireViews(const GpuVk& device) {
 		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 		createInfo.image = GetImage(i)->As<GpuImageVk>()->GetVkImage();
 		createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-		createInfo.format = GetFormatVk(GetColorFormat());
+		createInfo.format = GetSupportedFormat(device);
 		createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
 		createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
 		createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
@@ -228,6 +233,8 @@ void SwapchainVk::AcquireViews(const GpuVk& device) {
 		}
 
 		GetImage(i)->As<GpuImageVk>()->SetSwapchainView(tempViews[i]);
+
+		Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Creada view del swapchain ", i);
 	}
 }
 
@@ -252,7 +259,7 @@ void SwapchainVk::Resize(const IGpu& gpu, Vector2ui newResolution) {
 
 VkColorSpaceKHR SwapchainVk::GetSupportedColorSpace(const GpuVk& device) {
 	for (const auto& format : device.GetInfo().swapchainSupportDetails.formats)
-		if (format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR && format.format == VK_FORMAT_B8G8R8A8_SRGB)
+		if (format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR/* && format.format == VK_FORMAT_B8G8R8A8_SRGB*/)
 			return format.colorSpace;
 
 	return device.GetInfo().swapchainSupportDetails.formats[0].colorSpace;

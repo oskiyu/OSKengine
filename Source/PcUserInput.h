@@ -2,6 +2,9 @@
 // Copyright (c) 2019-2022 oskiyu. All rights reserved.
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_PC_ANY
+
 #include "IUserInput.h"
 
 #include "IKeyboardInput.h"
@@ -67,3 +70,5 @@ namespace OSK::IO {
 	};
 
 }
+
+#endif

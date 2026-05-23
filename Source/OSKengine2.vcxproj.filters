@@ -307,9 +307,6 @@
     <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Memory\Allocator">
       <UniqueIdentifier>{fec5c9ff-18a6-4cdd-b004-fbb7f9a291b0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Memory\Allocator\Dx12">
-      <UniqueIdentifier>{2caf9091-7261-44a4-9230-1bcf4cb295e5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Memory\Block">
       <UniqueIdentifier>{216e1633-b043-4c17-8943-e0df33bc1ed6}</UniqueIdentifier>
     </Filter>
@@ -456,9 +453,6 @@
     </Filter>
     <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Memory\Allocator">
       <UniqueIdentifier>{a326600a-b174-4778-8c0c-02ecef490d7f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Memory\Allocator\Dx12">
-      <UniqueIdentifier>{46e7f15e-f8b4-4cfb-bb43-f1f9a8995985}</UniqueIdentifier>
     </Filter>
     <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Memory\Block">
       <UniqueIdentifier>{7bfaf32b-d20a-405d-bcc3-ba5a231d320a}</UniqueIdentifier>
@@ -709,12 +703,6 @@
     <Filter Include="Archivos de origen\External">
       <UniqueIdentifier>{1b9659fc-4ce7-4d39-9e5a-8e83ec9ec037}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Archivos de encabezado\Core\Graphics\LowLevel\Resources\Dx12">
-      <UniqueIdentifier>{8e730215-456d-4262-9fd7-fd4cb7df35f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Core\Graphics\LowLevel\Resources\Dx12">
-      <UniqueIdentifier>{de8058f2-23b5-4e1a-ab86-33a978fc9c8f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Archivos de encabezado\BuiltIn\Collision">
       <UniqueIdentifier>{ec3cdff8-3a9e-4201-ad6b-b6afc83d09a9}</UniqueIdentifier>
     </Filter>
@@ -790,6 +778,9 @@
     <Filter Include="Archivos de origen\BuiltIn\GRAPHICS\RenderGraph">
       <UniqueIdentifier>{63405647-d873-4e6f-9607-3c3a6c6018b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Core\IO\Log">
+      <UniqueIdentifier>{f3b209a4-6f0f-4ae2-b467-a398d21dbf39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -807,15 +798,6 @@
     <ClCompile Include="OSKengine.cpp">
       <Filter>Archivos de origen\Core</Filter>
     </ClCompile>
-    <ClCompile Include="GpuDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Gpu</Filter>
-    </ClCompile>
-    <ClCompile Include="CommandQueueDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\Queues</Filter>
-    </ClCompile>
-    <ClCompile Include="RendererDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="GpuVk.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Gpu</Filter>
     </ClCompile>
@@ -828,12 +810,6 @@
     <ClCompile Include="RendererVk.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="CommandPoolDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\Pool</Filter>
-    </ClCompile>
-    <ClCompile Include="CommandListDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\List</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Renderer</Filter>
     </ClCompile>
@@ -842,9 +818,6 @@
     </ClCompile>
     <ClCompile Include="CommandListVk.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\List</Filter>
-    </ClCompile>
-    <ClCompile Include="SwapchainDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Swapchain</Filter>
     </ClCompile>
     <ClCompile Include="ISwapchain.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Swapchain</Filter>
@@ -864,15 +837,6 @@
     <ClCompile Include="GpuMemoryTypeVk.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="GpuMemoryTypeDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Enums</Filter>
-    </ClCompile>
-    <ClCompile Include="GpuMemoryAllocatorDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Allocator</Filter>
-    </ClCompile>
-    <ClCompile Include="GpuMemoryBlockDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Block</Filter>
-    </ClCompile>
     <ClCompile Include="GpuMemoryBlockVk.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Block</Filter>
     </ClCompile>
@@ -885,19 +849,10 @@
     <ClCompile Include="GpuMemorySubblockVk.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Subblock</Filter>
     </ClCompile>
-    <ClCompile Include="GpuMemorySubblockDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Subblock</Filter>
-    </ClCompile>
     <ClCompile Include="Format.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image</Filter>
     </ClCompile>
     <ClCompile Include="GpuImageLayoutVk.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image</Filter>
-    </ClCompile>
-    <ClCompile Include="GpuImageLayoutDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image</Filter>
-    </ClCompile>
-    <ClCompile Include="GpuImageDx12.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image</Filter>
     </ClCompile>
     <ClCompile Include="GpuImageVk.cpp">
@@ -911,9 +866,6 @@
     </ClCompile>
     <ClCompile Include="ICommandList.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Commands\List</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsPipelineDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsPipelineVk.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
@@ -931,9 +883,6 @@
       <Filter>Archivos de origen\Core\Graphics\HighLevel\Material</Filter>
     </ClCompile>
     <ClCompile Include="IMaterialSlot.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Material\Slot</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialSlotDx12.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Material\Slot</Filter>
     </ClCompile>
     <ClCompile Include="MaterialInstance.cpp">
@@ -1026,12 +975,6 @@
     <ClCompile Include="IInputListener.cpp">
       <Filter>Archivos de origen\Core\IO</Filter>
     </ClCompile>
-    <ClCompile Include="SpirvToHlsl.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="HlslRuntimeCompiler.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="GpuMemoryTypes.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Enums</Filter>
     </ClCompile>
@@ -1080,25 +1023,10 @@
     <ClCompile Include="GpuImageViewVk.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image\View</Filter>
     </ClCompile>
-    <ClCompile Include="GpuImageViewDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image\View</Filter>
-    </ClCompile>
-    <ClCompile Include="IPipelineDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="ComputePipelineDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Compute</Filter>
-    </ClCompile>
     <ClCompile Include="IGpuImageView.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image\View</Filter>
     </ClCompile>
-    <ClCompile Include="DescriptorDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Memory\Allocator\Dx12</Filter>
-    </ClCompile>
     <ClCompile Include="IPipelineLayout.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Layout</Filter>
-    </ClCompile>
-    <ClCompile Include="PipelineLayoutDx12.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Pipeline\Layout</Filter>
     </ClCompile>
     <ClCompile Include="PipelineLayoutVk.cpp">
@@ -1677,12 +1605,6 @@
     <ClCompile Include="GrassRenderPass.cpp">
       <Filter>Archivos de origen\BuiltIn\GRAPHICS\Renderpasses</Filter>
     </ClCompile>
-    <ClCompile Include="GpuImageSamplerDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Image\Sampler</Filter>
-    </ClCompile>
-    <ClCompile Include="DescriptorHeapDx12.cpp">
-      <Filter>Archivos de origen\Core\Graphics\LowLevel\Resources\Dx12</Filter>
-    </ClCompile>
     <ClCompile Include="Transform3D.cpp">
       <Filter>Archivos de origen\Core\Types</Filter>
     </ClCompile>
@@ -1800,6 +1722,24 @@
     <ClCompile Include="FramebufferVkMap.cpp">
       <Filter>Archivos de origen\Core\Graphics\LowLevel\Renderpass</Filter>
     </ClCompile>
+    <ClCompile Include="AndroidDisplay.cpp">
+      <Filter>Archivos de origen\Core\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="AndroidInput.cpp">
+      <Filter>Archivos de origen\Core\IO\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="AndroidLogger.cpp">
+      <Filter>Archivos de origen\Core\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="ITouchInput.cpp">
+      <Filter>Archivos de origen\Core\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="ISdfRenderPass.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS\RenderGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderToSwapchainPass.cpp">
+      <Filter>Archivos de origen\BuiltIn\GRAPHICS\RenderGraph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardState.h">
@@ -1835,17 +1775,8 @@
     <ClInclude Include="IRenderer.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="GpuDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Gpu</Filter>
-    </ClInclude>
     <ClInclude Include="ICommandQueue.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Queue</Filter>
-    </ClInclude>
-    <ClInclude Include="CommandQueueDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Queue</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="CommandQueueVk.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Queue</Filter>
@@ -1856,13 +1787,7 @@
     <ClInclude Include="ICommandPool.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Pool</Filter>
     </ClInclude>
-    <ClInclude Include="CommandPoolDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\Pool</Filter>
-    </ClInclude>
     <ClInclude Include="ICommandList.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\List</Filter>
-    </ClInclude>
-    <ClInclude Include="CommandListDx12.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\List</Filter>
     </ClInclude>
     <ClInclude Include="CommandPoolVk.h">
@@ -1872,9 +1797,6 @@
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Commands\List</Filter>
     </ClInclude>
     <ClInclude Include="ISwapchain.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Swapchain</Filter>
-    </ClInclude>
-    <ClInclude Include="SwapchainDx12.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Swapchain</Filter>
     </ClInclude>
     <ClInclude Include="DynamicArray.hpp">
@@ -1894,15 +1816,6 @@
     </ClInclude>
     <ClInclude Include="GpuMemoryTypeVk.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="GpuMemoryTypesDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="GpuMemoryAllocatorDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Allocator</Filter>
-    </ClInclude>
-    <ClInclude Include="GpuMemoryBlockDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Block</Filter>
     </ClInclude>
     <ClInclude Include="GpuMemoryAllocatorVk.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Allocator</Filter>
@@ -1924,9 +1837,6 @@
     </ClInclude>
     <ClInclude Include="GpuBuffer.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="GpuMemorySubblockDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Subblock</Filter>
     </ClInclude>
     <ClInclude Include="Format.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Format</Filter>
@@ -1961,9 +1871,6 @@
     <ClInclude Include="RenderpassType.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderpass</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsPipelineDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="GraphicsPipelineVk.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
     </ClInclude>
@@ -1980,9 +1887,6 @@
       <Filter>Archivos de encabezado\Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="IPipelineLayout.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Layout\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="PipelineLayoutDx12.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Layout\Pipeline</Filter>
     </ClInclude>
     <ClInclude Include="PipelineLayoutVk.h">
@@ -2004,9 +1908,6 @@
       <Filter>Archivos de encabezado\Core\Graphics\HighLevel\Material\Layout</Filter>
     </ClInclude>
     <ClInclude Include="IMaterialSlot.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Material\Slot</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialSlotDx12.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Material\Slot</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
@@ -2071,9 +1972,6 @@
     </ClInclude>
     <ClInclude Include="Quaternion.h">
       <Filter>Archivos de encabezado\Core\Types</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>Archivos de encabezado\Core\IO</Filter>
     </ClInclude>
     <ClInclude Include="FileIO.h">
       <Filter>Archivos de encabezado\Core\IO</Filter>
@@ -2144,12 +2042,6 @@
     <ClInclude Include="GamepadState.h">
       <Filter>Archivos de encabezado\Core\IO</Filter>
     </ClInclude>
-    <ClInclude Include="SpirvToHlsl.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="HlslRuntimeCompiler.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="ToString.h">
       <Filter>Archivos de encabezado\Core\Util</Filter>
     </ClInclude>
@@ -2209,15 +2101,6 @@
     </ClInclude>
     <ClInclude Include="GpuImageViewDx12.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\View</Filter>
-    </ClInclude>
-    <ClInclude Include="ComputePipelineDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Compute</Filter>
-    </ClInclude>
-    <ClInclude Include="IPipelineDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Pipeline\Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="DescriptorDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Memory\Allocator\Dx12</Filter>
     </ClInclude>
     <ClInclude Include="FxaaPass.h">
       <Filter>Archivos de encabezado\Core\Graphics\HighLevel\PostProcess</Filter>
@@ -3050,9 +2933,6 @@
     <ClInclude Include="GpuImageSamplerDx12.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Image\Sampler</Filter>
     </ClInclude>
-    <ClInclude Include="DescriptorHeapDx12.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Resources\Dx12</Filter>
-    </ClInclude>
     <ClInclude Include="Transform3D.h">
       <Filter>Archivos de encabezado\Core\Types</Filter>
     </ClInclude>
@@ -3127,9 +3007,6 @@
     </ClInclude>
     <ClInclude Include="GpuVk.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Gpu</Filter>
-    </ClInclude>
-    <ClInclude Include="VulkanTarget.h">
-      <Filter>Archivos de encabezado\Core\Graphics\LowLevel</Filter>
     </ClInclude>
     <ClInclude Include="SwapchainVk.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Swapchain</Filter>
@@ -3235,6 +3112,30 @@
     </ClInclude>
     <ClInclude Include="FramebufferVkMap.h">
       <Filter>Archivos de encabezado\Core\Graphics\LowLevel\Renderpass</Filter>
+    </ClInclude>
+    <ClInclude Include="AndroidDisplay.h">
+      <Filter>Archivos de encabezado\BuiltIn\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="AndroidInput.h">
+      <Filter>Archivos de encabezado\BuiltIn\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="TouchInput.h">
+      <Filter>Archivos de encabezado\Core\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="ITouchInput.h">
+      <Filter>Archivos de encabezado\Core\IO\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="AndroidLogger.h">
+      <Filter>Archivos de encabezado\Core\IO\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Archivos de encabezado\Core\IO\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="ISdfRenderPass.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\RenderGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderToSwapchainPass.h">
+      <Filter>Archivos de encabezado\BuiltIn\GRAPHICS\RenderGraph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

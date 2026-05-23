@@ -21,6 +21,11 @@
 #include <json.hpp>
 #include "IGpuImage.h"
 
+#include "Platforms.h"
+#ifdef OSK_ANDROID
+#include <android_native_app_glue.h>
+#endif
+
 using namespace OSK;
 using namespace OSK::IO;
 using namespace OSK::ASSETS;
@@ -71,25 +76,61 @@ void IGame::OnExit() {
 	// Sobreescrito en clase Game del juego.
 }
 
+#ifdef OSK_ANDROID
+const char* CmdToStr2(int32_t cmd) {
+	switch (cmd) {
+	case  0: return "APP_CMD_INPUT_CHANGED";
+	case  1: return "APP_CMD_INIT_WINDOW"; // a new ANativeWindow is ready for use
+	case  2: return "APP_CMD_TERM_WINDOW"; // the existing ANativeWindow needs to be terminated
+	case  3: return "APP_CMD_WINDOW_RESIZED";
+	case  4: return "APP_CMD_WINDOW_REDRAW_NEEDED";
+	case  5: return "APP_CMD_CONTENT_RECT_CHANGED";
+	case  6: return "APP_CMD_GAINED_FOCUS";
+	case  7: return "APP_CMD_LOST_FOCUS";
+	case  8: return "APP_CMD_CONFIG_CHANGED";
+	case  9: return "APP_CMD_LOW_MEMORY";
+	case 10: return "APP_CMD_START";
+	case 11: return "APP_CMD_RESUME";
+	case 12: return "APP_CMD_SAVE_STATE";
+	case 13: return "APP_CMD_PAUSE";
+	case 14: return "APP_CMD_STOP";
+	case 15: return "APP_CMD_DESTROY";
+	case 16: return "APP_CMD_PAUSE";
+
+	default: return "";
+	};
+};
+#endif
+
+
+#ifdef OSK_ANDROID
+void IGame::_Run(struct android_app* app) {
+	IO::FileIO::SetAssetManager(app->activity->assetManager);
+#define OSK_EXTRA_ARGS , app
+#else
+#define OSK_EXTRA_ARGS 
 void IGame::_Run() {
+#endif
 	nlohmann::json engineConfig = nlohmann::json::parse(FileIO::ReadFromFile("engine_config.json"));
 
 	{
 		const auto& graphicsApi = engineConfig["graphics_backend"];
 		using enum OSK::GRAPHICS::RenderApiType;
 
-		if (graphicsApi == "DX12")
-			Engine::Create(DX12);
-		else if (graphicsApi == "VULKAN")
-			Engine::Create(VULKAN);
+		if (graphicsApi == "VULKAN")
+			Engine::Create(VULKAN OSK_EXTRA_ARGS);
 		else {
-			Engine::Create(VULKAN);
+			Engine::Create(VULKAN OSK_EXTRA_ARGS);
 		}
 	}
+	
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Iniciado GAME.");
 
 	CreateWindow();
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Iniciada VENTANA.");
 	Engine::RegisterBuiltinVertices();
 	SetupEngine();
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "SETUP ENGINE.");
 
 	Engine::RegisterBuiltinAssets(m_defaultContentProfile);
 	Engine::RegisterBuiltinComponents(m_defaultContentProfile);
@@ -100,6 +141,7 @@ void IGame::_Run() {
 	Engine::RegisterBuiltinConsoleCommands();
 
 	m_rootUiElement = MakeUnique<UI::FreeContainer>(Engine::GetDisplay()->GetResolution().ToVector2f());
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Registros.");
 
 
 	const DynamicArray<Vertex2D> vertices2d = {
@@ -123,10 +165,13 @@ void IGame::_Run() {
 	RegisterComponents();
 	RegisterSystems();
 	RegisterConsoleCommands();
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Registros finales.");
 
 	OnCreate();
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "OnCreate.");
 
 	Engine::GetRenderer()->PresentFrame();
+
 	while (Engine::GetDisplay()->IsOpen()) {
 		Engine::Update();
 
@@ -161,10 +206,31 @@ void IGame::_Run() {
 
 		const TDeltaTime endTime = Engine::GetCurrentTime();
 		m_deltaTime = endTime - startTime;
+
+#ifdef OSK_ANDROID
+		int events = 1;
+		while (events > 0) {
+			struct android_poll_source* source;
+
+			int event = ALooper_pollOnce(0, nullptr, &events, (void**)&source);
+
+			if (events > 0) {
+				if (source != NULL) {
+					source->process(app, source);
+				}
+
+				if (app->destroyRequested != 0) {
+					return;
+				}
+			}
+		}
+#endif // OSK_ANDROID
+
 	}
 
 	m_rootUiElement.Delete();
 
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "END.");
 	Engine::GetRenderer()->WaitForCompletion();
 
 	Sprite::globalVertexBuffer.Delete();
@@ -174,10 +240,34 @@ void IGame::_Run() {
 		m_renderGraph.Delete();
 	}
 
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "EXIT.");
 	OnExit();
 
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "CLOSE.");
 	Engine::Close();
 }
+
+#ifdef OSK_ANDROID
+void IGame::AndroidHandleAppCommand(android_app* app, int32_t cmd) {
+	auto* game = static_cast<IGame*>(app->userData);
+
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "AndroidHandleAppCommand: Evento: ", CmdToStr2(cmd));
+
+	switch (cmd) {
+
+	case APP_CMD_INIT_WINDOW:
+		Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Recreando...");
+		game->RecreateWindow();
+		break;
+
+	case APP_CMD_TERM_WINDOW:
+	case APP_CMD_DESTROY:
+		game->Exit();
+		break;
+
+	};
+}
+#endif
 
 void IGame::UpdateFps(TDeltaTime deltaTime) {
 	m_framerateCountTimer += deltaTime;
@@ -230,12 +320,33 @@ IO::IGamepadInput* IGame::GetGamepad() {
 	return gamepad;
 }
 
+IO::ITouchInput* IGame::GetTouchs() {
+	IO::ITouchInput* touch = nullptr;
+	Engine::GetInput()->QueryInterface(IUUID::ITouchInput, (void**)&touch);
+	return touch;
+}
+
 void IGame::Exit() {
 	Engine::GetDisplay()->Close();
 }
 
 void IGame::OnWindowResize(const Vector2ui& size) {
 	// Sobreescrito en clase Game del juego.
+}
+
+void IGame::RecreateWindow() {
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Esperando...");
+	Engine::GetRenderer()->WaitForCompletion();
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Recreando ventana...");
+	CreateWindow();
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Reestableciendo display del renderizador...");
+	Engine::GetRenderer()->ResetDisplay(*Engine::GetDisplay());
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "OnWindowResize...");
+	OnWindowResize(Engine::GetDisplay()->GetResolution());
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "FIN");
+
+	// Readquirimos las imágenes del renderizador.
+	Engine::GetRenderer()->WaitForCompletion();
 }
 
 USize32 IGame::GetFps() const {
@@ -251,6 +362,7 @@ UI::IContainer& IGame::GetRootUiElement() {
 }
 
 void IGame::HandleResizeEvents() {
+#ifdef OSK_PC_ANY
 	const auto& resizeEvents = Engine::GetEcs()->GetEventQueue<IDisplay::ResolutionChangedEvent>();
 
 	for (const auto& event : resizeEvents) {
@@ -259,6 +371,7 @@ void IGame::HandleResizeEvents() {
 
 		OnWindowResize(event.newResolution);
 	}
+#endif // OSK_PC_ANY
 }
 
 void IGame::SetRenderGraph(UniquePtr<GRAPHICS::RenderGraph>&& renderGraph) {

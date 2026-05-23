@@ -23,7 +23,7 @@ namespace OSK::GRAPHICS {
 	public:
 
 		explicit GpuMemoryAllocException(
-			size_t code,
+			int code,
 			const std::source_location& location = std::source_location::current())
 			:
 			EngineException(

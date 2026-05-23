@@ -9,7 +9,7 @@
 #include "RenderSubpassVk.h"
 #include "FramebufferVkMap.h"
 
-#include "VulkanTarget.h"
+
 #include <vulkan/vulkan.h>
 
 namespace OSK::GRAPHICS {

@@ -4,7 +4,7 @@
 #ifdef OSK_USE_VULKAN_BACKEND
 
 #include "IGpuMemorySubblock.h"
-#include "VulkanTarget.h"
+
 
 namespace OSK::GRAPHICS {
 

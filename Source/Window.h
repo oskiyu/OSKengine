@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Platforms.h"
+#ifdef OSK_PC_ANY
+
 #include "Vector2.hpp"
 #include "UniquePtr.hpp"
 
@@ -17,9 +20,6 @@ namespace OSK::IO {
 	/// @brief Clase que representa una ventana.
 	/// En esta ventana se renderizará el juego.
 	/// También se encarga del input mediante teclado, ratón, mando, etc...
-	/// 
-	/// @note Esta clase debe usarse de manera estática, accediendo a ella mediante
-	/// la función GetWindow().
 	class OSKAPI_CALL Window final : public IDisplay, public IFullscreenableDisplay {
 
 	public:
@@ -29,7 +29,7 @@ namespace OSK::IO {
 		Window();
 
 		/// @brief Destruye la ventana.
-		~Window();
+		~Window() override;
 
 
 		void QueryInterface(TInterfaceUuid uuid, void** ptr) const override;
@@ -91,3 +91,5 @@ namespace OSK::IO {
 	};
 
 }
+
+#endif

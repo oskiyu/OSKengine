@@ -135,9 +135,13 @@ VkMemoryAllocateFlags GpuMemoryBlockVk::GetMemoryAllocateFlags(GpuBufferUsage us
 uint32_t GpuMemoryBlockVk::GetMemoryType(uint32_t memoryTypeFilter, GpuVk* device, GpuSharedMemoryType type) {
 	auto nativeSharedMode = GetGpuSharedMemoryTypeVk(type);
 
-	for (uint32_t i = 0; i < device->GetInfo().memoryProperties.memoryTypeCount; i++)
-		if ((memoryTypeFilter & (1 << i)) && ((device->GetInfo().memoryProperties.memoryTypes[i].propertyFlags & nativeSharedMode) == nativeSharedMode))
+	for (uint32_t i = 0; i < device->GetInfo().memoryProperties.memoryTypeCount; i++) {
+		const auto& properties = device->GetInfo().memoryProperties.memoryTypes[i].propertyFlags;
+
+		if ((memoryTypeFilter & (1 << i)) && ((device->GetInfo().memoryProperties.memoryTypes[i].propertyFlags & nativeSharedMode) == nativeSharedMode)) {
 			return i;
+		}
+	}
 
 	OSK_ASSERT(false, GpuMemoryAllocException(0));
 

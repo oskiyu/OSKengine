@@ -10,7 +10,6 @@
 
 #include "GpuImageViewVk.h"
 #include "GpuVk.h"
-#include "VulkanTarget.h"
 
 namespace OSK::GRAPHICS {
 

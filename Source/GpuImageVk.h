@@ -7,7 +7,6 @@
 #include "VulkanTypedefs.h"
 #include "DynamicArray.hpp"
 #include "NumericTypes.h"
-#include "VulkanTarget.h"
 
 #include <vulkan/vulkan.h>
 

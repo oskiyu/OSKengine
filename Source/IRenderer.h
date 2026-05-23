@@ -85,6 +85,10 @@ namespace OSK::GRAPHICS {
 			IO::IDisplay& display, 
 			PresentMode mode) = 0;
 
+		/// @brief Reestablece el display del renderizador.
+		/// @param display Nuevo display.
+		virtual void ResetDisplay(IO::IDisplay& display) = 0;
+
 		/// @brief Cierra el renderizador.
 		/// @note También se llama en el destructor.
 		virtual void Close() = 0;

@@ -377,6 +377,10 @@ DynamicArray<VkExtensionProperties> GpuVk::GetAvailableExtensions(VkPhysicalDevi
 	return output;
 }
 
+void GpuVk::SetSurface(VkSurfaceKHR surface) {
+	this->surface = surface;
+}
+
 bool GpuVk::IsExtensionPresent(const char* name, const DynamicArray<VkExtensionProperties>& extensions) {
 	for (const auto& ext : extensions) {
 		if (strcmp(ext.extensionName, name) == 0) {

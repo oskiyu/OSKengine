@@ -10,6 +10,7 @@ namespace OSK::IO {
 	class IKeyboardInput;
 	class IMouseInput;
 	class IGamepadInput;
+	class ITouchInput;
 
 	/// @brief Interfaz para clases que permiten recoger
 	/// la entrada del usuario.
@@ -18,6 +19,7 @@ namespace OSK::IO {
 	/// - IKeyboardInput.
 	/// - IMouseInput.
 	/// - IGamepadInput.
+	/// - ITouchInput.
 	class OSKAPI_CALL IUserInput : public IQueryInterface {
 
 	public:

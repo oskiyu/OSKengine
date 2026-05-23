@@ -156,7 +156,7 @@ namespace OSK::GRAPHICS {
 		// dichos rangos.
 		bool m_hasFullyRegisteredDependencies = false;
 
-		Material* m_material;
+		Material* m_material = nullptr;
 		std::array<UniquePtr<MaterialInstance>, MAX_RESOURCES_IN_FLIGHT> m_materialInstance;
 
 		DynamicArray<PartialRgBufferDependency> m_partialBufferDependencies;

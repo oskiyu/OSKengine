@@ -116,13 +116,13 @@ protected:
 private:
 
 		template <typename T, typename ...TArgs>
-		std::string Append(const T& arg1, TArgs... args)
+		std::string Append(const T& arg1, TArgs... args) const
 		{
 			return std::format("{} {}", arg1, Append(args...));
 		}
 
 		template <typename T>
-		std::string Append(const T& arg)
+		std::string Append(const T& arg) const
 		{
 			return std::format("{}", arg);
 		}
@@ -136,18 +136,18 @@ private:
 
 		~Logger() override;
 
-		void Start(const std::string& path);
+		void Start(const std::string& path) override;
 
 		
-		void _Log(LogLevel level, const std::string& msg);		
-		void DebugLog(const std::string& msg);
-		void InfoLog(const std::string& msg);
+		void _Log(LogLevel level, const std::string& msg) override;
+		void DebugLog(const std::string& msg) override;
+		void InfoLog(const std::string& msg) override;
 
-		void Save();
-		void Save(const std::string& path);
+		void Save() override;
+		void Save(const std::string& path) override;
 
-		void Clear();
-		void Close();
+		void Clear() override;
+		void Close() override;
 
 	private:
 

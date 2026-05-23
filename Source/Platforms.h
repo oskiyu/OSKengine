@@ -26,7 +26,6 @@
 #ifdef OSK_WINDOWS
 #define OSK_USE_VULKAN_BACKEND
 #define OSK_USE_VULKAN_1_3
-#define OSK_USE_DIRECTX12_BACKEND
 #define OSK_USE_PC_WINDOW
 #endif
 
@@ -47,3 +46,10 @@
 #undef OSK_PLATFORM_CHECK_A
 #undef OSK_PLATFORM_CHECK_B
 #undef OSK_PLATFORM_CHECK_C
+
+#ifdef OSK_WINDOWS
+#define OSK_PC_ANY
+#endif
+#ifdef OSK_LINUX
+#define OSK_PC_ANY
+#endif

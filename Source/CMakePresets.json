@@ -1,22 +1,20 @@
 {
-    "version": 2,
+    "version": 3,
     "configurePresets": [
         {
             "name": "base",
             "hidden": true,
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/bin",
-            "architecture": {
-                "value": "x64",
-                "strategy": "external"
-            },
             "cacheVariables": {
                 "CMAKE_TOOLCHAIN_FILE": {
                     "value" : "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
                     "type": "FILEPATH"
                 },
                 "EXTRA_DEFINES": "SPIRV_REFLECT_USE_SYSTEM_SPIRV_H",
-                "VULKAN_SDK": "/home/oskiyu/Descargas/vulkansdk-linux-x86_64-1.4.341.1/1.4.341.1/"
+                "VULKAN_SDK": "/home/oskiyu/Descargas/vulkansdk-linux-x86_64-1.4.341.1/1.4.341.1/",
+                "CMAKE_C_COMPILER": "clang-cl.exe",
+                "CMAKE_CXX_COMPILER": "clang-cl.exe"
             }
         },
 
@@ -24,6 +22,10 @@
             "name": "base-linux",
             "hidden": true,
             "inherits": "base",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
             "cacheVariables": {
                 "VCPKG_TARGET_TRIPLET": "x64-linux",
                 "OSK_PLATFORM": "OSK_LINUX"
@@ -38,9 +40,40 @@
         },
 
         {
+            "name": "base-android",
+            "hidden": true,
+            "inherits": "base",
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "arm64-android",
+                "OSK_PLATFORM": "OSK_ANDROID",
+                "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": {
+                    "value" : "C:/Users/Oscar/AppData/Local/Android/Sdk/ndk/29.0.14206865/build/cmake/android.toolchain.cmake",
+                    "type": "FILEPATH"
+                },
+                "ANDROID_PLATFORM": "34",
+                "ANDROID_ABI": "arm64-v8a",
+                "ANDROID_STL": "c++_shared",
+                "CMAKE_POLICY_VERSION_MINIMUM": "3.5",
+                "ANDROID": "ON",
+                "VULKAN_SDK": "$env{VULKAN_SDK}"
+            }
+        },
+        {
+            "name": "exe-android",
+            "inherits": "base-android",
+            "cacheVariables": {
+                "OSK_EXTRA": "OSK_DEVELOPMENT"
+            }
+        },
+
+        {
             "name": "base-windows",
             "hidden": true,
             "inherits": "base",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
             "cacheVariables": {
                 "VCPKG_TARGET_TRIPLET": "x64-windows",
                 "OSK_PLATFORM": "OSK_WINDOWS"
@@ -52,6 +85,11 @@
             "name": "exe-linux",
             "displayName": "Ejecutable Linux Debug",
             "configurePreset": "exe-linux"
+        },
+        {
+            "name": "exe-android",
+            "displayName": "Ejecutable Android",
+            "configurePreset": "exe-android"
         }
     ]
 }

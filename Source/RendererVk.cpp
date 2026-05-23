@@ -1,7 +1,12 @@
-#include <vulkan/vulkan.h>
-
 #include "Platforms.h"
 #ifdef OSK_USE_VULKAN_BACKEND
+
+#ifdef OSK_ANDROID
+#define VK_USE_PLATFORM_ANDROID_KHR
+#include "AndroidDisplay.h"
+#endif
+
+#include <vulkan/vulkan.h>
 
 #include "RendererVk.h"
 
@@ -49,7 +54,13 @@
 
 #include "RendererExceptions.h"
 
+#ifdef OSK_PC_ANY
 #include <GLFW/glfw3.h>
+#endif
+#ifdef OSK_ANDROID
+#include "AndroidDisplay.h"
+#endif
+
 #include <set>
 #include <glm/ext/matrix_transform.hpp>
 
@@ -119,6 +130,8 @@ RendererVk::RendererVk(bool requestRayTracing) : IRenderer(RenderApiType::VULKAN
 }
 
 void RendererVk::Initialize(const std::string& appName, const Version& version, IO::IDisplay& display, PresentMode mode) {	
+	m_presentMode = mode;
+
 	CreateInstance(appName, version);
 
 	if (AreValidationLayersAvailable())
@@ -154,6 +167,13 @@ void RendererVk::Initialize(const std::string& appName, const Version& version, 
 			i->CreateTargetImage(display.GetResolution());
 		}
 	}
+}
+
+void RendererVk::ResetDisplay(IO::IDisplay& display) {
+	CreateSurface(display);
+	GetGpu()->As<GpuVk>()->SetSurface(m_surface);
+	CreateSwapchain(m_presentMode, display.GetResolution());
+	CreateMainRenderpass();
 }
 
 UniquePtr<ICommandPool> RendererVk::CreateCommandPool(const ICommandQueue* targetQueueType) {
@@ -198,6 +218,14 @@ void RendererVk::WaitForCompletion() {
 
 	// Esperar a que termine la ejecución de todos los comandos.
 	vkDeviceWaitIdle(device);
+
+#ifdef OSK_ANDROID
+	CreateSyncPrimitives();
+#endif // OSK_ANDROID
+
+
+	// Reseteamos las imágenes adquiridas.
+	m_isFirstRender = true;
 }
 
 
@@ -287,6 +315,11 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 		pvkEnumeratInstanceVersion(&vulkanVersion);
 	}
 
+#ifdef OSK_ANDROID
+	vulkanVersion = VK_API_VERSION_1_1;
+#endif // OSK_ANDROID
+
+
 	//Información de la app.
 	VkApplicationInfo appInfo{};
 	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -297,9 +330,9 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 	appInfo.apiVersion = vulkanVersion;
 
 	Engine::GetLogger()->InfoLog(std::format("Versión de vulkan: {}.{}.{}",
-		VK_VERSION_MAJOR(vulkanVersion),
-		VK_VERSION_MINOR(vulkanVersion),
-		VK_VERSION_PATCH(vulkanVersion)));
+		VK_API_VERSION_MAJOR(vulkanVersion),
+		VK_API_VERSION_MINOR(vulkanVersion),
+		VK_API_VERSION_PATCH(vulkanVersion)));
 
 	//Create info.
 	VkInstanceCreateInfo createInfo{};
@@ -308,6 +341,7 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 
 	//Establecemos las extensiones.
 	//Extensiones de la ventana.
+#ifdef OSK_PC_ANY
 	uint32_t glfwExtensionCount = 0;
 	const char** glfwExtensions;
 	glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
@@ -316,7 +350,13 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 	auto extensions = DynamicArray<const char*>::CreateReserved(glfwExtensionCount);
 	for (size_t i = 0; i < glfwExtensionCount; i++)
 		extensions.Insert(glfwExtensions[i]);
-
+#endif
+#ifdef OSK_ANDROID
+	auto extensions = DynamicArray<const char*>::CreateReserved(2);
+	extensions.Insert("VK_KHR_surface");
+	extensions.Insert("VK_KHR_android_surface");
+#endif
+	
 	extensions.Insert(VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME);
 	extensions.Insert(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
 
@@ -340,10 +380,6 @@ void RendererVk::CreateInstance(const std::string& appName, const Version& versi
 
 	Engine::GetLogger()->InfoLog("Extensiones del renderizador: ");
 	for (const auto& i : extensions)
-		Engine::GetLogger()->InfoLog("	" + std::string(i));
-
-	Engine::GetLogger()->InfoLog("Capas de validación del renderizador: ");
-	for (const auto& i : validationLayers)
 		Engine::GetLogger()->InfoLog("	" + std::string(i));
 
 	VkResult result = vkCreateInstance(&createInfo, nullptr, &m_instance);
@@ -392,7 +428,24 @@ void RendererVk::SetupDebugLogging() {
 
 
 void RendererVk::CreateSurface(IO::IDisplay& display) {
+	if (m_surface) {
+		vkDestroySurfaceKHR(m_instance, m_surface, nullptr);
+	}
+
+#ifdef OSK_WINDOWS
 	const VkResult result = glfwCreateWindowSurface(m_instance, display.As<IO::Window>()->_GetGlfw(), nullptr, &m_surface);
+#endif // OSK_WINDOWS
+
+#ifdef OSK_ANDROID
+	VkAndroidSurfaceCreateInfoKHR info{};
+	info.sType = VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR;
+	info.pNext = nullptr;
+	info.window = display.As<IO::AndroidWindow>()->GetNativeWindow();
+	info.flags = 0;
+	const VkResult result = vkCreateAndroidSurfaceKHR(m_instance, &info, nullptr, &m_surface);
+#endif // OSK_ANDROID
+
+
 	OSK_ASSERT(result == VK_SUCCESS, RendererCreationException("No se ha podido crear la superficie", result));
 }
 
@@ -515,7 +568,7 @@ void RendererVk::CreateCommandQueues() {
 
 
 bool RendererVk::AreValidationLayersAvailable() const {
-#ifdef OSK_DEBUG
+#ifdef OSK_ANDROID // TODO: quitar
 	// Obtenemos el número de capas.
 	uint32_t layerCount;
 	vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
@@ -524,6 +577,10 @@ bool RendererVk::AreValidationLayersAvailable() const {
 	auto availableLayers = DynamicArray<VkLayerProperties>::CreateResized(layerCount);
 
 	vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.GetData());
+	Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Número de capas de validación: ", layerCount);
+	for (const auto& layer : availableLayers) {
+		Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "Capa de validación comprobada: ", layer.layerName);
+	}
 
 	//Capas de validación necesitadas.
 	for (auto layerName : validationLayers) {
@@ -543,8 +600,37 @@ bool RendererVk::AreValidationLayersAvailable() const {
 
 	return false;
 #else
+
+#ifdef OSK_DEBUG
+	// Obtenemos el número de capas.
+	uint32_t layerCount;
+	vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
+
+	// Obtenemos las capas.
+	auto availableLayers = DynamicArray<VkLayerProperties>::CreateResized(layerCount);
+	vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.GetData());
+
+	//Capas de validación necesitadas.
+	for (auto layerName : validationLayers) {
+		bool layerFound = false;
+		for (const auto& layerProperties : availableLayers) {
+			if (strcmp(layerName, layerProperties.layerName) == 0) {
+				layerFound = true;
+
+				break;
+			}
+		}
+
+		if (layerFound)
+			return true;
+	}
+
+	return false;
+#else
 	return false;
 #endif 
+
+#endif
 }
 
 
@@ -654,10 +740,14 @@ void RendererVk::SubmitMainCommandList() {
 
 	VkSubmitInfo submitInfo{};
 	submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+
+	// Debemos esperar hasta que esta imagen esté disponible.
 	submitInfo.waitSemaphoreCount = 1;
-	submitInfo.pWaitSemaphores = &m_imageAvailableSemaphores[currentCommandBufferIndex]; // Debemos esperar hasta que esta imagen esté disponible.
+	submitInfo.pWaitSemaphores = &m_imageAvailableSemaphores[currentCommandBufferIndex];
 	submitInfo.pWaitDstStageMask = &waitStage;
-	submitInfo.pSignalSemaphores = &m_imageFinishedSemaphores[currentCommandBufferIndex]; // Al terminar, indicamos que esta imagen se ha terminado de renderizar.
+
+	// Al terminar, indicamos que esta imagen se ha terminado de renderizar.
+	submitInfo.pSignalSemaphores = &m_imageFinishedSemaphores[currentCommandBufferIndex]; 
 	submitInfo.signalSemaphoreCount = 1;
 
 	submitInfo.commandBufferCount = 1;
@@ -667,22 +757,23 @@ void RendererVk::SubmitMainCommandList() {
 		? GetUnifiedQueue()->As<CommandQueueVk>()->GetQueue()
 		: GetGraphicsComputeQueue()->As<CommandQueueVk>()->GetQueue();
 
+	// Indicamos el fence que será avisado cuando terminde de procesarse el command buffer.
 	VkResult result = vkQueueSubmit(queue, 1, &submitInfo, m_fullyRenderedFences[currentCommandBufferIndex]);
 	OSK_ASSERT(result == VK_SUCCESS, CommandListSubmitException("PreCompute", result));
 }
 
 
 void RendererVk::SubmitFrame() {
-	const VkDevice logicalDevice = GetGpu()->As<GpuVk>()->GetLogicalDevice();
-
-	const VkSwapchainKHR swapChains = _GetSwapchain()->As<SwapchainVk>()->GetSwapchain();
-	// Esperamos a que la imagen haya terminado de rendereizarse.
-	const VkSemaphore waitSemaphores = m_imageFinishedSemaphores[currentCommandBufferIndex];
+	const auto logicalDevice = GetGpu()->As<GpuVk>()->GetLogicalDevice();
+	const auto swapChains = _GetSwapchain()->As<SwapchainVk>()->GetSwapchain();
 
 	VkPresentInfoKHR presentInfo{};
 	presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+
+	// Debemos esperar a que la imagen actual termine de renderizarse.
 	presentInfo.waitSemaphoreCount = 1;
-	presentInfo.pWaitSemaphores = &waitSemaphores; // Debemos esperar a que la imagen actual termine de renderizarse.
+	presentInfo.pWaitSemaphores = &m_imageFinishedSemaphores[currentCommandBufferIndex];
+
 	presentInfo.swapchainCount = 1;
 	presentInfo.pSwapchains = &swapChains;
 	presentInfo.pImageIndices = &currentFrameIndex; // Lo presentamos en esta imagen.
@@ -693,8 +784,7 @@ void RendererVk::SubmitFrame() {
 		: GetPresentationQueue()->As<CommandQueueVk>()->GetQueue();
 
 	VkResult result = vkQueuePresentKHR(queue, &presentInfo);
-	const bool resized = result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR;
-	if (resized) {
+	if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR) {
 		// Esperamos a que se terminen todas las listas de comandos para
 		// poder cambiar de tamaño los render targets.
 		vkDeviceWaitIdle(logicalDevice);
@@ -710,7 +800,7 @@ void RendererVk::SubmitFrame() {
 		GetMainCommandList()->ClearImagesCache();
 	}
 
-	currentCommandBufferIndex = (currentCommandBufferIndex + 1) % MAX_RESOURCES_IN_FLIGHT;
+	currentCommandBufferIndex = (currentCommandBufferIndex + 1) % GetSwapchainImagesCount();
 
 	// Si la siguiente imagen está siendo procesada, esperar a que termine.
 	vkWaitForFences(logicalDevice, 1, &m_fullyRenderedFences[currentCommandBufferIndex], VK_TRUE, UINT64_MAX);

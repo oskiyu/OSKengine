@@ -6,7 +6,6 @@
 #include <vulkan/vulkan.h>
 
 #include "DynamicArray.hpp"
-#include "VulkanTarget.h"
 
 namespace OSK::GRAPHICS {
 

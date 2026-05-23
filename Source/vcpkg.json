@@ -1,14 +1,15 @@
 {
-  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
   "name": "oskengine2",
   "version-string": "0.0",
   "dependencies": [
     "glm",
-    "glfw3",
     "spirv-tools",
     "spirv-reflect",
     "freetype",
-    "directx-dxc",
-    "openal-soft"
+    "openal-soft",
+    {
+        "name": "glfw3",
+        "platform": "!android"
+    }
   ]
 }

@@ -9,7 +9,6 @@
 
 #include <array>
 #include "ResourcesInFlight.h"
-#include "VulkanTarget.h"
 #include "GpuInfoVkAny.h"
 #include "RenderpassVkMap.h"
 

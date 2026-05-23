@@ -5,6 +5,12 @@
 
 #include <string>
 
+#include "Platforms.h"
+
+#ifdef OSK_ANDROID
+struct AAssetManager;
+#endif
+
 namespace OSK::IO {
 
 	/// <summary>
@@ -50,6 +56,15 @@ namespace OSK::IO {
 		/// <param name="path">Ruta del archivo (con extensión).</param>
 		/// <returns>True si existe.</returns>
 		static bool FileExists(std::string_view path);
+
+#ifdef OSK_ANDROID
+		static void SetAssetManager(AAssetManager* manager);
+#endif
+	private:
+
+#ifdef OSK_ANDROID
+		static AAssetManager* m_androidAssetManager;
+#endif
 
 	};
 

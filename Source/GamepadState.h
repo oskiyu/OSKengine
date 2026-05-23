@@ -4,7 +4,11 @@
 #include "NumericTypes.h"
 
 #include <array>
+
+#include "Platforms.h"
+#ifdef OSK_PC_ANY
 #include <GLFW/glfw3.h>
+#endif
 
 namespace OSK::IO {
 
@@ -15,6 +19,7 @@ namespace OSK::IO {
 	/// </summary>
 	enum class GamepadAxis {
 
+#ifdef OSK_PC_ANY
 		/// <summary>
 		/// Eje horizontal del joystick izquierdo.
 		/// </summary>
@@ -60,6 +65,53 @@ namespace OSK::IO {
 		/// 
 		/// @note Entre 0.0 y 1.0
 		R2 = GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER,
+#else
+		/// <summary>
+		/// Eje horizontal del joystick izquierdo.
+		/// </summary>
+		/// 
+		/// @note Derecha: 1.0
+		/// @note Izquierda: -1.0
+		LEFT_X,
+
+		/// <summary>
+		/// Eje vertical del joystick izquierdo.
+		/// </summary>
+		/// 
+		/// @note Arriba: -1.0
+		/// @note Abajo: 1.0
+		LEFT_Y,
+
+		/// <summary>
+		/// Eje horizontal del joystick derecho.
+		/// </summary>
+		/// 
+		/// @note Derecha: 1.0
+		/// @note Izquierda: -1.0
+		RIGHT_X,
+
+		/// <summary>
+		/// Eje horizontal del joystick derecho.
+		/// </summary>
+		/// 
+		/// @note Arriba: -1.0
+		/// @note Abajo: 1.0
+		RIGHT_Y,
+
+		/// <summary>
+		/// Gatillo izquierdo.
+		/// </summary>
+		/// 
+		/// @note Entre 0.0 y 1.0
+		L2,
+
+		/// <summary>
+		/// Gatillo derecho.
+		/// </summary>
+		/// 
+		/// @note Entre 0.0 y 1.0
+		R2,
+#endif
 
 		__END
 
@@ -74,6 +126,7 @@ namespace OSK::IO {
 	/// usado con cualquier mando compatible con la plataforma de destino.
 	enum class GamepadButton {
 
+#ifdef OSK_PC_ANY
 		x = GLFW_GAMEPAD_BUTTON_X,
 		y = GLFW_GAMEPAD_BUTTON_Y,
 		A = GLFW_GAMEPAD_BUTTON_A,
@@ -89,6 +142,23 @@ namespace OSK::IO {
 		PAD_DOWN = GLFW_GAMEPAD_BUTTON_DPAD_DOWN,
 		PAD_LEFT = GLFW_GAMEPAD_BUTTON_DPAD_LEFT,
 		PAD_RIGHT = GLFW_GAMEPAD_BUTTON_DPAD_RIGHT
+#else
+		x,
+		y,
+		A,
+		B,
+
+		START,
+		BACK,
+
+		L1,
+		R1,
+
+		PAD_TOP,
+		PAD_DOWN,
+		PAD_LEFT,
+		PAD_RIGHT
+#endif
 
 	};
 
@@ -123,7 +193,7 @@ namespace OSK::IO {
 
 	public:
 
-		GamepadState() { }
+		GamepadState() = default;
 		GamepadState(UIndex32 identifier);
 
 		GamepadButtonState GetButtonState(GamepadButton button) const;

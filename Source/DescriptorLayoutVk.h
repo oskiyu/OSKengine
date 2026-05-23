@@ -5,7 +5,6 @@
 
 #include "ApiCall.h"
 #include "NumericTypes.h"
-#include "VulkanTarget.h"
 
 struct VkDescriptorSetLayout_T;
 using VkDescriptorSetLayout = VkDescriptorSetLayout_T*;

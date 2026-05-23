@@ -4,6 +4,8 @@
 
 #include "GpuVk.h"
 
+#include "Platforms.h"
+
 using namespace OSK::GRAPHICS;
 
 bool GpuInfoVkAny::IsRtCompatible() const {
@@ -59,10 +61,16 @@ bool GpuInfoVkAny::SupportsMemoryBudgetQuery() const {
 }
 
 bool GpuInfoVkAny::SupportsDynamicRendering() const {
+#ifdef OSK_ANDROID
+	return false; // No deseado incluso si está disponible.
+#endif // OSK_ANDROID
 	return dynamicRenderingFeatures.dynamicRendering == VK_TRUE;
 }
 
 bool GpuInfoVkAny::SupportsSync2() const {
+#ifdef OSK_ANDROID
+	return false; // Por alguna razón falla en Android (Ardeno 710).
+#endif // OSK_ANDROID
 	return syncFeatures.synchronization2 == VK_TRUE;
 }
 
@@ -154,7 +162,6 @@ GpuInfoVkAny GpuInfoVkAny::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface) {
 
 	//Obtener formatos soportados.
 	shapchainSupport.formats.Resize(formatCount);
-
 	vkGetPhysicalDeviceSurfaceFormatsKHR(gpu, surface, &formatCount, shapchainSupport.formats.GetData());
 
 	//Números de modos de presentación.
@@ -163,7 +170,6 @@ GpuInfoVkAny GpuInfoVkAny::Get(VkPhysicalDevice gpu, VkSurfaceKHR surface) {
 
 	//Obtener modos de presentación.
 	shapchainSupport.presentModes.Resize(presentModeCount);
-
 	vkGetPhysicalDeviceSurfacePresentModesKHR(gpu, surface, &formatCount, shapchainSupport.presentModes.GetData());
 
 	vkGetPhysicalDeviceMemoryProperties(gpu, &info.memoryProperties);

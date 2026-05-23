@@ -25,8 +25,19 @@ VkSubpassDescription RenderSubpassVk::GetDescription() const {
 	return m_description;
 }
 
-const DynamicArray<VkSubpassDependency>& RenderSubpassVk::GetDependencies() const {
-	return m_dependencies;
+DynamicArray<VkSubpassDependency> RenderSubpassVk::GetDependencies() const {
+	auto output = DynamicArray<VkSubpassDependency>::CreateResized(1);
+
+	output[0].srcSubpass = VK_SUBPASS_EXTERNAL; // "none"
+	output[0].dstSubpass = 0; // Self
+
+	output[0].srcStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT; // ?
+	output[0].srcAccessMask = 0;
+
+	output[0].dstStageMask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT | VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT; // ?
+	output[0].dstStageMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT | VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT; // ?
+
+	return output;
 }
 
 void RenderSubpassVk::SetColorAttachments(const DynamicArray<RenderpassAttachmentVk>& attachments) {

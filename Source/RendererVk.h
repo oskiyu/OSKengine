@@ -8,7 +8,7 @@
 
 #include <vulkan/vulkan.h>
 #include "ResourcesInFlight.h"
-#include "VulkanTarget.h"
+
 
 namespace OSK::GRAPHICS {
 
@@ -25,6 +25,7 @@ namespace OSK::GRAPHICS {
 			const Version& version,
 			IO::IDisplay& display,
 			PresentMode mode) override;
+		void ResetDisplay(IO::IDisplay& display) override;
 		void Close() override;
 		void PresentFrame() override;
 		void SubmitSingleUseCommandList(UniquePtr<ICommandList>&& commandList) override;
@@ -135,6 +136,8 @@ namespace OSK::GRAPHICS {
 		USize32 currentFrameIndex = 0;
 
 		USize32 vulkanVersion = VK_API_VERSION_1_3;
+
+		PresentMode m_presentMode;
 
 	};
 

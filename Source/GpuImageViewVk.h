@@ -4,7 +4,6 @@
 #ifdef OSK_USE_VULKAN_BACKEND
 
 #include "IGpuImageView.h"
-#include "VulkanTarget.h"
 
 #include <vulkan/vulkan.h>
 

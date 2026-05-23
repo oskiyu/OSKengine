@@ -5,7 +5,6 @@
 
 #include "IComputePipeline.h"
 #include "IPipelineVk.h"
-#include "VulkanTarget.h"
 
 namespace OSK::GRAPHICS {
 

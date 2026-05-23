@@ -9,7 +9,7 @@
 #include "QueueFamilyIndices.h"
 #include "DynamicArray.hpp"
 #include "GpuInfoVkAny.h"
-#include "VulkanTarget.h"
+
 
 namespace OSK::GRAPHICS {
 
@@ -66,6 +66,10 @@ namespace OSK::GRAPHICS {
 		/// @param gpu GPU comprobada.
 		/// @return Lista con todas las extensiones soportadas.
 		static DynamicArray<VkExtensionProperties> GetAvailableExtensions(VkPhysicalDevice gpu);
+
+		/// @brief Sobreescribe la superficie nativa
+		/// enlazada a este device.
+		void SetSurface(VkSurfaceKHR surface);
 
 	private:
 

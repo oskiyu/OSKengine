@@ -26,7 +26,7 @@ namespace OSK::GRAPHICS {
 			std::optional<RenderpassAttachmentVk> depthAttachment);
 
 		VkSubpassDescription GetDescription() const;
-		const DynamicArray<VkSubpassDependency>& GetDependencies() const;
+		DynamicArray<VkSubpassDependency> GetDependencies() const;
 
 	private:
 
@@ -35,7 +35,6 @@ namespace OSK::GRAPHICS {
 		VkSubpassDescription m_description{};
 		DynamicArray<RenderpassAttachmentVk> m_attachments{};
 		std::optional<RenderpassAttachmentVk> m_depthAttachment;
-		DynamicArray<VkSubpassDependency> m_dependencies{};
 		DynamicArray<VkAttachmentReference> m_references{};
 		VkAttachmentReference m_depthReference{};
 

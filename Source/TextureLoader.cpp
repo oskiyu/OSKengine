@@ -20,6 +20,8 @@
 
 #include "InvalidDescriptionFileException.h"
 
+#include "Platforms.h"
+
 using namespace OSK::ASSETS;
 using namespace OSK::GRAPHICS;
 
@@ -34,18 +36,31 @@ void TextureLoader::Load(const std::string& assetFilePath, Texture* asset) {
 	std::string texturePath = assetInfo["raw_asset_path"];
 	asset->SetName(assetInfo["name"]);
 
+	Engine::GetLogger()->Log(IO::LogLevel::INFO, "Cargando TEXTURA ", assetFilePath);
+
 	// Texture.
 
 	int width = 0;
 	int height = 0;
 	int numChannels = 0;
+#ifdef OSK_PC_ANY
 	stbi_info(texturePath.c_str(), &width, &height, &numChannels);
-
+#endif // OSK_PC_ANY
+#ifdef OSK_ANDROID
+	const auto data = IO::FileIO::ReadBinaryFromFile(texturePath);
+	stbi_info_from_memory((const stbi_uc*)data.GetData(), data.GetSize(), &width, &height, &numChannels);
+#endif // OSK_ANDROID
+	
 	// Las gráficas no soportan imágenes de 24 bits de manera nativa.
 	if (numChannels != 4 && !HasRgbFormat(Engine::GetRenderer()->GetRenderApi()))
 		numChannels = 4;
 
+#ifdef OSK_PC_ANY
 	stbi_uc* pixels = stbi_load(texturePath.c_str(), &width, &height, nullptr, numChannels);
+#endif
+#ifdef OSK_ANDROID
+	stbi_uc* pixels = stbi_load_from_memory((const stbi_uc*)data.GetData(), data.GetSize(), &width, &height, &numChannels, numChannels);
+#endif // OSK_ANDROID
 
 	asset->_SetSize(Vector2ui(width, height));
 	asset->_SetNumberOfChannels(numChannels);

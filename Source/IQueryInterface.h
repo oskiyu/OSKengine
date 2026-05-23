@@ -12,7 +12,8 @@ namespace OSK {
 		IGamepadInput = 1,
 		IKeyboardInput,
 		IMouseInput,
-		IFullscreenableDisplay
+		IFullscreenableDisplay,
+		ITouchInput
 	};
 
 

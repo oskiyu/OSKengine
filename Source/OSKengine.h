@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ApiCall.h"
+#include "Platforms.h"
 
 #include "UniquePtr.hpp"
 #include "Version.h"
@@ -20,6 +21,10 @@
 #include <string_view>
 
 #include "DefaultElementsProfiles.h"
+
+#ifdef OSK_ANDROID
+struct android_app;
+#endif
 
 namespace OSK {
 	
@@ -41,10 +46,18 @@ namespace OSK {
 		Engine& operator=(Engine&& e) = delete;
 
 
+#ifdef OSK_ANDROID
+		/// @brief Inicializa la instancia global del motor.
+		/// @param type Tipo de API de renderizado a usar durante esta ejecución.
+		/// No podrá cambiarse más adelante.
+		/// @param app Aplicación Android.
+		static void Create(GRAPHICS::RenderApiType type, ::android_app* app);
+#else
 		/// @brief Inicializa la instancia global del motor.
 		/// @param type Tipo de API de renderizado a usar durante esta ejecución.
 		/// No podrá cambiarse más adelante.
 		static void Create(GRAPHICS::RenderApiType type);
+#endif
 
 		/// @brief Cierra la instancia del motor.
 		/// @pre El motor debe haber sido previamente inicializado con Create.
@@ -61,7 +74,7 @@ namespace OSK {
 		/// @pre El motor debe haber sido previamente inicializado con Create.
 		/// @threadsafety La llamada a esta función es thread-safe, pero
 		/// llamadas a funciones de la instancia devuelta pueden no serlo.
-		static IO::Logger* GetLogger();
+		static IO::ILogger* GetLogger();
 
 		/// @brief Devuelve un puntero al display del juego.
 		/// @stablepointer
@@ -154,7 +167,7 @@ namespace OSK {
 
 	private:
 
-		static UniquePtr<IO::Logger> logger;
+		static UniquePtr<IO::ILogger> logger;
 		static UniquePtr<IO::IDisplay> display;
 		static UniquePtr<GRAPHICS::IRenderer> renderer;
 		static UniquePtr<ASSETS::AssetManager> assetManager;

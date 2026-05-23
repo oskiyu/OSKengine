@@ -149,6 +149,9 @@
 #include "GdrDeferredPass.h"
 #include "GdrPipeline.h"
 
+#include "IMouseInput.h"
+#include "ITouchInput.h"
+#include "IFullscreenableDisplay.h"
 
 using namespace OSK;
 using namespace OSK::ECS;
@@ -1257,7 +1260,7 @@ private:
 
 
 
-
+#include "ISdfRenderPass.h"
 
 
 
@@ -1282,27 +1285,6 @@ public:
 	std::string_view GetName() const override {
 		return "MinComputePass";
 	}
-
-};
-
-class ISdfRenderPass : public IRenderPass {
-
-protected:
-
-	ISdfRenderPass() : IRenderPass(std::nullopt, RenderPassType::GRAPHICS) {
-		m_sdfRenderer = MakeUnique<SdfBindlessRenderer2D>(
-			Engine::GetEcs(), 
-			Engine::GetRenderer()->GetAllocator(), 
-			Engine::GetRenderer()->GetMaterialSystem()->LoadMaterial(SdfBindlessRenderer2D::DefaultMaterialPath));
-	}
-
-	ISdfRenderer2D* GetSdfRenderer() {
-		return m_sdfRenderer.GetPointer();
-	}
-
-private:
-
-	UniquePtr<ISdfRenderer2D> m_sdfRenderer;
 
 };
 
@@ -1349,6 +1331,7 @@ class RenderToSwapchainPass : public ISdfRenderPass {
 public:
 
 	explicit RenderToSwapchainPass(GdrImageUuid src, const std::span<GdrImageUuid, 3> targetImages) : ISdfRenderPass(), m_src(src) {
+		Engine::GetLogger()->Log(IO::LogLevel::INFO, "Creado el pase de renderizado RenderToSwapchainPass.");
 		AddImageDependency(RgImageDependency::Sampled_Fragment_SingleMipLevel(src, "", ""));
 
 		for (UIndex16 i = 0; i < targetImages.size(); i++) {
@@ -1366,12 +1349,19 @@ public:
 		auto& img = GetRenderGraph()->GetImage(m_src);
 
 		sdfRenderer->Begin(cmdList);
-		sdfRenderer->SetCamera(Vector2f::Zero, windowRec.ToVector2f());
+		sdfRenderer->SetCamera(Vector2f::Zero, Vector2f::One);
 
 		auto drawCall = SdfDrawCall2D::Texture(*img.GetView(GpuImageViewConfig::CreateSampled_SingleMipLevel(0)));
 		drawCall.transform.SetPosition(Vector2f::Zero);
-		drawCall.transform.SetScale(img.GetSize2D().ToVector2f());
-		
+		drawCall.transform.SetScale(Vector2f::One);
+
+		drawCall.samplerDesc = GpuImageSamplerDesc::CreateDefault_NoMipMap();
+		drawCall.samplerDesc.filteringType = GpuImageFilteringType::NEAREST;
+
+#ifdef OSK_ANDROID
+		drawCall.transform.SetRotation(90.0f);
+#endif
+
 		sdfRenderer->Draw(drawCall);
 
 		sdfRenderer->End();
@@ -1461,7 +1451,11 @@ protected:
 			m_frameCount = 0;
 		}
 
-		Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "FRAME: ", Engine::GetCurrentGameFrameIndex());
+		if (auto* t = GetTouchs()) {
+			for (const auto& touchEvent : t->GetCurrentFrameInputs()) {
+				// Engine::GetLogger()->Log(IO::LogLevel::L_DEBUG, "TOUCH: ", touchEvent.position.x, "x", touchEvent.position.y);
+			}
+		}
 	}
 
 	void OnTick_Keyboard(const IO::IKeyboardInput& keyboard) override {
@@ -1482,6 +1476,7 @@ protected:
 	}
 
 	void OnWindowResize(const Vector2ui& res) override {
+		Engine::GetLogger()->Log(IO::LogLevel::INFO, "OnWindowResize: ", res.x, "x", res.y);
 		auto* renderGraph = GetRenderGraph();
 
 		for (UIndex16 i = 0; i < m_swapchainImages.size(); i++) {

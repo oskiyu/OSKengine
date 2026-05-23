@@ -2,6 +2,7 @@
 
 // Para OSKAPI_CALL.
 #include "ApiCall.h"
+#include "Platforms.h"
 
 // Tipos.
 #include "NumericTypes.h"
@@ -83,8 +84,17 @@ namespace OSK {
 		virtual void OnWindowResize(const Vector2ui& size);
 
 
+#ifdef OSK_ANDROID
+		/// @brief Inicia la ejecución del juego,
+		/// para la plataforma Android
+		void _Run(struct android_app* app);
+
+		/// @brief Reacciona ante los eventos de Android.
+		static void AndroidHandleAppCommand(android_app* app, int32_t cmd);
+#else
 		/// @brief Inicia la ejecución del juego.
 		void _Run();
+#endif
 
 		/// @brief Fuerza el shutdown del juego.
 		void Exit();
@@ -100,6 +110,8 @@ namespace OSK {
 
 		void SetRenderGraph(UniquePtr<GRAPHICS::RenderGraph>&& renderGraph);
 		GRAPHICS::RenderGraph* GetRenderGraph();
+
+		void RecreateWindow();
 
 	protected:
 
@@ -117,6 +129,7 @@ namespace OSK {
 		IO::IKeyboardInput* GetKeyboard();
 		IO::IMouseInput* GetMouse();
 		IO::IGamepadInput* GetGamepad();
+		IO::ITouchInput* GetTouchs();
 
 	private:
 

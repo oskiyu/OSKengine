@@ -2,6 +2,9 @@
 // Copyright (c) 2019-2022 oskiyu. All rights reserved.
 #include "PcUserInput.h"
 
+#include "Platforms.h"
+#ifdef OSK_PC_ANY
+
 #include "OSKengine.h"
 #include "Window.h"
 
@@ -157,3 +160,5 @@ void PcUserInput::MouseScrollCallback(GLFWwindow*, double dX, double dY) {
 }
 
 PcUserInput* PcUserInput::self;
+
+#endif

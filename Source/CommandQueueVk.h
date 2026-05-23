@@ -6,7 +6,6 @@
 #include "ICommandQueue.h"
 #include "DefineAs.h"
 #include "VulkanTypedefs.h"
-#include "VulkanTarget.h"
 
 OSK_VULKAN_TYPEDEF(VkQueue);
 

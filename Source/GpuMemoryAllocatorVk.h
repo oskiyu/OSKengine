@@ -5,7 +5,6 @@
 
 #include "IGpuMemoryAllocator.h"
 #include "Vector3.hpp"
-#include "VulkanTarget.h"
 
 #include <vulkan/vulkan.h>
 

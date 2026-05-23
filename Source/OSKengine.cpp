@@ -1,8 +1,18 @@
 #include "OSKengine.h"
 
 #include "Logger.h"
+
+#include "Platforms.h"
+#ifdef OSK_ANDROID
+#include "AndroidDisplay.h"
+#include "AndroidInput.h"
+#include <android_native_app_glue.h>
+#include "AndroidLogger.h"
+#include <android/log.h>
+#else
 #include "Window.h"
-#include "RendererDx12.h"
+#endif
+
 #include "RendererVk.h"
 #include "RenderApiType.h"
 #include "Assert.h"
@@ -65,14 +75,17 @@
 
 #include "AudioApiAl.h"
 
+#ifdef OSK_PC_ANY
 #include <GLFW/glfw3.h>
+#endif
+
 #include "FileIO.h"
 #undef GetCurrentTime
 
 using namespace OSK;
 using namespace OSK::ECS;
 
-UniquePtr<IO::Logger> Engine::logger;
+UniquePtr<IO::ILogger> Engine::logger;
 UniquePtr<IO::IDisplay> Engine::display;
 UniquePtr<GRAPHICS::IRenderer> Engine::renderer;
 UniquePtr<ASSETS::AssetManager> Engine::assetManager;
@@ -85,13 +98,39 @@ UniquePtr<UuidProvider> Engine::uuidProvider;
 UniquePtr<ConsoleCommandExecutor> Engine::commandExecutor;
 UIndex64 Engine::gameFrameIndex;
 
+#ifdef OSK_ANDROID
+void Engine::Create(GRAPHICS::RenderApiType type, struct android_app* app) {
+#else
 void Engine::Create(GRAPHICS::RenderApiType type) {
+#endif
+
+#ifdef OSK_ANDROID
+	logger = MakeUnique<IO::AndroidLogger>();
+	__android_log_print(ANDROID_LOG_DEBUG, "OSKENGINE", "%s %i", "Establecido el Logger ", logger.GetPointer());
+
+	__android_log_print(ANDROID_LOG_DEBUG, "OSKENGINE", "%s %i", "android_app*: ", (USize64)app);
+	__android_log_print(ANDROID_LOG_DEBUG, "OSKENGINE", "%s %u", "android_app->window: ", (USize64)app->window);
+#else
 	logger = MakeUnique<IO::Logger>();
+#endif
 	logger->Start("LOG_LAST.txt");
 
+#ifdef OSK_ANDROID
+	display = MakeUnique<IO::AndroidWindow>(app);
+	__android_log_print(ANDROID_LOG_DEBUG, "OSKENGINE", "%s", "Establecido el display.");
+#else
 	display = MakeUnique<IO::Window>();
+#endif
+
 	entityComponentSystem = MakeUnique<ECS::EntityComponentSystem>(logger.GetPointer());
+
+#ifdef OSK_PC_ANY
 	input = MakeUnique<IO::PcUserInput>();
+#endif
+#ifdef OSK_ANDROID
+	input = MakeUnique<IO::AndroidInput>(app);
+	__android_log_print(ANDROID_LOG_DEBUG, "OSKENGINE", "%s", "Establecido el input.");
+#endif
 	inputManager = MakeUnique<IO::InputManager>();
 	audioApi = MakeUnique<AUDIO::AudioApiAl>();
 	audioApi->Initialize();
@@ -114,12 +153,6 @@ void Engine::Create(GRAPHICS::RenderApiType type) {
 #ifdef OSK_USE_VULKAN_BACKEND
 	case OSK::GRAPHICS::RenderApiType::VULKAN:
 		renderer = MakeUnique<GRAPHICS::RendererVk>(requestRayTracing);
-		break;
-#endif
-
-#ifdef OSK_USE_DX12_BACKEND
-	case OSK::GRAPHICS::RenderApiType::DX12:
-		renderer = MakeUnique<GRAPHICS::RendererDx12>(requestRayTracing);
 		break;
 #endif
 	}
@@ -252,7 +285,7 @@ void Engine::RegisterBuiltinConsoleCommands() {
 }
 
 
-IO::Logger* Engine::GetLogger() {
+IO::ILogger* Engine::GetLogger() {
 	return logger.GetPointer();
 }
 
@@ -297,7 +330,16 @@ ConsoleCommandExecutor* Engine::GetCommandExecutor() {
 }
 
 float Engine::GetCurrentTime() {
+#ifdef OSK_PC_ANY
 	return static_cast<float>(glfwGetTime());
+#else
+	static const auto start = std::chrono::high_resolution_clock::now();
+	const auto now = std::chrono::high_resolution_clock::now();
+
+	const std::chrono::duration<float> diff = now - start;
+
+	return static_cast<float>(std::chrono::duration_cast<std::chrono::milliseconds>(diff).count()) / 1000.0f;
+#endif
 }
 
 Version Engine::GetVersion() {
@@ -317,3 +359,4 @@ UIndex64 Engine::GetCurrentGameFrameIndex() {
 void Engine::Update() {
 	gameFrameIndex = (gameFrameIndex + 1) % std::numeric_limits<UIndex64>::max();
 }
+

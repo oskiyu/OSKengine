@@ -56,8 +56,8 @@ void AudioApiAl::SetListenerVelocity(const Vector3f& velocity) {
 }
 
 void AudioApiAl::RegisterAllDevices() {
+#ifdef OSK_PC_ANY
 	const ALCchar* devicesNames = alcGetString(nullptr, ALC_DEVICE_SPECIFIER);
-
 	do {
 		const auto name = std::string(devicesNames);
 		devicesNames += name.size() + 1;
@@ -67,9 +67,15 @@ void AudioApiAl::RegisterAllDevices() {
 
 		RegisterDevice(std::move(newDevice));
 	} while (devicesNames[1] != 0);
-	
+#endif // OSK_PC_ANY
+		
 	auto defaultDeviceName = std::string(alcGetString(nullptr, ALC_DEFAULT_DEVICE_SPECIFIER));
-	
+#ifdef OSK_ANDROID
+	auto newDevice = MakeUnique<AudioDeviceAl>();
+	newDevice->Initialize(defaultDeviceName);
+	RegisterDevice(std::move(newDevice));
+#endif // OSK_ANDROID
+
 	SetDefaultDeviceName(defaultDeviceName);
 	SetCurrentDevice(defaultDeviceName);
 

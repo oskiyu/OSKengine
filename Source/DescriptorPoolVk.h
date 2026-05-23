@@ -5,7 +5,6 @@
 
 #include "ApiCall.h"
 #include "NumericTypes.h"
-#include "VulkanTarget.h"
 
 struct VkDescriptorPool_T;
 using VkDescriptorPool = VkDescriptorPool_T*;

@@ -378,3 +378,5 @@ healthchecksdb
 *.glb
 *.jpg
 *.png
+/Source/.gradle
+/Source/.vscode

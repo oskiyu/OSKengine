@@ -1,5 +1,7 @@
 #include "Window.h"
 
+#ifdef OSK_PC_ANY
+
 #include <GLFW/glfw3.h>
 
 #include "MouseState.h"
@@ -130,7 +132,7 @@ GLFWwindow* Window::_GetGlfw() {
 void Window::ShowMessageBox(std::string_view msg) {
 #ifdef OSK_WINDOWS
 	const std::wstring widestring = StringToWideString((std::string)msg);
-	MessageBox(NULL, widestring.c_str(), NULL, MB_OK | MB_ICONERROR);
+	//MessageBox(NULL, widestring.c_str(), NULL, MB_OK | MB_ICONERROR);
 #endif
 }
 
@@ -150,3 +152,5 @@ void Window::ResizeCallback(int sizex, int sizey) {
 		Engine::GetRenderer()->HandleResize(resolution);
 	}
 }
+
+#endif

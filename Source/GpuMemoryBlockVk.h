@@ -5,7 +5,6 @@
 
 #include "IGpuMemoryBlock.h"
 #include <vulkan/vulkan.h>
-#include "VulkanTarget.h"
 
 namespace OSK::GRAPHICS {
 

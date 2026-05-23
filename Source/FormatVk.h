@@ -9,11 +9,8 @@ namespace OSK::GRAPHICS {
 	
 	enum class Format;
 
-	/// <summary>
-	/// Obtiene la representación nativa del formato para Vulkan.
-	/// </summary>
 	VkFormat GetFormatVk(Format format);
-
+	Format FormatVkToEngine(VkFormat format);
 }
 
 #endif

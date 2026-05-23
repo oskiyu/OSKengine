@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.22)
 
 include(CMakePrintHelpers)
 include_directories(../External/OSKengine/)
@@ -61,12 +61,17 @@ project(OSKengine)
 ###############
 # Creación de un ejecutable.
 
-add_executable(OSKengine_demo)
 
 # Todos los archivos *.cpp.
 file(GLOB SOURCE_FILES CONFIGURE_DEPENDS "*.cpp")
 file(GLOB HEADER_FILES CONFIGURE_DEPENDS "*.h*")
-target_sources(OSKengine_demo PRIVATE ${SOURCE_FILES} Game1.hpp)
+
+if (OSK_PLATFORM STREQUAL "OSK_ANDROID")
+    add_library(OSKengine_demo SHARED ${SOURCE_FILES} Game1.hpp)
+else()
+    add_executable(OSKengine_demo)
+    target_sources(OSKengine_demo PRIVATE ${SOURCE_FILES} Game1.hpp)
+endif()
 
 cmake_print_variables(OSK_PLATFORM)
 
@@ -105,14 +110,25 @@ add_compile_definitions(OSK_DEBUG)
 
 # Un FILE_SET define un conjunto de archivos.
 
+if(OSK_PLATFORM STREQUAL "OSK_ANDROID")
+    include_directories(${ANDROID_NDK}/sources/android/native_app_glue)
+    add_library(native_app_glue STATIC ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
+    target_link_libraries(native_app_glue log android)
+    cmake_print_variables(ANDROID_NDK)
+    add_compile_definitions(VK_USE_PLATFORM_ANDROID_KHR)
+endif()
 find_package(glm            CONFIG REQUIRED)
+find_package(Freetype       CONFIG REQUIRED)
 find_package(OpenAL         CONFIG REQUIRED)
-find_package(Freetype       CONFIG REQUIRED)
-find_package(glfw3          CONFIG REQUIRED)
-find_package(Freetype       CONFIG REQUIRED)
+# find_package(glfw3          CONFIG REQUIRED)
 find_package(unofficial-spirv-reflect  CONFIG REQUIRED)
 
-set(ALL_DEPENDENCIES glm::glm json stbi_image tiny_gltf unofficial::spirv-reflect OpenAL::OpenAL Freetype::Freetype glfw ${VULKAN_SDK}/x86_64/lib/libvulkan.so.1) #spirv-cross-c
+if(OSK_PLATFORM STREQUAL "OSK_ANDROID")
+    set(ALL_DEPENDENCIES vulkan native_app_glue android glm::glm-header-only json stbi_image tiny_gltf unofficial::spirv-reflect OpenAL::OpenAL Freetype::Freetype) #spirv-cross-c
+else()
+    set(ALL_DEPENDENCIES glm::glm-header-only json stbi_image tiny_gltf unofficial::spirv-reflect OpenAL::OpenAL Freetype::Freetype glfw ${VULKAN_SDK}/x86_64/lib/libvulkan.so.1) #spirv-cross-c
+endif()
+
 target_link_libraries(OSKengine_demo PRIVATE ${ALL_DEPENDENCIES})
 # target_link_libraries(OSKengine      PRIVATE ${ALL_DEPENDENCIES})
 
@@ -167,7 +183,7 @@ target_link_libraries(OSKengine_demo PRIVATE ${ALL_DEPENDENCIES})
 # 				Por defecto: ./include.
 # 
 # 
-# Para que otros proyectos puedan reconstruºir nuestos targets,
+# Para que otros proyectos puedan reconstruir nuestos targets,
 # podemos generar un CMakeLang, mediante un "target export file".
 
 # install(
@@ -176,8 +192,6 @@ target_link_libraries(OSKengine_demo PRIVATE ${ALL_DEPENDENCIES})
 # 	FILE_SET my_headers
 #     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/XDall
 #     NAMESPACE OSK::)
-
-
 
 
 

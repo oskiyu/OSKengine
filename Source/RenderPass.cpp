@@ -76,7 +76,7 @@ void IRenderPass::_Execute(ICommandList* cmdList, RenderGraph& renderGraph) {
 
 	m_rg = &renderGraph;
 	Execute(cmdList);
-
+	
 	if (m_type == RenderPassType::GRAPHICS) {
 		cmdList->EndGraphicsRenderpass(false);
 	}
@@ -85,8 +85,11 @@ void IRenderPass::_Execute(ICommandList* cmdList, RenderGraph& renderGraph) {
 }
 
 void IRenderPass::BindResources(ICommandList* cmdList, RenderGraph& renderGraph) {
+	Engine::GetLogger()->Log(IO::LogLevel::INFO, "Estableciendo recursos para el pase ", GetName());
 
 	for (USize16 i = 0; i < MAX_RESOURCES_IN_FLIGHT; i++) {
+		Engine::GetLogger()->Log(IO::LogLevel::INFO, "\t material instance ", i, " ESTADO: ", m_materialInstance[i].HasValue());
+		
 		// Dependencias de buffers.
 		for (const auto& dependency : m_bufferDependencies) {
 			if (dependency.frameInFlight && *dependency.frameInFlight != i) {
@@ -94,6 +97,7 @@ void IRenderPass::BindResources(ICommandList* cmdList, RenderGraph& renderGraph)
 			}
 
 			if (dependency.usage == RgBufferUsage::STORAGE_BUFFER && m_materialInstance[i].HasValue()) {
+				Engine::GetLogger()->Log(IO::LogLevel::INFO, "Dependencia: STORAGE_BUFFER ", dependency.shaderBinding.slotName, ":", dependency.shaderBinding.bindingName);
 				m_materialInstance[i]
 					->GetSlot(dependency.shaderBinding.slotName)
 					->SetStorageBuffer(
@@ -103,6 +107,7 @@ void IRenderPass::BindResources(ICommandList* cmdList, RenderGraph& renderGraph)
 						dependency.arrayIndex);
 			}
 			else if (dependency.usage == RgBufferUsage::UNIFORM_BUFFER && m_materialInstance[i].HasValue()) {
+				Engine::GetLogger()->Log(IO::LogLevel::INFO, "Dependencia: UNIFORM_BUFFER ", dependency.shaderBinding.slotName, ":", dependency.shaderBinding.bindingName);
 				m_materialInstance[i]
 					->GetSlot(dependency.shaderBinding.slotName)
 					->SetUniformBuffer(
@@ -112,6 +117,7 @@ void IRenderPass::BindResources(ICommandList* cmdList, RenderGraph& renderGraph)
 						dependency.arrayIndex);
 			}
 			else if (dependency.usage == RgBufferUsage::INDEX_BUFFER) {
+				Engine::GetLogger()->Log(IO::LogLevel::INFO, "Dependencia: INDEX_BUFFER ", dependency.shaderBinding.slotName, ":", dependency.shaderBinding.bindingName);
 				const auto& buffer = renderGraph.GetBuffer(dependency.bufferRefId);
 				const auto view = IndexBufferView{
 					.type = IndexType::U32,
@@ -137,6 +143,7 @@ void IRenderPass::BindResources(ICommandList* cmdList, RenderGraph& renderGraph)
 
 			// Storage image.
 			if (dependency.usage == GpuExclusiveImageUsage::COMPUTE_OR_RT_TARGET && m_materialInstance[i].HasValue()) {
+				Engine::GetLogger()->Log(IO::LogLevel::INFO, "Dependencia: COMPUTE_OR_RT_TARGET ", dependency.shaderBinding.slotName, ":", dependency.shaderBinding.bindingName);
 				m_materialInstance[i]
 					->GetSlot(dependency.shaderBinding.slotName)
 					->SetStorageImage(
@@ -147,6 +154,7 @@ void IRenderPass::BindResources(ICommandList* cmdList, RenderGraph& renderGraph)
 
 			// Sampler.
 			else if (dependency.usage == GpuExclusiveImageUsage::SAMPLED && m_materialInstance[i].HasValue()) {
+				Engine::GetLogger()->Log(IO::LogLevel::INFO, "Dependencia: SAMPLED ", dependency.shaderBinding.slotName, ":", dependency.shaderBinding.bindingName);
 				m_materialInstance[i]
 					->GetSlot(dependency.shaderBinding.slotName)
 					->SetGpuImage(
@@ -158,7 +166,7 @@ void IRenderPass::BindResources(ICommandList* cmdList, RenderGraph& renderGraph)
 		}
 
 		// Update de todos los recursos.
-		if (m_material) {
+		if (m_material && m_materialInstance[i].HasValue()) {
 			for (const auto& [name, _] : m_materialInstance[i]->GetLayout()->GetAllSlots()) {
 				m_materialInstance[i]->GetSlot(name)->FlushUpdate();
 			}

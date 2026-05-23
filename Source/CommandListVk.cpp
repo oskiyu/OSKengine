@@ -897,7 +897,7 @@ void CommandListVk::BeginGraphicsRenderpass(
 		info.renderArea = { 0, 0, targetSize.x, targetSize.y };
 		info.renderPass = renderpass->GetRenderpass();
 		info.framebuffer = framebuffer->GetFramebuffer();
-		
+
 		VkClearValue clearColors{};
 		clearColors.color = { color.red, color.green, color.blue, color.alpha };
 		clearColors.depthStencil = { 0.0f, 0 };
@@ -957,10 +957,10 @@ void CommandListVk::BindMaterialSlot(const IMaterialSlot& slot) {
 
 	VkPipelineLayout layout = VK_NULL_HANDLE;
 	switch (m_currentlyBoundMaterial->GetMaterialType()) {
-		case MaterialType::COMPUTE: layout = m_currentPipeline.compute->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
-		case MaterialType::GRAPHICS: layout = m_currentPipeline.graphics->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
-		case MaterialType::RAYTRACING: layout = m_currentPipeline.raytracing->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
-		case MaterialType::MESH: layout = m_currentPipeline.mesh->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
+		case MaterialType::COMPUTE:		layout = m_currentPipeline.compute->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
+		case MaterialType::GRAPHICS:	layout = m_currentPipeline.graphics->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
+		case MaterialType::RAYTRACING:	layout = m_currentPipeline.raytracing->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
+		case MaterialType::MESH:		layout = m_currentPipeline.mesh->GetLayout()->As<PipelineLayoutVk>()->GetLayout(); break;
 	}
 
 	const auto glslSetIndex = m_currentlyBoundMaterial->GetLayout()->GetSlot(slot.GetName()).glslSetIndex;
